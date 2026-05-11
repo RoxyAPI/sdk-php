@@ -1,0 +1,17 @@
+# Mirror composer.json `archive.exclude` so `git archive` (and any tarball
+# generated outside Packagist's dist API) produces the same lean tree.
+
+/.github         export-ignore
+/.gitignore      export-ignore
+/.gitattributes  export-ignore
+/assets          export-ignore
+/composer.lock   export-ignore
+/examples        export-ignore
+/lefthook.yml    export-ignore
+/package.json    export-ignore
+/phpstan.neon    export-ignore
+/phpunit.xml     export-ignore
+/pint.json       export-ignore
+/scripts         export-ignore
+/specs           export-ignore
+/tests           export-ignore

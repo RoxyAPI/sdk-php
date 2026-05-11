@@ -26,7 +26,6 @@ const SPEC_FILE = path.join(ROOT, 'specs', 'openapi.json');
 const OUT_DIR = path.join(ROOT, 'src', 'Generated');
 const RESOURCES_DIR = path.join(OUT_DIR, 'Resources');
 const REQUESTS_DIR = path.join(OUT_DIR, 'Requests');
-const DTO_DIR = path.join(OUT_DIR, 'Dto');
 const VERSION_FILE = path.join(ROOT, 'src', 'Version.php');
 const ROXY_FILE = path.join(ROOT, 'src', 'Roxy.php');
 const TESTS_GENERATED_DIR = path.join(ROOT, 'tests', 'Generated');
@@ -496,8 +495,14 @@ function emitResource(tagName, ops) {
 		docLines.push(`     * ${op.method} ${op.path}`);
 		docLines.push('     *');
 		for (const p of params) {
-			const desc = p.description ? ' ' + p.description.replace(/\s+/g, ' ').slice(0, 90) : '';
-			docLines.push(`     * @param ${p.required ? p.type : p.type + '|null'} \$${p.name}${desc}`);
+			const flat = p.description ? p.description.replace(/\s+/g, ' ').trim() : '';
+			if (flat) {
+				const wrapped = wrapDoc(flat, '     *   ');
+				docLines.push(`     * @param ${p.required ? p.type : p.type + '|null'} \$${p.name}`);
+				docLines.push(...wrapped);
+			} else {
+				docLines.push(`     * @param ${p.required ? p.type : p.type + '|null'} \$${p.name}`);
+			}
 		}
 		docLines.push('     *');
 		docLines.push('     * @return array<string, mixed>');
@@ -539,13 +544,15 @@ const BASE_RESOURCE = `${HEADER}
 namespace RoxyAPI\\Sdk\\Generated\\Resources;
 
 use RoxyAPI\\Sdk\\RoxyApiException;
+use Saloon\\Exceptions\\Request\\FatalRequestException;
 use Saloon\\Http\\BaseResource as SaloonBaseResource;
 use Saloon\\Http\\Request;
 
 /**
  * Shared base for every generated Resource class. Sends a Saloon Request,
- * decodes the JSON body, and throws RoxyApiException on 4xx/5xx so callers
- * never have to inspect HTTP status codes.
+ * decodes the JSON body, and throws RoxyApiException for everything callers
+ * should care about (4xx, 5xx, and transport failures) so consumers never
+ * have to catch more than one exception type.
  */
 abstract class BaseResource extends SaloonBaseResource
 {
@@ -554,15 +561,23 @@ abstract class BaseResource extends SaloonBaseResource
      */
     protected function callRequest(Request $request): array
     {
-        $response = $this->connector->send($request);
+        try {
+            $response = $this->connector->send($request);
+        } catch (FatalRequestException $e) {
+            throw RoxyApiException::fromFatal($e);
+        }
 
         if ($response->failed()) {
             throw RoxyApiException::fromResponse($response);
         }
 
-        $decoded = $response->json();
+        try {
+            $decoded = $response->json();
+        } catch (\\Throwable) {
+            $decoded = null;
+        }
 
-        return is_array($decoded) ? $decoded : ['data' => $decoded];
+        return is_array($decoded) ? $decoded : [];
     }
 }
 `;
@@ -632,11 +647,10 @@ it('${namespace} resource sends ${sample.operationId} and parses JSON', function
 // Clean generated dirs first so deletions in the spec actually remove files.
 await fs.rm(RESOURCES_DIR, { recursive: true, force: true });
 await fs.rm(REQUESTS_DIR, { recursive: true, force: true });
-await fs.rm(DTO_DIR, { recursive: true, force: true });
+await fs.rm(path.join(OUT_DIR, 'Dto'), { recursive: true, force: true });
 await fs.rm(TESTS_GENERATED_DIR, { recursive: true, force: true });
 await fs.mkdir(RESOURCES_DIR, { recursive: true });
 await fs.mkdir(REQUESTS_DIR, { recursive: true });
-await fs.mkdir(DTO_DIR, { recursive: true });
 await fs.mkdir(TESTS_GENERATED_DIR, { recursive: true });
 
 // BaseResource (committed once, never changes per spec — but emit every time
@@ -657,13 +671,6 @@ for (const op of operations) {
 	const file = path.join(REQUESTS_DIR, pascalCase(op.operationId) + 'Request.php');
 	await fs.writeFile(file, emitRequest(op), 'utf8');
 }
-
-// Placeholder so the empty Dto dir survives codegen and the package ships consistently.
-await fs.writeFile(
-	path.join(DTO_DIR, '.gitkeep'),
-	'# Reserved for future typed response DTOs. Methods currently return array<string, mixed>.\n',
-	'utf8',
-);
 
 // Per-tag smoke tests
 for (const tag of Object.keys(opsByTag).sort()) {

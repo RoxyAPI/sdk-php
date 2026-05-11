@@ -22,7 +22,7 @@ pre-push:
       run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
       priority: 2
     codegen-drift:
-      run: node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/Version.php || { echo 'codegen drift: commit the regenerated files'; exit 1; }
+      run: node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php tests/Generated || { echo 'codegen drift: commit the regenerated files'; exit 1; }
       priority: 3
     docs-drift:
       run: node scripts/sync-docs.mjs && git diff --exit-code -- README.md AGENTS.md || { echo 'docs drift: commit the regenerated README.md/AGENTS.md'; exit 1; }

@@ -29,9 +29,16 @@ class IchingResource extends BaseResource
      *
      * POST /iching/daily/cast
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same hexagram every time.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same hexagram every time.
+     *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
+     *   readings.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -59,8 +66,12 @@ class IchingResource extends BaseResource
      *
      * GET /iching/cast
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param string|null $seed Optional seed for reproducible castings. Same seed = same casting every time. Pass any uni
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param string|null $seed
+     *   Optional seed for reproducible castings. Same seed = same casting every time. Pass any
+     *   unique identifier (userId, session token, question hash). Omit for random casting.
      *
      * @return array<string, mixed>
      */
@@ -85,9 +96,16 @@ class IchingResource extends BaseResource
      *
      * POST /iching/daily
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same hexagram every time.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same hexagram every time.
+     *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
+     *   readings.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -113,8 +131,11 @@ class IchingResource extends BaseResource
      *
      * GET /iching/hexagrams/{number}
      *
-     * @param float $number Hexagram number in King Wen sequence (1-64).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param float $number
+     *   Hexagram number in King Wen sequence (1-64).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -138,7 +159,9 @@ class IchingResource extends BaseResource
      *
      * GET /iching/hexagrams/random
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -161,8 +184,12 @@ class IchingResource extends BaseResource
      *
      * GET /iching/trigrams/{id}
      *
-     * @param string $id Trigram number (1-8) or English name (Heaven, Earth, Thunder, Wind, Water, Fire, Mountain,
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   Trigram number (1-8) or English name (Heaven, Earth, Thunder, Wind, Water, Fire, Mountain,
+     *   Lake).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -187,9 +214,13 @@ class IchingResource extends BaseResource
      *
      * GET /iching/hexagrams
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-20, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-20, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
@@ -215,7 +246,9 @@ class IchingResource extends BaseResource
      *
      * GET /iching/trigrams
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -239,8 +272,11 @@ class IchingResource extends BaseResource
      *
      * GET /iching/hexagrams/lookup
      *
-     * @param string $lines Six-digit binary pattern (0=yin/broken, 1=yang/solid) from bottom to top.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $lines
+     *   Six-digit binary pattern (0=yin/broken, 1=yang/solid) from bottom to top.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */

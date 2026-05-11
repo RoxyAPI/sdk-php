@@ -10,13 +10,15 @@ declare(strict_types=1);
 namespace RoxyAPI\Sdk\Generated\Resources;
 
 use RoxyAPI\Sdk\RoxyApiException;
+use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Http\BaseResource as SaloonBaseResource;
 use Saloon\Http\Request;
 
 /**
  * Shared base for every generated Resource class. Sends a Saloon Request,
- * decodes the JSON body, and throws RoxyApiException on 4xx/5xx so callers
- * never have to inspect HTTP status codes.
+ * decodes the JSON body, and throws RoxyApiException for everything callers
+ * should care about (4xx, 5xx, and transport failures) so consumers never
+ * have to catch more than one exception type.
  */
 abstract class BaseResource extends SaloonBaseResource
 {
@@ -25,14 +27,22 @@ abstract class BaseResource extends SaloonBaseResource
      */
     protected function callRequest(Request $request): array
     {
-        $response = $this->connector->send($request);
+        try {
+            $response = $this->connector->send($request);
+        } catch (FatalRequestException $e) {
+            throw RoxyApiException::fromFatal($e);
+        }
 
         if ($response->failed()) {
             throw RoxyApiException::fromResponse($response);
         }
 
-        $decoded = $response->json();
+        try {
+            $decoded = $response->json();
+        } catch (\Throwable) {
+            $decoded = null;
+        }
 
-        return is_array($decoded) ? $decoded : ['data' => $decoded];
+        return is_array($decoded) ? $decoded : [];
     }
 }

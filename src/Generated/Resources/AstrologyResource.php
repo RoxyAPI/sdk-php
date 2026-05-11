@@ -29,12 +29,20 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/aspects
      *
-     * @param string $date Date in YYYY-MM-DD format
-     * @param string $time Time in HH:MM:SS format (24-hour)
-     * @param mixed $timezone Timezone offset from UTC in decimal hours (NOT minutes format). Examples: New York EST = -
-     * @param array|null $aspectTypes Optional: specific aspect types to find (defaults to all 9)
-     * @param array|null $planets Optional: specific planets to calculate aspects for (defaults to all 10)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Date in YYYY-MM-DD format
+     * @param string $time
+     *   Time in HH:MM:SS format (24-hour)
+     * @param mixed $timezone
+     *   Timezone offset from UTC in decimal hours (NOT minutes format). Examples: New York EST = -5,
+     *   India IST = 5.5 (NOT 5:30), Tokyo JST = 9. IMPORTANT: Use decimal format (5.5, not 5:30).
+     * @param array|null $aspectTypes
+     *   Optional: specific aspect types to find (defaults to all 9)
+     * @param array|null $planets
+     *   Optional: specific planets to calculate aspects for (defaults to all 10)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -65,9 +73,15 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/compatibility-score
      *
-     * @param array $person1 First person birth details (date, time, location, timezone). Required for calculating nata
-     * @param array $person2 Second person birth details. Compared against person1 to evaluate inter-chart aspects and 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param array $person1
+     *   First person birth details (date, time, location, timezone). Required for calculating natal
+     *   planetary positions.
+     * @param array $person2
+     *   Second person birth details. Compared against person1 to evaluate inter-chart aspects and
+     *   compatibility.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -93,13 +107,30 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/houses
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date is critical for house cusp calculations as it determ
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines the local horizon and meri
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time and horizon calculations f
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is ESSENTIAL for accurate house cusps - even m
-     * @param mixed $timezone Decimal hours from UTC (e.g. -5 for EST, 5.5 for IST, 9 for JST) OR IANA name (e.g. "Ameri
-     * @param mixed|null $houseSystem House system for dividing ecliptic into 12 houses. Placidus (most popular) uses time, Whol
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date is critical for house cusp calculations as it
+     *   determines planetary positions used in some house systems.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines the local horizon and
+     *   meridian, which are fundamental to house division. Higher latitudes cause more distortion in
+     *   time-based systems like Placidus.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time and horizon calculations for
+     *   house cusps.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is ESSENTIAL for accurate house cusps - even
+     *   minutes matter. The Ascendant (1st house cusp) changes roughly every 4 minutes. Without
+     *   accurate time, house placements will be incorrect.
+     * @param mixed $timezone
+     *   Decimal hours from UTC (e.g. -5 for EST, 5.5 for IST, 9 for JST) OR IANA name (e.g.
+     *   "America/New_York"). IANA resolved to the DST-correct offset for the chart date.
+     * @param mixed|null $houseSystem
+     *   House system for dividing ecliptic into 12 houses. Placidus (most popular) uses time, Whole
+     *   Sign (ancient) uses signs, Equal divides from Ascendant. Use "all" to compare all 4 systems
+     *   side-by-side for educational purposes.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -133,8 +164,11 @@ class AstrologyResource extends BaseResource
      *
      * @param array $person1
      * @param array $person2
-     * @param string|null $houseSystem House system for both natal charts. Placidus (default), Whole Sign, Equal, or Koch.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $houseSystem
+     *   House system for both natal charts. Placidus (default), Whole Sign, Equal, or Koch.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -163,13 +197,26 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/transit-aspects
      *
-     * @param array $natalChart Natal chart birth details (date, time, location, timezone). Used to calculate natal planet
-     * @param array|null $aspectTypes Filter to specific aspect types (conjunction, opposition, trine, square, sextile, etc.). O
-     * @param float|null $minStrength Minimum aspect strength threshold (0-100). Higher values return only tighter, more potent 
-     * @param array|null $planets Filter to specific transiting planets. Omit to include all planets. Useful for focusing on
-     * @param string|null $transitDate Transit date in YYYY-MM-DD format. Defaults to current date if omitted. Use future dates f
-     * @param string|null $transitTime Transit time in HH:MM:SS format. Defaults to 12:00:00 (noon) if omitted.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param array $natalChart
+     *   Natal chart birth details (date, time, location, timezone). Used to calculate natal
+     *   planetary positions that transits are compared against.
+     * @param array|null $aspectTypes
+     *   Filter to specific aspect types (conjunction, opposition, trine, square, sextile, etc.).
+     *   Omit to include all aspect types.
+     * @param float|null $minStrength
+     *   Minimum aspect strength threshold (0-100). Higher values return only tighter, more potent
+     *   aspects. Useful for filtering out wide-orb aspects.
+     * @param array|null $planets
+     *   Filter to specific transiting planets. Omit to include all planets. Useful for focusing on
+     *   slow-moving outer planet transits (Saturn, Jupiter, Pluto).
+     * @param string|null $transitDate
+     *   Transit date in YYYY-MM-DD format. Defaults to current date if omitted. Use future dates for
+     *   predictive transit analysis.
+     * @param string|null $transitTime
+     *   Transit time in HH:MM:SS format. Defaults to 12:00:00 (noon) if omitted.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -199,11 +246,18 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/transits
      *
-     * @param string|null $date Transit date in YYYY-MM-DD format (defaults to current date)
-     * @param array|null $natalChart Optional natal chart data to compare transits against
-     * @param string|null $time Transit time in HH:MM:SS format (defaults to current time)
-     * @param mixed|null $timezone Transit timezone: decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA reso
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Transit date in YYYY-MM-DD format (defaults to current date)
+     * @param array|null $natalChart
+     *   Optional natal chart data to compare transits against
+     * @param string|null $time
+     *   Transit time in HH:MM:SS format (defaults to current time)
+     * @param mixed|null $timezone
+     *   Transit timezone: decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA
+     *   resolved to the DST-correct offset for the transit date. Defaults to 0 (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -231,10 +285,15 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/composite-chart
      *
-     * @param array $person1 First person birth details (date, time, location, timezone).
-     * @param array $person2 Second person birth details (date, time, location, timezone).
-     * @param string|null $houseSystem House system for the composite chart. Placidus (default), Whole Sign, Equal, or Koch.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param array $person1
+     *   First person birth details (date, time, location, timezone).
+     * @param array $person2
+     *   Second person birth details (date, time, location, timezone).
+     * @param string|null $houseSystem
+     *   House system for the composite chart. Placidus (default), Whole Sign, Equal, or Koch.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -263,14 +322,29 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/lunar-return
      *
-     * @param string $birthDate Original birth date in YYYY-MM-DD format. Used to determine natal Moon longitude for the l
-     * @param string $birthTime Original birth time in 24-hour HH:MM:SS format. Determines exact natal Moon position for m
-     * @param float $latitude Latitude of the lunar return location in decimal degrees. Affects the Ascendant and house 
-     * @param float $longitude Longitude of the lunar return location in decimal degrees. Determines local sidereal time 
-     * @param string $returnDate Approximate date near the desired lunar return (YYYY-MM-DD). The Moon returns to its natal
-     * @param mixed $timezone Decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA resolved to the DST-co
-     * @param string|null $houseSystem House system for the lunar return chart. Placidus (default), Whole Sign, Equal, or Koch.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $birthDate
+     *   Original birth date in YYYY-MM-DD format. Used to determine natal Moon longitude for the
+     *   lunar return calculation.
+     * @param string $birthTime
+     *   Original birth time in 24-hour HH:MM:SS format. Determines exact natal Moon position for
+     *   monthly return timing.
+     * @param float $latitude
+     *   Latitude of the lunar return location in decimal degrees. Affects the Ascendant and house
+     *   cusps of the return chart.
+     * @param float $longitude
+     *   Longitude of the lunar return location in decimal degrees. Determines local sidereal time
+     *   for house calculations.
+     * @param string $returnDate
+     *   Approximate date near the desired lunar return (YYYY-MM-DD). The Moon returns to its natal
+     *   position every ~27.3 days, so provide a date within a few days of the expected return.
+     * @param mixed $timezone
+     *   Decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA resolved to the
+     *   DST-correct offset for the birthDate. Output datetime is adjusted to this timezone.
+     * @param string|null $houseSystem
+     *   House system for the lunar return chart. Placidus (default), Whole Sign, Equal, or Koch.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -301,13 +375,28 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/natal-chart
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar 
-     * @param float $latitude Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South
-     * @param float $longitude Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = Wes
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house cu
-     * @param mixed $timezone Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g. "Americ
-     * @param string|null $houseSystem House system for dividing the chart into 12 houses. Placidus (default) is most popular in 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $houseSystem
+     *   House system for dividing the chart into 12 houses. Placidus (default) is most popular in
+     *   Western astrology and time-sensitive. Whole Sign assigns one sign per house (simpler,
+     *   ancient). Equal houses divide chart into 30° segments from Ascendant. Koch emphasizes houses
+     *   in high latitudes.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -339,15 +428,32 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/planetary-returns
      *
-     * @param string $approximateDate Approximate date near the expected planetary return (YYYY-MM-DD). Provide a date within th
-     * @param string $birthDate Original birth date in YYYY-MM-DD format. Used to determine the natal longitude of the sel
-     * @param string $birthTime Original birth time in 24-hour HH:MM:SS format. Determines exact natal planet position for
-     * @param float $latitude Latitude of the return location in decimal degrees. Affects house cusps and Ascendant of t
-     * @param float $longitude Longitude of the return location in decimal degrees.
-     * @param string $planet Planet for the return calculation. Supports Mercury (~88 days), Venus (~225 days), Mars (~
-     * @param mixed $timezone Decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA resolved to the DST-co
-     * @param string|null $houseSystem House system for the return chart. Placidus (default), Whole Sign, Equal, or Koch.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $approximateDate
+     *   Approximate date near the expected planetary return (YYYY-MM-DD). Provide a date within the
+     *   expected return window — the algorithm searches from this starting point.
+     * @param string $birthDate
+     *   Original birth date in YYYY-MM-DD format. Used to determine the natal longitude of the
+     *   selected planet.
+     * @param string $birthTime
+     *   Original birth time in 24-hour HH:MM:SS format. Determines exact natal planet position for
+     *   return timing.
+     * @param float $latitude
+     *   Latitude of the return location in decimal degrees. Affects house cusps and Ascendant of the
+     *   return chart.
+     * @param float $longitude
+     *   Longitude of the return location in decimal degrees.
+     * @param string $planet
+     *   Planet for the return calculation. Supports Mercury (~88 days), Venus (~225 days), Mars
+     *   (~687 days), Jupiter (~12 years), and Saturn (~29 years). Saturn return is a major life
+     *   milestone in Western astrology.
+     * @param mixed $timezone
+     *   Decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA resolved to the
+     *   DST-correct offset for the birthDate. Output datetime is adjusted to this timezone.
+     * @param string|null $houseSystem
+     *   House system for the return chart. Placidus (default), Whole Sign, Equal, or Koch.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -381,14 +487,30 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/solar-return
      *
-     * @param string $birthDate Original birth date in YYYY-MM-DD format. Used to determine natal Sun longitude for the so
-     * @param string $birthTime Original birth time in 24-hour HH:MM:SS format. Determines exact natal Sun position for an
-     * @param float $latitude Latitude of the solar return location in decimal degrees. Use current residence or travel 
-     * @param float $longitude Longitude of the solar return location in decimal degrees. Affects house cusps and Ascenda
-     * @param int $returnYear Year for which to cast the solar return chart. The chart is erected for the exact moment t
-     * @param mixed $timezone Decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA resolved to the DST-co
-     * @param string|null $houseSystem House system for the solar return chart. Placidus (default) is most common in Western astr
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $birthDate
+     *   Original birth date in YYYY-MM-DD format. Used to determine natal Sun longitude for the
+     *   solar return calculation.
+     * @param string $birthTime
+     *   Original birth time in 24-hour HH:MM:SS format. Determines exact natal Sun position for
+     *   annual return timing.
+     * @param float $latitude
+     *   Latitude of the solar return location in decimal degrees. Use current residence or travel
+     *   location at time of birthday — solar return charts are location-sensitive.
+     * @param float $longitude
+     *   Longitude of the solar return location in decimal degrees. Affects house cusps and Ascendant
+     *   of the return chart.
+     * @param int $returnYear
+     *   Year for which to cast the solar return chart. The chart is erected for the exact moment the
+     *   transiting Sun conjuncts the natal Sun longitude in this year.
+     * @param mixed $timezone
+     *   Decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA resolved to the
+     *   DST-correct offset for the birthDate. Output datetime is adjusted to this timezone.
+     * @param string|null $houseSystem
+     *   House system for the solar return chart. Placidus (default) is most common in Western
+     *   astrology. Whole Sign, Equal, and Koch also supported.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -419,10 +541,17 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/moon-phase/current
      *
-     * @param string|null $date Date in YYYY-MM-DD format. Defaults to today if omitted.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param string|null $time Time in 24-hour HH:MM:SS format. Defaults to 12:00:00 (noon). Moon moves ~13 degrees per d
-     * @param mixed|null $timezone Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/Kolkata"). IANA reso
+     * @param string|null $date
+     *   Date in YYYY-MM-DD format. Defaults to today if omitted.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param string|null $time
+     *   Time in 24-hour HH:MM:SS format. Defaults to 12:00:00 (noon). Moon moves ~13 degrees per day
+     *   so time affects phase precision.
+     * @param mixed|null $timezone
+     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/Kolkata"). IANA
+     *   resolved to the DST-correct offset for the given date. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -450,9 +579,14 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/horoscope/{sign}/daily
      *
-     * @param string $sign Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
-     * @param string|null $date Forecast date in YYYY-MM-DD format. Defaults to today. Supports future and past dates for 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $sign
+     *   Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
+     * @param string|null $date
+     *   Forecast date in YYYY-MM-DD format. Defaults to today. Supports future and past dates for
+     *   editorial scheduling.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -478,8 +612,11 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/horoscope/{sign}/monthly
      *
-     * @param string $sign Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $sign
+     *   Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -502,9 +639,13 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/moon-phase/calendar/{year}/{month}
      *
-     * @param float $year Calendar year (1900-2100).
-     * @param float $month Calendar month (1-12). 1 = January, 12 = December.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param float $year
+     *   Calendar year (1900-2100).
+     * @param float $month
+     *   Calendar month (1-12). 1 = January, 12 = December.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -530,12 +671,27 @@ class AstrologyResource extends BaseResource
      *
      * POST /astrology/planets
      *
-     * @param string $date Target date for planetary positions in YYYY-MM-DD format. Use current date for transit pos
-     * @param float $latitude Observer latitude in decimal degrees (-90 to 90). While planetary longitudes are geocentri
-     * @param float $longitude Observer longitude in decimal degrees (-180 to 180). Used for precise local time conversio
-     * @param string $time Time in 24-hour HH:MM:SS format for precise calculations. Moon moves ~13° per day, so time
-     * @param mixed $timezone Decimal hours from UTC (e.g. -5 for EST, 5.5 for IST, 9 for JST, 5.75 for NPT) OR IANA nam
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Target date for planetary positions in YYYY-MM-DD format. Use current date for transit
+     *   positions, or any historical/future date for research. Planets move daily, so this date
+     *   determines their zodiac positions.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees (-90 to 90). While planetary longitudes are geocentric
+     *   (same worldwide), this is needed for house calculations if extending functionality. For
+     *   basic ephemeris, use 0 as default.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees (-180 to 180). Used for precise local time conversion.
+     *   For basic planetary positions, this has minimal impact but ensures accuracy.
+     * @param string $time
+     *   Time in 24-hour HH:MM:SS format for precise calculations. Moon moves ~13° per day, so time
+     *   matters for accurate lunar position. Use 12:00:00 (noon) as default if exact time not
+     *   needed.
+     * @param mixed $timezone
+     *   Decimal hours from UTC (e.g. -5 for EST, 5.5 for IST, 9 for JST, 5.75 for NPT) OR IANA name
+     *   (e.g. "America/New_York"). IANA resolved to the DST-correct offset for the chart date.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -567,8 +723,12 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/planet-meanings/{id}
      *
-     * @param string $id Planet ID (lowercase, e.g., sun, moon, mercury) or display name (case-insensitive, e.g., S
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   Planet ID (lowercase, e.g., sun, moon, mercury) or display name (case-insensitive, e.g.,
+     *   Sun, MOON).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -591,9 +751,13 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/moon-phase/upcoming
      *
-     * @param float|null $count Number of upcoming moon phase transitions to return (1-20). Defaults to 8.
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param string|null $startDate Start date in YYYY-MM-DD format. Defaults to today if omitted.
+     * @param float|null $count
+     *   Number of upcoming moon phase transitions to return (1-20). Defaults to 8.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param string|null $startDate
+     *   Start date in YYYY-MM-DD format. Defaults to today if omitted.
      *
      * @return array<string, mixed>
      */
@@ -618,8 +782,11 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/horoscope/{sign}/weekly
      *
-     * @param string $sign Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $sign
+     *   Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -647,8 +814,12 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/signs/{id}
      *
-     * @param string $id Sign ID (lowercase, e.g., aries, taurus) or display name (case-insensitive, e.g., Aries, T
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   Sign ID (lowercase, e.g., aries, taurus) or display name (case-insensitive, e.g., Aries,
+     *   TAURUS).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -675,7 +846,9 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/planet-meanings
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -700,7 +873,9 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/signs
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */

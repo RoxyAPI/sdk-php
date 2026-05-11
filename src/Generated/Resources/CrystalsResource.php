@@ -28,8 +28,11 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/birthstone/{month}
      *
-     * @param int $month Birth month as a number from 1 (January) to 12 (December).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $month
+     *   Birth month as a number from 1 (January) to 12 (December).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -53,8 +56,12 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/{id}
      *
-     * @param string $id URL-safe crystal identifier (e.g., "amethyst", "rose-quartz", "black-tourmaline"). Must ma
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   URL-safe crystal identifier (e.g., "amethyst", "rose-quartz", "black-tourmaline"). Must
+     *   match an entry in the database.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -78,8 +85,11 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/pairings/{id}
      *
-     * @param string $id URL-safe crystal identifier to find pairings for (e.g., "amethyst", "rose-quartz").
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   URL-safe crystal identifier to find pairings for (e.g., "amethyst", "rose-quartz").
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -104,10 +114,16 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/chakra/{chakra}
      *
-     * @param string $chakra Chakra name, case-insensitive (e.g., heart, Heart, HEART all work). Valid: Root, Sacral, S
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-30, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param string $chakra
+     *   Chakra name, case-insensitive (e.g., heart, Heart, HEART all work). Valid: Root, Sacral,
+     *   Solar Plexus, Heart, Throat, Third Eye, Crown.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-30, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
@@ -134,10 +150,16 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/element/{element}
      *
-     * @param string $element Element name, case-insensitive (e.g., water, Water, WATER all work). Valid: Earth, Water, 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-30, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param string $element
+     *   Element name, case-insensitive (e.g., water, Water, WATER all work). Valid: Earth, Water,
+     *   Fire, Air, Storm.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-30, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
@@ -163,10 +185,17 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/zodiac/{sign}
      *
-     * @param string $sign Zodiac sign name, case-insensitive (e.g., pisces, Pisces, PISCES all work). Valid: aries, 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-30, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param string $sign
+     *   Zodiac sign name, case-insensitive (e.g., pisces, Pisces, PISCES all work). Valid: aries,
+     *   taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius,
+     *   pisces.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-30, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
@@ -193,9 +222,16 @@ class CrystalsResource extends BaseResource
      *
      * POST /crystals/daily
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same crystal every time. 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same crystal every time.
+     *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
+     *   readings.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -222,7 +258,9 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/random
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -284,14 +322,28 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals
      *
-     * @param string|null $chakra Filter by chakra association, case-insensitive. Valid values: Root, Sacral, Solar Plexus, 
-     * @param string|null $color Filter by crystal color (partial match, case-insensitive). E.g., "pink", "green", "blue", 
-     * @param string|null $element Filter by elemental association, case-insensitive. Valid values: Earth, Water, Fire, Air, 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-100, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
-     * @param string|null $planet Filter by planetary association (partial match, case-insensitive). E.g., "Venus", "Moon", 
-     * @param string|null $zodiac Filter by zodiac sign, case-insensitive. Valid values: aries, taurus, gemini, cancer, leo,
+     * @param string|null $chakra
+     *   Filter by chakra association, case-insensitive. Valid values: Root, Sacral, Solar Plexus,
+     *   Heart, Throat, Third Eye, Crown.
+     * @param string|null $color
+     *   Filter by crystal color (partial match, case-insensitive). E.g., "pink", "green", "blue",
+     *   "purple". Use GET /colors for valid values.
+     * @param string|null $element
+     *   Filter by elemental association, case-insensitive. Valid values: Earth, Water, Fire, Air,
+     *   Storm.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-100, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
+     * @param string|null $planet
+     *   Filter by planetary association (partial match, case-insensitive). E.g., "Venus", "Moon",
+     *   "Jupiter". Use GET /planets for valid values.
+     * @param string|null $zodiac
+     *   Filter by zodiac sign, case-insensitive. Valid values: aries, taurus, gemini, cancer, leo,
+     *   virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces.
      *
      * @return array<string, mixed>
      */
@@ -322,10 +374,16 @@ class CrystalsResource extends BaseResource
      *
      * GET /crystals/search
      *
-     * @param string $q Search query (2-50 characters). Matches against crystal names, keywords, descriptions, and
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-50, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param string $q
+     *   Search query (2-50 characters). Matches against crystal names, keywords, descriptions, and
+     *   meaning fields. Case-insensitive partial matching.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-50, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */

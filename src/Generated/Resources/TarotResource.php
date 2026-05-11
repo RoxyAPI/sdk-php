@@ -41,7 +41,9 @@ class TarotResource extends BaseResource
      *
      * @param string|null $question
      * @param string|null $seed
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -77,7 +79,9 @@ class TarotResource extends BaseResource
      *
      * @param string|null $question
      * @param string|null $seed
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -113,11 +117,21 @@ class TarotResource extends BaseResource
      *
      * POST /tarot/spreads/custom
      *
-     * @param array $positions Array of 1-10 custom position definitions for your tarot spread. Each position gets one dr
-     * @param string|null $question Optional querent question to focus the custom tarot reading. Provides context for position
-     * @param string|null $seed Optional seed for reproducible results. Same seed with the same positions produces identic
-     * @param string|null $spreadName Optional name for your custom tarot spread layout. Used as the spread identifier in the re
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param array $positions
+     *   Array of 1-10 custom position definitions for your tarot spread. Each position gets one
+     *   drawn card with a position-specific interpretation.
+     * @param string|null $question
+     *   Optional querent question to focus the custom tarot reading. Provides context for
+     *   position-specific interpretations.
+     * @param string|null $seed
+     *   Optional seed for reproducible results. Same seed with the same positions produces identical
+     *   card draws for consistent divination.
+     * @param string|null $spreadName
+     *   Optional name for your custom tarot spread layout. Used as the spread identifier in the
+     *   response.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -156,7 +170,9 @@ class TarotResource extends BaseResource
      *
      * @param string|null $question
      * @param string|null $seed
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -184,9 +200,17 @@ class TarotResource extends BaseResource
      *
      * POST /tarot/spreads/three-card
      *
-     * @param string|null $question Optional specific question to focus the reading. Examples: "What should I know about my re
-     * @param string|null $seed Optional seed for reproducible results. Same seed = same 3 cards in same positions. Useful
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $question
+     *   Optional specific question to focus the reading. Examples: "What should I know about my
+     *   relationship?", "How can I improve my finances?", "What is blocking my creative growth?"
+     *   Leave empty for general guidance.
+     * @param string|null $seed
+     *   Optional seed for reproducible results. Same seed = same 3 cards in same positions. Useful
+     *   for sharing readings, testing, or ensuring users get consistent results. Omit for random
+     *   draws.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -216,9 +240,16 @@ class TarotResource extends BaseResource
      *
      * POST /tarot/yes-no
      *
-     * @param string|null $question Your specific yes/no question. Be clear and focused. Good: "Should I move to a new city?" 
-     * @param string|null $seed Optional seed for reproducible results. Same seed + same question = same answer. Useful fo
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $question
+     *   Your specific yes/no question. Be clear and focused. Good: "Should I move to a new city?"
+     *   Bad: "What should I do about my life?" The more specific the question, the more useful the
+     *   tarot guidance.
+     * @param string|null $seed
+     *   Optional seed for reproducible results. Same seed + same question = same answer. Useful for
+     *   testing, sharing readings, or ensuring consistency. Omit for random draws each time.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -253,11 +284,23 @@ class TarotResource extends BaseResource
      *
      * POST /tarot/draw
      *
-     * @param float $count Number of cards to draw (1-78). Common values: 1 for daily card, 3 for past-present-future
-     * @param bool|null $allowDuplicates Whether same card can be drawn multiple times. Set false for traditional deck behavior (ea
-     * @param bool|null $allowReversals Whether cards can appear reversed (upside down). Reversed cards have different meanings. S
-     * @param string|null $seed Optional seed for reproducible results. Same seed = same cards in same order. Use format l
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param float $count
+     *   Number of cards to draw (1-78). Common values: 1 for daily card, 3 for past-present-future,
+     *   5 for relationship spread, 10 for Celtic Cross. Drawing 78 returns the entire shuffled deck.
+     * @param bool|null $allowDuplicates
+     *   Whether same card can be drawn multiple times. Set false for traditional deck behavior (each
+     *   card drawn only once). Set true for statistical analysis or oracle-style readings. Default:
+     *   false.
+     * @param bool|null $allowReversals
+     *   Whether cards can appear reversed (upside down). Reversed cards have different meanings. Set
+     *   false for upright-only readings. Default: true (50% chance of reversal per card).
+     * @param string|null $seed
+     *   Optional seed for reproducible results. Same seed = same cards in same order. Use format
+     *   like "userId-date" for daily consistency, or "readingId" for shareable readings. Omit for
+     *   true randomness.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -293,8 +336,12 @@ class TarotResource extends BaseResource
      *
      * GET /tarot/cards/{id}
      *
-     * @param string $id Unique card identifier in kebab-case. Major arcana: "fool", "magician", "death", etc. Mino
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   Unique card identifier in kebab-case. Major arcana: "fool", "magician", "death", etc. Minor
+     *   arcana: "ace-of-cups", "seven-of-wands", "queen-of-swords", "king-of-pentacles", etc.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -320,9 +367,16 @@ class TarotResource extends BaseResource
      *
      * POST /tarot/daily
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same card every time. Pas
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same card every time. Pass
+     *   any unique identifier (userId, email hash, session token). Omit for anonymous daily
+     *   readings.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -354,12 +408,22 @@ class TarotResource extends BaseResource
      *
      * GET /tarot/cards
      *
-     * @param string|null $arcana Filter by arcana type. Major arcana (0-21) represents life lessons and spiritual themes. M
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-100, default 20.
-     * @param float|null $number Filter by card number. Major Arcana: 0 (The Fool) through 21 (The World). Minor Arcana: 1 
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
-     * @param string|null $suit Filter minor arcana by suit. Cups=emotions/relationships, Wands=creativity/passion, Swords
+     * @param string|null $arcana
+     *   Filter by arcana type. Major arcana (0-21) represents life lessons and spiritual themes.
+     *   Minor arcana (Ace-King in 4 suits) represents daily situations and practical matters.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-100, default 20.
+     * @param float|null $number
+     *   Filter by card number. Major Arcana: 0 (The Fool) through 21 (The World). Minor Arcana: 1
+     *   (Ace) through 14 (King). Combine with arcana or suit filters for precise results.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
+     * @param string|null $suit
+     *   Filter minor arcana by suit. Cups=emotions/relationships, Wands=creativity/passion,
+     *   Swords=intellect/conflict, Pentacles=material/finances. Only applies to minor arcana cards.
      *
      * @return array<string, mixed>
      */

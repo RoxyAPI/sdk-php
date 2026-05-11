@@ -29,9 +29,14 @@ class LocationResource extends BaseResource
      *
      * GET /location/countries/{iso2}
      *
-     * @param string $iso2 ISO 3166-1 alpha-2 country code, case-insensitive. Common codes: DE (Germany), FR (France)
-     * @param int|null $limit Maximum items to return per page. Range: 1-100, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param string $iso2
+     *   ISO 3166-1 alpha-2 country code, case-insensitive. Common codes: DE (Germany), FR (France),
+     *   GB (United Kingdom), US (United States), ES (Spain), IT (Italy), NL (Netherlands), IN
+     *   (India), BR (Brazil), JP (Japan).
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-100, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
@@ -56,8 +61,10 @@ class LocationResource extends BaseResource
      *
      * GET /location/countries
      *
-     * @param int|null $limit Maximum items to return per page. Range: 1-250, default 50.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-250, default 50.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
@@ -84,9 +91,15 @@ class LocationResource extends BaseResource
      *
      * GET /location/search
      *
-     * @param string $q City name to search for. Accepts bare city ("berlin"), city plus country ("berlin germany"
-     * @param int|null $limit Maximum items to return per page. Range: 1-50, default 10.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
+     * @param string $q
+     *   City name to search for. Accepts bare city ("berlin"), city plus country ("berlin germany"),
+     *   or comma-qualified ("berlin, germany", "springfield, illinois") for disambiguation. Matches
+     *   against city name, province/state, or combined "city country" queries. Case-insensitive with
+     *   partial matching (e.g. "ber" matches Berlin, Bern, Bergen).
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-50, default 10.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */

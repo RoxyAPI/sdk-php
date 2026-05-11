@@ -29,8 +29,13 @@ class AngelNumbersResource extends BaseResource
      *
      * GET /angel-numbers/lookup
      *
-     * @param string $number Number sequence to analyze (1-8 digits). Can be any number the user has encountered: clock
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $number
+     *   Number sequence to analyze (1-8 digits). Can be any number the user has encountered: clock
+     *   times (1111), addresses (717), receipts (888), license plates (4444), or any repeating
+     *   pattern.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -55,8 +60,12 @@ class AngelNumbersResource extends BaseResource
      *
      * GET /angel-numbers/numbers/{number}
      *
-     * @param string $number Angel number sequence to look up (e.g., "111", "444", "1212", "1234"). Must match an entry
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $number
+     *   Angel number sequence to look up (e.g., "111", "444", "1212", "1234"). Must match an entry
+     *   in the database.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -81,9 +90,16 @@ class AngelNumbersResource extends BaseResource
      *
      * POST /angel-numbers/daily
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same angel number every t
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same angel number every
+     *   time. Pass any unique identifier (userId, email hash, session token). Omit for anonymous
+     *   daily readings.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -109,10 +125,17 @@ class AngelNumbersResource extends BaseResource
      *
      * GET /angel-numbers/numbers
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
-     * @param int|null $limit Maximum items to return per page. Range: 1-50, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
-     * @param string|null $type Filter results by angel number pattern type. "repeating" returns numbers like 111, 444, 77
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-50, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
+     * @param string|null $type
+     *   Filter results by angel number pattern type. "repeating" returns numbers like 111, 444,
+     *   7777. "sequential" returns patterns like 1234. "mirror" returns palindrome patterns like
+     *   1212. "master" returns 11, 22, 33. "root" returns single digits 0-9.
      *
      * @return array<string, mixed>
      */

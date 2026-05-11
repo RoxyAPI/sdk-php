@@ -32,8 +32,12 @@ class BiorhythmResource extends BaseResource
      *
      * @param array $person1
      * @param array $person2
-     * @param string|null $targetDate Date to evaluate compatibility on in YYYY-MM-DD format. Defaults to today (UTC). Compatibi
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $targetDate
+     *   Date to evaluate compatibility on in YYYY-MM-DD format. Defaults to today (UTC).
+     *   Compatibility varies by day since biorhythm cycles are continuous.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -61,10 +65,16 @@ class BiorhythmResource extends BaseResource
      *
      * POST /biorhythm/critical-days
      *
-     * @param string $birthDate Birth date of the person in YYYY-MM-DD format.
-     * @param string|null $endDate End date of the search range in YYYY-MM-DD format. Defaults to startDate + 90 days. Maximu
-     * @param string|null $startDate Start date of the search range in YYYY-MM-DD format. Defaults to today (UTC).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $birthDate
+     *   Birth date of the person in YYYY-MM-DD format.
+     * @param string|null $endDate
+     *   End date of the search range in YYYY-MM-DD format. Defaults to startDate + 90 days. Maximum
+     *   range: 180 days.
+     * @param string|null $startDate
+     *   Start date of the search range in YYYY-MM-DD format. Defaults to today (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -92,9 +102,16 @@ class BiorhythmResource extends BaseResource
      *
      * POST /biorhythm/daily
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same reading every time. 
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same reading every time.
+     *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
+     *   readings.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -120,10 +137,16 @@ class BiorhythmResource extends BaseResource
      *
      * POST /biorhythm/forecast
      *
-     * @param string $birthDate Birth date of the person in YYYY-MM-DD format.
-     * @param string|null $endDate End date of the forecast range in YYYY-MM-DD format. Defaults to startDate + 30 days. Maxi
-     * @param string|null $startDate Start date of the forecast range in YYYY-MM-DD format. Defaults to today (UTC).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $birthDate
+     *   Birth date of the person in YYYY-MM-DD format.
+     * @param string|null $endDate
+     *   End date of the forecast range in YYYY-MM-DD format. Defaults to startDate + 30 days.
+     *   Maximum range: 90 days.
+     * @param string|null $startDate
+     *   Start date of the forecast range in YYYY-MM-DD format. Defaults to today (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -150,9 +173,13 @@ class BiorhythmResource extends BaseResource
      *
      * POST /biorhythm/phases
      *
-     * @param string $birthDate Birth date of the person in YYYY-MM-DD format.
-     * @param string|null $targetDate Date to get phase information for in YYYY-MM-DD format. Defaults to today (UTC).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $birthDate
+     *   Birth date of the person in YYYY-MM-DD format.
+     * @param string|null $targetDate
+     *   Date to get phase information for in YYYY-MM-DD format. Defaults to today (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -179,9 +206,14 @@ class BiorhythmResource extends BaseResource
      *
      * POST /biorhythm/reading
      *
-     * @param string $birthDate Birth date of the person in YYYY-MM-DD format. This is the anchor for all biorhythm cycle 
-     * @param string|null $targetDate Date to calculate the reading for in YYYY-MM-DD format. Defaults to today (UTC) if omitted
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $birthDate
+     *   Birth date of the person in YYYY-MM-DD format. This is the anchor for all biorhythm cycle
+     *   calculations.
+     * @param string|null $targetDate
+     *   Date to calculate the reading for in YYYY-MM-DD format. Defaults to today (UTC) if omitted.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */

@@ -102,6 +102,48 @@ it('throws RoxyApiException on 5xx with code "unknown" when body lacks code', fu
     }
 });
 
+it('returns [] when the server replies 200 with an empty body', function (): void {
+    $mock = new MockClient([
+        ListLanguagesRequest::class => MockResponse::make('', 200),
+    ]);
+    $roxy = createRoxy('test-key');
+    $roxy->withMockClient($mock);
+
+    expect($roxy->languages->listLanguages())->toBe([]);
+});
+
+it('wraps Saloon FatalRequestException as RoxyApiException with code connection_error', function (): void {
+    Saloon\Config::allowStrayRequests();
+
+    $roxy = createRoxy('test-key');
+    $pending = new Saloon\Http\PendingRequest($roxy, new ListLanguagesRequest());
+    $fatal = new Saloon\Exceptions\Request\FatalRequestException(
+        new Exception('connect timeout'),
+        $pending,
+    );
+
+    $wrapped = RoxyApiException::fromFatal($fatal);
+
+    expect($wrapped->statusCode)->toBe(0)
+        ->and($wrapped->errorCode)->toBe('connection_error')
+        ->and($wrapped->error)->toContain('connect timeout');
+});
+
+it('shares one connector across all resource accessors', function (): void {
+    $roxy = createRoxy('test-key');
+
+    $astrology = $roxy->astrology;
+    $location = $roxy->location;
+
+    expect($astrology)->not->toBe($location);
+    $astroConn = (new ReflectionClass($astrology))->getProperty('connector');
+    $locConn = (new ReflectionClass($location))->getProperty('connector');
+    $astroConn->setAccessible(true);
+    $locConn->setAccessible(true);
+    expect($astroConn->getValue($astrology))->toBe($roxy)
+        ->and($locConn->getValue($location))->toBe($roxy);
+});
+
 it('builds the correct URL for path + query parameters', function (): void {
     $mock = new MockClient([
         GetDailyHoroscopeRequest::class => MockResponse::make(['sign' => 'leo']),

@@ -5,6 +5,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -29,7 +32,7 @@ jobs:
         if: matrix.php == '8.2'
         run: |
           node scripts/generate.mjs
-          git diff --exit-code -- specs/openapi.json src/Generated tests/Generated src/Version.php \
+          git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php tests/Generated \
             || { echo 'codegen drift: commit the regenerated files'; exit 1; }
 
       - name: Lint

@@ -31,11 +31,27 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/ashtakavarga
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -64,12 +80,24 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/aspects
      *
-     * @param string $date Date in YYYY-MM-DD format. Planetary positions are calculated for this date to determine m
-     * @param float $latitude Observer latitude in decimal degrees. Used for Lagna calculation which affects house-based
-     * @param float $longitude Observer longitude in decimal degrees. Affects local sidereal time for positional calculat
-     * @param string $time Time in HH:MM:SS format (24-hour). Exact time affects fast-moving planets (Moon, Mercury) 
-     * @param string|null $coordinateSystem Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa - stand
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Defaults to 5.5 (IST).
+     * @param string $date
+     *   Date in YYYY-MM-DD format. Planetary positions are calculated for this date to determine
+     *   mutual aspects (drishti).
+     * @param float $latitude
+     *   Observer latitude in decimal degrees. Used for Lagna calculation which affects house-based
+     *   aspect analysis.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Affects local sidereal time for positional
+     *   calculations.
+     * @param string $time
+     *   Time in HH:MM:SS format (24-hour). Exact time affects fast-moving planets (Moon, Mercury)
+     *   and aspect orbs.
+     * @param string|null $coordinateSystem
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
+     *   Western astrology. Defaults to "sidereal".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -99,9 +127,15 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/compatibility
      *
-     * @param array $person1 Birth data of the first person (typically the boy/groom in traditional Ashtakoot matching)
-     * @param array $person2 Birth data of the second person (typically the girl/bride in traditional Ashtakoot matchin
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param array $person1
+     *   Birth data of the first person (typically the boy/groom in traditional Ashtakoot matching).
+     *   Date, time, and location determine Moon nakshatra for koota scoring.
+     * @param array $person2
+     *   Birth data of the second person (typically the girl/bride in traditional Ashtakoot
+     *   matching). Moon nakshatra compared against person 1 across all 8 kootas.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -127,12 +161,21 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/parallels
      *
-     * @param string $date Date in YYYY-MM-DD format. Planetary declinations are calculated for this date to find par
-     * @param float $latitude Observer latitude in decimal degrees. Used for topocentric declination corrections.
-     * @param float $longitude Observer longitude in decimal degrees. Affects local time context for declination calculat
-     * @param string $time Time in HH:MM:SS format (24-hour). Exact time affects declination values, especially for t
-     * @param float|null $orb Orb in degrees for parallel/contraparallel detection. Defaults to 1.5°.
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Defaults to 5.5 (IST).
+     * @param string $date
+     *   Date in YYYY-MM-DD format. Planetary declinations are calculated for this date to find
+     *   parallel and contraparallel aspects.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees. Used for topocentric declination corrections.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Affects local time context for declination
+     *   calculations.
+     * @param string $time
+     *   Time in HH:MM:SS format (24-hour). Exact time affects declination values, especially for the
+     *   fast-moving Moon.
+     * @param float|null $orb
+     *   Orb in degrees for parallel/contraparallel detection. Defaults to 1.5°.
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -163,11 +206,27 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/shadbala
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -195,14 +254,30 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/transit
      *
-     * @param string $birthDate Birth date in YYYY-MM-DD format. Used to calculate the natal chart against which transits 
-     * @param string $birthTime Birth time in HH:MM:SS format (24-hour). Critical for accurate natal Lagna and Placidus ho
-     * @param float $latitude Observer latitude in decimal degrees. Determines Placidus house cusps for natal chart hous
-     * @param float $longitude Observer longitude in decimal degrees. Affects local sidereal time for Lagna and house cal
-     * @param string $transitDate Transit date to analyze in YYYY-MM-DD format. Planetary positions on this date are overlai
-     * @param string|null $coordinateSystem Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa - stand
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Defaults to 5.5 (IST).
-     * @param string|null $transitTime Transit time in HH:MM:SS format (24-hour). Affects fast-moving planets like Moon. Defaults
+     * @param string $birthDate
+     *   Birth date in YYYY-MM-DD format. Used to calculate the natal chart against which transits
+     *   are analyzed.
+     * @param string $birthTime
+     *   Birth time in HH:MM:SS format (24-hour). Critical for accurate natal Lagna and Placidus
+     *   house cusps which determine transit house placements.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees. Determines Placidus house cusps for natal chart house
+     *   assignments.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Affects local sidereal time for Lagna and house
+     *   calculations.
+     * @param string $transitDate
+     *   Transit date to analyze in YYYY-MM-DD format. Planetary positions on this date are overlaid
+     *   on the natal chart.
+     * @param string|null $coordinateSystem
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
+     *   Western astrology. Defaults to "sidereal".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Defaults to 5.5 (IST).
+     * @param string|null $transitTime
+     *   Transit time in HH:MM:SS format (24-hour). Affects fast-moving planets like Moon. Defaults
+     *   to noon.
      *
      * @return array<string, mixed>
      */
@@ -234,11 +309,27 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/dosha/kalsarpa
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -267,11 +358,27 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/dosha/manglik
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -300,11 +407,27 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/dosha/sadhesati
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -332,12 +455,30 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/birth-chart
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -368,12 +509,34 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/divisional-chart
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param int $division Divisional chart number. Each division reveals a specific life area. Supported: 2 (Hora, w
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param int $division
+     *   Divisional chart number. Each division reveals a specific life area. Supported: 2 (Hora,
+     *   wealth), 3 (Drekkana, siblings), 4 (Chaturthamsa, property), 7 (Saptamsa, children), 9
+     *   (Navamsa, marriage), 10 (Dasamsa, career), 12 (Dwadasamsa, parents), 16 (Shodasamsa,
+     *   vehicles), 20 (Vimsamsa, spirituality), 24 (Chaturvimsamsa, education), 27 (Bhamsa,
+     *   strength), 30 (Trimsamsa, misfortunes), 40 (Khavedamsa, merit), 45 (Akshavedamsa,
+     *   character), 60 (Shashtiamsa, past life karma).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -404,14 +567,30 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/chart
      *
-     * @param string $date Birth date in YYYY-MM-DD format
-     * @param float $latitude Birth location latitude in decimal degrees
-     * @param float $longitude Birth location longitude in decimal degrees
-     * @param string $time Birth time in 24-hour HH:MM:SS format. CRITICAL for accurate Lagna and house calculations.
-     * @param string|null $ayanamsa Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula 
-     * @param float|null $ayanamsaValue Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the 
-     * @param string|null $nodeType Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. CRITICAL for accurate Lagna and house calculations.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula
+     *   (most common for KP). "kp-old" uses the Krishnamurti original table. "lahiri" uses
+     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "custom" allows
+     *   providing your own value via ayanamsaValue. Defaults to "kp-newcomb".
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
      *
      * @return array<string, mixed>
      */
@@ -442,11 +621,27 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/navamsa
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -474,12 +669,23 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/panchang/basic
      *
-     * @param string $date Date in YYYY-MM-DD format. Panchang elements (Tithi, Nakshatra, Yoga, Karana) are calculat
-     * @param float $latitude Observer latitude in decimal degrees. Determines sunrise/sunset times which define the Var
-     * @param float $longitude Observer longitude in decimal degrees. Affects local time calculations for sunrise/sunset-
-     * @param string $time Time in HH:MM:SS format (24-hour). Determines the exact Moon and Sun positions for tithi a
-     * @param mixed|null $timezone Timezone offset from UTC in decimal hours. Defaults to 5.5 (IST).
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Date in YYYY-MM-DD format. Panchang elements (Tithi, Nakshatra, Yoga, Karana) are calculated
+     *   for this date.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees. Determines sunrise/sunset times which define the Vara
+     *   (weekday) and muhurta boundaries.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Affects local time calculations for
+     *   sunrise/sunset-dependent panchang elements.
+     * @param string $time
+     *   Time in HH:MM:SS format (24-hour). Determines the exact Moon and Sun positions for tithi and
+     *   nakshatra calculation.
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in decimal hours. Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -509,10 +715,18 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/panchang/choghadiya
      *
-     * @param string $date Date in YYYY-MM-DD format.
-     * @param float $latitude Observer latitude in decimal degrees. Determines sunrise and sunset times which define day
-     * @param float $longitude Observer longitude in decimal degrees. Affects local time calculations for sunrise, sunset
-     * @param mixed|null $timezone Timezone offset from UTC in decimal hours. Used for accurate sunrise/sunset calculation an
+     * @param string $date
+     *   Date in YYYY-MM-DD format.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
+     *   day/night boundaries for muhurta calculations.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Affects local time calculations for sunrise, sunset,
+     *   and muhurta period boundaries.
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in decimal hours. Used for accurate sunrise/sunset calculation and
+     *   output time formatting. Essential for correct Choghadiya periods outside IST. Defaults to
+     *   5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -539,12 +753,30 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/dasha/current
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -574,11 +806,21 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/panchang/detailed
      *
-     * @param string $date Date in YYYY-MM-DD format.
-     * @param float $latitude Observer latitude in decimal degrees. Determines sunrise and sunset times which define day
-     * @param float $longitude Observer longitude in decimal degrees. Affects local time calculations for sunrise, sunset
-     * @param mixed|null $timezone Timezone offset from UTC in decimal hours. Used for sunrise/sunset/moonrise/moonset search
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Date in YYYY-MM-DD format.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
+     *   day/night boundaries for muhurta calculations.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Affects local time calculations for sunrise, sunset,
+     *   and muhurta period boundaries.
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in decimal hours. Used for sunrise/sunset/moonrise/moonset search
+     *   accuracy and output time formatting. Essential for correct results outside IST. Defaults to
+     *   5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -608,9 +850,15 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/ecliptic-crossings
      *
-     * @param int $year Year to scan for ecliptic crossings (1900-2100).
-     * @param string|null $coordinateSystem Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa - stand
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults t
+     * @param int $year
+     *   Year to scan for ecliptic crossings (1900-2100).
+     * @param string|null $coordinateSystem
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
+     *   Western astrology. Defaults to "sidereal".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
+     *   0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -635,10 +883,18 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/panchang/hora
      *
-     * @param string $date Date in YYYY-MM-DD format.
-     * @param float $latitude Observer latitude in decimal degrees. Determines sunrise and sunset times which define day
-     * @param float $longitude Observer longitude in decimal degrees. Affects local time calculations for sunrise, sunset
-     * @param mixed|null $timezone Timezone offset from UTC in decimal hours. Used for accurate sunrise/sunset calculation an
+     * @param string $date
+     *   Date in YYYY-MM-DD format.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
+     *   day/night boundaries for muhurta calculations.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Affects local time calculations for sunrise, sunset,
+     *   and muhurta period boundaries.
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in decimal hours. Used for accurate sunrise/sunset calculation and
+     *   output time formatting. Essential for correct Hora periods outside IST. Defaults to 5.5
+     *   (IST).
      *
      * @return array<string, mixed>
      */
@@ -666,7 +922,9 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/kp/ayanamsa
      *
-     * @param string|null $date Date for ayanamsa calculation in YYYY-MM-DD format. Defaults to today if not provided. Aya
+     * @param string|null $date
+     *   Date for ayanamsa calculation in YYYY-MM-DD format. Defaults to today if not provided.
+     *   Ayanamsa changes by ~0.01° per month due to Earth's precession.
      *
      * @return array<string, mixed>
      */
@@ -690,13 +948,25 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/cusps
      *
-     * @param string $date Birth date in YYYY-MM-DD format
-     * @param float $latitude Birth location latitude in decimal degrees
-     * @param float $longitude Birth location longitude in decimal degrees
-     * @param string $time Birth time in 24-hour HH:MM:SS format
-     * @param string|null $ayanamsa Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula 
-     * @param float|null $ayanamsaValue Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the 
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula
+     *   (most common for KP). "kp-old" uses the Krishnamurti original table. "lahiri" uses
+     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "custom" allows
+     *   providing your own value via ayanamsaValue. Defaults to "kp-newcomb".
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
      *
      * @return array<string, mixed>
      */
@@ -726,14 +996,30 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/planets
      *
-     * @param string $date Birth date in YYYY-MM-DD format
-     * @param float $latitude Birth location latitude in decimal degrees
-     * @param float $longitude Birth location longitude in decimal degrees
-     * @param string $time Birth time in 24-hour HH:MM:SS format
-     * @param string|null $ayanamsa Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula 
-     * @param float|null $ayanamsaValue Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the 
-     * @param string|null $nodeType Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula
+     *   (most common for KP). "kp-old" uses the Krishnamurti original table. "lahiri" uses
+     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "custom" allows
+     *   providing your own value via ayanamsaValue. Defaults to "kp-newcomb".
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
      *
      * @return array<string, mixed>
      */
@@ -765,14 +1051,32 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/planets-interval
      *
-     * @param string $endDatetime End datetime in ISO 8601 format. Maximum 7 days from start. Always interpreted as local ti
-     * @param float $intervalMinutes Time between calculations in minutes. Range: 15 (quarter-hourly) to 1440 (daily).
-     * @param float $latitude Observer latitude in decimal degrees (for future Lagna calculations)
-     * @param float $longitude Observer longitude in decimal degrees (for future Lagna calculations)
-     * @param string $startDatetime Start datetime in ISO 8601 format. Always interpreted as local time when a non-zero timezo
-     * @param string|null $ayanamsa Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
-     * @param string|null $nodeType Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     * @param mixed|null $timezone Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correc
+     * @param string $endDatetime
+     *   End datetime in ISO 8601 format. Maximum 7 days from start. Always interpreted as local time
+     *   when a non-zero timezone is provided (Z suffix is ignored).
+     * @param float $intervalMinutes
+     *   Time between calculations in minutes. Range: 15 (quarter-hourly) to 1440 (daily).
+     * @param float $latitude
+     *   Observer latitude in decimal degrees (for future Lagna calculations)
+     * @param float $longitude
+     *   Observer longitude in decimal degrees (for future Lagna calculations)
+     * @param string $startDatetime
+     *   Start datetime in ISO 8601 format. Always interpreted as local time when a non-zero timezone
+     *   is provided (Z suffix is ignored). With timezone 0, Z suffix is treated as UTC.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
+     *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
+     *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
+     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correct
+     *   offset for the startDatetime date. When non-zero, all datetimes are treated as local time in
+     *   this timezone (Z suffix is ignored). Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -803,12 +1107,26 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/rasi-changes
      *
-     * @param string $endDate End date for sign ingress search (YYYY-MM-DD format)
-     * @param string $planet Planet to track (case-insensitive). Valid values: Sun, Moon, Mars, Mercury, Jupiter, Venus
-     * @param string $startDate Start date for sign ingress search (YYYY-MM-DD format)
-     * @param string|null $ayanamsa Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
-     * @param string|null $nodeType Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     * @param mixed|null $timezone Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correc
+     * @param string $endDate
+     *   End date for sign ingress search (YYYY-MM-DD format)
+     * @param string $planet
+     *   Planet to track (case-insensitive). Valid values: Sun, Moon, Mars, Mercury, Jupiter, Venus,
+     *   Saturn
+     * @param string $startDate
+     *   Start date for sign ingress search (YYYY-MM-DD format)
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
+     *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
+     *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
+     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correct
+     *   offset for startDate. Output times are converted to this timezone. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -841,14 +1159,32 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/ruling-planets-interval
      *
-     * @param string $endDatetime End of the interval range in ISO 8601 format. Always interpreted as local time when a non-
-     * @param int $intervalMinutes Interval between calculations in minutes (1-1440). Use 1-5 for birth time rectification.
-     * @param float $latitude Observer latitude in decimal degrees
-     * @param float $longitude Observer longitude in decimal degrees
-     * @param string $startDatetime Start of the interval range in ISO 8601 format. Always interpreted as local time when a no
-     * @param string|null $ayanamsa Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
-     * @param string|null $nodeType Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     * @param mixed|null $timezone Timezone offset from UTC in decimal hours. When non-zero, all datetimes are treated as loc
+     * @param string $endDatetime
+     *   End of the interval range in ISO 8601 format. Always interpreted as local time when a
+     *   non-zero timezone is provided (Z suffix is ignored).
+     * @param int $intervalMinutes
+     *   Interval between calculations in minutes (1-1440). Use 1-5 for birth time rectification.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees
+     * @param float $longitude
+     *   Observer longitude in decimal degrees
+     * @param string $startDatetime
+     *   Start of the interval range in ISO 8601 format. Always interpreted as local time when a
+     *   non-zero timezone is provided (Z suffix is ignored).
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
+     *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
+     *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
+     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in decimal hours. When non-zero, all datetimes are treated as local
+     *   time in this timezone (Z suffix is ignored). Output times are also converted to this
+     *   timezone. Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -878,13 +1214,26 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/ruling-planets
      *
-     * @param float $latitude Observer latitude in decimal degrees
-     * @param float $longitude Observer longitude in decimal degrees
-     * @param string|null $birthDate Birth date (YYYY-MM-DD) to calculate significators. If provided with birthTime, response i
-     * @param string|null $birthTime Birth time (HH:MM:SS) for significator calculation. Required if birthDate is provided.
-     * @param string|null $datetime ISO 8601 datetime for ruling planets. Defaults to current time. Always interpreted as loca
-     * @param string|null $nodeType Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     * @param mixed|null $timezone Timezone: decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the 
+     * @param float $latitude
+     *   Observer latitude in decimal degrees
+     * @param float $longitude
+     *   Observer longitude in decimal degrees
+     * @param string|null $birthDate
+     *   Birth date (YYYY-MM-DD) to calculate significators. If provided with birthTime, response
+     *   includes which houses each ruling planet signifies.
+     * @param string|null $birthTime
+     *   Birth time (HH:MM:SS) for significator calculation. Required if birthDate is provided.
+     * @param string|null $datetime
+     *   ISO 8601 datetime for ruling planets. Defaults to current time. Always interpreted as local
+     *   time when a non-zero timezone is provided (Z suffix is ignored).
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the
+     *   DST-correct offset based on birthDate or datetime. Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -914,12 +1263,26 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/kp/sublord-changes
      *
-     * @param string $endDate End date for sublord change search (YYYY-MM-DD format)
-     * @param string $planet Planet to track (case-insensitive). Valid values: Sun, Moon, Mars, Mercury, Jupiter, Venus
-     * @param string $startDate Start date for sublord change search (YYYY-MM-DD format)
-     * @param string|null $ayanamsa Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
-     * @param string|null $nodeType Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     * @param mixed|null $timezone Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correc
+     * @param string $endDate
+     *   End date for sublord change search (YYYY-MM-DD format)
+     * @param string $planet
+     *   Planet to track (case-insensitive). Valid values: Sun, Moon, Mars, Mercury, Jupiter, Venus,
+     *   Saturn
+     * @param string $startDate
+     *   Start date for sublord change search (YYYY-MM-DD format)
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
+     *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
+     *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
+     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correct
+     *   offset for startDate. Output times are converted to this timezone. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -952,10 +1315,17 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/aspects/lunar
      *
-     * @param int $month Month number (1-12).
-     * @param int $year Year for monthly analysis (1900-2100).
-     * @param string|null $coordinateSystem Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa - stand
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults t
+     * @param int $month
+     *   Month number (1-12).
+     * @param int $year
+     *   Year for monthly analysis (1900-2100).
+     * @param string|null $coordinateSystem
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
+     *   Western astrology. Defaults to "sidereal".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
+     *   0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -979,12 +1349,30 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/dasha/major
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1017,10 +1405,17 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/aspects/monthly
      *
-     * @param int $month Month number (1-12).
-     * @param int $year Year for monthly analysis (1900-2100).
-     * @param string|null $coordinateSystem Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa - stand
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults t
+     * @param int $month
+     *   Month number (1-12).
+     * @param int $year
+     *   Year for monthly analysis (1900-2100).
+     * @param string|null $coordinateSystem
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
+     *   Western astrology. Defaults to "sidereal".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
+     *   0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -1047,9 +1442,14 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/planetary-positions/monthly
      *
-     * @param int $month Month number (1-12) for ephemeris.
-     * @param int $year Year for monthly ephemeris (1900-2100).
-     * @param string|null $coordinateSystem Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa - stand
+     * @param int $month
+     *   Month number (1-12) for ephemeris.
+     * @param int $year
+     *   Year for monthly ephemeris (1900-2100).
+     * @param string|null $coordinateSystem
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
+     *   Western astrology. Defaults to "sidereal".
      *
      * @return array<string, mixed>
      */
@@ -1076,9 +1476,13 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/parallels/monthly
      *
-     * @param int $month Month number (1-12) for parallel analysis.
-     * @param int $year Year for monthly parallel analysis (1900-2100).
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults t
+     * @param int $month
+     *   Month number (1-12) for parallel analysis.
+     * @param int $year
+     *   Year for monthly parallel analysis (1900-2100).
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
+     *   0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -1104,10 +1508,17 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/transit/monthly
      *
-     * @param int $month Month number (1-12) for transit analysis.
-     * @param int $year Year for monthly transit analysis (1900-2100).
-     * @param string|null $coordinateSystem Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa - stand
-     * @param mixed|null $timezone Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults t
+     * @param int $month
+     *   Month number (1-12) for transit analysis.
+     * @param int $year
+     *   Year for monthly transit analysis (1900-2100).
+     * @param string|null $coordinateSystem
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
+     *   Western astrology. Defaults to "sidereal".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
+     *   0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -1132,8 +1543,12 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/nakshatras/{id}
      *
-     * @param string $id Nakshatra ID slug. Examples: ashwini, bharani, krittika, rohini, mrigashira, ardra, punarv
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   Nakshatra ID slug. Examples: ashwini, bharani, krittika, rohini, mrigashira, ardra,
+     *   punarvasu, pushya, ashlesha, magha, etc.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1159,12 +1574,30 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/planetary-positions
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1191,8 +1624,12 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/rashis/{id}
      *
-     * @param string $id Rashi ID slug. One of: mesha, vrishabha, mithun, karka, simha, kanya, tula, vrischika, dha
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   Rashi ID slug. One of: mesha, vrishabha, mithun, karka, simha, kanya, tula, vrischika,
+     *   dhanu, makar, kumbha, meen.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1214,13 +1651,33 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/dasha/sub/{mahadasha}
      *
-     * @param string $mahadasha Mahadasha planet name, case-insensitive (e.g., jupiter, Jupiter, JUPITER all work). Valid:
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $mahadasha
+     *   Mahadasha planet name, case-insensitive (e.g., jupiter, Jupiter, JUPITER all work). Valid:
+     *   Ketu, Venus, Sun, Moon, Mars, Rahu, Jupiter, Saturn, Mercury.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1251,11 +1708,27 @@ class VedicAstrologyResource extends BaseResource
      *
      * POST /vedic-astrology/upagraha
      *
-     * @param string $date Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra calcula
-     * @param float $latitude Birth location latitude in decimal degrees. Location determines local sidereal time for La
-     * @param float $longitude Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
-     * @param string $time Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation 
-     * @param mixed|null $timezone Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "Asia/K
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
      *
      * @return array<string, mixed>
      */
@@ -1282,8 +1755,11 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/yoga/{id}
      *
-     * @param string $id Yoga identifier (lowercase, hyphenated)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $id
+     *   Yoga identifier (lowercase, hyphenated)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1308,7 +1784,9 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/nakshatras
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1331,7 +1809,9 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/rashis
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1354,7 +1834,9 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/yoga
      *
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */

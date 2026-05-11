@@ -30,8 +30,13 @@ class DreamsResource extends BaseResource
      *
      * POST /dreams/daily
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same symbol every time. P
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same symbol every time.
+     *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
+     *   readings.
      *
      * @return array<string, mixed>
      */
@@ -58,7 +63,8 @@ class DreamsResource extends BaseResource
      *
      * GET /dreams/symbols/{id}
      *
-     * @param string $id Unique symbol identifier in kebab-case (e.g., "snake", "being-chased", "teeth-falling-out"
+     * @param string $id
+     *   Unique symbol identifier in kebab-case (e.g., "snake", "being-chased", "teeth-falling-out").
      *
      * @return array<string, mixed>
      */
@@ -82,7 +88,8 @@ class DreamsResource extends BaseResource
      *
      * GET /dreams/symbols/random
      *
-     * @param float|null $count Number of random symbols to return (1-10). Default: 1.
+     * @param float|null $count
+     *   Number of random symbols to return (1-10). Default: 1.
      *
      * @return array<string, mixed>
      */
@@ -128,10 +135,14 @@ class DreamsResource extends BaseResource
      *
      * GET /dreams/symbols
      *
-     * @param string|null $letter Filter symbols by starting letter (a-z). Case-insensitive.
-     * @param int|null $limit Maximum items to return per page. Range: 1-50, default 20.
-     * @param int|null $offset Number of items to skip for pagination. Default 0.
-     * @param string|null $q Search query to match against symbol names and meanings. Case-insensitive.
+     * @param string|null $letter
+     *   Filter symbols by starting letter (a-z). Case-insensitive.
+     * @param int|null $limit
+     *   Maximum items to return per page. Range: 1-50, default 20.
+     * @param int|null $offset
+     *   Number of items to skip for pagination. Default 0.
+     * @param string|null $q
+     *   Search query to match against symbol names and meanings. Case-insensitive.
      *
      * @return array<string, mixed>
      */

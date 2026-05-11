@@ -32,8 +32,11 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/karmic-lessons
      *
-     * @param string $fullName Full birth name to analyze for missing numbers
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $fullName
+     *   Full birth name to analyze for missing numbers
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -61,8 +64,11 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/birth-day
      *
-     * @param int $day Day of birth (1-31)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $day
+     *   Day of birth (1-31)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -91,11 +97,20 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/bridge
      *
-     * @param int $day Birth day (1 to 31)
-     * @param string $fullName Full legal birth name as it appears on the birth certificate. Used to calculate Expression
-     * @param int $month Birth month (1 to 12)
-     * @param int $year Birth year between 100 and 2100. Used to calculate the Life Path number via Pythagorean re
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $day
+     *   Birth day (1 to 31)
+     * @param string $fullName
+     *   Full legal birth name as it appears on the birth certificate. Used to calculate Expression,
+     *   Soul Urge, and Personality numbers. Include first, middle, and last names separated by
+     *   spaces.
+     * @param int $month
+     *   Birth month (1 to 12)
+     * @param int $year
+     *   Birth year between 100 and 2100. Used to calculate the Life Path number via Pythagorean
+     *   reduction.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -125,8 +140,11 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/expression
      *
-     * @param string $fullName Full birth name (first, middle, last)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $fullName
+     *   Full birth name (first, middle, last)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -154,10 +172,16 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/life-path
      *
-     * @param int $day Birth day (1-31)
-     * @param int $month Birth month (1-12)
-     * @param int $year Birth year between 100 and 2100. Supports historical figures like Einstein (1879) and Shak
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $day
+     *   Birth day (1-31)
+     * @param int $month
+     *   Birth month (1-12)
+     * @param int $year
+     *   Birth year between 100 and 2100. Supports historical figures like Einstein (1879) and
+     *   Shakespeare (1564).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -187,13 +211,23 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/maturity
      *
-     * @param int|null $day Birth day (1-31). Required with year and month for automatic Life Path calculation.
-     * @param int|null $expression Your Expression number (1-9, 11, 22, 33). Optional if fullName is provided.
-     * @param string|null $fullName Full birth name to calculate Expression number automatically. Use instead of passing expre
-     * @param int|null $lifePath Your Life Path number (1-9, 11, 22, 33). Optional if year, month, day are provided.
-     * @param int|null $month Birth month (1-12). Required with year and day for automatic Life Path calculation.
-     * @param int|null $year Birth year to calculate Life Path automatically. Use with month and day instead of passing
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int|null $day
+     *   Birth day (1-31). Required with year and month for automatic Life Path calculation.
+     * @param int|null $expression
+     *   Your Expression number (1-9, 11, 22, 33). Optional if fullName is provided.
+     * @param string|null $fullName
+     *   Full birth name to calculate Expression number automatically. Use instead of passing
+     *   expression directly.
+     * @param int|null $lifePath
+     *   Your Life Path number (1-9, 11, 22, 33). Optional if year, month, day are provided.
+     * @param int|null $month
+     *   Birth month (1-12). Required with year and day for automatic Life Path calculation.
+     * @param int|null $year
+     *   Birth year to calculate Life Path automatically. Use with month and day instead of passing
+     *   lifePath directly.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -229,7 +263,9 @@ class NumerologyResource extends BaseResource
      *
      * @param array $person1
      * @param array $person2
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -256,10 +292,15 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/personal-day
      *
-     * @param int $day Birth day (1-31)
-     * @param int $month Birth month (1-12)
-     * @param string|null $targetDate Target date in YYYY-MM-DD format (defaults to today)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $day
+     *   Birth day (1-31)
+     * @param int $month
+     *   Birth month (1-12)
+     * @param string|null $targetDate
+     *   Target date in YYYY-MM-DD format (defaults to today)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -289,8 +330,11 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/personality
      *
-     * @param string $fullName Full birth name (consonants will be extracted)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $fullName
+     *   Full birth name (consonants will be extracted)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -315,11 +359,17 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/personal-month
      *
-     * @param int $day Birth day (1-31)
-     * @param int $month Birth month (1-12)
-     * @param int|null $targetMonth Target calendar month to forecast (1-12, defaults to current month)
-     * @param int|null $year Target year for calculation (defaults to current year)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $day
+     *   Birth day (1-31)
+     * @param int $month
+     *   Birth month (1-12)
+     * @param int|null $targetMonth
+     *   Target calendar month to forecast (1-12, defaults to current month)
+     * @param int|null $year
+     *   Target year for calculation (defaults to current year)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -349,10 +399,15 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/personal-year
      *
-     * @param int $day Birth day (1-31)
-     * @param int $month Birth month (1-12)
-     * @param int|null $year Year to calculate (defaults to current year)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $day
+     *   Birth day (1-31)
+     * @param int $month
+     *   Birth month (1-12)
+     * @param int|null $year
+     *   Year to calculate (defaults to current year)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -382,8 +437,11 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/soul-urge
      *
-     * @param string $fullName Full birth name (vowels will be extracted)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $fullName
+     *   Full birth name (vowels will be extracted)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -411,11 +469,17 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/karmic-debt
      *
-     * @param int|null $day Birth day (checks Life Path)
-     * @param string|null $fullName Full birth name (checks Expression, Soul Urge, Personality)
-     * @param int|null $month Birth month (checks Life Path)
-     * @param int|null $year Birth year (checks Life Path)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int|null $day
+     *   Birth day (checks Life Path)
+     * @param string|null $fullName
+     *   Full birth name (checks Expression, Soul Urge, Personality)
+     * @param int|null $month
+     *   Birth month (checks Life Path)
+     * @param int|null $year
+     *   Birth year (checks Life Path)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -445,12 +509,22 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/chart
      *
-     * @param int $day Birth day (1-31)
-     * @param string $fullName Full birth name as it appears on the birth certificate. Used for all letter-based Pythagor
-     * @param int $month Birth month (1-12)
-     * @param int $year Birth year between 100 and 2100. Supports historical figures like Einstein (1879) and Shak
-     * @param int|null $currentYear Year for Personal Year calculation (defaults to current year)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param int $day
+     *   Birth day (1-31)
+     * @param string $fullName
+     *   Full birth name as it appears on the birth certificate. Used for all letter-based
+     *   Pythagorean numerology calculations including Expression, Soul Urge, Personality, and Karmic
+     *   Lessons.
+     * @param int $month
+     *   Birth month (1-12)
+     * @param int $year
+     *   Birth year between 100 and 2100. Supports historical figures like Einstein (1879) and
+     *   Shakespeare (1564).
+     * @param int|null $currentYear
+     *   Year for Personal Year calculation (defaults to current year)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -480,9 +554,16 @@ class NumerologyResource extends BaseResource
      *
      * POST /numerology/daily
      *
-     * @param string|null $date Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing pas
-     * @param string|null $seed Optional seed for reproducible readings. Same seed + same date = same number every time. P
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string|null $date
+     *   Date for the reading in YYYY-MM-DD format. Defaults to today (UTC). Useful for viewing past
+     *   daily readings or pre-generating future ones.
+     * @param string|null $seed
+     *   Optional seed for reproducible readings. Same seed + same date = same number every time.
+     *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
+     *   readings.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -510,8 +591,11 @@ class NumerologyResource extends BaseResource
      *
      * GET /numerology/meanings/{number}
      *
-     * @param string $number Numerology number (1-9, 11, 22, 33)
-     * @param string|null $lang Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en. 
+     * @param string $number
+     *   Numerology number (1-9, 11, 22, 33)
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */

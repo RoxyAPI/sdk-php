@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoxyAPI\Sdk;
 
+use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Http\Response;
 
 /**
@@ -43,6 +44,16 @@ class RoxyApiException extends \RuntimeException
             errorCode: is_string($codeField) ? $codeField : 'unknown',
             statusCode: $response->status(),
             response: $response,
+        );
+    }
+
+    public static function fromFatal(FatalRequestException $e): self
+    {
+        return new self(
+            error: $e->getMessage(),
+            errorCode: 'connection_error',
+            statusCode: 0,
+            response: null,
         );
     }
 }
