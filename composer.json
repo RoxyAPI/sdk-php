@@ -1,0 +1,87 @@
+{
+    "name": "roxyapi/sdk",
+    "description": "Official PHP SDK for RoxyAPI: Western and Vedic astrology, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location, usage, and languages.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://roxyapi.com",
+    "support": {
+        "docs": "https://roxyapi.com/api-reference",
+        "issues": "https://github.com/RoxyAPI/sdk-php/issues",
+        "source": "https://github.com/RoxyAPI/sdk-php"
+    },
+    "keywords": [
+        "roxyapi",
+        "astrology",
+        "vedic-astrology",
+        "tarot",
+        "numerology",
+        "biorhythm",
+        "iching",
+        "crystals",
+        "dreams",
+        "angel-numbers",
+        "horoscope",
+        "kundli",
+        "spiritual",
+        "saloon",
+        "sdk"
+    ],
+    "require": {
+        "php": "^8.2",
+        "saloonphp/saloon": "^4.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.0",
+        "phpstan/phpstan": "^1.12",
+        "laravel/pint": "^1.18"
+    },
+    "autoload": {
+        "psr-4": {
+            "RoxyAPI\\Sdk\\": "src/"
+        },
+        "files": [
+            "src/createRoxy.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RoxyAPI\\Sdk\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "lint": [
+            "pint --test",
+            "phpstan analyse --no-progress --memory-limit=1G"
+        ],
+        "format": "pint",
+        "stan": "phpstan analyse --no-progress --memory-limit=1G"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "archive": {
+        "exclude": [
+            "/.github",
+            "/.phpstan-cache",
+            "/.phpunit.cache",
+            "/.gitignore",
+            "/assets",
+            "/composer.lock",
+            "/examples",
+            "/lefthook.yml",
+            "/package.json",
+            "/phpstan.neon",
+            "/phpunit.xml",
+            "/pint.json",
+            "/scripts",
+            "/specs",
+            "/tests"
+        ]
+    }
+}

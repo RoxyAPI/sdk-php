@@ -1,0 +1,18 @@
+{
+    "preset": "symfony",
+    "exclude": [
+        "src/Generated",
+        "tests/Generated",
+        "vendor",
+        "node_modules"
+    ],
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "phpdoc_align": {
+            "align": "left"
+        },
+        "single_quote": true
+    }
+}

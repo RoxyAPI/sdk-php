@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RoxyAPI PHP SDK + @roxyapi/ui</title>
+    <!--
+        Pattern: PHP fetches JSON from RoxyAPI server-side (so the API key never
+        leaks to the browser); the browser renders that JSON via the @roxyapi/ui
+        web components. The SDK never does HTML.
+
+        Run locally:
+            ROXY_API_KEY=your-key php -S 127.0.0.1:8080 -t examples
+        Then open http://127.0.0.1:8080/render-with-ui.html
+    -->
+    <script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@roxyapi/ui@latest/dist/cdn/roxy-ui.js"
+        crossorigin="anonymous"
+    ></script>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+        roxy-natal-chart { display: block; margin-top: 1.5rem; }
+        pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>Aries natal chart</h1>
+    <p>
+        Server endpoint <code>natal-chart.php</code> calls
+        <code>$roxy-&gt;astrology-&gt;generateNatalChart(...)</code> via the PHP SDK
+        and returns the JSON unchanged. The browser hands that JSON to
+        <code>&lt;roxy-natal-chart&gt;</code>, which renders the wheel.
+    </p>
+
+    <roxy-natal-chart id="chart"></roxy-natal-chart>
+
+    <script type="module">
+        const url = '/natal-chart.php?date=1990-01-15&time=14:30:00&lat=28.6139&lon=77.209&tz=5.5';
+        const res = await fetch(url);
+        if (!res.ok) {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                `<pre>Error: ${res.status} ${await res.text()}</pre>`,
+            );
+        } else {
+            document.getElementById('chart').data = await res.json();
+        }
+    </script>
+
+    <h2>natal-chart.php (server)</h2>
+<pre><code>&lt;?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use function RoxyAPI\Sdk\createRoxy;
+use RoxyAPI\Sdk\RoxyApiException;
+
+header('Content-Type: application/json');
+
+$roxy = createRoxy(getenv('ROXY_API_KEY') ?: '');
+try {
+    echo json_encode($roxy-&gt;astrology-&gt;generateNatalChart(
+        date:      $_GET['date'],
+        time:      $_GET['time'],
+        latitude:  (float) $_GET['lat'],
+        longitude: (float) $_GET['lon'],
+        timezone:  is_numeric($_GET['tz']) ? (float) $_GET['tz'] : $_GET['tz'],
+    ));
+} catch (RoxyApiException $e) {
+    http_response_code($e-&gt;statusCode);
+    echo json_encode(['error' =&gt; $e-&gt;error, 'code' =&gt; $e-&gt;errorCode]);
+}
+</code></pre>
+</body>
+</html>

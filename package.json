@@ -1,0 +1,14 @@
+{
+  "name": "roxyapi-sdk-php-tooling",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Codegen tooling for the roxyapi/sdk Composer package. Not published.",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "sync-docs": "node scripts/sync-docs.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

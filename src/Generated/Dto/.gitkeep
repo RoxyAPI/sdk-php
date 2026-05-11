@@ -1,0 +1,1 @@
+# Reserved for future typed response DTOs. Methods currently return array<string, mixed>.

@@ -1,0 +1,101 @@
+name: Release
+
+on:
+  repository_dispatch:
+    types: [openapi-updated]
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'patch | minor | major'
+        required: false
+        default: 'patch'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+          coverage: none
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - run: composer install --prefer-dist --no-interaction
+
+      - name: Regenerate from live OpenAPI
+        run: node scripts/generate.mjs
+
+      - name: Sync docs from spec
+        run: node scripts/sync-docs.mjs
+
+      - name: Check if spec changed
+        id: diff
+        run: |
+          OLD=$(git show HEAD:specs/openapi.json | jq -cS '{paths, components}')
+          NEW=$(jq -cS '{paths, components}' specs/openapi.json)
+          if [ "$OLD" = "$NEW" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Lint
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        run: vendor/bin/pint --test
+
+      - name: Static analysis
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+
+      - name: Test
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        run: vendor/bin/pest --no-coverage
+
+      - name: Bump version
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        id: bump
+        run: |
+          BUMP="${{ github.event.inputs.version_bump || 'patch' }}"
+          npm version "$BUMP" --no-git-tag-version
+          VERSION=$(node -p "require('./package.json').version")
+          # Mirror version into composer.json so packagist sees it on tag.
+          node -e "const fs=require('fs');const p=require('./composer.json');p.version='$VERSION';fs.writeFileSync('composer.json',JSON.stringify(p,null,4)+'\n');"
+          # Regenerate Version.php from the new package.json version.
+          node scripts/generate.mjs
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Commit, tag, push
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          VERSION="${{ steps.bump.outputs.version }}"
+          git add composer.json package.json src/Version.php specs/openapi.json src/Generated tests/Generated README.md AGENTS.md
+          git commit -m "release: v$VERSION"
+          git tag "v$VERSION"
+          git push --follow-tags
+
+      - name: Create GitHub release
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ steps.bump.outputs.version }}
+          generate_release_notes: true
+          make_latest: 'true'
+
+      - name: No changes
+        if: steps.diff.outputs.changed == 'false' && github.event_name != 'workflow_dispatch'
+        run: echo "OpenAPI spec unchanged. Nothing to release."

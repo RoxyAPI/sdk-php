@@ -1,0 +1,32 @@
+pre-commit:
+  parallel: true
+  commands:
+    pint:
+      glob: "*.php"
+      run: vendor/bin/pint {staged_files}
+      stage_fixed: true
+    phpstan:
+      run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+    docs-sync:
+      glob: "{specs/openapi.json,scripts/tag-descriptions.mjs,scripts/sync-docs.mjs}"
+      run: node scripts/sync-docs.mjs && git add README.md AGENTS.md
+      stage_fixed: true
+
+pre-push:
+  parallel: false
+  commands:
+    pint:
+      run: vendor/bin/pint --test
+      priority: 1
+    phpstan:
+      run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+      priority: 2
+    codegen-drift:
+      run: node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/Version.php || { echo 'codegen drift: commit the regenerated files'; exit 1; }
+      priority: 3
+    docs-drift:
+      run: node scripts/sync-docs.mjs && git diff --exit-code -- README.md AGENTS.md || { echo 'docs drift: commit the regenerated README.md/AGENTS.md'; exit 1; }
+      priority: 4
+    test:
+      run: vendor/bin/pest
+      priority: 5
