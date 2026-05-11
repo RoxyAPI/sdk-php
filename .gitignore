@@ -22,4 +22,7 @@ MAINTAINER-*.md
 AUDIT.md
 AUDIT-*.md
 todo.md
-docs/composer.lock
+docs
+
+# Composer lock — libraries don't ship lock files; CI resolves fresh deps per PHP version
+/composer.lock
