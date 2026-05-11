@@ -4,8 +4,7 @@ parameters:
         - src
         - tests
     excludePaths:
-        analyse:
-            - src/Generated
-            - tests/Generated
+        - src/Generated
+        - tests/Generated
     tmpDir: .phpstan-cache
     treatPhpDocTypesAsCertain: false

@@ -32,7 +32,7 @@
     },
     "require-dev": {
         "pestphp/pest": "^3.0",
-        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan": "^2.1",
         "laravel/pint": "^1.18"
     },
     "autoload": {
@@ -52,10 +52,10 @@
         "test": "pest",
         "lint": [
             "pint --test",
-            "phpstan analyse --no-progress --memory-limit=1G"
+            "phpstan analyse --no-progress --memory-limit=512M"
         ],
         "format": "pint",
-        "stan": "phpstan analyse --no-progress --memory-limit=1G"
+        "stan": "phpstan analyse --no-progress --memory-limit=512M"
     },
     "config": {
         "allow-plugins": {

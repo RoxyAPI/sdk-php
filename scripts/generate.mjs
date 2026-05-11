@@ -786,7 +786,6 @@ ${resourceMapLines}
     {
         return [
             'X-SDK-Client' => 'roxy-sdk-php/' . Version::VERSION,
-            'Accept' => 'application/json',
         ];
     }
 

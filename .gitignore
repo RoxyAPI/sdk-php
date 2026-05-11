@@ -22,4 +22,4 @@ MAINTAINER-*.md
 AUDIT.md
 AUDIT-*.md
 todo.md
-docs
+docs/composer.lock

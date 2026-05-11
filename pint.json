@@ -10,6 +10,7 @@
         "concat_space": {
             "spacing": "one"
         },
+        "declare_strict_types": true,
         "phpdoc_align": {
             "align": "left"
         },

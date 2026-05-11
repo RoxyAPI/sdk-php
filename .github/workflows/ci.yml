@@ -41,7 +41,7 @@ jobs:
 
       - name: Static analysis
         if: matrix.php == '8.2'
-        run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+        run: vendor/bin/phpstan analyse --no-progress --memory-limit=512M
 
       - name: Test
         run: vendor/bin/pest --no-coverage

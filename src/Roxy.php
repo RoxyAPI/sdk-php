@@ -93,7 +93,6 @@ class Roxy extends Connector
     {
         return [
             'X-SDK-Client' => 'roxy-sdk-php/' . Version::VERSION,
-            'Accept' => 'application/json',
         ];
     }
 
