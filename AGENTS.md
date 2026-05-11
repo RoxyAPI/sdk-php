@@ -244,3 +244,11 @@ expect($roxy->astrology->getDailyHoroscope(sign: 'aries'))->toBe([
 - MCP for AI agents: <https://roxyapi.com/docs/mcp>
 - Sibling SDKs: TypeScript (`@roxyapi/sdk`), Python (`roxy-sdk`)
 - UI components: <https://github.com/roxyapi/ui>
+
+## Quality guidelines for agents
+
+- This SDK returns `array<string, mixed>` from every method. Access fields with `$result['key']['subkey']`, never `$result->key->subkey`. Object syntax throws `Error: Attempt to read property "key" on array`.
+- Method names match the OpenAPI spec's `operationId` verbatim (already camelCase). Params are camelCase named arguments matching the spec's `requestBody.properties`, path, and query names. Response field names match the spec's `responses.200.content.application/json.schema.properties` (drill into nested `.properties` for sub-objects, `.items.properties` for array items).
+- Sub-objects are arrays, not scalars. The natal-chart `ascendant` is `['sign' => ..., 'degree' => ...]`, not a string — `echo $chart['ascendant']['sign']`, not `echo $chart['ascendant']`.
+- `RoxyApiException` is a real PHP object — `$e->statusCode`, `$e->errorCode`, `$e->error` use object syntax. Only successful response payloads are arrays.
+- When in doubt, check the SDK source: `vendor/roxyapi/sdk/src/Generated/Resources/<Tag>Resource.php` lists every method with its full signature, and `vendor/roxyapi/sdk/specs/openapi.json` is the authoritative shape. Never invent method names, parameter names, or response fields.
