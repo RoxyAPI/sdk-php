@@ -18,10 +18,11 @@ use Saloon\Traits\Body\HasJsonBody;
  * Generate natal chart - Birth chart calculator API with houses and aspects
  *
  * Calculate complete Western astrology natal chart (birth chart) with tropical zodiac. Returns
- * all 10 planetary positions (Sun through Pluto), 12 house cusps with customizable house
- * systems (Placidus, Whole Sign, Equal, Koch), major and minor aspects, Ascendant, Midheaven,
- * dominant elements and modalities. Perfect for astrology apps, birth chart generators,
- * horoscope websites, and astrological consultation tools. Verified against NASA JPL Horizons.
+ * all 14 celestial bodies (the 10 classical planets Sun through Pluto, the lunar nodes,
+ * Chiron, and Black Moon Lilith), 12 house cusps with customizable house systems (Placidus,
+ * Whole Sign, Equal, Koch), major and minor aspects, Ascendant, Midheaven, dominant elements
+ * and modalities. Perfect for astrology apps, birth chart generators, horoscope websites, and
+ * astrological consultation tools. Verified against NASA JPL Horizons.
  *
  * POST /astrology/natal-chart
  */

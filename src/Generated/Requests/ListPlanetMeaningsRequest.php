@@ -15,12 +15,12 @@ use Saloon\Http\Request;
 /**
  * Get all planet meanings - Complete astrology planet interpretations list
  *
- * Returns all 10 astrological planets (Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn,
- * Uranus, Neptune, Pluto) with essential meanings: name, symbol, tagline, category
- * (personal/social/generational), ruling sign, and short descriptions. Perfect for astrology
- * reference apps, planet meaning widgets, birth chart interpretation tools, astrology learning
- * platforms, planetary keywords reference, and zodiac planet guides. Use GET
- * /planet-meanings/{id} for complete planet profiles with detailed interpretations, keywords,
+ * Returns all 14 astrological bodies (the 10 classical planets Sun through Pluto, the lunar
+ * nodes, Chiron, and Black Moon Lilith) with essential meanings: name, symbol, tagline,
+ * category (personal/social/generational), ruling sign, and short descriptions. Perfect for
+ * astrology reference apps, planet meaning widgets, birth chart interpretation tools,
+ * astrology learning platforms, planetary keywords reference, and zodiac planet guides. Use
+ * GET /planet-meanings/{id} for complete profiles with detailed interpretations, keywords,
  * temperature, and dignities (rulership/detriment/exultation/fall).
  *
  * GET /astrology/planet-meanings

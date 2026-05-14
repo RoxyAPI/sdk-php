@@ -39,7 +39,8 @@ class AstrologyResource extends BaseResource
      * @param array|null $aspectTypes
      *   Optional: specific aspect types to find (defaults to all 9)
      * @param array|null $planets
-     *   Optional: specific planets to calculate aspects for (defaults to all 10)
+     *   Optional: specific bodies to calculate aspects for (defaults to all 14: the 10 classical
+     *   planets, the lunar nodes, Chiron, and Black Moon Lilith)
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -238,11 +239,12 @@ class AstrologyResource extends BaseResource
     /**
      * Calculate planetary transits - Current transits with natal chart comparison
      *
-     * Calculate current or future planetary transits (positions of all planets now). Optionally
-     * compare transits to natal chart to find transit-to-natal aspects. Returns all 10 planet
-     * positions with signs, degrees, and speeds. When natal chart provided, includes transit
-     * aspects (transiting Sun conjunct natal Mars, etc.) with orbs and applying/separating status.
-     * Perfect for daily transit forecasts, aspect alerts, and personalized transit reports.
+     * Calculate current or future planetary transits (positions of all bodies now). Optionally
+     * compare transits to natal chart to find transit-to-natal aspects. Returns all 14 celestial
+     * bodies (the 10 classical planets, the lunar nodes, Chiron, and Black Moon Lilith) with
+     * signs, degrees, and speeds. When natal chart provided, includes transit aspects (transiting
+     * Sun conjunct natal Mars, etc.) with orbs and applying/separating status. Perfect for daily
+     * transit forecasts, aspect alerts, and personalized transit reports.
      *
      * POST /astrology/transits
      *
@@ -368,10 +370,11 @@ class AstrologyResource extends BaseResource
      * Generate natal chart - Birth chart calculator API with houses and aspects
      *
      * Calculate complete Western astrology natal chart (birth chart) with tropical zodiac. Returns
-     * all 10 planetary positions (Sun through Pluto), 12 house cusps with customizable house
-     * systems (Placidus, Whole Sign, Equal, Koch), major and minor aspects, Ascendant, Midheaven,
-     * dominant elements and modalities. Perfect for astrology apps, birth chart generators,
-     * horoscope websites, and astrological consultation tools. Verified against NASA JPL Horizons.
+     * all 14 celestial bodies (the 10 classical planets Sun through Pluto, the lunar nodes,
+     * Chiron, and Black Moon Lilith), 12 house cusps with customizable house systems (Placidus,
+     * Whole Sign, Equal, Koch), major and minor aspects, Ascendant, Midheaven, dominant elements
+     * and modalities. Perfect for astrology apps, birth chart generators, horoscope websites, and
+     * astrological consultation tools. Verified against NASA JPL Horizons.
      *
      * POST /astrology/natal-chart
      *
@@ -663,11 +666,11 @@ class AstrologyResource extends BaseResource
     /**
      * Get planetary positions - Ephemeris calculator for all planets
      *
-     * Calculate accurate tropical zodiac positions for all 10 planets (Sun, Moon, Mercury, Venus,
-     * Mars, Jupiter, Saturn, Uranus, Neptune, Pluto) for any date, time, and location. Returns
-     * longitude, latitude, zodiac sign, degree within sign, daily motion speed, and retrograde
-     * status. Perfect for transit tracking, ephemeris tables, astrology apps, and planetary
-     * position widgets. Verified against NASA JPL Horizons.
+     * Calculate accurate tropical zodiac positions for all 14 celestial bodies (the 10 classical
+     * planets Sun through Pluto, the lunar nodes, Chiron, and Black Moon Lilith) for any date,
+     * time, and location. Returns longitude, latitude, zodiac sign, degree within sign, daily
+     * motion speed, and retrograde status. Perfect for transit tracking, ephemeris tables,
+     * astrology apps, and planetary position widgets. Verified against NASA JPL Horizons.
      *
      * POST /astrology/planets
      *
@@ -836,12 +839,12 @@ class AstrologyResource extends BaseResource
     /**
      * Get all planet meanings - Complete astrology planet interpretations list
      *
-     * Returns all 10 astrological planets (Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn,
-     * Uranus, Neptune, Pluto) with essential meanings: name, symbol, tagline, category
-     * (personal/social/generational), ruling sign, and short descriptions. Perfect for astrology
-     * reference apps, planet meaning widgets, birth chart interpretation tools, astrology learning
-     * platforms, planetary keywords reference, and zodiac planet guides. Use GET
-     * /planet-meanings/{id} for complete planet profiles with detailed interpretations, keywords,
+     * Returns all 14 astrological bodies (the 10 classical planets Sun through Pluto, the lunar
+     * nodes, Chiron, and Black Moon Lilith) with essential meanings: name, symbol, tagline,
+     * category (personal/social/generational), ruling sign, and short descriptions. Perfect for
+     * astrology reference apps, planet meaning widgets, birth chart interpretation tools,
+     * astrology learning platforms, planetary keywords reference, and zodiac planet guides. Use
+     * GET /planet-meanings/{id} for complete profiles with detailed interpretations, keywords,
      * temperature, and dignities (rulership/detriment/exultation/fall).
      *
      * GET /astrology/planet-meanings
