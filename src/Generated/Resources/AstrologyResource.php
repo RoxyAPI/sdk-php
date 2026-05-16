@@ -277,6 +277,65 @@ class AstrologyResource extends BaseResource
     }
 
     /**
+     * Detect aspect patterns - Grand Trine, Kite, T-Square, Grand Cross, Yod, Mystic Rectangle,
+     * Stellium
+     *
+     * Identify classical Western astrology multi-planet configurations in a birth chart. Returns
+     * Grand Trines (with element), Kites (with apex), T-Squares (with apex and modality), Grand
+     * Crosses (with modality), Yods (Finger of Fate, with apex), Mystic Rectangles, and Stelliums.
+     * Each pattern carries a tightness score (0-100), dissociate flag for out-of-sign
+     * configurations, and a one-line interpretation suitable for chart reports. Disambiguation is
+     * built in: a Grand Cross suppresses its contained T-Squares, a Kite suppresses its underlying
+     * Grand Trine. Useful for personalized natal report engines, astrology chatbots, AI agents
+     * that interpret chart geometry, and editorial chart-pattern callouts.
+     *
+     * POST /astrology/aspect-patterns
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $include
+     *   Comma-separated list of optional bodies to include beyond the classical 10 planets. Valid
+     *   tokens (case-insensitive): chiron, northNode (also accepts north_node, north-node,
+     *   northnode). Empty by default.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param string|null $strictOrbs
+     *   Use tighter orbs (Pontopia "optimal" recommendations). Truthy values (true, 1, yes, on;
+     *   case-insensitive) narrow trine to 5, square to 5, sextile to 4, quincunx to 2. Defaults to
+     *   false (industry-standard orbs).
+     *
+     * @return array<string, mixed>
+     */
+    public function detectAspectPatterns(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        ?string $include = null,
+        ?string $lang = null,
+        ?string $strictOrbs = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\DetectAspectPatternsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, include: $include, lang: $lang, strictOrbs: $strictOrbs);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Composite Chart - Midpoint relationship chart with interpretations
      *
      * Generate a composite chart by calculating midpoints between two natal charts. The composite

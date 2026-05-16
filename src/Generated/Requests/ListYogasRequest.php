@@ -13,12 +13,14 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List all planetary yogas - 300+ Vedic Yoga Combinations
+ * List all planetary yogas - 300+ Vedic Yoga Glossary
  *
- * Returns list of all 300+ planetary yogas (astrological combinations) with basic information
- * (id and name only). Use this to discover available yogas, then call GET /yogas/:id for
- * detailed information. Perfect for building yoga browser interfaces, search functionality,
- * and progressive data loading in astrology apps.
+ * Browse the 300+ entry Vedic planetary-yoga glossary. Returns id and name for every cataloged
+ * yoga (Raja, Dhana, Pancha Mahapurusha, Nabhasa, Chandra-Mangala, and more). This is a
+ * dictionary lookup, not chart-driven detection: it does not inspect a birth chart. Use GET
+ * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run the 12 classical
+ * detection rules against a specific kundli. Ideal for yoga-browser UIs, search, and
+ * progressive data loading.
  *
  * GET /vedic-astrology/yoga
  */

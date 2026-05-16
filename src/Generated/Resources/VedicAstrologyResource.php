@@ -445,6 +445,61 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Detect classical Vedic yogas in a birth chart
+     *
+     * Chart-driven detection of 12 classical Vedic yogas: Gajakesari (parashara three-rule
+     * definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra Mangala, Budha-Aditya, and the
+     * five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa, Malavya, Sasa). Each yoga is returned
+     * with a present boolean and a classical-text evidence string naming the rule that triggered
+     * or failed (kendra position, dignity, malefic drishti, lordship, retrograde state). Unlike
+     * GET /yoga and GET /yoga/{id} which are dictionary lookups, this endpoint computes the kundli
+     * from birth data and runs the detection rules. Sources: BPHS ch. 75, Mantreswara Phaladeepika
+     * ch. 6, B.V. Raman Three Hundred Important Combinations.
+     *
+     * POST /vedic-astrology/yoga/detect
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
+     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
+     *   predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
+     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function detectYogas(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\DetectYogasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get birth chart (D1 Rashi chart) - Kundli Calculator API
      *
      * Calculate complete Vedic birth chart (Janam Kundli, natal chart) with all 9 planetary
@@ -1746,12 +1801,14 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
-     * Get yoga details by ID - Detailed Yoga Information API
+     * Get yoga details by ID - Vedic Yoga Glossary Entry
      *
-     * Returns complete details for a specific yoga including formation conditions,
-     * results/effects, and quality (Positive/Negative/Both). Use GET /yogas first to get the list
-     * of IDs. Provides in-depth information about each planetary combination. Perfect for yoga
-     * detail pages, educational content, and astrological interpretation in horoscope apps.
+     * Look up the dictionary entry for a specific named yoga from the 300-entry Vedic
+     * planetary-yoga glossary. Returns formation conditions, life results, and quality
+     * classification (Positive/Negative/Both). This is a glossary lookup against the static
+     * catalog; it does NOT analyze a birth chart. For chart-driven present/absent verdicts on the
+     * 12 classical detection-grade yogas (Gajakesari, Pancha Mahapurusha, etc.) call POST
+     * /yoga/detect with birth data.
      *
      * GET /vedic-astrology/yoga/{id}
      *
@@ -1825,12 +1882,14 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
-     * List all planetary yogas - 300+ Vedic Yoga Combinations
+     * List all planetary yogas - 300+ Vedic Yoga Glossary
      *
-     * Returns list of all 300+ planetary yogas (astrological combinations) with basic information
-     * (id and name only). Use this to discover available yogas, then call GET /yogas/:id for
-     * detailed information. Perfect for building yoga browser interfaces, search functionality,
-     * and progressive data loading in astrology apps.
+     * Browse the 300+ entry Vedic planetary-yoga glossary. Returns id and name for every cataloged
+     * yoga (Raja, Dhana, Pancha Mahapurusha, Nabhasa, Chandra-Mangala, and more). This is a
+     * dictionary lookup, not chart-driven detection: it does not inspect a birth chart. Use GET
+     * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run the 12 classical
+     * detection rules against a specific kundli. Ideal for yoga-browser UIs, search, and
+     * progressive data loading.
      *
      * GET /vedic-astrology/yoga
      *

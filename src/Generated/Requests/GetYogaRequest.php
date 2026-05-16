@@ -13,12 +13,14 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get yoga details by ID - Detailed Yoga Information API
+ * Get yoga details by ID - Vedic Yoga Glossary Entry
  *
- * Returns complete details for a specific yoga including formation conditions,
- * results/effects, and quality (Positive/Negative/Both). Use GET /yogas first to get the list
- * of IDs. Provides in-depth information about each planetary combination. Perfect for yoga
- * detail pages, educational content, and astrological interpretation in horoscope apps.
+ * Look up the dictionary entry for a specific named yoga from the 300-entry Vedic
+ * planetary-yoga glossary. Returns formation conditions, life results, and quality
+ * classification (Positive/Negative/Both). This is a glossary lookup against the static
+ * catalog; it does NOT analyze a birth chart. For chart-driven present/absent verdicts on the
+ * 12 classical detection-grade yogas (Gajakesari, Pancha Mahapurusha, etc.) call POST
+ * /yoga/detect with birth data.
  *
  * GET /vedic-astrology/yoga/{id}
  */
