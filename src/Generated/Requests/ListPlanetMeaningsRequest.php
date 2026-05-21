@@ -21,7 +21,7 @@ use Saloon\Http\Request;
  * astrology reference apps, planet meaning widgets, birth chart interpretation tools,
  * astrology learning platforms, planetary keywords reference, and zodiac planet guides. Use
  * GET /planet-meanings/{id} for complete profiles with detailed interpretations, keywords,
- * temperature, and dignities (rulership/detriment/exultation/fall).
+ * temperature, and dignities (rulership/detriment/exaltation/fall).
  *
  * GET /astrology/planet-meanings
  */

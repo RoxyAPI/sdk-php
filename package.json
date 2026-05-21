@@ -1,7 +1,7 @@
 {
   "name": "roxyapi-sdk-php-tooling",
   "private": true,
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Codegen tooling for the roxyapi/sdk Composer package. Not published.",
   "type": "module",
   "scripts": {

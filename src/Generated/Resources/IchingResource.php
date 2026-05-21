@@ -218,7 +218,7 @@ class IchingResource extends BaseResource
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
      * @param int|null $limit
-     *   Maximum items to return per page. Range: 1-20, default 20.
+     *   Maximum items to return per page. Range: 1-64, default 20.
      * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *

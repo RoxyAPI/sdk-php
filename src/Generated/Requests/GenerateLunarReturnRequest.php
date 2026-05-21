@@ -17,7 +17,7 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Lunar Return Chart - Monthly emotional forecast with Moon cycle chart
  *
- * Generate a lunar return chart for any month — cast for the exact moment the transiting Moon
+ * Generate a lunar return chart for any month, cast for the exact moment the transiting Moon
  * returns to its natal ecliptic longitude. The Moon completes one sidereal orbit every ~27.3
  * days, making this the primary technique for monthly astrological forecasting. Returns full
  * tropical zodiac chart with planetary positions, house cusps, aspects, Ascendant, and

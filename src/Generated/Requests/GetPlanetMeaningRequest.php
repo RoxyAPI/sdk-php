@@ -19,7 +19,7 @@ use Saloon\Http\Request;
  * (e.g., "sun", "moon") or case-insensitive name (e.g., "Sun", "MOON"). Returns complete
  * astrology meaning including: symbol, tagline, category (personal/social/generational),
  * temperature, orbital period, retrograde status, dignities
- * (rulership/detriment/exultation/fall), positive and negative keywords, and short/long
+ * (rulership/detriment/exaltation/fall), positive and negative keywords, and short/long
  * descriptions. Perfect for birth chart readings, planet meaning lookups, astrology education,
  * natal chart interpretation, transit meanings, planetary symbolism reference, and
  * keyword-based interpretations.

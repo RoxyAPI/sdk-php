@@ -112,12 +112,12 @@ class AstrologyResource extends BaseResource
      *   Birth date in YYYY-MM-DD format. Date is critical for house cusp calculations as it
      *   determines planetary positions used in some house systems.
      * @param float $latitude
-     *   Birth location latitude in decimal degrees. Location determines the local horizon and
-     *   meridian, which are fundamental to house division. Higher latitudes cause more distortion in
-     *   time-based systems like Placidus.
+     *   Birth location latitude in decimal degrees (-90 to 90). Location determines the local
+     *   horizon and meridian, which are fundamental to house division. Higher latitudes cause more
+     *   distortion in time-based systems like Placidus.
      * @param float $longitude
-     *   Birth location longitude in decimal degrees. Affects local time and horizon calculations for
-     *   house cusps.
+     *   Birth location longitude in decimal degrees (-180 to 180). Affects local time and horizon
+     *   calculations for house cusps.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is ESSENTIAL for accurate house cusps - even
      *   minutes matter. The Ascendant (1st house cusp) changes roughly every 4 minutes. Without
@@ -373,7 +373,7 @@ class AstrologyResource extends BaseResource
     /**
      * Lunar Return Chart - Monthly emotional forecast with Moon cycle chart
      *
-     * Generate a lunar return chart for any month — cast for the exact moment the transiting Moon
+     * Generate a lunar return chart for any month, cast for the exact moment the transiting Moon
      * returns to its natal ecliptic longitude. The Moon completes one sidereal orbit every ~27.3
      * days, making this the primary technique for monthly astrological forecasting. Returns full
      * tropical zodiac chart with planetary positions, house cusps, aspects, Ascendant, and
@@ -390,11 +390,11 @@ class AstrologyResource extends BaseResource
      *   Original birth time in 24-hour HH:MM:SS format. Determines exact natal Moon position for
      *   monthly return timing.
      * @param float $latitude
-     *   Latitude of the lunar return location in decimal degrees. Affects the Ascendant and house
-     *   cusps of the return chart.
+     *   Latitude of the lunar return location in decimal degrees (-90 to 90). Affects the Ascendant
+     *   and house cusps of the return chart.
      * @param float $longitude
-     *   Longitude of the lunar return location in decimal degrees. Determines local sidereal time
-     *   for house calculations.
+     *   Longitude of the lunar return location in decimal degrees (-180 to 180). Determines local
+     *   sidereal time for house calculations.
      * @param string $returnDate
      *   Approximate date near the desired lunar return (YYYY-MM-DD). The Moon returns to its natal
      *   position every ~27.3 days, so provide a date within a few days of the expected return.
@@ -492,7 +492,7 @@ class AstrologyResource extends BaseResource
      *
      * @param string $approximateDate
      *   Approximate date near the expected planetary return (YYYY-MM-DD). Provide a date within the
-     *   expected return window — the algorithm searches from this starting point.
+     *   expected return window. The algorithm searches from this starting point.
      * @param string $birthDate
      *   Original birth date in YYYY-MM-DD format. Used to determine the natal longitude of the
      *   selected planet.
@@ -500,10 +500,10 @@ class AstrologyResource extends BaseResource
      *   Original birth time in 24-hour HH:MM:SS format. Determines exact natal planet position for
      *   return timing.
      * @param float $latitude
-     *   Latitude of the return location in decimal degrees. Affects house cusps and Ascendant of the
-     *   return chart.
+     *   Latitude of the return location in decimal degrees (-90 to 90). Affects house cusps and
+     *   Ascendant of the return chart.
      * @param float $longitude
-     *   Longitude of the return location in decimal degrees.
+     *   Longitude of the return location in decimal degrees (-180 to 180).
      * @param string $planet
      *   Planet for the return calculation. Supports Mercury (~88 days), Venus (~225 days), Mars
      *   (~687 days), Jupiter (~12 years), and Saturn (~29 years). Saturn return is a major life
@@ -539,7 +539,7 @@ class AstrologyResource extends BaseResource
     /**
      * Solar Return Chart - Annual birthday forecast with relocated chart
      *
-     * Generate a solar return chart for any year — the foundational technique for annual
+     * Generate a solar return chart for any year, the foundational technique for annual
      * astrological forecasting. The chart is cast for the exact moment the transiting Sun returns
      * to its natal ecliptic longitude (your astrological birthday). Returns full tropical zodiac
      * chart with planetary positions, house cusps, aspects, Ascendant, and Midheaven.
@@ -556,11 +556,11 @@ class AstrologyResource extends BaseResource
      *   Original birth time in 24-hour HH:MM:SS format. Determines exact natal Sun position for
      *   annual return timing.
      * @param float $latitude
-     *   Latitude of the solar return location in decimal degrees. Use current residence or travel
-     *   location at time of birthday — solar return charts are location-sensitive.
+     *   Latitude of the solar return location in decimal degrees (-90 to 90). Use current residence
+     *   or travel location at time of birthday. Solar return charts are location-sensitive.
      * @param float $longitude
-     *   Longitude of the solar return location in decimal degrees. Affects house cusps and Ascendant
-     *   of the return chart.
+     *   Longitude of the solar return location in decimal degrees (-180 to 180). Affects house cusps
+     *   and Ascendant of the return chart.
      * @param int $returnYear
      *   Year for which to cast the solar return chart. The chart is erected for the exact moment the
      *   transiting Sun conjuncts the natal Sun longitude in this year.
@@ -778,7 +778,7 @@ class AstrologyResource extends BaseResource
      * (e.g., "sun", "moon") or case-insensitive name (e.g., "Sun", "MOON"). Returns complete
      * astrology meaning including: symbol, tagline, category (personal/social/generational),
      * temperature, orbital period, retrograde status, dignities
-     * (rulership/detriment/exultation/fall), positive and negative keywords, and short/long
+     * (rulership/detriment/exaltation/fall), positive and negative keywords, and short/long
      * descriptions. Perfect for birth chart readings, planet meaning lookups, astrology education,
      * natal chart interpretation, transit meanings, planetary symbolism reference, and
      * keyword-based interpretations.
@@ -904,7 +904,7 @@ class AstrologyResource extends BaseResource
      * astrology reference apps, planet meaning widgets, birth chart interpretation tools,
      * astrology learning platforms, planetary keywords reference, and zodiac planet guides. Use
      * GET /planet-meanings/{id} for complete profiles with detailed interpretations, keywords,
-     * temperature, and dignities (rulership/detriment/exultation/fall).
+     * temperature, and dignities (rulership/detriment/exaltation/fall).
      *
      * GET /astrology/planet-meanings
      *

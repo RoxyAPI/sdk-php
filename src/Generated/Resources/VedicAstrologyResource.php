@@ -44,9 +44,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -219,9 +219,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -322,9 +322,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -371,9 +371,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -420,9 +420,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -471,9 +471,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -523,9 +523,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -584,9 +584,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -689,9 +689,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -821,9 +821,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -979,7 +979,7 @@ class VedicAstrologyResource extends BaseResource
      *
      * @param string|null $date
      *   Date for ayanamsa calculation in YYYY-MM-DD format. Defaults to today if not provided.
-     *   Ayanamsa changes by ~0.01° per month due to Earth's precession.
+     *   Ayanamsa changes by ~0.01 degrees per month due to the precession of Earth.
      *
      * @return array<string, mixed>
      */
@@ -1417,9 +1417,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -1642,9 +1642,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -1722,9 +1722,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
@@ -1776,9 +1776,9 @@ class VedicAstrologyResource extends BaseResource
      *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
      * @param string $time
      *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
-     *   and house divisions - changes every ~2 hours. Even minutes matter for accurate nakshatra
-     *   pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and house-based
-     *   predictions will be incorrect.
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
      *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for

@@ -17,7 +17,7 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Solar Return Chart - Annual birthday forecast with relocated chart
  *
- * Generate a solar return chart for any year — the foundational technique for annual
+ * Generate a solar return chart for any year, the foundational technique for annual
  * astrological forecasting. The chart is cast for the exact moment the transiting Sun returns
  * to its natal ecliptic longitude (your astrological birthday). Returns full tropical zodiac
  * chart with planetary positions, house cusps, aspects, Ascendant, and Midheaven.
