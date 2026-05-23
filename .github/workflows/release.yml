@@ -82,7 +82,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           VERSION="${{ steps.bump.outputs.version }}"
-          git add composer.json package.json src/Version.php specs/openapi.json src/Generated tests/Generated README.md AGENTS.md
+          git add composer.json package.json src/Version.php specs/openapi.json src/Roxy.php src/Generated tests/Generated README.md AGENTS.md
           git commit -m "release: v$VERSION"
           git tag "v$VERSION"
           git push --follow-tags

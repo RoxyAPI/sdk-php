@@ -15,31 +15,31 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Solar Return Chart - Annual birthday forecast with relocated chart
+ * Solar return chart - Annual birthday forecast chart for a single subject
  *
- * Generate a solar return chart for any year, the foundational technique for annual
- * astrological forecasting. The chart is cast for the exact moment the transiting Sun returns
- * to its natal ecliptic longitude (your astrological birthday). Returns full tropical zodiac
- * chart with planetary positions, house cusps, aspects, Ascendant, and Midheaven.
- * Location-sensitive: relocating your solar return chart to a different city changes the
- * houses and Ascendant. Solar return chart API, annual horoscope forecast, birthday chart
- * calculator, yearly astrology prediction, relocated solar return.
+ * Cast the solar return chart for one subject and year: the chart erected for the exact moment
+ * the transiting Sun returns to its natal ecliptic longitude, the foundational technique for
+ * annual astrological forecasting. Returns the full tropical chart with planetary positions,
+ * house cusps, aspects, Ascendant, and Midheaven. Location-sensitive: pass the birthplace to
+ * anchor the chart to natal geography, or the current city for a relocated solar return where
+ * the houses and Ascendant shift to where you are on your birthday. Built for year-ahead
+ * forecast tools, birthday charts, and annual horoscope features.
  *
- * POST /astrology/solar-return
+ * POST /forecast/solar-return
  */
-class GenerateSolarReturnRequest extends Request implements HasBody
+class ForecastSolarReturnRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly string $birthDate,
-        public readonly string $birthTime,
+        public readonly string $date,
         public readonly float $latitude,
         public readonly float $longitude,
-        public readonly int $returnYear,
+        public readonly string $time,
         public readonly mixed $timezone,
+        public readonly int $year,
         public readonly ?string $houseSystem = null,
         public readonly ?string $lang = null,
     ) {
@@ -47,7 +47,7 @@ class GenerateSolarReturnRequest extends Request implements HasBody
 
     public function resolveEndpoint(): string
     {
-        return "/astrology/solar-return";
+        return "/forecast/solar-return";
     }
 
     /**
@@ -56,15 +56,15 @@ class GenerateSolarReturnRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
-        $body['birthDate'] = $this->birthDate;
-        $body['birthTime'] = $this->birthTime;
+        $body['date'] = $this->date;
         if ($this->houseSystem !== null) {
             $body['houseSystem'] = $this->houseSystem;
         }
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
-        $body['returnYear'] = $this->returnYear;
+        $body['time'] = $this->time;
         $body['timezone'] = $this->timezone;
+        $body['year'] = $this->year;
 
         return $body;
     }

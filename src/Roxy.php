@@ -19,6 +19,8 @@ use RoxyAPI\Sdk\Generated\Resources\AstrologyResource;
 use RoxyAPI\Sdk\Generated\Resources\BiorhythmResource;
 use RoxyAPI\Sdk\Generated\Resources\CrystalsResource;
 use RoxyAPI\Sdk\Generated\Resources\DreamsResource;
+use RoxyAPI\Sdk\Generated\Resources\ForecastResource;
+use RoxyAPI\Sdk\Generated\Resources\HumanDesignResource;
 use RoxyAPI\Sdk\Generated\Resources\IchingResource;
 use RoxyAPI\Sdk\Generated\Resources\LanguagesResource;
 use RoxyAPI\Sdk\Generated\Resources\LocationResource;
@@ -39,6 +41,8 @@ use Saloon\Traits\Plugins\AcceptsJson;
  * @property BiorhythmResource $biorhythm
  * @property CrystalsResource $crystals
  * @property DreamsResource $dreams
+ * @property ForecastResource $forecast
+ * @property HumanDesignResource $humanDesign
  * @property IchingResource $iching
  * @property LanguagesResource $languages
  * @property LocationResource $location
@@ -60,6 +64,8 @@ class Roxy extends Connector
         'biorhythm' => BiorhythmResource::class,
         'crystals' => CrystalsResource::class,
         'dreams' => DreamsResource::class,
+        'forecast' => ForecastResource::class,
+        'humanDesign' => HumanDesignResource::class,
         'iching' => IchingResource::class,
         'languages' => LanguagesResource::class,
         'location' => LocationResource::class,
