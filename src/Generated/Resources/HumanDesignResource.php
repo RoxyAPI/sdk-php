@@ -191,6 +191,39 @@ class HumanDesignResource extends BaseResource
     }
 
     /**
+     * Calculate Human Design Penta - Small-group BG5 operating system for three to five people
+     *
+     * Calculate the Human Design Penta (BG5, Base Group 5) for a small group of three to five
+     * people. The Penta is a trans-auric form built from a fixed set of six channels running only
+     * between the Sacral, the G Center, and the Throat. It reports which of the twelve Penta gates
+     * are filled and by whom, which of the six channels are defined Strengths, the upper
+     * leadership channels versus the lower generative channels, the 2/14 material core, and the
+     * functional gaps where no member supplies a role. Built for team, family, and group analysis
+     * tools. Below three people no Penta forms and above five a second Penta emerges, so the group
+     * size must be three to five.
+     *
+     * POST /human-design/penta
+     *
+     * @param array $members
+     *   Birth moments of the three to five people in the group. Below three no Penta forms; above
+     *   five a second Penta emerges.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculatePenta(
+        array $members,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculatePentaRequest(members: $members, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Calculate the Human Design profile and line keynotes
      *
      * Calculate the Human Design profile for a birth moment: the conscious Personality Sun line
@@ -278,6 +311,57 @@ class HumanDesignResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateTypeRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Calculate Human Design Variables - The four arrows and Color, Tone, Base substructure
+     *
+     * Calculate the four Human Design Variable arrows for a birth moment: Determination and
+     * Environment on the design side, Perspective and Motivation on the personality side. Each
+     * arrow returns its Color, Tone, and Base numbers from the hexagram-line substructure, the
+     * left or right direction set by the Tone, and the sourced Color and direction labels. This is
+     * the advanced Rave Variables and Primary Health System layer beneath Type, Strategy,
+     * Authority, and Profile. Color, Tone, and Base shift with tiny differences in birth time, so
+     * each arrow carries a confidence flag that turns false near a Color or Tone boundary, and a
+     * precise birth time is essential. Built for Human Design apps offering PHS, diet,
+     * environment, and Rave Psychology readings.
+     *
+     * POST /human-design/variables
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. The anchor for both the Personality activations at birth
+     *   and the Design activations 88 degrees of solar arc earlier.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
+     *   boundaries shift with the exact minute of birth.
+     * @param mixed $timezone
+     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
+     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
+     *   400 with a validation error.
+     * @param float|null $latitude
+     *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
+     *   only on ecliptic longitudes. Defaults to 0.
+     * @param float|null $longitude
+     *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
+     *   0.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateVariables(
+        string $date,
+        string $time,
+        mixed $timezone,
+        ?float $latitude = null,
+        ?float $longitude = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateVariablesRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
 
         return $this->callRequest($request);
     }

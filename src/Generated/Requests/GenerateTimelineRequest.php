@@ -33,6 +33,7 @@ class GenerateTimelineRequest extends Request implements HasBody
 
     public function __construct(
         public readonly array $birthData,
+        public readonly ?array $domainWeights = null,
         public readonly ?array $domains = null,
         public readonly ?string $endDate = null,
         public readonly ?float $minSignificance = null,
@@ -53,6 +54,9 @@ class GenerateTimelineRequest extends Request implements HasBody
     {
         $body = [];
         $body['birthData'] = $this->birthData;
+        if ($this->domainWeights !== null) {
+            $body['domainWeights'] = $this->domainWeights;
+        }
         if ($this->domains !== null) {
             $body['domains'] = $this->domains;
         }

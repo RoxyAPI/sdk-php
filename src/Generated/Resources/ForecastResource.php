@@ -33,6 +33,10 @@ class ForecastResource extends BaseResource
      *
      * @param array $birthData
      *   The single birth subject this forecast is built for. One object only, never an array.
+     * @param array|null $domainWeights
+     *   Per-domain significance multipliers applied before the significance floor and event cap.
+     *   Bias which domains survive filtering and the cap. Omitted domains default to a weight of 1.
+     *   Valid keys are western, vedic, and biorhythm.
      * @param array|null $domains
      *   Which forecast domains to consider before filtering by significance. Defaults to all three.
      * @param string|null $endDate
@@ -50,6 +54,7 @@ class ForecastResource extends BaseResource
      */
     public function findSignificantDates(
         array $birthData,
+        ?array $domainWeights = null,
         ?array $domains = null,
         ?string $endDate = null,
         ?float $minSignificance = null,
@@ -57,7 +62,7 @@ class ForecastResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\FindSignificantDatesRequest(birthData: $birthData, domains: $domains, endDate: $endDate, minSignificance: $minSignificance, startDate: $startDate, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\FindSignificantDatesRequest(birthData: $birthData, domainWeights: $domainWeights, domains: $domains, endDate: $endDate, minSignificance: $minSignificance, startDate: $startDate, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -103,6 +108,112 @@ class ForecastResource extends BaseResource
     }
 
     /**
+     * Forecast digest - Pre-summarized next 24h, 7d, 30d, and 90d rollups
+     *
+     * Roll the cross-domain forecast for a single birth subject into four pre-summarized windows:
+     * the next 24 hours, 7 days, 30 days, and 90 days from the start date. Each window returns its
+     * event count, a per-domain count breakdown, a per-type count breakdown, and the top
+     * highest-significance events. Built for a glanceable what-is-coming strip so a caller can
+     * render the upcoming highlights without scanning the full event list.
+     *
+     * POST /forecast/digest
+     *
+     * @param array $birthData
+     *   The single birth subject this digest is built for. One object only, never an array.
+     * @param array|null $domainWeights
+     *   Per-domain significance multipliers applied before the significance floor and event cap.
+     *   Bias which domains survive filtering and the cap. Omitted domains default to a weight of 1.
+     *   Valid keys are western, vedic, and biorhythm.
+     * @param array|null $domains
+     *   Which forecast domains to include before rolling up the windows. Defaults to all three.
+     * @param float|null $minSignificance
+     *   Drop events scoring below this significance threshold from 0 to 100 before the rollup.
+     *   Defaults to 0.
+     * @param string|null $startDate
+     *   Start anchor for every window in YYYY-MM-DD format. The next 24h, 7d, 30d, and 90d windows
+     *   are measured forward from this date at 00:00:00 UTC. Defaults to today in UTC.
+     * @param int|null $top
+     *   Number of highest-significance events to surface per window. Defaults to 3, capped at 20.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateDigest(
+        array $birthData,
+        ?array $domainWeights = null,
+        ?array $domains = null,
+        ?float $minSignificance = null,
+        ?string $startDate = null,
+        ?int $top = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateDigestRequest(birthData: $birthData, domainWeights: $domainWeights, domains: $domains, minSignificance: $minSignificance, startDate: $startDate, top: $top, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Solar return chart - Annual birthday forecast chart for a single subject
+     *
+     * Cast the solar return chart for one subject and year: the chart erected for the exact moment
+     * the transiting Sun returns to its natal ecliptic longitude, the foundational technique for
+     * annual astrological forecasting. Returns the full tropical chart with planetary positions,
+     * house cusps, aspects, Ascendant, and Midheaven. Location-sensitive: pass the birthplace to
+     * anchor the chart to natal geography, or the current city for a relocated solar return where
+     * the houses and Ascendant shift to where you are on your birthday. Built for year-ahead
+     * forecast tools, birthday charts, and annual horoscope features.
+     *
+     * POST /forecast/solar-return
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Anchors the natal Sun longitude the transiting Sun returns
+     *   to each year.
+     * @param float $latitude
+     *   Latitude of the solar return location in decimal degrees. The solar return is
+     *   location-sensitive: use the birthplace to anchor the chart to natal geography, or the
+     *   current city for a relocated solar return.
+     * @param float $longitude
+     *   Longitude of the solar return location in decimal degrees. Sets the local sidereal time, so
+     *   it drives the Ascendant, Midheaven, and house cusps of the return chart.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Pins the exact natal Sun position that defines the
+     *   solar return moment.
+     * @param mixed $timezone
+     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
+     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
+     *   400 with a validation error.
+     * @param int $year
+     *   Year to cast the solar return for. The chart is erected for the moment in this year when the
+     *   transiting Sun returns to the natal Sun longitude, on or within a day of the birthday.
+     * @param string|null $houseSystem
+     *   House system for the return chart. placidus is the Western default. whole-sign, equal, and
+     *   koch are also supported.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateSolarReturn(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        int $year,
+        ?string $houseSystem = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateSolarReturnRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, year: $year, houseSystem: $houseSystem, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Cross-domain forecast timeline - Transits, ingresses, stations, dasha changes, critical days
      *
      * Build one time-ordered forecast for a single birth subject by merging upcoming events across
@@ -115,6 +226,10 @@ class ForecastResource extends BaseResource
      *
      * @param array $birthData
      *   The single birth subject this forecast is built for. One object only, never an array.
+     * @param array|null $domainWeights
+     *   Per-domain significance multipliers applied before the significance floor and event cap.
+     *   Bias which domains survive filtering and the cap. Omitted domains default to a weight of 1.
+     *   Valid keys are western, vedic, and biorhythm.
      * @param array|null $domains
      *   Which forecast domains to include. Defaults to all three. Pass a subset to scope the
      *   timeline to one or two engines.
@@ -134,6 +249,7 @@ class ForecastResource extends BaseResource
      */
     public function generateTimeline(
         array $birthData,
+        ?array $domainWeights = null,
         ?array $domains = null,
         ?string $endDate = null,
         ?float $minSignificance = null,
@@ -141,7 +257,7 @@ class ForecastResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateTimelineRequest(birthData: $birthData, domains: $domains, endDate: $endDate, minSignificance: $minSignificance, startDate: $startDate, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateTimelineRequest(birthData: $birthData, domainWeights: $domainWeights, domains: $domains, endDate: $endDate, minSignificance: $minSignificance, startDate: $startDate, lang: $lang);
 
         return $this->callRequest($request);
     }

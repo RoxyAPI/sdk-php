@@ -15,18 +15,17 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Significant dates - High-significance cross-domain forecast highlights
+ * Forecast digest - Pre-summarized next 24h, 7d, 30d, and 90d rollups
  *
- * Return only the high-significance dates from the merged cross-domain forecast for a single
- * birth subject: the rare outer-planet exact transit aspects, slow-planet sign ingresses,
- * retrograde stations, and Vimshottari mahadasha and antardasha changes that mark genuine
- * turning points. Defaults to a significance floor of 70 so the response is a short list of
- * the most meaningful upcoming dates. Built for what-is-coming highlights, timing alerts, and
- * at-a-glance forecast strips.
+ * Roll the cross-domain forecast for a single birth subject into four pre-summarized windows:
+ * the next 24 hours, 7 days, 30 days, and 90 days from the start date. Each window returns its
+ * event count, a per-domain count breakdown, a per-type count breakdown, and the top
+ * highest-significance events. Built for a glanceable what-is-coming strip so a caller can
+ * render the upcoming highlights without scanning the full event list.
  *
- * POST /forecast/significant-dates
+ * POST /forecast/digest
  */
-class FindSignificantDatesRequest extends Request implements HasBody
+class GenerateDigestRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -36,16 +35,16 @@ class FindSignificantDatesRequest extends Request implements HasBody
         public readonly array $birthData,
         public readonly ?array $domainWeights = null,
         public readonly ?array $domains = null,
-        public readonly ?string $endDate = null,
         public readonly ?float $minSignificance = null,
         public readonly ?string $startDate = null,
+        public readonly ?int $top = null,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/forecast/significant-dates";
+        return "/forecast/digest";
     }
 
     /**
@@ -61,14 +60,14 @@ class FindSignificantDatesRequest extends Request implements HasBody
         if ($this->domains !== null) {
             $body['domains'] = $this->domains;
         }
-        if ($this->endDate !== null) {
-            $body['endDate'] = $this->endDate;
-        }
         if ($this->minSignificance !== null) {
             $body['minSignificance'] = $this->minSignificance;
         }
         if ($this->startDate !== null) {
             $body['startDate'] = $this->startDate;
+        }
+        if ($this->top !== null) {
+            $body['top'] = $this->top;
         }
 
         return $body;
