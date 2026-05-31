@@ -52,7 +52,7 @@ $result = $roxy->location->searchCities(q: 'Mumbai');
 | `$roxy->languages` | 1 | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
 <!-- END:DOMAINS -->
 
-131 endpoints across 10 product domains plus usage and languages. Counts auto-sync from `specs/openapi.json` at release time.
+148 endpoints across 12 product domains plus usage and languages. Counts auto-sync from `specs/openapi.json` at release time.
 
 ## Critical patterns
 

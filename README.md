@@ -9,7 +9,7 @@
 [![Packagist](https://img.shields.io/packagist/v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 [![PHP Version](https://img.shields.io/packagist/php-v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 
-Official PHP SDK for [RoxyAPI](https://roxyapi.com): Western and Vedic astrology, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location geocoding, and more. 131 endpoints across 12 domains, one API key, one dependency (Saloon).
+Official PHP SDK for [RoxyAPI](https://roxyapi.com): Western and Vedic astrology, Human Design, forecast timelines, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location geocoding, and more. 148 endpoints across 12 domains, one API key, one dependency (Saloon).
 
 ## Install
 
@@ -131,6 +131,8 @@ $result = $roxy->astrology->getDailyHoroscope(sign: 'aries');
 
 - `examples/vanilla-php.php` - raw PHP, prints a horoscope
 - `examples/laravel.php` - Laravel service provider snippet
+- `examples/human-design.php` - full Human Design bodygraph, prints type, strategy, and profile
+- `examples/forecast.php` - cross-domain forecast timeline, prints the event count and a sample event
 - `examples/render-with-ui.html` - server-side fetch + browser render via `@roxyapi/ui`
 
 ## Documentation
