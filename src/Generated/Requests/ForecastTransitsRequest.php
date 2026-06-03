@@ -15,13 +15,13 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Western transit forecast - Transit aspects, sign ingresses, retrograde stations
+ * Western astrology forecast - aspects, ingresses, stations, eclipses, moon phases
  *
  * Forecast the western astrology events for a single birth chart over a window up to 90 days:
  * every transit-to-natal major aspect refined to its exact instant, every transiting planet
- * sign ingress, and every retrograde or direct station. Returns a time-ordered,
- * significance-scored timeline. Built for astrology forecast feeds, transit alerts, and timing
- * tools.
+ * sign ingress, every retrograde or direct station, every solar and lunar eclipse, and every
+ * New and Full Moon. Returns a time-ordered, significance-scored timeline. Built for astrology
+ * forecast feeds, transit alerts, and timing tools.
  *
  * POST /forecast/transits
  */

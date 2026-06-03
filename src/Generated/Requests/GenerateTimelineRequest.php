@@ -18,10 +18,11 @@ use Saloon\Traits\Body\HasJsonBody;
  * Cross-domain forecast timeline - Transits, ingresses, stations, dasha changes, critical days
  *
  * Build one time-ordered forecast for a single birth subject by merging upcoming events across
- * three domains: western transit-to-natal aspects, sign ingresses, and retrograde stations;
- * vedic Vimshottari mahadasha and antardasha boundaries; and biorhythm critical days. The
- * window is clamped to 90 days and events are capped and scored by significance. Built for
- * what-is-coming dashboards, daily and weekly forecast feeds, and timing tools.
+ * three domains: western transit-to-natal aspects, sign ingresses, retrograde stations,
+ * eclipses, and new and full moons; biorhythm critical days; and vedic Vimshottari mahadasha,
+ * antardasha, and pratyantardasha boundaries. The window is clamped to 90 days and events are
+ * capped and scored by significance. Built for what-is-coming dashboards, daily and weekly
+ * forecast feeds, and timing tools.
  *
  * POST /forecast/timeline
  */
