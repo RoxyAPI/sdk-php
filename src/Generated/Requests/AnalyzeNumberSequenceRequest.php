@@ -17,9 +17,11 @@ use Saloon\Http\Request;
  *
  * Smart angel number analysis that works for ANY number sequence, not just known angel
  * numbers. Automatically classifies the pattern type (repeating, sequential, mirror, master,
- * root), calculates the numerology digit root, checks the database for a known meaning, and
- * provides the foundational digit root interpretation as a fallback. Perfect for synchronicity
- * tracking apps where users enter arbitrary number sequences they encounter.
+ * root, compound), calculates the numerology digit root, checks the database for a known
+ * meaning, and provides the foundational digit root interpretation (with full spiritual, love,
+ * career, money, and twin flame guidance) as a fallback. An optional context parameter adds a
+ * note tailored to where the number was seen. Perfect for synchronicity tracking apps where
+ * users enter arbitrary number sequences they encounter.
  *
  * GET /angel-numbers/lookup
  */
@@ -29,6 +31,7 @@ class AnalyzeNumberSequenceRequest extends Request
 
     public function __construct(
         public readonly string $number,
+        public readonly ?string $context = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -45,6 +48,9 @@ class AnalyzeNumberSequenceRequest extends Request
     {
         $query = [];
         $query['number'] = $this->number;
+        if ($this->context !== null) {
+            $query['context'] = $this->context;
+        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
         }

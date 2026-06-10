@@ -19,9 +19,10 @@ use Saloon\Traits\Body\HasJsonBody;
  *
  * Get the angel number of the day with full meaning and interpretation. Returns a
  * deterministic angel number based on the current date (or a provided seed date), ensuring all
- * users see the same number for any given day. Includes complete spiritual, love, career, and
- * twin flame interpretations. Perfect for daily guidance features, push notifications, content
- * generation, and angel number widget integrations.
+ * users see the same number for any given day. Includes complete spiritual, love, career,
+ * money, and twin flame interpretations plus a biblical perspective and a shadow reading.
+ * Perfect for daily guidance features, push notifications, content generation, and angel
+ * number widget integrations.
  *
  * POST /angel-numbers/daily
  */
