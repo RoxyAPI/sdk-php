@@ -37,6 +37,7 @@ class GenerateNavamsaRequest extends Request implements HasBody
         public readonly float $longitude,
         public readonly string $time,
         public readonly mixed $timezone = null,
+        public readonly ?string $lang = null,
     ) {
     }
 
@@ -60,5 +61,18 @@ class GenerateNavamsaRequest extends Request implements HasBody
         }
 
         return $body;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

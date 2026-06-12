@@ -42,6 +42,7 @@ class GenerateKpChartRequest extends Request implements HasBody
         public readonly ?float $ayanamsaValue = null,
         public readonly ?string $nodeType = null,
         public readonly mixed $timezone = null,
+        public readonly ?string $lang = null,
     ) {
     }
 
@@ -74,5 +75,18 @@ class GenerateKpChartRequest extends Request implements HasBody
         }
 
         return $body;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

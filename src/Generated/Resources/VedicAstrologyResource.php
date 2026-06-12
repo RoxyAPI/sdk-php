@@ -592,6 +592,9 @@ class VedicAstrologyResource extends BaseResource
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
      *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
      *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -601,10 +604,11 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
-        mixed $timezone = null
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateDivisionalChartRequest(date: $date, division: $division, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateDivisionalChartRequest(date: $date, division: $division, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -646,6 +650,9 @@ class VedicAstrologyResource extends BaseResource
      *   assignments in narrow boundary cases. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -657,10 +664,11 @@ class VedicAstrologyResource extends BaseResource
         ?string $ayanamsa = null,
         ?float $ayanamsaValue = null,
         ?string $nodeType = null,
-        mixed $timezone = null
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateKpChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateKpChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -697,6 +705,9 @@ class VedicAstrologyResource extends BaseResource
      *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
      *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
      *   Defaults to 5.5 (IST).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -705,10 +716,11 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
-        mixed $timezone = null
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNavamsaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNavamsaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
