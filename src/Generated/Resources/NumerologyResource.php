@@ -128,6 +128,104 @@ class NumerologyResource extends BaseResource
     }
 
     /**
+     * Business name numerology - Chaldean brand name analysis and lucky numbers
+     *
+     * Analyze a business or brand name with Chaldean numerology, the system practitioners use for
+     * trade names. Returns the name number (compound and root), its planetary ruler, an overall
+     * business rating, the industries the number favors, and whether the compound is one of Cheiro
+     * fortunate compounds. The most favorable business roots are 1 (leadership), 3 (expansion), 5
+     * (commerce) and 6 (beauty and hospitality); the numbers 4 and 8 carry caution as the karmic
+     * numbers of instability and heavy demand. Use it to vet a company name, compare brand
+     * options, or guide a naming decision. This is positioning guidance layered over the
+     * fundamentals of a memorable, available name, not a guarantee.
+     *
+     * POST /numerology/business-name
+     *
+     * @param string $name
+     *   The business or brand name to evaluate.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateBusinessName(
+        string $name,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateBusinessNameRequest(name: $name, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Chaldean numerology name reading - Destiny, compound number, planetary ruler
+     *
+     * Calculate a complete Chaldean numerology reading for a name. The older Chaldean system maps
+     * letters to values 1 to 8 by vibration (the number 9 is sacred and never assigned to a
+     * letter) and reads the unreduced two-digit compound number (10 to 52, also called a fadic
+     * number, defined by Cheiro) in addition to the single-digit root. Returns the Destiny or name
+     * number from all letters, the Soul Urge from vowels, and the Personality from consonants,
+     * each with its compound number, root, and Cheiro compound interpretation, plus the planetary
+     * ruler of the Destiny root and a caution flag for the karmic numbers 4 and 8. Perfect for
+     * Chaldean numerology calculators, name analysis tools, and AI numerology assistants that need
+     * both the compound and root layers in one call.
+     *
+     * POST /numerology/chaldean
+     *
+     * @param string $name
+     *   The name to analyze. Chaldean tradition uses the name a person is most known by, not
+     *   necessarily the full legal birth name.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateChaldean(
+        string $name,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateChaldeanRequest(name: $name, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Dual numerology - Pythagorean and Chaldean name numbers in one call
+     *
+     * Calculate a name number in both major numerology systems at once and compare them. The
+     * Pythagorean system maps letters 1 to 9 in alphabetical order and preserves master numbers
+     * (11, 22, 33), giving the Expression or Destiny number used in modern Western numerology. The
+     * Chaldean system maps letters 1 to 8 by vibration, reads the compound number (10 to 52), and
+     * reduces to a root 1 to 9. Returns both results with their interpretations, plus an agreement
+     * flag showing whether the two systems point to the same single-digit energy. The only
+     * numerology API that returns Pythagorean and Chaldean for a name in a single request, ideal
+     * for comparison tools and AI numerology assistants.
+     *
+     * POST /numerology/dual
+     *
+     * @param string $name
+     *   The name to analyze in both systems.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateDual(
+        string $name,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateDualRequest(name: $name, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Calculate Expression number - Natural talents and life goals
      *
      * Calculate your Expression (Destiny) number from your full birth name using Pythagorean
@@ -538,6 +636,38 @@ class NumerologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNumerologyChartRequest(day: $day, fullName: $fullName, month: $month, year: $year, currentYear: $currentYear, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Compound number meaning - Cheiro Chaldean interpretation 10 to 52
+     *
+     * Get the classical Chaldean interpretation of a compound number (also called a fadic number)
+     * from 10 to 52, as defined by Cheiro in the Book of Numbers. Compound numbers are the
+     * unreduced two-digit numbers that reveal the hidden influence behind a name or date, beyond
+     * the single-digit root. Each returns its symbolic title (such as The Wheel of Fortune for 10,
+     * The Star of the Magi for 17, or The Crown of the Magi for 21), its nature (fortunate,
+     * unfortunate, or mixed), and a full interpretation. Numbers 33 to 52 share the meaning of a
+     * lower number in their series, returned with a sameAs pointer. Perfect for Chaldean
+     * numerology references, compound number lookups, and AI numerology tools.
+     *
+     * GET /numerology/compound-number/{number}
+     *
+     * @param string $number
+     *   Compound number from 10 to 52.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getCompoundNumber(
+        string $number,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCompoundNumberRequest(number: $number, lang: $lang);
 
         return $this->callRequest($request);
     }
