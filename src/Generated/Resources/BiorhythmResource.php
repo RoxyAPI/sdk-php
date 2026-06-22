@@ -12,7 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * The most complete biorhythm API + remote MCP for AI agents and developers
+ * The most complete biorhythm API: 10 cycle types across 3 primary (physical, emotional,
+ * intellectual), 4 secondary (in...
  *
  * Accessed via $roxy->biorhythm.
  */

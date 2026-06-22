@@ -12,7 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Production-ready Pythagorean numerology API + hosted MCP for AI agents and developers
+ * Numerology API to calculate life path, expression, soul urge, personality, and maturity
+ * numbers, with Pinnacle and Ch...
  *
  * Accessed via $roxy->numerology.
  */

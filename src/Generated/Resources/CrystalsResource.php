@@ -12,7 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Production-ready crystal healing API + hosted MCP for AI agents and developers
+ * Crystal healing API with 80 healing crystals and gemstones and their spiritual, emotional,
+ * and physical properties
  *
  * Accessed via $roxy->crystals.
  */

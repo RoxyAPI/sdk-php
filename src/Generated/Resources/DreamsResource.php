@@ -12,7 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Dream interpretation API + hosted MCP for AI agents and developers
+ * Dream interpretation API with a 2,000+ symbol dream dictionary and psychological meanings
+ * covering animals, objects,...
  *
  * Accessed via $roxy->dreams.
  */

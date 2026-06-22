@@ -12,7 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Production-ready angel numbers API + hosted MCP for AI agents and developers
+ * Angel numbers API with meanings for 111, 222, 333, 444, 555, 666, 777, 888, 999, 1111, and
+ * 75+ sequences covering eve...
  *
  * Accessed via $roxy->angelNumbers.
  */

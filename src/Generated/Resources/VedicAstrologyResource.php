@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Production-grade Vedic (Jyotish) and KP astrology API + remote MCP for AI agents and
- * developers
+ * Vedic astrology (Jyotish) and KP API for kundli generation with 15 divisional charts
+ * (D1-D60), Ashtakoot Gun Milan ku...
  *
  * Accessed via $roxy->vedicAstrology.
  */

@@ -12,12 +12,64 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Production-ready Western astrology API + remote MCP for AI agents and developers
+ * Western astrology API for natal birth charts, daily, weekly, and monthly horoscopes with
+ * unique content per sign, syn...
  *
  * Accessed via $roxy->astrology.
  */
 class AstrologyResource extends BaseResource
 {
+    /**
+     * Arabic lots calculator - seven Hermetic parts including Part of Fortune and Spirit
+     *
+     * Calculate the seven Hermetic lots (Arabic parts) for any birth moment: Part of Fortune, Part
+     * of Spirit, Eros, Necessity, Courage, Victory, and Nemesis. Each lot is a sensitive point
+     * projected by arc from the Ascendant, with the day or night formula applied automatically
+     * from the chart sect. Returns the zodiac sign, degree, exact longitude, the arc used, and a
+     * plain language interpretation per lot, for Hellenistic and traditional astrology apps. Built
+     * on accurate tropical chart positions, no astronomy expertise needed.
+     *
+     * POST /astrology/arabic-lots
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $houseSystem
+     *   House system used to place the Sun, which determines the chart sect (day when the Sun is
+     *   above the horizon, night when below) and therefore which lot formula applies. Placidus
+     *   (default), Whole Sign, Equal, or Koch.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateArabicLots(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        ?string $houseSystem = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateArabicLotsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
     /**
      * Calculate planetary aspects - Aspect finder for any date and time
      *
@@ -336,6 +388,55 @@ class AstrologyResource extends BaseResource
     }
 
     /**
+     * Astrocartography map - planetary lines and relocation calculator
+     *
+     * Generate an astrocartography map of Midheaven, Imum Coeli, Ascendant, and Descendant
+     * planetary lines for any birth moment. Each line marks where a planet turns angular across
+     * the world, the core of relocation astrology and astro mapping. Returns right ascension,
+     * declination, the two meridian line longitudes, and sampled rising and setting curves ready
+     * to plot, with a short interpretation per line.
+     *
+     * POST /astrology/astrocartography
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $include
+     *   Optional comma separated list of extra bodies to plot beyond the ten classical planets.
+     *   Allowed values: north-node, chiron, lilith. Unknown values are ignored. Defaults to none.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateAstrocartography(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        ?string $include = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateAstrocartographyRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, include: $include, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Composite Chart - Midpoint relationship chart with interpretations
      *
      * Generate a composite chart by calculating midpoints between two natal charts. The composite
@@ -366,6 +467,109 @@ class AstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateCompositeChartRequest(person1: $person1, person2: $person2, houseSystem: $houseSystem, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Fixed stars and star conjunctions calculator - Regulus, Spica, Algol natal report
+     *
+     * Calculate the tropical zodiac positions of the major named fixed stars for any birth moment,
+     * including the four Royal stars and the fifteen Behenian stars, then detect conjunctions to
+     * the natal planets, Ascendant, and Midheaven. Each star returns its precessed ecliptic
+     * longitude, zodiac sign, visual magnitude, and traditional planetary nature, with a plain
+     * language interpretation for every conjunction inside the chosen orb. A focused tool for
+     * natal reports that weigh Regulus, Spica, Aldebaran, Antares, and Algol against the chart.
+     *
+     * POST /astrology/fixed-stars
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param float|null $orb
+     *   Conjunction orb in degrees, the maximum separation for a star to count as conjunct a chart
+     *   point. Defaults to 1, maximum 3. Widen it to surface looser contacts or tighten it for only
+     *   the closest hits.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateFixedStars(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        ?string $lang = null,
+        ?float $orb = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateFixedStarsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang, orb: $orb);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Local space astrology map - Directional planetary compass lines
+     *
+     * Generate a local space astrology map that projects the natal planets onto the local horizon
+     * as compass directions and great-circle lines radiating from the birthplace. Returns each
+     * body azimuth (degrees clockwise from true north), altitude, 16-point compass direction,
+     * whether it sits above the horizon, and the latitude and longitude waypoints of its
+     * directional line. Ideal for relocation planning, directional astrology, and travel-direction
+     * maps.
+     *
+     * POST /astrology/local-space
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Combined with time and timezone it fixes the birth instant
+     *   whose planetary positions are projected onto the local horizon.
+     * @param float $latitude
+     *   Birthplace latitude in decimal degrees (-90 to 90). This is the origin point of every local
+     *   space line and the observer latitude used to turn each body into an azimuth and altitude.
+     * @param float $longitude
+     *   Birthplace longitude in decimal degrees (-180 to 180). Sets the local horizon orientation
+     *   and the starting point from which the directional lines radiate.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is essential: the local horizon rotates a full
+     *   circle each day, so the azimuth (compass direction) of every body depends on the exact birth
+     *   time.
+     * @param mixed $timezone
+     *   Decimal hours from UTC (e.g. -5 for EST, 5.5 for IST, 9 for JST) OR IANA name (e.g.
+     *   "America/New_York"). IANA resolved to the DST-correct offset for the birth date.
+     * @param string|null $include
+     *   Optional comma-separated extra bodies to add beyond the 10 classical planets. Allowed
+     *   values: north-node, chiron, lilith. Omit to return the 10 classical planets only.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateLocalSpace(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        ?string $include = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateLocalSpaceRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, include: $include, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -532,6 +736,68 @@ class AstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GeneratePlanetaryReturnRequest(approximateDate: $approximateDate, birthDate: $birthDate, birthTime: $birthTime, latitude: $latitude, longitude: $longitude, planet: $planet, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Generate relocation chart - Relocated birth chart calculator with shifted houses and angles
+     *
+     * Calculate a relocation chart (relocated birth chart) for a new place on Earth. The birth
+     * moment stays the same, so every planet keeps its natal sign and degree, while the Ascendant,
+     * Midheaven, Vertex, and all twelve house cusps are recomputed for the new latitude and
+     * longitude. Returns the relocated houses and angles, the planets that change house, the
+     * angular planets activated at the new place, and the distance and compass direction from the
+     * birthplace. Built for relocation astrology readings, astrocartography style move planning,
+     * and travel charts. Verified against NASA JPL Horizons.
+     *
+     * POST /astrology/relocation-chart
+     *
+     * @param float $birthLatitude
+     *   Birthplace latitude in decimal degrees (-90 to 90). Used for the original natal angles and
+     *   houses that the relocated chart is compared against.
+     * @param float $birthLongitude
+     *   Birthplace longitude in decimal degrees (-180 to 180). Positive East, negative West.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. The birth moment is unchanged by relocation, so this still
+     *   defines the planetary positions of the chart.
+     * @param float $relocationLatitude
+     *   New location latitude in decimal degrees (-90 to 90). The relocated Ascendant and house
+     *   cusps are most sensitive to north-south movement.
+     * @param float $relocationLongitude
+     *   New location longitude in decimal degrees (-180 to 180). The relocated Midheaven shifts
+     *   roughly one degree per degree of longitude moved.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Combined with the timezone it fixes the exact birth
+     *   instant, which the relocated angles and houses are recomputed for.
+     * @param mixed $timezone
+     *   Birth timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York"). Resolved to the DST-correct offset for the birth date. This is the
+     *   birthplace timezone, not the new location timezone.
+     * @param string|null $houseSystem
+     *   House system for dividing the relocated chart into 12 houses. Placidus (default) is
+     *   time-sensitive and most popular in Western astrology. Whole Sign assigns one sign per house.
+     *   Equal divides into 30 degree segments from the Ascendant. Koch emphasizes higher latitudes.
+     *   Quadrant systems fall back to Whole Sign above the polar circle.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateRelocationChart(
+        float $birthLatitude,
+        float $birthLongitude,
+        string $date,
+        float $relocationLatitude,
+        float $relocationLongitude,
+        string $time,
+        mixed $timezone,
+        ?string $houseSystem = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateRelocationChartRequest(birthLatitude: $birthLatitude, birthLongitude: $birthLongitude, date: $date, relocationLatitude: $relocationLatitude, relocationLongitude: $relocationLongitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
 
         return $this->callRequest($request);
     }

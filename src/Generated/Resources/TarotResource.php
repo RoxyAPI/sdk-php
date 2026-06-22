@@ -12,7 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Production-ready tarot card reading API + hosted MCP for AI agents and developers
+ * Tarot reading API with the complete 78-card Rider-Waite-Smith deck and card meanings for
+ * love, career, health, and sp...
  *
  * Accessed via $roxy->tarot.
  */

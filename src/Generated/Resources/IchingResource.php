@@ -12,7 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * I-Ching oracle API + hosted MCP for AI agents and developers
+ * I-Ching oracle API with all 64 hexagrams, 384 changing lines, 8 trigrams, and modern
+ * interpretations for love, career...
  *
  * Accessed via $roxy->iching.
  */
