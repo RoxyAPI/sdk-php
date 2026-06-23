@@ -388,6 +388,56 @@ class AstrologyResource extends BaseResource
     }
 
     /**
+     * Asteroid goddesses calculator - Ceres, Pallas, Juno, and Vesta natal positions
+     *
+     * Calculate the natal positions of the four classical asteroid goddesses, Ceres, Pallas, Juno,
+     * and Vesta, for any birth moment. Each asteroid returns its tropical zodiac sign, degree,
+     * house placement, daily speed, retrograde status, and a plain language interpretation of its
+     * meaning in the chart. Chiron is available through the natal chart endpoint, so this endpoint
+     * stays focused on the four asteroid goddesses for natal reports and relationship astrology.
+     *
+     * POST /astrology/asteroids
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $houseSystem
+     *   House system used to assign each asteroid to a natal house. Placidus (default), Whole Sign,
+     *   Equal, or Koch. Above the polar circle, quadrant systems fall back to Whole Sign and the
+     *   echoed houseSystem reports the system actually used.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateAsteroids(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        ?string $houseSystem = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateAsteroidsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Astrocartography map - planetary lines and relocation calculator
      *
      * Generate an astrocartography map of Midheaven, Imum Coeli, Ascendant, and Descendant
@@ -518,6 +568,56 @@ class AstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateFixedStarsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang, orb: $orb);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Black Moon Lilith calculator - mean and true lunar apogee in the natal chart
+     *
+     * Calculate Black Moon Lilith for any birth chart, both the mean lunar apogee, the steady and
+     * most widely used point, and the true or osculating apogee, the exact position that can shift
+     * sign and turn retrograde. Returns the zodiac sign, degree, house, ecliptic longitude and
+     * latitude, daily speed, retrograde flag, and a plain language interpretation for each
+     * variant. Built for natal astrology apps and AI agents exploring the wild, suppressed, and
+     * reclaimed self that Lilith represents.
+     *
+     * POST /astrology/lilith
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $houseSystem
+     *   House system used to place each Lilith variant in a house. Placidus (default), Whole Sign,
+     *   Equal, or Koch.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateLilith(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone,
+        ?string $houseSystem = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateLilithRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -741,6 +841,114 @@ class AstrologyResource extends BaseResource
     }
 
     /**
+     * Annual profections calculator - lord of the year and yearly time lord by age
+     *
+     * Calculate the annual profection and lord of the year for any birth chart and target date
+     * using the Hellenistic time lord technique. Each completed year of life advances the rising
+     * sign by one whole sign house, activating a new profected house, profected sign, and ruling
+     * planet that sets the tone of the year. Returns the age, profected house and sign, the lord
+     * of the year with its natal sign and house placement, and a plain language interpretation for
+     * traditional and Hellenistic astrology apps.
+     *
+     * POST /astrology/profections
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $targetDate
+     *   Date whose profection year you want, in YYYY-MM-DD format. The completed whole years from
+     *   the birth date to this date select the profected house and sign. Must fall on or after the
+     *   birth date.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $houseSystem
+     *   House system used only to report where the lord of the year sits in the natal chart. The
+     *   profected house and sign always use whole sign profection from the rising sign. Placidus
+     *   (default), Whole Sign, Equal, or Koch.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateProfections(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $targetDate,
+        string $time,
+        mixed $timezone,
+        ?string $houseSystem = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProfectionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Secondary progressions calculator - progressed chart, progressed Sun and Moon
+     *
+     * Generate the secondary progressed chart for any date using the day-for-a-year key, where
+     * each day of ephemeris motion after birth stands in for one year of life. Returns every
+     * progressed body with its sign, degree, whole-sign house, motion, and retrograde state, plus
+     * the progressed Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed
+     * Moon are the headline timing markers for inner growth and emotional chapters. Secondary
+     * progressions API, progressed chart calculator, progressed Sun and Moon, progressed Ascendant
+     * and Midheaven.
+     *
+     * POST /astrology/progressions
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $targetDate
+     *   Date to progress the chart to, in YYYY-MM-DD format. Usually today or a forecast date. The
+     *   day-for-a-year key turns the elapsed years since birth into the same number of ephemeris
+     *   days after the birth moment.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateProgressions(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $targetDate,
+        string $time,
+        mixed $timezone,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProgressionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Generate relocation chart - Relocated birth chart calculator with shifted houses and angles
      *
      * Calculate a relocation chart (relocated birth chart) for a new place on Earth. The birth
@@ -798,6 +1006,57 @@ class AstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateRelocationChartRequest(birthLatitude: $birthLatitude, birthLongitude: $birthLongitude, date: $date, relocationLatitude: $relocationLatitude, relocationLongitude: $relocationLongitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Solar arc directions calculator - directed chart at one degree per year
+     *
+     * Calculate a solar arc directed chart for any birth moment and target date. The solar arc is
+     * the secondary-progressed Sun longitude minus the natal Sun longitude, about one degree for
+     * each year of life, and every natal point including the Ascendant and Midheaven is advanced
+     * forward by that same arc. Returns the solar arc, each directed point with its natal and
+     * directed longitude, zodiac sign, degree, and a plain language interpretation, for predictive
+     * astrology apps timing major life events. Built on accurate tropical chart positions, no
+     * astronomy expertise needed.
+     *
+     * POST /astrology/solar-arc
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Determines planetary positions for the specific calendar
+     *   day.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees (-90 to 90). Positive = North, negative = South.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees (-180 to 180). Positive = East, negative = West.
+     * @param string $targetDate
+     *   Date to direct the chart to, in YYYY-MM-DD format. Every natal point is advanced by the
+     *   solar arc accumulated from birth to this date, about one degree for each year of life.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Determines the Ascendant (rising sign) and house
+     *   cusps. Use 12:00:00 if unknown.
+     * @param mixed $timezone
+     *   Timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
+     *   "America/New_York", "Asia/Kolkata"). IANA strings are resolved to the DST-correct offset for
+     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function generateSolarArc(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $targetDate,
+        string $time,
+        mixed $timezone,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateSolarArcRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
