@@ -1,6 +1,6 @@
 # roxyapi/sdk - Agent Guide
 
-PHP SDK for RoxyAPI. 10+ domains (Western astrology, Vedic astrology, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location, usage, languages). One API key, one Composer package, zero hand-written endpoint code.
+PHP SDK for RoxyAPI. 12+ domains (Western astrology, Vedic astrology, numerology, tarot, human design, forecast, biorhythm, I Ching, crystals, dreams, angel numbers, location) plus utility namespaces (usage, languages). One API key, one Composer package, zero hand-written endpoint code.
 
 ## Install and initialize
 
@@ -21,15 +21,15 @@ $roxy = createRoxy(getenv('ROXY_API_KEY'));
 Every chart, horoscope, panchang, dasha, dosha, navamsa, KP, synastry, compatibility, and natal endpoint needs `latitude`, `longitude`, and (for Western) `timezone`. Never ask the user for coordinates. Always call `$roxy->location->searchCities` first.
 
 ```php
-$result = $roxy->location->searchCities(q: 'Mumbai');
+$result = $roxy->location->searchCities(q: 'New York');
 ['latitude' => $lat, 'longitude' => $lon, 'timezone' => $tz] = $result['cities'][0];
 
-// $tz is the IANA string ("Asia/Kolkata"). Pass it directly to chart calls and
+// $tz is the IANA string ("America/New_York"). Pass it directly to chart calls and
 // the server resolves it to the DST-correct offset for the chart `date`. The
 // decimal `utcOffset` (5.5, -5, ...) also works if you prefer numbers.
 ```
 
-`q` accepts bare city (`'Mumbai'`), city + country (`'Berlin Germany'`), or comma-qualified (`'Springfield, Illinois'`). Use the qualified form to disambiguate same-named cities.
+`q` accepts bare city (`'Paris'`), city + country (`'Berlin Germany'`), or comma-qualified (`'Springfield, Illinois'`). Use the qualified form to disambiguate same-named cities.
 
 ## Domains
 
@@ -52,14 +52,14 @@ $result = $roxy->location->searchCities(q: 'Mumbai');
 | `$roxy->languages` | 1 | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
 <!-- END:DOMAINS -->
 
-148 endpoints across 12 product domains plus usage and languages. Counts auto-sync from `specs/openapi.json` at release time.
+150+ endpoints across 12+ product domains plus usage and languages. Per-domain counts in the table above auto-sync from `specs/openapi.json` at release time.
 
 ## Critical patterns
 
 ### Two-step pattern for coordinate-dependent endpoints
 
 ```php
-$cities = $roxy->location->searchCities(q: 'Delhi');
+$cities = $roxy->location->searchCities(q: 'London');
 ['latitude' => $lat, 'longitude' => $lon, 'timezone' => $tz] = $cities['cities'][0];
 
 $chart = $roxy->astrology->generateNatalChart(
@@ -88,7 +88,7 @@ Body fields are named arguments on the resource method - no manual array buildin
 ```php
 $roxy->astrology->generateNatalChart(
     date: '1990-01-15', time: '14:30:00',
-    latitude: 28.6139, longitude: 77.2090, timezone: 5.5,
+    latitude: 40.7128, longitude: -74.006, timezone: -5,
 );
 
 $roxy->vedicAstrology->generateBirthChart(
@@ -145,8 +145,8 @@ try {
 | `timezone` | Decimal hours (number) OR IANA string | `5.5`, `-5`, `0` (decimal) OR `'Asia/Kolkata'`, `'America/New_York'` | `'5:30'`, `'+0530'`, `'GMT-5'` |
 | `date` | ISO date string | `'1990-01-15'` | `'Jan 15 1990'`, `'15/01/1990'`, `'1990-1-15'` |
 | `time` | 24-hour string with seconds | `'14:30:00'`, `'09:00:00'` | `'2:30 PM'`, `'14:30'`, `'9:0:0'` |
-| `latitude` | Decimal degrees (float) | `28.6139`, `-33.8688`, `40.7128` | `"28°36'N"`, strings |
-| `longitude` | Decimal degrees (float) | `77.2090`, `-74.0060`, `139.6917` | DMS strings |
+| `latitude` | Decimal degrees (float) | `51.5074`, `-33.8688`, `40.7128` | `"28°36'N"`, strings |
+| `longitude` | Decimal degrees (float) | `-0.1278`, `-74.0060`, `139.6917` | DMS strings |
 | `sign` (path) | Lowercase zodiac | `'aries'`, `'taurus'`, ... `'pisces'` | `'Aries'`, `'ARIES'`, `'1'` |
 | `fullName` (numerology) | Birth-certificate name | `'John William Smith'` | Nicknames, married names |
 | `seed` | Any string (deterministic) | `'user-42'`, `'session-abc'` | Numbers, objects |
@@ -175,7 +175,7 @@ echo json_encode($roxy->astrology->generateNatalChart(
 <script type="module" src="https://cdn.jsdelivr.net/npm/@roxyapi/ui@latest/dist/cdn/roxy-ui.js"></script>
 <roxy-natal-chart id="chart"></roxy-natal-chart>
 <script>
-  fetch('/api/natal-chart.php?date=1990-01-15&time=14:30:00&lat=28.6139&lon=77.209&tz=5.5')
+  fetch('/api/natal-chart.php?date=1990-01-15&time=14:30:00&lat=40.7128&lon=-74.006&tz=-5')
     .then(r => r.json())
     .then(data => document.getElementById('chart').data = data);
 </script>
@@ -205,7 +205,7 @@ See `examples/render-with-ui.html` for the full pattern. Component coverage and 
 | Crystal by zodiac | `$roxy->crystals->getCrystalsByZodiac(sign: 'leo')` |
 | Dream symbol | `$roxy->dreams->getDreamSymbol(id: 'flying')` |
 | Angel number | `$roxy->angelNumbers->getAngelNumber(number: '1111')` |
-| Find city coordinates | `$roxy->location->searchCities(q: 'Mumbai')` |
+| Find city coordinates | `$roxy->location->searchCities(q: 'Berlin')` |
 | Check API usage | `$roxy->usage->getUsageStats()` |
 | List languages | `$roxy->languages->listLanguages()` |
 

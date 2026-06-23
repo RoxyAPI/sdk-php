@@ -9,7 +9,7 @@
 [![Packagist](https://img.shields.io/packagist/v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 [![PHP Version](https://img.shields.io/packagist/php-v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 
-Official PHP SDK for [RoxyAPI](https://roxyapi.com): Western and Vedic astrology, Human Design, forecast timelines, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location geocoding, and more. 148 endpoints across 12 domains, one API key, one dependency (Saloon).
+Official PHP SDK for [RoxyAPI](https://roxyapi.com): natal charts, daily horoscopes, synastry, Vedic kundli, tarot spreads, human design bodygraphs, and transit forecasts across Western and Vedic astrology, numerology, tarot, human design, forecast, biorhythm, I Ching, crystals, dreams, angel numbers, and location geocoding. 150+ endpoints across 12+ domains, one API key, one dependency (Saloon).
 
 ## Install
 
@@ -34,7 +34,7 @@ $horoscope = $roxy->astrology->getDailyHoroscope(sign: 'aries');
 echo $horoscope['overview'], PHP_EOL;
 
 // Geocode first, then chart
-$cities = $roxy->location->searchCities(q: 'Mumbai');
+$cities = $roxy->location->searchCities(q: 'London');
 ['latitude' => $lat, 'longitude' => $lon, 'timezone' => $tz] = $cities['cities'][0];
 
 $chart = $roxy->astrology->generateNatalChart(
