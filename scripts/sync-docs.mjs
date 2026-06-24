@@ -46,12 +46,11 @@ for (const methods of Object.values(spec.paths ?? {})) {
 }
 
 function renderTable() {
-	const header = '| Property | Endpoints | What it covers |\n|---|---|---|';
+	const header = '| Property | What it covers |\n|---|---|';
 	const rows = specTags.map((tag) => {
 		const ns = tagToNamespace(tag);
-		const count = counts.get(tag) ?? 0;
 		const summary = tagSummary(tagObjects[tag] ?? { name: tag });
-		return `| \`$roxy->${ns}\` | ${count} | ${summary} |`;
+		return `| \`$roxy->${ns}\` | ${summary} |`;
 	});
 	return [BEGIN, header, ...rows, END].join('\n');
 }
