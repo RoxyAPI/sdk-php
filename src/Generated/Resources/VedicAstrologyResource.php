@@ -450,11 +450,13 @@ class VedicAstrologyResource extends BaseResource
      * Chart-driven detection of 12 classical Vedic yogas: Gajakesari (parashara three-rule
      * definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra Mangala, Budha-Aditya, and the
      * five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa, Malavya, Sasa). Each yoga is returned
-     * with a present boolean and a classical-text evidence string naming the rule that triggered
-     * or failed (kendra position, dignity, malefic drishti, lordship, retrograde state). Unlike
-     * GET /yoga and GET /yoga/{id} which are dictionary lookups, this endpoint computes the kundli
-     * from birth data and runs the detection rules. Sources: BPHS ch. 75, Mantreswara Phaladeepika
-     * ch. 6, B.V. Raman Three Hundred Important Combinations.
+     * with an `id`, `name`, a `present` boolean, a `quality` (Positive, Negative, or Both, i.e.
+     * auspicious, inauspicious, or context-dependent), and a classical-text `evidence` string
+     * naming the rule that triggered or failed (kendra position, dignity, malefic drishti,
+     * lordship, retrograde state). There is no separate major/minor flag; `quality` is the
+     * auspiciousness axis. Unlike GET /yoga and GET /yoga/{id} which are dictionary lookups, this
+     * endpoint computes the kundli from birth data and runs the detection rules. Sources: BPHS ch.
+     * 75, Mantreswara Phaladeepika ch. 6, B.V. Raman Three Hundred Important Combinations.
      *
      * POST /vedic-astrology/yoga/detect
      *
@@ -783,7 +785,8 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/panchang/choghadiya
      *
      * @param string $date
-     *   Date in YYYY-MM-DD format.
+     *   Date in YYYY-MM-DD format. A single-digit month or day is accepted and zero-padded (2026-3-5
+     *   becomes 2026-03-05). Impossible calendar dates are rejected.
      * @param float $latitude
      *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
      *   day/night boundaries for muhurta calculations.
@@ -874,7 +877,8 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/panchang/detailed
      *
      * @param string $date
-     *   Date in YYYY-MM-DD format.
+     *   Date in YYYY-MM-DD format. A single-digit month or day is accepted and zero-padded (2026-3-5
+     *   becomes 2026-03-05). Impossible calendar dates are rejected.
      * @param float $latitude
      *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
      *   day/night boundaries for muhurta calculations.
@@ -951,7 +955,8 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/panchang/hora
      *
      * @param string $date
-     *   Date in YYYY-MM-DD format.
+     *   Date in YYYY-MM-DD format. A single-digit month or day is accepted and zero-padded (2026-3-5
+     *   becomes 2026-03-05). Impossible calendar dates are rejected.
      * @param float $latitude
      *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
      *   day/night boundaries for muhurta calculations.
@@ -1119,8 +1124,9 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/kp/planets-interval
      *
      * @param string $endDatetime
-     *   End datetime in ISO 8601 format. Maximum 7 days from start. Always interpreted as local time
-     *   when a non-zero timezone is provided (Z suffix is ignored).
+     *   End datetime in ISO 8601 (YYYY-MM-DDTHH:MM:SS). Maximum 7 days from start. Interpreted as
+     *   local time when a non-zero timezone is provided (a trailing Z is accepted but ignored); with
+     *   timezone 0 it is UTC.
      * @param float $intervalMinutes
      *   Time between calculations in minutes. Range: 15 (quarter-hourly) to 1440 (daily).
      * @param float $latitude
@@ -1128,8 +1134,8 @@ class VedicAstrologyResource extends BaseResource
      * @param float $longitude
      *   Observer longitude in decimal degrees (for future Lagna calculations)
      * @param string $startDatetime
-     *   Start datetime in ISO 8601 format. Always interpreted as local time when a non-zero timezone
-     *   is provided (Z suffix is ignored). With timezone 0, Z suffix is treated as UTC.
+     *   Start datetime in ISO 8601 (YYYY-MM-DDTHH:MM:SS). Interpreted as local time when a non-zero
+     *   timezone is provided (a trailing Z is accepted but ignored); with timezone 0 it is UTC.
      * @param string|null $ayanamsa
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
@@ -1227,8 +1233,9 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/kp/ruling-planets-interval
      *
      * @param string $endDatetime
-     *   End of the interval range in ISO 8601 format. Always interpreted as local time when a
-     *   non-zero timezone is provided (Z suffix is ignored).
+     *   End of the interval range in ISO 8601 (YYYY-MM-DDTHH:MM:SS). Interpreted as local time when
+     *   a non-zero timezone is provided (a trailing Z is accepted but ignored); with timezone 0 it
+     *   is UTC.
      * @param int $intervalMinutes
      *   Interval between calculations in minutes (1-1440). Use 1-5 for birth time rectification.
      * @param float $latitude
@@ -1236,8 +1243,9 @@ class VedicAstrologyResource extends BaseResource
      * @param float $longitude
      *   Observer longitude in decimal degrees
      * @param string $startDatetime
-     *   Start of the interval range in ISO 8601 format. Always interpreted as local time when a
-     *   non-zero timezone is provided (Z suffix is ignored).
+     *   Start of the interval range in ISO 8601 (YYYY-MM-DDTHH:MM:SS). Interpreted as local time
+     *   when a non-zero timezone is provided (a trailing Z is accepted but ignored); with timezone 0
+     *   it is UTC.
      * @param string|null $ayanamsa
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
@@ -1291,8 +1299,9 @@ class VedicAstrologyResource extends BaseResource
      * @param string|null $birthTime
      *   Birth time (HH:MM:SS) for significator calculation. Required if birthDate is provided.
      * @param string|null $datetime
-     *   ISO 8601 datetime for ruling planets. Defaults to current time. Always interpreted as local
-     *   time when a non-zero timezone is provided (Z suffix is ignored).
+     *   ISO 8601 datetime (YYYY-MM-DDTHH:MM:SS) for ruling planets. Defaults to current time.
+     *   Interpreted as local time when a non-zero timezone is provided (a trailing Z is accepted but
+     *   ignored); with timezone 0 it is UTC.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
      *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,

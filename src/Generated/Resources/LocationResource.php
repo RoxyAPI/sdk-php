@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * City search and geocoding API with 7,000+ cities across 227 countries, returning latitude,
- * longitude, IANA timezone,...
+ * City search and geocoding API with 23,000+ cities across 240+ countries, returning latitude,
+ * longitude, IANA timezone...
  *
  * Accessed via $roxy->location.
  */

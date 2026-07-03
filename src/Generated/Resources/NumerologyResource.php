@@ -396,7 +396,7 @@ class NumerologyResource extends BaseResource
      * @param int $month
      *   Birth month (1-12)
      * @param string|null $targetDate
-     *   Target date in YYYY-MM-DD format (defaults to today)
+     *   Target date in YYYY-MM-DD format. Defaults to today (UTC).
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.

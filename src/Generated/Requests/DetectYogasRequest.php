@@ -20,11 +20,13 @@ use Saloon\Traits\Body\HasJsonBody;
  * Chart-driven detection of 12 classical Vedic yogas: Gajakesari (parashara three-rule
  * definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra Mangala, Budha-Aditya, and the
  * five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa, Malavya, Sasa). Each yoga is returned
- * with a present boolean and a classical-text evidence string naming the rule that triggered
- * or failed (kendra position, dignity, malefic drishti, lordship, retrograde state). Unlike
- * GET /yoga and GET /yoga/{id} which are dictionary lookups, this endpoint computes the kundli
- * from birth data and runs the detection rules. Sources: BPHS ch. 75, Mantreswara Phaladeepika
- * ch. 6, B.V. Raman Three Hundred Important Combinations.
+ * with an `id`, `name`, a `present` boolean, a `quality` (Positive, Negative, or Both, i.e.
+ * auspicious, inauspicious, or context-dependent), and a classical-text `evidence` string
+ * naming the rule that triggered or failed (kendra position, dignity, malefic drishti,
+ * lordship, retrograde state). There is no separate major/minor flag; `quality` is the
+ * auspiciousness axis. Unlike GET /yoga and GET /yoga/{id} which are dictionary lookups, this
+ * endpoint computes the kundli from birth data and runs the detection rules. Sources: BPHS ch.
+ * 75, Mantreswara Phaladeepika ch. 6, B.V. Raman Three Hundred Important Combinations.
  *
  * POST /vedic-astrology/yoga/detect
  */
