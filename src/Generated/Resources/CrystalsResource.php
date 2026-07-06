@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Crystal healing API with 80 healing crystals and gemstones and their spiritual, emotional,
- * and physical properties
+ * Crystal healing API covering the most popular and widely-searched healing crystals and
+ * gemstones, from Amethyst and R...
  *
  * Accessed via $roxy->crystals.
  */
@@ -58,8 +58,8 @@ class CrystalsResource extends BaseResource
      * GET /crystals/{id}
      *
      * @param string $id
-     *   URL-safe crystal identifier (e.g., "amethyst", "rose-quartz", "black-tourmaline"). Must
-     *   match an entry in the database.
+     *   URL-safe crystal identifier, case-insensitive (e.g., "amethyst", "Amethyst", "rose-quartz"
+     *   all resolve). Must match an entry in the database.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -87,7 +87,8 @@ class CrystalsResource extends BaseResource
      * GET /crystals/pairings/{id}
      *
      * @param string $id
-     *   URL-safe crystal identifier to find pairings for (e.g., "amethyst", "rose-quartz").
+     *   URL-safe crystal identifier to find pairings for, case-insensitive (e.g., "amethyst",
+     *   "Amethyst", "rose-quartz" all resolve).
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
