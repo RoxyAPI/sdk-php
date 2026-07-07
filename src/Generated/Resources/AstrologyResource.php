@@ -464,7 +464,8 @@ class AstrologyResource extends BaseResource
      *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $include
      *   Optional comma separated list of extra bodies to plot beyond the ten classical planets.
-     *   Allowed values: north-node, chiron, lilith. Unknown values are ignored. Defaults to none.
+     *   Allowed values: north-node, chiron, lilith. north-node is the mean lunar node. Unknown
+     *   values are ignored. Defaults to none.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -652,7 +653,8 @@ class AstrologyResource extends BaseResource
      *   "America/New_York"). IANA resolved to the DST-correct offset for the birth date.
      * @param string|null $include
      *   Optional comma-separated extra bodies to add beyond the 10 classical planets. Allowed
-     *   values: north-node, chiron, lilith. Omit to return the 10 classical planets only.
+     *   values: north-node, chiron, lilith. north-node is the mean lunar node. Omit to return the 10
+     *   classical planets only.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
