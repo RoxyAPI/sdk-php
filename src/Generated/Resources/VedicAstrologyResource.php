@@ -48,10 +48,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      *
      * @return array<string, mixed>
      */
@@ -223,10 +223,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      *
      * @return array<string, mixed>
      */
@@ -326,10 +326,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      *
      * @return array<string, mixed>
      */
@@ -375,10 +375,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      *
      * @return array<string, mixed>
      */
@@ -424,10 +424,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      *
      * @return array<string, mixed>
      */
@@ -477,10 +477,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -529,10 +529,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -590,10 +590,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -703,10 +703,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -840,10 +840,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1147,9 +1147,9 @@ class VedicAstrologyResource extends BaseResource
      *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
      *   assignments in narrow boundary cases. Defaults to "mean".
      * @param mixed|null $timezone
-     *   Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correct
-     *   offset for the startDatetime date. When non-zero, all datetimes are treated as local time in
-     *   this timezone (Z suffix is ignored). Defaults to 0 (UTC).
+     *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
+     *   resolved to the DST-correct offset for the startDatetime date. When non-zero, all datetimes
+     *   are treated as local time in this timezone (Z suffix is ignored). Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -1198,8 +1198,9 @@ class VedicAstrologyResource extends BaseResource
      *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
      *   assignments in narrow boundary cases. Defaults to "mean".
      * @param mixed|null $timezone
-     *   Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correct
-     *   offset for startDate. Output times are converted to this timezone. Defaults to 0 (UTC).
+     *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
+     *   resolved to the DST-correct offset for startDate. Output times are converted to this
+     *   timezone. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -1308,8 +1309,8 @@ class VedicAstrologyResource extends BaseResource
      *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
      *   assignments in narrow boundary cases. Defaults to "mean".
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the
-     *   DST-correct offset based on birthDate or datetime. Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC.
+     *   IANA resolved to the DST-correct offset based on birthDate or datetime. Defaults to 5.5.
      *
      * @return array<string, mixed>
      */
@@ -1357,8 +1358,9 @@ class VedicAstrologyResource extends BaseResource
      *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
      *   assignments in narrow boundary cases. Defaults to "mean".
      * @param mixed|null $timezone
-     *   Decimal hours from UTC OR IANA name (e.g. "Asia/Kolkata"). IANA resolved to the DST-correct
-     *   offset for startDate. Output times are converted to this timezone. Defaults to 0 (UTC).
+     *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
+     *   resolved to the DST-correct offset for startDate. Output times are converted to this
+     *   timezone. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -1442,10 +1444,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1667,10 +1669,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1747,10 +1749,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1801,10 +1803,10 @@ class VedicAstrologyResource extends BaseResource
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
      * @param mixed|null $timezone
-     *   Timezone: decimal hours from UTC (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g.
-     *   "Asia/Kolkata", "America/New_York"). IANA strings are resolved to the DST-correct offset for
-     *   the given date, so you can pass `cities[0].timezone` from /location/search directly.
-     *   Defaults to 5.5 (IST).
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
      *
      * @return array<string, mixed>
      */

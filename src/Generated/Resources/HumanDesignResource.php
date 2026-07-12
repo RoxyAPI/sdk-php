@@ -36,9 +36,11 @@ class HumanDesignResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -82,9 +84,11 @@ class HumanDesignResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -161,9 +165,11 @@ class HumanDesignResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -240,9 +246,11 @@ class HumanDesignResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -286,9 +294,11 @@ class HumanDesignResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -337,9 +347,11 @@ class HumanDesignResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -385,9 +397,11 @@ class HumanDesignResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Precision matters: the profile lines and gate
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.

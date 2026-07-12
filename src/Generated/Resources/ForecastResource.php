@@ -94,9 +94,11 @@ class ForecastResource extends BaseResource
      *   Birth time in 24-hour HH:MM:SS format. Pins the exact natal Sun position that defines the
      *   solar return moment.
      * @param mixed $timezone
-     *   Decimal hours (e.g. 5.5 for IST, -5 for EST) OR IANA name (e.g. "America/New_York", "UTC").
-     *   IANA is resolved to the DST-correct offset for the request date. Invalid timezones return
-     *   400 with a validation error.
+     *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
+     *   resolved to the DST-correct offset for the birth date, while a fixed offset or decimal is
+     *   taken literally and will be wrong if it does not match the daylight-saving state on that
+     *   date. Invalid timezones return 400 with a validation error.
      * @param int $year
      *   Year to cast the solar return for. The chart is erected for the moment in this year when the
      *   transiting Sun returns to the natal Sun longitude, on or within a day of the birthday.
