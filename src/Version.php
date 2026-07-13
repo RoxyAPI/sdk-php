@@ -9,5 +9,5 @@ namespace RoxyAPI\Sdk;
  */
 final class Version
 {
-    public const VERSION = '0.1.23';
+    public const VERSION = '0.1.24';
 }
