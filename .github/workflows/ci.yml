@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -45,3 +46,11 @@ jobs:
 
       - name: Test
         run: vendor/bin/pest --no-coverage
+
+  # Single stable context for branch protection: matrix legs rename as PHP versions rotate, this name never does.
+  ci-ok:
+    if: always()
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "${{ needs.test.result }}" = "success"
