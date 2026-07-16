@@ -47,6 +47,16 @@ class HumanDesignResource extends BaseResource
      * @param float|null $longitude
      *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
      *   0.
+     * @param string|null $nodeType
+     *   Lunar node convention for the North and South Node activations. Leave unset (or "true") for
+     *   the standard Human Design chart: "true" is the osculating node used by professional Human
+     *   Design software (HumanDesign.ai, Total Human Design) and is the value RoxyAPI verifies
+     *   against. Pass "mean" to match a calculator that uses the smoothed mean node (the traditional
+     *   Western-astrology default, common in free chart tools). The two agree on almost every chart;
+     *   they diverge by up to ~1.75 degrees only when a node sits on a gate boundary, where the
+     *   choice can move a node gate and, rarely, change the completed channels and therefore the
+     *   type, authority, or definition. If another calculator shows a different type, it is likely
+     *   using the mean node: pass "mean" to match it.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -59,10 +69,11 @@ class HumanDesignResource extends BaseResource
         mixed $timezone,
         ?float $latitude = null,
         ?float $longitude = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateCentersRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateCentersRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -95,6 +106,16 @@ class HumanDesignResource extends BaseResource
      * @param float|null $longitude
      *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
      *   0.
+     * @param string|null $nodeType
+     *   Lunar node convention for the North and South Node activations. Leave unset (or "true") for
+     *   the standard Human Design chart: "true" is the osculating node used by professional Human
+     *   Design software (HumanDesign.ai, Total Human Design) and is the value RoxyAPI verifies
+     *   against. Pass "mean" to match a calculator that uses the smoothed mean node (the traditional
+     *   Western-astrology default, common in free chart tools). The two agree on almost every chart;
+     *   they diverge by up to ~1.75 degrees only when a node sits on a gate boundary, where the
+     *   choice can move a node gate and, rarely, change the completed channels and therefore the
+     *   type, authority, or definition. If another calculator shows a different type, it is likely
+     *   using the mean node: pass "mean" to match it.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -107,10 +128,11 @@ class HumanDesignResource extends BaseResource
         mixed $timezone,
         ?float $latitude = null,
         ?float $longitude = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateChannelsRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateChannelsRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -176,6 +198,16 @@ class HumanDesignResource extends BaseResource
      * @param float|null $longitude
      *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
      *   0.
+     * @param string|null $nodeType
+     *   Lunar node convention for the North and South Node activations. Leave unset (or "true") for
+     *   the standard Human Design chart: "true" is the osculating node used by professional Human
+     *   Design software (HumanDesign.ai, Total Human Design) and is the value RoxyAPI verifies
+     *   against. Pass "mean" to match a calculator that uses the smoothed mean node (the traditional
+     *   Western-astrology default, common in free chart tools). The two agree on almost every chart;
+     *   they diverge by up to ~1.75 degrees only when a node sits on a gate boundary, where the
+     *   choice can move a node gate and, rarely, change the completed channels and therefore the
+     *   type, authority, or definition. If another calculator shows a different type, it is likely
+     *   using the mean node: pass "mean" to match it.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -188,10 +220,11 @@ class HumanDesignResource extends BaseResource
         mixed $timezone,
         ?float $latitude = null,
         ?float $longitude = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateGatesRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateGatesRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -257,6 +290,16 @@ class HumanDesignResource extends BaseResource
      * @param float|null $longitude
      *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
      *   0.
+     * @param string|null $nodeType
+     *   Lunar node convention for the North and South Node activations. Leave unset (or "true") for
+     *   the standard Human Design chart: "true" is the osculating node used by professional Human
+     *   Design software (HumanDesign.ai, Total Human Design) and is the value RoxyAPI verifies
+     *   against. Pass "mean" to match a calculator that uses the smoothed mean node (the traditional
+     *   Western-astrology default, common in free chart tools). The two agree on almost every chart;
+     *   they diverge by up to ~1.75 degrees only when a node sits on a gate boundary, where the
+     *   choice can move a node gate and, rarely, change the completed channels and therefore the
+     *   type, authority, or definition. If another calculator shows a different type, it is likely
+     *   using the mean node: pass "mean" to match it.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -269,10 +312,11 @@ class HumanDesignResource extends BaseResource
         mixed $timezone,
         ?float $latitude = null,
         ?float $longitude = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateProfileRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateProfileRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -305,6 +349,16 @@ class HumanDesignResource extends BaseResource
      * @param float|null $longitude
      *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
      *   0.
+     * @param string|null $nodeType
+     *   Lunar node convention for the North and South Node activations. Leave unset (or "true") for
+     *   the standard Human Design chart: "true" is the osculating node used by professional Human
+     *   Design software (HumanDesign.ai, Total Human Design) and is the value RoxyAPI verifies
+     *   against. Pass "mean" to match a calculator that uses the smoothed mean node (the traditional
+     *   Western-astrology default, common in free chart tools). The two agree on almost every chart;
+     *   they diverge by up to ~1.75 degrees only when a node sits on a gate boundary, where the
+     *   choice can move a node gate and, rarely, change the completed channels and therefore the
+     *   type, authority, or definition. If another calculator shows a different type, it is likely
+     *   using the mean node: pass "mean" to match it.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -317,10 +371,11 @@ class HumanDesignResource extends BaseResource
         mixed $timezone,
         ?float $latitude = null,
         ?float $longitude = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateTypeRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateTypeRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -358,6 +413,16 @@ class HumanDesignResource extends BaseResource
      * @param float|null $longitude
      *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
      *   0.
+     * @param string|null $nodeType
+     *   Lunar node convention for the North and South Node activations. Leave unset (or "true") for
+     *   the standard Human Design chart: "true" is the osculating node used by professional Human
+     *   Design software (HumanDesign.ai, Total Human Design) and is the value RoxyAPI verifies
+     *   against. Pass "mean" to match a calculator that uses the smoothed mean node (the traditional
+     *   Western-astrology default, common in free chart tools). The two agree on almost every chart;
+     *   they diverge by up to ~1.75 degrees only when a node sits on a gate boundary, where the
+     *   choice can move a node gate and, rarely, change the completed channels and therefore the
+     *   type, authority, or definition. If another calculator shows a different type, it is likely
+     *   using the mean node: pass "mean" to match it.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -370,10 +435,11 @@ class HumanDesignResource extends BaseResource
         mixed $timezone,
         ?float $latitude = null,
         ?float $longitude = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateVariablesRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateVariablesRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -408,6 +474,16 @@ class HumanDesignResource extends BaseResource
      * @param float|null $longitude
      *   Birth longitude in decimal degrees. Optional and does not affect the bodygraph. Defaults to
      *   0.
+     * @param string|null $nodeType
+     *   Lunar node convention for the North and South Node activations. Leave unset (or "true") for
+     *   the standard Human Design chart: "true" is the osculating node used by professional Human
+     *   Design software (HumanDesign.ai, Total Human Design) and is the value RoxyAPI verifies
+     *   against. Pass "mean" to match a calculator that uses the smoothed mean node (the traditional
+     *   Western-astrology default, common in free chart tools). The two agree on almost every chart;
+     *   they diverge by up to ~1.75 degrees only when a node sits on a gate boundary, where the
+     *   choice can move a node gate and, rarely, change the completed channels and therefore the
+     *   type, authority, or definition. If another calculator shows a different type, it is likely
+     *   using the mean node: pass "mean" to match it.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -420,10 +496,11 @@ class HumanDesignResource extends BaseResource
         mixed $timezone,
         ?float $latitude = null,
         ?float $longitude = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBodygraphRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBodygraphRequest(date: $date, time: $time, timezone: $timezone, latitude: $latitude, longitude: $longitude, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }

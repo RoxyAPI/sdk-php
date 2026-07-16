@@ -36,6 +36,7 @@ class CalculateProfileRequest extends Request implements HasBody
         public readonly mixed $timezone,
         public readonly ?float $latitude = null,
         public readonly ?float $longitude = null,
+        public readonly ?string $nodeType = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -57,6 +58,9 @@ class CalculateProfileRequest extends Request implements HasBody
         }
         if ($this->longitude !== null) {
             $body['longitude'] = $this->longitude;
+        }
+        if ($this->nodeType !== null) {
+            $body['nodeType'] = $this->nodeType;
         }
         $body['time'] = $this->time;
         $body['timezone'] = $this->timezone;
