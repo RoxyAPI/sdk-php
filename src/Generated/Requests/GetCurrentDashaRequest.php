@@ -15,13 +15,14 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get current Mahadasha, Antardasha, Pratyantardasha - Dasha Calculator API
+ * Get current Mahadasha, Antardasha, Pratyantardasha, Sookshma - Dasha Calculator API
  *
- * Calculate current Vimshottari Dasha periods (Mahadasha, Antardasha, Pratyantardasha) with
- * remaining time. Accurate dasha calculator API for life phase prediction and planetary period
- * analysis. Returns dasha timeline with start/end dates for each period. Essential for
- * understanding current planetary influences, dasha transitions, and timing events in Vedic
- * astrology. 120-year dasha system based on moon nakshatra at birth.
+ * Calculate all four running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
+ * Sookshma) with remaining time in each. Accurate dasha calculator API for life phase
+ * prediction and planetary period analysis. Returns the dasha timeline with start/end dates
+ * for every level, ready for a current DBA readout. Essential for understanding current
+ * planetary influences, dasha transitions, and timing events in Vedic astrology. 120-year
+ * dasha system based on moon nakshatra at birth, with selectable Lahiri or KP ayanamsa.
  *
  * POST /vedic-astrology/dasha/current
  */
@@ -36,6 +37,7 @@ class GetCurrentDashaRequest extends Request implements HasBody
         public readonly float $latitude,
         public readonly float $longitude,
         public readonly string $time,
+        public readonly ?string $ayanamsa = null,
         public readonly mixed $timezone = null,
         public readonly ?string $lang = null,
     ) {
@@ -52,6 +54,9 @@ class GetCurrentDashaRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
+        if ($this->ayanamsa !== null) {
+            $body['ayanamsa'] = $this->ayanamsa;
+        }
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;

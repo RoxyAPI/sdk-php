@@ -15,20 +15,26 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get all 9 Mahadasha periods (120-year cycle)
+ * Get all Sookshma dashas for a Mahadasha, Antardasha and Pratyantardasha
  *
- * Returns complete Vimshottari Dasha cycle starting from birth. Shows all major planetary
- * periods from birth through 120 years.
+ * Sookshma dasha API. Returns the 9 Sookshma periods inside a chosen Pratyantardasha, the
+ * fourth and finest level of the Vimshottari dasha hierarchy. Completes a full vimshottari
+ * drill down from the 120-year cycle to day level timing, typically 3 to 30 days per period.
+ * Built for dasha drill down tables, current DBA readouts, and precise event timing in Vedic
+ * astrology software.
  *
- * POST /vedic-astrology/dasha/major
+ * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}/{pratyantardasha}
  */
-class GetMajorDashasRequest extends Request implements HasBody
+class GetSookshmaDashasRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
     public function __construct(
+        public readonly string $mahadasha,
+        public readonly string $antardasha,
+        public readonly string $pratyantardasha,
         public readonly string $date,
         public readonly float $latitude,
         public readonly float $longitude,
@@ -41,7 +47,7 @@ class GetMajorDashasRequest extends Request implements HasBody
 
     public function resolveEndpoint(): string
     {
-        return "/vedic-astrology/dasha/major";
+        return "/vedic-astrology/dasha/sub/{$this->mahadasha}/{$this->antardasha}/{$this->pratyantardasha}";
     }
 
     /**

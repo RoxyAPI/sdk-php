@@ -813,13 +813,14 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
-     * Get current Mahadasha, Antardasha, Pratyantardasha - Dasha Calculator API
+     * Get current Mahadasha, Antardasha, Pratyantardasha, Sookshma - Dasha Calculator API
      *
-     * Calculate current Vimshottari Dasha periods (Mahadasha, Antardasha, Pratyantardasha) with
-     * remaining time. Accurate dasha calculator API for life phase prediction and planetary period
-     * analysis. Returns dasha timeline with start/end dates for each period. Essential for
-     * understanding current planetary influences, dasha transitions, and timing events in Vedic
-     * astrology. 120-year dasha system based on moon nakshatra at birth.
+     * Calculate all four running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
+     * Sookshma) with remaining time in each. Accurate dasha calculator API for life phase
+     * prediction and planetary period analysis. Returns the dasha timeline with start/end dates
+     * for every level, ready for a current DBA readout. Essential for understanding current
+     * planetary influences, dasha transitions, and timing events in Vedic astrology. 120-year
+     * dasha system based on moon nakshatra at birth, with selectable Lahiri or KP ayanamsa.
      *
      * POST /vedic-astrology/dasha/current
      *
@@ -839,6 +840,12 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
+     *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
+     *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
+     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -855,11 +862,12 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1443,6 +1451,12 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
+     *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
+     *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
+     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -1459,11 +1473,12 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1694,6 +1709,72 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Get all Pratyantardashas (antara periods) for a Mahadasha and Antardasha
+     *
+     * Pratyantardasha calculator API. Returns the 9 Pratyantardasha (antara) periods inside a
+     * chosen Antardasha, the third level of the Vimshottari dasha hierarchy. Use it to drill from
+     * a Mahadasha into month level timing for event prediction, muhurta selection, and dasha
+     * timeline UIs. Each period is proportional to the Vimshottari years of its lord.
+     *
+     * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}
+     *
+     * @param string $mahadasha
+     *   Mahadasha planet name, case-insensitive (e.g. saturn, Saturn, SATURN all work). Valid: Ketu,
+     *   Venus, Sun, Moon, Mars, Rahu, Jupiter, Saturn, Mercury.
+     * @param string $antardasha
+     *   Antardasha (bhukti) planet name inside that Mahadasha, case-insensitive. Every Mahadasha
+     *   contains all 9 lords, so a repeat such as saturn/saturn is valid.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
+     *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
+     *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
+     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getPratyantardashas(
+        string $mahadasha,
+        string $antardasha,
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        ?string $ayanamsa = null,
+        mixed $timezone = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPratyantardashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get Rashi by ID - Vedic Zodiac Sign Detail
      *
      * Get detailed information for a single rashi (zodiac sign) by its Vedic ID slug. Returns
@@ -1717,6 +1798,75 @@ class VedicAstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetRashiRequest(id: $id, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Get all Sookshma dashas for a Mahadasha, Antardasha and Pratyantardasha
+     *
+     * Sookshma dasha API. Returns the 9 Sookshma periods inside a chosen Pratyantardasha, the
+     * fourth and finest level of the Vimshottari dasha hierarchy. Completes a full vimshottari
+     * drill down from the 120-year cycle to day level timing, typically 3 to 30 days per period.
+     * Built for dasha drill down tables, current DBA readouts, and precise event timing in Vedic
+     * astrology software.
+     *
+     * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}/{pratyantardasha}
+     *
+     * @param string $mahadasha
+     *   Mahadasha planet name, case-insensitive. Valid: Ketu, Venus, Sun, Moon, Mars, Rahu, Jupiter,
+     *   Saturn, Mercury.
+     * @param string $antardasha
+     *   Antardasha (bhukti) planet name inside that Mahadasha, case-insensitive.
+     * @param string $pratyantardasha
+     *   Pratyantardasha (antara) planet name inside that Antardasha, case-insensitive.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
+     *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
+     *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
+     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getSookshmaDashas(
+        string $mahadasha,
+        string $antardasha,
+        string $pratyantardasha,
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        ?string $ayanamsa = null,
+        mixed $timezone = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSookshmaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1748,6 +1898,12 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
+     *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
+     *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
+     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -1765,11 +1921,12 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
