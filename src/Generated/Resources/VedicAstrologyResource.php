@@ -894,9 +894,12 @@ class VedicAstrologyResource extends BaseResource
      *   Observer longitude in decimal degrees. Affects local time calculations for sunrise, sunset,
      *   and muhurta period boundaries.
      * @param mixed|null $timezone
-     *   Timezone offset from UTC in decimal hours. Used for sunrise/sunset/moonrise/moonset search
-     *   accuracy and output time formatting. Essential for correct results outside IST. Defaults to
-     *   5.5 (IST).
+     *   Timezone offset from UTC in decimal hours, for example -5 for New York or 9 for Tokyo. Send
+     *   the offset that matches the coordinates: sunrise, sunset and every muhurta boundary are
+     *   found by searching forward from local midnight, so the default anchors the search to an
+     *   Indian day. Omitting it for a location outside IST returns a correctly ordered set of
+     *   periods for the wrong window, shifted by the difference between 5.5 and the real offset.
+     *   Defaults to 5.5 (IST).
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
