@@ -15,26 +15,28 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get current Mahadasha, Antardasha, Pratyantardasha, Sookshma, Prana - Dasha Calculator API
+ * Get all Prana dashas for a Mahadasha, Antardasha, Pratyantardasha and Sookshma
  *
- * Calculate all five running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
- * Sookshma, Prana) with remaining time in each. Accurate dasha calculator API for life phase
- * prediction and planetary period analysis. Returns the dasha timeline with start/end dates
- * for every level, ready for a current DBA readout down to hour-level timing. Set
- * significators true to add the KP star lord, sub lord, signified houses and strength grade of
- * each running lord, plus the houses they have in common. Essential for understanding current
- * planetary influences, dasha transitions, and timing events in Vedic astrology. 120-year
- * dasha system based on moon nakshatra at birth, with selectable Lahiri or KP ayanamsa.
+ * Prana dasha API. Returns the 9 Prana periods inside a chosen Sookshma dasha, the fifth and
+ * finest level of the Vimshottari dasha hierarchy. Completes the full vimshottari drill down
+ * from the 120-year cycle to hour level timing, typically 20 minutes to 4 days per period
+ * depending on the parent Mahadasha. Built for five column dasha drill down tables, muhurta
+ * selection, and pinpointing the trigger moment inside an event window already found at the
+ * Sookshma level.
  *
- * POST /vedic-astrology/dasha/current
+ * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}/{pratyantardasha}/{sookshma}
  */
-class GetCurrentDashaRequest extends Request implements HasBody
+class GetPranaDashasRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
     public function __construct(
+        public readonly string $mahadasha,
+        public readonly string $antardasha,
+        public readonly string $pratyantardasha,
+        public readonly string $sookshma,
         public readonly string $date,
         public readonly float $latitude,
         public readonly float $longitude,
@@ -49,7 +51,7 @@ class GetCurrentDashaRequest extends Request implements HasBody
 
     public function resolveEndpoint(): string
     {
-        return "/vedic-astrology/dasha/current";
+        return "/vedic-astrology/dasha/sub/{$this->mahadasha}/{$this->antardasha}/{$this->pratyantardasha}/{$this->sookshma}";
     }
 
     /**

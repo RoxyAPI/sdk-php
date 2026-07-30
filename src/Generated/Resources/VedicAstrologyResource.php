@@ -813,12 +813,14 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
-     * Get current Mahadasha, Antardasha, Pratyantardasha, Sookshma - Dasha Calculator API
+     * Get current Mahadasha, Antardasha, Pratyantardasha, Sookshma, Prana - Dasha Calculator API
      *
-     * Calculate all four running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
-     * Sookshma) with remaining time in each. Accurate dasha calculator API for life phase
+     * Calculate all five running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
+     * Sookshma, Prana) with remaining time in each. Accurate dasha calculator API for life phase
      * prediction and planetary period analysis. Returns the dasha timeline with start/end dates
-     * for every level, ready for a current DBA readout. Essential for understanding current
+     * for every level, ready for a current DBA readout down to hour-level timing. Set
+     * significators true to add the KP star lord, sub lord, signified houses and strength grade of
+     * each running lord, plus the houses they have in common. Essential for understanding current
      * planetary influences, dasha transitions, and timing events in Vedic astrology. 120-year
      * dasha system based on moon nakshatra at birth, with selectable Lahiri or KP ayanamsa.
      *
@@ -846,6 +848,18 @@ class VedicAstrologyResource extends BaseResource
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
      *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
      *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
+     *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
+     *   node (traditional default). "true" uses the osculating node, which swings up to 1.5 degrees
+     *   either side of mean over a 173-day cycle and can therefore change which house or star a node
+     *   falls in. Defaults to "mean".
+     * @param bool|null $significators
+     *   Set true to attach the KP significators of each period lord: its star lord, sub lord,
+     *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
+     *   default, so responses stay exactly as they are for clients that only need dates. Requires
+     *   the birth latitude and longitude, since significators are read off a Placidus house chart,
+     *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -863,11 +877,13 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?string $nodeType = null,
+        ?bool $significators = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -996,11 +1012,12 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get KP-Newcomb ayanamsa - Dynamic daily calculation
      *
-     * Get real-time KP-Newcomb ayanamsa value calculated using Newcomb precession theory - no
-     * preset tables. Returns precise ayanamsa for any date based on IAU modern precession
-     * standards. Essential for accurate KP chart calculations and research. Formula: A =
-     * 16.90709×(Year/10000) - 0.757371×(Year/1000)² - 6.92416, B = (Month-1 +
-     * Date/30)×1.1574074/1000. KP Newcomb ayanamsa API, dynamic ayanamsa calculator, Krishnamurti
+     * Get the KP-Newcomb (Krishnamurti) ayanamsa for any date, computed continuously from Newcomb
+     * precession theory rather than looked up in a preset table, so it tracks the date you ask for
+     * instead of the calendar year. This is the precession offset subtracted from a tropical
+     * longitude to obtain the sidereal one, and it is what makes a KP chart reproduce the
+     * reference software your practitioners already use. Returns the same value every KP endpoint
+     * applies internally. KP Newcomb ayanamsa API, dynamic ayanamsa calculator, Krishnamurti
      * ayanamsa today, current KP ayanamsa
      *
      * GET /vedic-astrology/kp/ayanamsa
@@ -1460,6 +1477,18 @@ class VedicAstrologyResource extends BaseResource
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
      *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
      *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
+     *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
+     *   node (traditional default). "true" uses the osculating node, which swings up to 1.5 degrees
+     *   either side of mean over a 173-day cycle and can therefore change which house or star a node
+     *   falls in. Defaults to "mean".
+     * @param bool|null $significators
+     *   Set true to attach the KP significators of each period lord: its star lord, sub lord,
+     *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
+     *   default, so responses stay exactly as they are for clients that only need dates. Requires
+     *   the birth latitude and longitude, since significators are read off a Placidus house chart,
+     *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -1477,11 +1506,13 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?string $nodeType = null,
+        ?bool $significators = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1712,6 +1743,94 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Get all Prana dashas for a Mahadasha, Antardasha, Pratyantardasha and Sookshma
+     *
+     * Prana dasha API. Returns the 9 Prana periods inside a chosen Sookshma dasha, the fifth and
+     * finest level of the Vimshottari dasha hierarchy. Completes the full vimshottari drill down
+     * from the 120-year cycle to hour level timing, typically 20 minutes to 4 days per period
+     * depending on the parent Mahadasha. Built for five column dasha drill down tables, muhurta
+     * selection, and pinpointing the trigger moment inside an event window already found at the
+     * Sookshma level.
+     *
+     * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}/{pratyantardasha}/{sookshma}
+     *
+     * @param string $mahadasha
+     *   Mahadasha planet name, case-insensitive. Valid: Ketu, Venus, Sun, Moon, Mars, Rahu, Jupiter,
+     *   Saturn, Mercury.
+     * @param string $antardasha
+     *   Antardasha (bhukti) planet name inside that Mahadasha, case-insensitive.
+     * @param string $pratyantardasha
+     *   Pratyantardasha (antara) planet name inside that Antardasha, case-insensitive.
+     * @param string $sookshma
+     *   Sookshma dasha planet name inside that Pratyantardasha, case-insensitive. Every full period
+     *   contains all 9 lords, so a repeat such as saturn/saturn/saturn/saturn is valid.
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
+     *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
+     *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
+     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
+     *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
+     *   node (traditional default). "true" uses the osculating node, which swings up to 1.5 degrees
+     *   either side of mean over a 173-day cycle and can therefore change which house or star a node
+     *   falls in. Defaults to "mean".
+     * @param bool|null $significators
+     *   Set true to attach the KP significators of each period lord: its star lord, sub lord,
+     *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
+     *   default, so responses stay exactly as they are for clients that only need dates. Requires
+     *   the birth latitude and longitude, since significators are read off a Placidus house chart,
+     *   and uses the same ayanamsa frame selected above.
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getPranaDashas(
+        string $mahadasha,
+        string $antardasha,
+        string $pratyantardasha,
+        string $sookshma,
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        ?string $ayanamsa = null,
+        ?string $nodeType = null,
+        ?bool $significators = null,
+        mixed $timezone = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPranaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, sookshma: $sookshma, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get all Pratyantardashas (antara periods) for a Mahadasha and Antardasha
      *
      * Pratyantardasha calculator API. Returns the 9 Pratyantardasha (antara) periods inside a
@@ -1749,6 +1868,18 @@ class VedicAstrologyResource extends BaseResource
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
      *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
      *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
+     *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
+     *   node (traditional default). "true" uses the osculating node, which swings up to 1.5 degrees
+     *   either side of mean over a 173-day cycle and can therefore change which house or star a node
+     *   falls in. Defaults to "mean".
+     * @param bool|null $significators
+     *   Set true to attach the KP significators of each period lord: its star lord, sub lord,
+     *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
+     *   default, so responses stay exactly as they are for clients that only need dates. Requires
+     *   the birth latitude and longitude, since significators are read off a Placidus house chart,
+     *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -1768,11 +1899,13 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?string $nodeType = null,
+        ?bool $significators = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPratyantardashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPratyantardashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1845,6 +1978,18 @@ class VedicAstrologyResource extends BaseResource
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
      *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
      *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
+     *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
+     *   node (traditional default). "true" uses the osculating node, which swings up to 1.5 degrees
+     *   either side of mean over a 173-day cycle and can therefore change which house or star a node
+     *   falls in. Defaults to "mean".
+     * @param bool|null $significators
+     *   Set true to attach the KP significators of each period lord: its star lord, sub lord,
+     *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
+     *   default, so responses stay exactly as they are for clients that only need dates. Requires
+     *   the birth latitude and longitude, since significators are read off a Placidus house chart,
+     *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -1865,11 +2010,13 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?string $nodeType = null,
+        ?bool $significators = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSookshmaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSookshmaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1907,6 +2054,18 @@ class VedicAstrologyResource extends BaseResource
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
      *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
      *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
+     *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
+     *   node (traditional default). "true" uses the osculating node, which swings up to 1.5 degrees
+     *   either side of mean over a 173-day cycle and can therefore change which house or star a node
+     *   falls in. Defaults to "mean".
+     * @param bool|null $significators
+     *   Set true to attach the KP significators of each period lord: its star lord, sub lord,
+     *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
+     *   default, so responses stay exactly as they are for clients that only need dates. Requires
+     *   the birth latitude and longitude, since significators are read off a Placidus house chart,
+     *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -1925,11 +2084,13 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?string $nodeType = null,
+        ?bool $significators = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }

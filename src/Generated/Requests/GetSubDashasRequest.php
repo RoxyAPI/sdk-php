@@ -35,6 +35,8 @@ class GetSubDashasRequest extends Request implements HasBody
         public readonly float $longitude,
         public readonly string $time,
         public readonly ?string $ayanamsa = null,
+        public readonly ?string $nodeType = null,
+        public readonly ?bool $significators = null,
         public readonly mixed $timezone = null,
         public readonly ?string $lang = null,
     ) {
@@ -57,6 +59,12 @@ class GetSubDashasRequest extends Request implements HasBody
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
+        if ($this->nodeType !== null) {
+            $body['nodeType'] = $this->nodeType;
+        }
+        if ($this->significators !== null) {
+            $body['significators'] = $this->significators;
+        }
         $body['time'] = $this->time;
         if ($this->timezone !== null) {
             $body['timezone'] = $this->timezone;
