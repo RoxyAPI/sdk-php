@@ -13,28 +13,27 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List all planetary yogas - 300+ Vedic Yoga Glossary
+ * Get avastha by ID - Planetary State Detail
  *
- * Browse the 300+ entry Vedic planetary-yoga glossary. Returns id and name for every cataloged
- * yoga (Raja, Dhana, Pancha Mahapurusha, Nabhasa, Chandra-Mangala, and more). This is a
- * dictionary lookup, not chart-driven detection: it does not inspect a birth chart. Use GET
- * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run all 44 detection rules
- * against a specific kundli. Ideal for yoga-browser UIs, search, and progressive data loading.
+ * Look up a single avastha state by its slug, which is the lowercased state name a birth chart
+ * returns in `awastha`, `jagradadi` or `deeptadi`. Returns the system it belongs to, a short
+ * label, and what the state means for the results the graha delivers.
  *
- * GET /vedic-astrology/yoga
+ * GET /vedic-astrology/avasthas/{id}
  */
-class ListYogasRequest extends Request
+class GetAvasthaRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
+        public readonly string $id,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/vedic-astrology/yoga";
+        return "/vedic-astrology/avasthas/{$this->id}";
     }
 
     /**

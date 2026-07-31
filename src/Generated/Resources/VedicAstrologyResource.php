@@ -20,6 +20,60 @@ use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 class VedicAstrologyResource extends BaseResource
 {
     /**
+     * Get the twelve Arudha padas - Arudha Lagna Calculator API
+     *
+     * Calculate the Arudha Lagna (AL) and all twelve Arudha padas of Jaimini astrology from birth
+     * details. An Arudha pada is the perceived or projected form of a bhava, so where the Lagna
+     * shows what a person is, the Arudha Lagna shows the image and status the world attaches to
+     * them. Returns each pada with the bhava lord and the count that produced it, the sign it
+     * lands in, its house from the Lagna, and a flag showing whether the classical exception moved
+     * it. Includes the Upapada (UL) read for marriage. Arudha Lagna calculator API, Jaimini pada,
+     * Upapada Lagna, Vedic astrology public image.
+     *
+     * POST /vedic-astrology/arudha
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateArudhaPadas(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateArudhaPadasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get Ashtakavarga (planetary strength) analysis - Ashtakavarga Calculator API
      *
      * Calculate complete Ashtakavarga analysis per Brihat Parashara Hora Shastra (BPHS). Returns
@@ -64,6 +118,68 @@ class VedicAstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateAshtakavargaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Get Chara Karakas including Atmakaraka - Jaimini Karaka Calculator API
+     *
+     * Calculate the Chara Karakas of Jaimini astrology from birth details: the movable
+     * significators assigned by ranking each graha on how far it has advanced into its sign. The
+     * highest becomes the Atmakaraka, the soul significator and the strongest influence in the
+     * chart, and the rest take the Amatya, Bhratri, Matri, Pitri, Putra, Gnati and Dara offices in
+     * descending order. Supports both the eight-karaka scheme, where Rahu is included with its
+     * degree reversed, and the seven-karaka scheme that excludes the nodes, because the two can
+     * name a different Atmakaraka for the same chart. Atmakaraka calculator API, Darakaraka,
+     * Jaimini chara karaka, Vedic astrology soul significator.
+     *
+     * POST /vedic-astrology/chara-karakas
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
+     * @param string|null $scheme
+     *   Which Chara Karaka scheme to rank. "eight" includes Rahu, counting its degree in reverse
+     *   because it moves retrograde, and returns eight offices including Pitrikaraka. "seven" ranks
+     *   only the seven classical grahas and drops Pitrikaraka. Ketu is excluded from both, since it
+     *   always mirrors the Rahu degree exactly. The two schemes can produce a different Atmakaraka
+     *   for the same chart, so select the one your reference software uses. Defaults to "eight".
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateCharaKarakas(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        ?string $scheme = null,
+        mixed $timezone = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateCharaKarakasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, scheme: $scheme, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -447,16 +563,26 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Detect classical Vedic yogas in a birth chart
      *
-     * Chart-driven detection of 12 classical Vedic yogas: Gajakesari (parashara three-rule
-     * definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra Mangala, Budha-Aditya, and the
-     * five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa, Malavya, Sasa). Each yoga is returned
-     * with an `id`, `name`, a `present` boolean, a `quality` (Positive, Negative, or Both, i.e.
-     * auspicious, inauspicious, or context-dependent), and a classical-text `evidence` string
-     * naming the rule that triggered or failed (kendra position, dignity, malefic drishti,
-     * lordship, retrograde state). There is no separate major/minor flag; `quality` is the
+     * Chart-driven detection of 44 classical Vedic yogas. Twelve conjunction and dignity yogas:
+     * Gajakesari (parashara three-rule definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra
+     * Mangala, Budha-Aditya, and the five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa,
+     * Malavya, Sasa). Plus all 32 Nabhasa distribution yogas, which describe how the seven visible
+     * grahas are spread across the whole chart rather than any single conjunction, across four
+     * families: Asraya (Rajju, Musala, Nala), Dala (Mala, Sarpa), Akriti (Gada, Shakata, Vihaga,
+     * Shringataka, Hala, Vajra, Yava, Kamala, Vapi, Yupa, Shara, Shakti, Danda, Nauka, Kuta,
+     * Chhatra, Dhanusha, Ardhachandra, Chakra, Samudra) and Sankhya (Gola, Yuga, Shoola, Kedara,
+     * Pasa, Damini, Veena). Each yoga is returned with an `id`, `name`, a `present` boolean, a
+     * `quality` (Positive, Negative, or Both, i.e. auspicious, inauspicious, or
+     * context-dependent), and a classical-text `evidence` string naming the rule that triggered or
+     * failed (kendra position, dignity, malefic drishti, lordship, retrograde state, sign
+     * modality, bhava distribution). Nabhasa results also apply the four classical precedence
+     * norms, so a yoga that matched its own rule but was outranked by a stronger family is
+     * returned as absent with evidence naming the norm that silenced it, letting you explain a
+     * verdict rather than only report it. There is no separate major/minor flag; `quality` is the
      * auspiciousness axis. Unlike GET /yoga and GET /yoga/{id} which are dictionary lookups, this
      * endpoint computes the kundli from birth data and runs the detection rules. Sources: BPHS ch.
-     * 75, Mantreswara Phaladeepika ch. 6, B.V. Raman Three Hundred Important Combinations.
+     * 35 and ch. 75, Mantreswara Phaladeepika ch. 6, B.V. Raman Three Hundred Important
+     * Combinations.
      *
      * POST /vedic-astrology/yoga/detect
      *
@@ -533,6 +659,14 @@ class VedicAstrologyResource extends BaseResource
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -545,10 +679,11 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -652,6 +787,14 @@ class VedicAstrologyResource extends BaseResource
      *   assignments in narrow boundary cases. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -667,10 +810,11 @@ class VedicAstrologyResource extends BaseResource
         ?float $ayanamsaValue = null,
         ?string $nodeType = null,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateKpChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateKpChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -723,6 +867,34 @@ class VedicAstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNavamsaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Get avastha by ID - Planetary State Detail
+     *
+     * Look up a single avastha state by its slug, which is the lowercased state name a birth chart
+     * returns in `awastha`, `jagradadi` or `deeptadi`. Returns the system it belongs to, a short
+     * label, and what the state means for the results the graha delivers.
+     *
+     * GET /vedic-astrology/avasthas/{id}
+     *
+     * @param string $id
+     *   Avastha slug. Baladi: bala, kumara, yuva, vriddha, mrita. Jagradadi: jagrat, swapna,
+     *   sushupti. Deeptadi: dipta, svastha, pramudita, shanta, dina, duhkhita, vikala, khala, kopa.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getAvastha(
+        string $id,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetAvasthaRequest(id: $id, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -865,6 +1037,14 @@ class VedicAstrologyResource extends BaseResource
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -880,10 +1060,11 @@ class VedicAstrologyResource extends BaseResource
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1494,6 +1675,14 @@ class VedicAstrologyResource extends BaseResource
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1509,10 +1698,11 @@ class VedicAstrologyResource extends BaseResource
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1803,6 +1993,14 @@ class VedicAstrologyResource extends BaseResource
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1822,10 +2020,11 @@ class VedicAstrologyResource extends BaseResource
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPranaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, sookshma: $sookshma, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPranaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, sookshma: $sookshma, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1885,6 +2084,14 @@ class VedicAstrologyResource extends BaseResource
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1902,10 +2109,11 @@ class VedicAstrologyResource extends BaseResource
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPratyantardashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPratyantardashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1995,6 +2203,14 @@ class VedicAstrologyResource extends BaseResource
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -2013,10 +2229,11 @@ class VedicAstrologyResource extends BaseResource
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSookshmaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSookshmaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2071,6 +2288,14 @@ class VedicAstrologyResource extends BaseResource
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -2087,10 +2312,11 @@ class VedicAstrologyResource extends BaseResource
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
+        ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2151,8 +2377,8 @@ class VedicAstrologyResource extends BaseResource
      * planetary-yoga glossary. Returns formation conditions, life results, and quality
      * classification (Positive/Negative/Both). This is a glossary lookup against the static
      * catalog; it does NOT analyze a birth chart. For chart-driven present/absent verdicts on the
-     * 12 classical detection-grade yogas (Gajakesari, Pancha Mahapurusha, etc.) call POST
-     * /yoga/detect with birth data.
+     * 44 detection-grade yogas (Gajakesari, the Pancha Mahapurusha set, and all 32 Nabhasa
+     * distribution yogas) call POST /yoga/detect with birth data.
      *
      * GET /vedic-astrology/yoga/{id}
      *
@@ -2170,6 +2396,37 @@ class VedicAstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetYogaRequest(id: $id, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * List all 17 avastha states - Planetary State Reference
+     *
+     * Reference list of every avastha (planetary state) across the three classical systems: the
+     * five Baladi age states, the three Jagradadi waking states, and the nine Deeptadi
+     * dispositional states. Each carries a short label and what the state means for the results
+     * the graha can deliver. Use it to turn the bare state names a birth chart returns into
+     * readable output, filtered by system if you only need one. Avastha meaning API, Baladi
+     * avastha, Jagradadi, Deeptadi, planetary state Vedic astrology.
+     *
+     * GET /vedic-astrology/avasthas
+     *
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     * @param string|null $system
+     *   Return only the states of one system: "baladi" (5), "jagradadi" (3) or "deeptadi" (9). Omit
+     *   for all 17.
+     *
+     * @return array<string, mixed>
+     */
+    public function listAvasthas(
+        ?string $lang = null,
+        ?string $system = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\ListAvasthasRequest(lang: $lang, system: $system);
 
         return $this->callRequest($request);
     }
@@ -2231,9 +2488,8 @@ class VedicAstrologyResource extends BaseResource
      * Browse the 300+ entry Vedic planetary-yoga glossary. Returns id and name for every cataloged
      * yoga (Raja, Dhana, Pancha Mahapurusha, Nabhasa, Chandra-Mangala, and more). This is a
      * dictionary lookup, not chart-driven detection: it does not inspect a birth chart. Use GET
-     * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run the 12 classical
-     * detection rules against a specific kundli. Ideal for yoga-browser UIs, search, and
-     * progressive data loading.
+     * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run all 44 detection rules
+     * against a specific kundli. Ideal for yoga-browser UIs, search, and progressive data loading.
      *
      * GET /vedic-astrology/yoga
      *

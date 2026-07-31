@@ -17,16 +17,26 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Detect classical Vedic yogas in a birth chart
  *
- * Chart-driven detection of 12 classical Vedic yogas: Gajakesari (parashara three-rule
- * definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra Mangala, Budha-Aditya, and the
- * five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa, Malavya, Sasa). Each yoga is returned
- * with an `id`, `name`, a `present` boolean, a `quality` (Positive, Negative, or Both, i.e.
- * auspicious, inauspicious, or context-dependent), and a classical-text `evidence` string
- * naming the rule that triggered or failed (kendra position, dignity, malefic drishti,
- * lordship, retrograde state). There is no separate major/minor flag; `quality` is the
+ * Chart-driven detection of 44 classical Vedic yogas. Twelve conjunction and dignity yogas:
+ * Gajakesari (parashara three-rule definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra
+ * Mangala, Budha-Aditya, and the five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa,
+ * Malavya, Sasa). Plus all 32 Nabhasa distribution yogas, which describe how the seven visible
+ * grahas are spread across the whole chart rather than any single conjunction, across four
+ * families: Asraya (Rajju, Musala, Nala), Dala (Mala, Sarpa), Akriti (Gada, Shakata, Vihaga,
+ * Shringataka, Hala, Vajra, Yava, Kamala, Vapi, Yupa, Shara, Shakti, Danda, Nauka, Kuta,
+ * Chhatra, Dhanusha, Ardhachandra, Chakra, Samudra) and Sankhya (Gola, Yuga, Shoola, Kedara,
+ * Pasa, Damini, Veena). Each yoga is returned with an `id`, `name`, a `present` boolean, a
+ * `quality` (Positive, Negative, or Both, i.e. auspicious, inauspicious, or
+ * context-dependent), and a classical-text `evidence` string naming the rule that triggered or
+ * failed (kendra position, dignity, malefic drishti, lordship, retrograde state, sign
+ * modality, bhava distribution). Nabhasa results also apply the four classical precedence
+ * norms, so a yoga that matched its own rule but was outranked by a stronger family is
+ * returned as absent with evidence naming the norm that silenced it, letting you explain a
+ * verdict rather than only report it. There is no separate major/minor flag; `quality` is the
  * auspiciousness axis. Unlike GET /yoga and GET /yoga/{id} which are dictionary lookups, this
  * endpoint computes the kundli from birth data and runs the detection rules. Sources: BPHS ch.
- * 75, Mantreswara Phaladeepika ch. 6, B.V. Raman Three Hundred Important Combinations.
+ * 35 and ch. 75, Mantreswara Phaladeepika ch. 6, B.V. Raman Three Hundred Important
+ * Combinations.
  *
  * POST /vedic-astrology/yoga/detect
  */

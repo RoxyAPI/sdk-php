@@ -15,42 +15,39 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get all Sookshma dashas for a Mahadasha, Antardasha and Pratyantardasha
+ * Get Chara Karakas including Atmakaraka - Jaimini Karaka Calculator API
  *
- * Sookshma dasha API. Returns the 9 Sookshma periods inside a chosen Pratyantardasha, the
- * fourth and finest level of the Vimshottari dasha hierarchy. Completes a full vimshottari
- * drill down from the 120-year cycle to day level timing, typically 3 to 30 days per period.
- * Built for dasha drill down tables, current DBA readouts, and precise event timing in Vedic
- * astrology software.
+ * Calculate the Chara Karakas of Jaimini astrology from birth details: the movable
+ * significators assigned by ranking each graha on how far it has advanced into its sign. The
+ * highest becomes the Atmakaraka, the soul significator and the strongest influence in the
+ * chart, and the rest take the Amatya, Bhratri, Matri, Pitri, Putra, Gnati and Dara offices in
+ * descending order. Supports both the eight-karaka scheme, where Rahu is included with its
+ * degree reversed, and the seven-karaka scheme that excludes the nodes, because the two can
+ * name a different Atmakaraka for the same chart. Atmakaraka calculator API, Darakaraka,
+ * Jaimini chara karaka, Vedic astrology soul significator.
  *
- * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}/{pratyantardasha}
+ * POST /vedic-astrology/chara-karakas
  */
-class GetSookshmaDashasRequest extends Request implements HasBody
+class CalculateCharaKarakasRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly string $mahadasha,
-        public readonly string $antardasha,
-        public readonly string $pratyantardasha,
         public readonly string $date,
         public readonly float $latitude,
         public readonly float $longitude,
         public readonly string $time,
-        public readonly ?string $ayanamsa = null,
-        public readonly ?string $nodeType = null,
-        public readonly ?bool $significators = null,
+        public readonly ?string $scheme = null,
         public readonly mixed $timezone = null,
-        public readonly ?string $focus = null,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/vedic-astrology/dasha/sub/{$this->mahadasha}/{$this->antardasha}/{$this->pratyantardasha}";
+        return "/vedic-astrology/chara-karakas";
     }
 
     /**
@@ -59,17 +56,11 @@ class GetSookshmaDashasRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
-        if ($this->ayanamsa !== null) {
-            $body['ayanamsa'] = $this->ayanamsa;
-        }
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
-        if ($this->nodeType !== null) {
-            $body['nodeType'] = $this->nodeType;
-        }
-        if ($this->significators !== null) {
-            $body['significators'] = $this->significators;
+        if ($this->scheme !== null) {
+            $body['scheme'] = $this->scheme;
         }
         $body['time'] = $this->time;
         if ($this->timezone !== null) {
@@ -85,9 +76,6 @@ class GetSookshmaDashasRequest extends Request implements HasBody
     protected function defaultQuery(): array
     {
         $query = [];
-        if ($this->focus !== null) {
-            $query['focus'] = $this->focus;
-        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
         }

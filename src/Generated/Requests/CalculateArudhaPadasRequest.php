@@ -15,17 +15,19 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get birth chart (D1 Rashi chart) - Kundli Calculator API
+ * Get the twelve Arudha padas - Arudha Lagna Calculator API
  *
- * Calculate complete Vedic birth chart (Janam Kundli, natal chart) with all 9 planetary
- * positions (Sun through Ketu) plus Ascendant (Lagna). Kundli calculator API for astrology
- * apps, matrimonial sites. Returns accurate graha positions grouped by zodiac signs (rashis)
- * with nakshatra details and pada. Perfect for kundli generation, horoscope matching, and
- * Vedic astrology software integration.
+ * Calculate the Arudha Lagna (AL) and all twelve Arudha padas of Jaimini astrology from birth
+ * details. An Arudha pada is the perceived or projected form of a bhava, so where the Lagna
+ * shows what a person is, the Arudha Lagna shows the image and status the world attaches to
+ * them. Returns each pada with the bhava lord and the count that produced it, the sign it
+ * lands in, its house from the Lagna, and a flag showing whether the classical exception moved
+ * it. Includes the Upapada (UL) read for marriage. Arudha Lagna calculator API, Jaimini pada,
+ * Upapada Lagna, Vedic astrology public image.
  *
- * POST /vedic-astrology/birth-chart
+ * POST /vedic-astrology/arudha
  */
-class GenerateBirthChartRequest extends Request implements HasBody
+class CalculateArudhaPadasRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -37,14 +39,13 @@ class GenerateBirthChartRequest extends Request implements HasBody
         public readonly float $longitude,
         public readonly string $time,
         public readonly mixed $timezone = null,
-        public readonly ?string $focus = null,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/vedic-astrology/birth-chart";
+        return "/vedic-astrology/arudha";
     }
 
     /**
@@ -70,9 +71,6 @@ class GenerateBirthChartRequest extends Request implements HasBody
     protected function defaultQuery(): array
     {
         $query = [];
-        if ($this->focus !== null) {
-            $query['focus'] = $this->focus;
-        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
         }

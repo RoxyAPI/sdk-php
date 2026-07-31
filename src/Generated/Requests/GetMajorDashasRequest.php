@@ -37,6 +37,7 @@ class GetMajorDashasRequest extends Request implements HasBody
         public readonly ?string $nodeType = null,
         public readonly ?bool $significators = null,
         public readonly mixed $timezone = null,
+        public readonly ?string $focus = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -78,6 +79,9 @@ class GetMajorDashasRequest extends Request implements HasBody
     protected function defaultQuery(): array
     {
         $query = [];
+        if ($this->focus !== null) {
+            $query['focus'] = $this->focus;
+        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
         }

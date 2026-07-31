@@ -19,8 +19,8 @@ use Saloon\Http\Request;
  * planetary-yoga glossary. Returns formation conditions, life results, and quality
  * classification (Positive/Negative/Both). This is a glossary lookup against the static
  * catalog; it does NOT analyze a birth chart. For chart-driven present/absent verdicts on the
- * 12 classical detection-grade yogas (Gajakesari, Pancha Mahapurusha, etc.) call POST
- * /yoga/detect with birth data.
+ * 44 detection-grade yogas (Gajakesari, the Pancha Mahapurusha set, and all 32 Nabhasa
+ * distribution yogas) call POST /yoga/detect with birth data.
  *
  * GET /vedic-astrology/yoga/{id}
  */
