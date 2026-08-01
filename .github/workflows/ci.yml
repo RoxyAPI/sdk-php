@@ -41,6 +41,16 @@ jobs:
           git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php tests/Generated \
             || { echo 'codegen drift: commit the regenerated files'; exit 1; }
 
+      # Unlike the TS, Go and .NET generators, scripts/generate.mjs does NOT sync docs, so this
+      # cannot be folded into the step above. Without it a --no-verify push lands drifted
+      # README/AGENTS with nothing to catch it.
+      - name: Docs drift check
+        if: matrix.php == '8.2'
+        run: |
+          node scripts/sync-docs.mjs
+          git diff --exit-code -- README.md AGENTS.md \
+            || { echo 'docs drift: commit the regenerated README.md/AGENTS.md'; exit 1; }
+
       - name: Lint
         if: matrix.php == '8.2'
         run: vendor/bin/pint --test

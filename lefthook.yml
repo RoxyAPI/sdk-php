@@ -5,8 +5,6 @@ pre-commit:
       glob: "*.php"
       run: vendor/bin/pint {staged_files}
       stage_fixed: true
-    phpstan:
-      run: vendor/bin/phpstan analyse --no-progress --memory-limit=512M
     docs-sync:
       glob: "{specs/openapi.json,scripts/tag-descriptions.mjs,scripts/sync-docs.mjs}"
       run: node scripts/sync-docs.mjs && git add README.md AGENTS.md
