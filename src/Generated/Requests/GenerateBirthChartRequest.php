@@ -36,6 +36,7 @@ class GenerateBirthChartRequest extends Request implements HasBody
         public readonly float $latitude,
         public readonly float $longitude,
         public readonly string $time,
+        public readonly ?bool $avasthaInfo = null,
         public readonly mixed $timezone = null,
         public readonly ?string $focus = null,
         public readonly ?string $lang = null,
@@ -53,6 +54,9 @@ class GenerateBirthChartRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
+        if ($this->avasthaInfo !== null) {
+            $body['avasthaInfo'] = $this->avasthaInfo;
+        }
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;

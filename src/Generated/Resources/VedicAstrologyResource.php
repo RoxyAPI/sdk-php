@@ -654,6 +654,12 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param bool|null $avasthaInfo
+     *   Set true to include a localized meaning and one-sentence classical interpretation beside
+     *   each graha avastha state, under avasthaInfo on that graha in meta. Defaults to false, so an
+     *   existing integration is byte-identical until it opts in. Saves a second call to GET
+     *   /avasthas and the client-side join that would otherwise be needed to turn Yuva or Swapna
+     *   into readable text.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -678,12 +684,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?bool $avasthaInfo = null,
         mixed $timezone = null,
         ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, avasthaInfo: $avasthaInfo, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2585,6 +2592,10 @@ class VedicAstrologyResource extends BaseResource
      *
      * GET /vedic-astrology/yoga
      *
+     * @param string|null $family
+     *   Filter the catalog to one Nabhasa family: asraya (3), dala (2), akriti (20) or sankhya (7).
+     *   Omit for the full catalog. `classical` is accepted but matches nothing here, because it is a
+     *   detection-verdict value for single-combination yogas rather than a catalog grouping.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -2592,10 +2603,11 @@ class VedicAstrologyResource extends BaseResource
      * @return array<string, mixed>
      */
     public function listYogas(
+        ?string $family = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\ListYogasRequest(lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\ListYogasRequest(family: $family, lang: $lang);
 
         return $this->callRequest($request);
     }

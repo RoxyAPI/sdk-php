@@ -28,6 +28,7 @@ class ListYogasRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
+        public readonly ?string $family = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -43,6 +44,9 @@ class ListYogasRequest extends Request
     protected function defaultQuery(): array
     {
         $query = [];
+        if ($this->family !== null) {
+            $query['family'] = $this->family;
+        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
         }
