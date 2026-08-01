@@ -21,7 +21,11 @@ pre-push:
     phpstan:
       run: vendor/bin/phpstan analyse --no-progress --memory-limit=512M
       priority: 2
+    # Hermetic: regenerates from the committed spec, so this verifies the committed code still
+    # reproduces from it, with no network dependency. Refreshing the spec is the release job.
     codegen-drift:
+      env:
+        ROXYAPI_SPEC_FILE: specs/openapi.json
       run: node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php tests/Generated || { echo 'codegen drift: commit the regenerated files'; exit 1; }
       priority: 3
     docs-drift:
