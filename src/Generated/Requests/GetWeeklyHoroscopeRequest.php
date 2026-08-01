@@ -15,10 +15,11 @@ use Saloon\Http\Request;
 /**
  * Weekly horoscope by zodiac sign - 7-day transit forecast
  *
- * Get weekly horoscope for any zodiac sign. Forecast covers a full 7-day period based on
- * planetary transits with house-based content unique to each sign, with love, career, health,
- * finance guidance plus lucky days, lucky numbers, and compatible signs. Weekly horoscope API,
- * zodiac weekly forecast, astrology weekly prediction.
+ * Get weekly horoscope for any zodiac sign. Forecast covers a full Monday to Sunday period
+ * based on planetary transits with house-based content unique to each sign, with love, career,
+ * health, finance guidance plus lucky days, lucky numbers, and compatible signs. Pass any date
+ * inside a week to retrieve that week, or timezone to roll over on a local clock. Weekly
+ * horoscope API, zodiac weekly forecast, astrology weekly prediction.
  *
  * GET /astrology/horoscope/{sign}/weekly
  */
@@ -28,7 +29,9 @@ class GetWeeklyHoroscopeRequest extends Request
 
     public function __construct(
         public readonly string $sign,
+        public readonly ?string $date = null,
         public readonly ?string $lang = null,
+        public readonly ?string $timezone = null,
     ) {
     }
 
@@ -43,8 +46,14 @@ class GetWeeklyHoroscopeRequest extends Request
     protected function defaultQuery(): array
     {
         $query = [];
+        if ($this->date !== null) {
+            $query['date'] = $this->date;
+        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
+        }
+        if ($this->timezone !== null) {
+            $query['timezone'] = $this->timezone;
         }
 
         return $query;

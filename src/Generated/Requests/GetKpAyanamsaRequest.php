@@ -15,13 +15,14 @@ use Saloon\Http\Request;
 /**
  * Get KP-Newcomb ayanamsa - Dynamic daily calculation
  *
- * Get the KP-Newcomb (Krishnamurti) ayanamsa for any date, computed continuously from Newcomb
- * precession theory rather than looked up in a preset table, so it tracks the date you ask for
- * instead of the calendar year. This is the precession offset subtracted from a tropical
- * longitude to obtain the sidereal one, and it is what makes a KP chart reproduce the
- * reference software your practitioners already use. Returns the same value every KP endpoint
- * applies internally. KP Newcomb ayanamsa API, dynamic ayanamsa calculator, Krishnamurti
- * ayanamsa today, current KP ayanamsa
+ * Get the KP-Newcomb (Krishnamurti) ayanamsa for any instant, computed continuously from
+ * Newcomb precession theory rather than looked up in a preset table, so it tracks the exact
+ * moment you ask for instead of the calendar year. Supply date alone for midnight UTC, or add
+ * time and timezone to pin a birth moment exactly. This is the precession offset subtracted
+ * from a tropical longitude to obtain the sidereal one, and it is what makes a KP chart
+ * reproduce the reference software your practitioners already use. Returns the same value
+ * every KP endpoint applies internally. KP Newcomb ayanamsa API, dynamic ayanamsa calculator,
+ * Krishnamurti ayanamsa today, current KP ayanamsa
  *
  * GET /vedic-astrology/kp/ayanamsa
  */
@@ -31,6 +32,8 @@ class GetKpAyanamsaRequest extends Request
 
     public function __construct(
         public readonly ?string $date = null,
+        public readonly ?string $time = null,
+        public readonly ?string $timezone = null,
     ) {
     }
 
@@ -47,6 +50,12 @@ class GetKpAyanamsaRequest extends Request
         $query = [];
         if ($this->date !== null) {
             $query['date'] = $this->date;
+        }
+        if ($this->time !== null) {
+            $query['time'] = $this->time;
+        }
+        if ($this->timezone !== null) {
+            $query['timezone'] = $this->timezone;
         }
 
         return $query;

@@ -31,7 +31,7 @@ class GetCurrentMoonPhaseRequest extends Request
         public readonly ?string $date = null,
         public readonly ?string $lang = null,
         public readonly ?string $time = null,
-        public readonly mixed $timezone = null,
+        public readonly ?string $timezone = null,
     ) {
     }
 

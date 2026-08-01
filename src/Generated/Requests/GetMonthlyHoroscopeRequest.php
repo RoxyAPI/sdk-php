@@ -18,7 +18,8 @@ use Saloon\Http\Request;
  * Get monthly horoscope for any zodiac sign with sign-specific week-by-week breakdown and real
  * lunar phase key dates. Based on planetary transits with house activations unique to each
  * sign, covering love, career, health, and finance for the entire month. Key dates include
- * actual New Moon, Full Moon, and retrograde dates from ephemeris calculations. Monthly
+ * actual New Moon, Full Moon, and retrograde dates from ephemeris calculations. Pass any date
+ * inside a month to retrieve that month, or timezone to roll over on a local clock. Monthly
  * horoscope API, zodiac monthly forecast, astrology monthly prediction.
  *
  * GET /astrology/horoscope/{sign}/monthly
@@ -29,7 +30,9 @@ class GetMonthlyHoroscopeRequest extends Request
 
     public function __construct(
         public readonly string $sign,
+        public readonly ?string $date = null,
         public readonly ?string $lang = null,
+        public readonly ?string $timezone = null,
     ) {
     }
 
@@ -44,8 +47,14 @@ class GetMonthlyHoroscopeRequest extends Request
     protected function defaultQuery(): array
     {
         $query = [];
+        if ($this->date !== null) {
+            $query['date'] = $this->date;
+        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
+        }
+        if ($this->timezone !== null) {
+            $query['timezone'] = $this->timezone;
         }
 
         return $query;

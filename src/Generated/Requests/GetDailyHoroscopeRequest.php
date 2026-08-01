@@ -18,9 +18,10 @@ use Saloon\Http\Request;
  * Get the daily horoscope for any zodiac sign. Forecast is generated from real-time planetary
  * transits using whole-sign house positions, so every sign receives unique content. Returns
  * love, career, health, finance, overview with active transits, Moon sign, Moon phase, energy
- * rating, lucky number, lucky color, and compatible signs. Supports date parameter for
- * editorial scheduling. Daily horoscope API, zodiac forecast, sun sign horoscope, astrology
- * prediction.
+ * rating, lucky number, lucky color, and compatible signs. Content is fixed for a given date
+ * and rolls over at midnight, by default UTC. Pass date for editorial scheduling, or timezone
+ * to roll over on a local clock. Daily horoscope API, zodiac forecast, sun sign horoscope,
+ * astrology prediction.
  *
  * GET /astrology/horoscope/{sign}/daily
  */
@@ -32,6 +33,7 @@ class GetDailyHoroscopeRequest extends Request
         public readonly string $sign,
         public readonly ?string $date = null,
         public readonly ?string $lang = null,
+        public readonly ?string $timezone = null,
     ) {
     }
 
@@ -51,6 +53,9 @@ class GetDailyHoroscopeRequest extends Request
         }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
+        }
+        if ($this->timezone !== null) {
+            $query['timezone'] = $this->timezone;
         }
 
         return $query;

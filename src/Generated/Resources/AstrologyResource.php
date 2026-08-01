@@ -1138,9 +1138,10 @@ class AstrologyResource extends BaseResource
      * @param string|null $time
      *   Time in 24-hour HH:MM:SS format. Defaults to 12:00:00 (noon). Moon moves ~13 degrees per day
      *   so time affects phase precision.
-     * @param mixed|null $timezone
-     *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours (e.g. -5 for EST, 1
-     *   for CET). IANA resolved to the DST-correct offset for the given date. Defaults to 0 (UTC).
+     * @param string|null $timezone
+     *   IANA name (e.g. "America/New_York", "Europe/London"), decimal hours (e.g. -5 for EST, 1 for
+     *   CET), or a fixed UTC offset (e.g. "-05:00"). IANA resolved to the DST-correct offset for the
+     *   given date. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -1148,7 +1149,7 @@ class AstrologyResource extends BaseResource
         ?string $date = null,
         ?string $lang = null,
         ?string $time = null,
-        mixed $timezone = null
+        ?string $timezone = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentMoonPhaseRequest(date: $date, lang: $lang, time: $time, timezone: $timezone);
@@ -1162,30 +1163,38 @@ class AstrologyResource extends BaseResource
      * Get the daily horoscope for any zodiac sign. Forecast is generated from real-time planetary
      * transits using whole-sign house positions, so every sign receives unique content. Returns
      * love, career, health, finance, overview with active transits, Moon sign, Moon phase, energy
-     * rating, lucky number, lucky color, and compatible signs. Supports date parameter for
-     * editorial scheduling. Daily horoscope API, zodiac forecast, sun sign horoscope, astrology
-     * prediction.
+     * rating, lucky number, lucky color, and compatible signs. Content is fixed for a given date
+     * and rolls over at midnight, by default UTC. Pass date for editorial scheduling, or timezone
+     * to roll over on a local clock. Daily horoscope API, zodiac forecast, sun sign horoscope,
+     * astrology prediction.
      *
      * GET /astrology/horoscope/{sign}/daily
      *
      * @param string $sign
      *   Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
      * @param string|null $date
-     *   Forecast date in YYYY-MM-DD format. Defaults to today. Supports future and past dates for
-     *   editorial scheduling.
+     *   Forecast date in YYYY-MM-DD format. Past and future dates are both supported, for editorial
+     *   scheduling and backfill. Defaults to the current period in the timezone parameter.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
+     * @param string|null $timezone
+     *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
+     *   forecast rolls over at 00:00 UTC on each day. Pass the timezone of the end user to roll over
+     *   on their local clock instead. Ignored when date is set. Accepts an IANA name (e.g.
+     *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
+     *   "-05:00").
      *
      * @return array<string, mixed>
      */
     public function getDailyHoroscope(
         string $sign,
         ?string $date = null,
-        ?string $lang = null
+        ?string $lang = null,
+        ?string $timezone = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetDailyHoroscopeRequest(sign: $sign, date: $date, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetDailyHoroscopeRequest(sign: $sign, date: $date, lang: $lang, timezone: $timezone);
 
         return $this->callRequest($request);
     }
@@ -1196,25 +1205,37 @@ class AstrologyResource extends BaseResource
      * Get monthly horoscope for any zodiac sign with sign-specific week-by-week breakdown and real
      * lunar phase key dates. Based on planetary transits with house activations unique to each
      * sign, covering love, career, health, and finance for the entire month. Key dates include
-     * actual New Moon, Full Moon, and retrograde dates from ephemeris calculations. Monthly
+     * actual New Moon, Full Moon, and retrograde dates from ephemeris calculations. Pass any date
+     * inside a month to retrieve that month, or timezone to roll over on a local clock. Monthly
      * horoscope API, zodiac monthly forecast, astrology monthly prediction.
      *
      * GET /astrology/horoscope/{sign}/monthly
      *
      * @param string $sign
      *   Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
+     * @param string|null $date
+     *   Any date inside the target month, in YYYY-MM-DD format. The forecast covers the whole
+     *   calendar month containing it. Defaults to the current period in the timezone parameter.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
+     * @param string|null $timezone
+     *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
+     *   forecast rolls over at 00:00 UTC on the 1st. Pass the timezone of the end user to roll over
+     *   on their local clock instead. Ignored when date is set. Accepts an IANA name (e.g.
+     *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
+     *   "-05:00").
      *
      * @return array<string, mixed>
      */
     public function getMonthlyHoroscope(
         string $sign,
-        ?string $lang = null
+        ?string $date = null,
+        ?string $lang = null,
+        ?string $timezone = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyHoroscopeRequest(sign: $sign, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyHoroscopeRequest(sign: $sign, date: $date, lang: $lang, timezone: $timezone);
 
         return $this->callRequest($request);
     }
@@ -1364,27 +1385,39 @@ class AstrologyResource extends BaseResource
     /**
      * Weekly horoscope by zodiac sign - 7-day transit forecast
      *
-     * Get weekly horoscope for any zodiac sign. Forecast covers a full 7-day period based on
-     * planetary transits with house-based content unique to each sign, with love, career, health,
-     * finance guidance plus lucky days, lucky numbers, and compatible signs. Weekly horoscope API,
-     * zodiac weekly forecast, astrology weekly prediction.
+     * Get weekly horoscope for any zodiac sign. Forecast covers a full Monday to Sunday period
+     * based on planetary transits with house-based content unique to each sign, with love, career,
+     * health, finance guidance plus lucky days, lucky numbers, and compatible signs. Pass any date
+     * inside a week to retrieve that week, or timezone to roll over on a local clock. Weekly
+     * horoscope API, zodiac weekly forecast, astrology weekly prediction.
      *
      * GET /astrology/horoscope/{sign}/weekly
      *
      * @param string $sign
      *   Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
+     * @param string|null $date
+     *   Any date inside the target week, in YYYY-MM-DD format. The forecast covers the Monday to
+     *   Sunday week containing it. Defaults to the current period in the timezone parameter.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
+     * @param string|null $timezone
+     *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
+     *   forecast rolls over at 00:00 UTC on each Monday. Pass the timezone of the end user to roll
+     *   over on their local clock instead. Ignored when date is set. Accepts an IANA name (e.g.
+     *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
+     *   "-05:00").
      *
      * @return array<string, mixed>
      */
     public function getWeeklyHoroscope(
         string $sign,
-        ?string $lang = null
+        ?string $date = null,
+        ?string $lang = null,
+        ?string $timezone = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetWeeklyHoroscopeRequest(sign: $sign, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetWeeklyHoroscopeRequest(sign: $sign, date: $date, lang: $lang, timezone: $timezone);
 
         return $this->callRequest($request);
     }

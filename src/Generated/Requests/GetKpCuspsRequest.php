@@ -39,6 +39,8 @@ class GetKpCuspsRequest extends Request implements HasBody
         public readonly ?string $ayanamsa = null,
         public readonly ?float $ayanamsaValue = null,
         public readonly mixed $timezone = null,
+        public readonly ?string $focus = null,
+        public readonly ?string $lang = null,
     ) {
     }
 
@@ -68,5 +70,21 @@ class GetKpCuspsRequest extends Request implements HasBody
         }
 
         return $body;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->focus !== null) {
+            $query['focus'] = $this->focus;
+        }
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

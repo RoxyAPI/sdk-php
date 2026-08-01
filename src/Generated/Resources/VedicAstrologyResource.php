@@ -1018,8 +1018,14 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
-     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
+     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
+     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
+     *   your reference software uses.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -1057,6 +1063,7 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
@@ -1064,7 +1071,7 @@ class VedicAstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1193,27 +1200,38 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get KP-Newcomb ayanamsa - Dynamic daily calculation
      *
-     * Get the KP-Newcomb (Krishnamurti) ayanamsa for any date, computed continuously from Newcomb
-     * precession theory rather than looked up in a preset table, so it tracks the date you ask for
-     * instead of the calendar year. This is the precession offset subtracted from a tropical
-     * longitude to obtain the sidereal one, and it is what makes a KP chart reproduce the
-     * reference software your practitioners already use. Returns the same value every KP endpoint
-     * applies internally. KP Newcomb ayanamsa API, dynamic ayanamsa calculator, Krishnamurti
-     * ayanamsa today, current KP ayanamsa
+     * Get the KP-Newcomb (Krishnamurti) ayanamsa for any instant, computed continuously from
+     * Newcomb precession theory rather than looked up in a preset table, so it tracks the exact
+     * moment you ask for instead of the calendar year. Supply date alone for midnight UTC, or add
+     * time and timezone to pin a birth moment exactly. This is the precession offset subtracted
+     * from a tropical longitude to obtain the sidereal one, and it is what makes a KP chart
+     * reproduce the reference software your practitioners already use. Returns the same value
+     * every KP endpoint applies internally. KP Newcomb ayanamsa API, dynamic ayanamsa calculator,
+     * Krishnamurti ayanamsa today, current KP ayanamsa
      *
      * GET /vedic-astrology/kp/ayanamsa
      *
      * @param string|null $date
      *   Date for ayanamsa calculation in YYYY-MM-DD format. Defaults to today if not provided.
      *   Ayanamsa changes by ~0.01 degrees per month due to the precession of Earth.
+     * @param string|null $time
+     *   Time of day in 24-hour HH:MM:SS format, interpreted in the timezone below. Omit for midnight
+     *   UTC. The ayanamsa moves about 0.14 arcseconds across a day, so supplying the time matters
+     *   only when reconciling a chart against reference software to the arcsecond.
+     * @param string|null $timezone
+     *   IANA name (e.g. "Asia/Kolkata", "America/New_York"), decimal hours (e.g. 5.5 for IST, -5 for
+     *   EST), or a fixed UTC offset (e.g. "+05:30"). IANA resolved to the DST-correct offset for the
+     *   given date. Applies to the time field above. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
     public function getKpAyanamsa(
-        ?string $date = null
+        ?string $date = null,
+        ?string $time = null,
+        ?string $timezone = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpAyanamsaRequest(date: $date);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpAyanamsaRequest(date: $date, time: $time, timezone: $timezone);
 
         return $this->callRequest($request);
     }
@@ -1248,6 +1266,17 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1258,10 +1287,12 @@ class VedicAstrologyResource extends BaseResource
         string $time,
         ?string $ayanamsa = null,
         ?float $ayanamsaValue = null,
-        mixed $timezone = null
+        mixed $timezone = null,
+        ?string $focus = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpCuspsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpCuspsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1470,6 +1501,17 @@ class VedicAstrologyResource extends BaseResource
      *   Timezone offset from UTC in decimal hours. When non-zero, all datetimes are treated as local
      *   time in this timezone (Z suffix is ignored). Output times are also converted to this
      *   timezone. Defaults to 5.5 (IST).
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1481,10 +1523,12 @@ class VedicAstrologyResource extends BaseResource
         string $startDatetime,
         ?string $ayanamsa = null,
         ?string $nodeType = null,
-        mixed $timezone = null
+        mixed $timezone = null,
+        ?string $focus = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpRulingIntervalRequest(endDatetime: $endDatetime, intervalMinutes: $intervalMinutes, latitude: $latitude, longitude: $longitude, startDatetime: $startDatetime, ayanamsa: $ayanamsa, nodeType: $nodeType, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpRulingIntervalRequest(endDatetime: $endDatetime, intervalMinutes: $intervalMinutes, latitude: $latitude, longitude: $longitude, startDatetime: $startDatetime, ayanamsa: $ayanamsa, nodeType: $nodeType, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1520,6 +1564,17 @@ class VedicAstrologyResource extends BaseResource
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC.
      *   IANA resolved to the DST-correct offset based on birthDate or datetime. Defaults to 5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -1530,10 +1585,12 @@ class VedicAstrologyResource extends BaseResource
         ?string $birthTime = null,
         ?string $datetime = null,
         ?string $nodeType = null,
-        mixed $timezone = null
+        mixed $timezone = null,
+        ?string $focus = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpRulingPlanetsRequest(latitude: $latitude, longitude: $longitude, birthDate: $birthDate, birthTime: $birthTime, datetime: $datetime, nodeType: $nodeType, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpRulingPlanetsRequest(latitude: $latitude, longitude: $longitude, birthDate: $birthDate, birthTime: $birthTime, datetime: $datetime, nodeType: $nodeType, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1656,8 +1713,14 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
-     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
+     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
+     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
+     *   your reference software uses.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -1695,6 +1758,7 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
@@ -1702,7 +1766,7 @@ class VedicAstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMajorDashasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1974,8 +2038,14 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
-     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
+     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
+     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
+     *   your reference software uses.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -2017,6 +2087,7 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
@@ -2024,7 +2095,7 @@ class VedicAstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPranaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, sookshma: $sookshma, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPranaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, sookshma: $sookshma, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2065,8 +2136,14 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
-     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
+     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
+     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
+     *   your reference software uses.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -2106,6 +2183,7 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
@@ -2113,7 +2191,7 @@ class VedicAstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPratyantardashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPratyantardashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2184,8 +2262,14 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
-     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
+     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
+     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
+     *   your reference software uses.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -2226,6 +2310,7 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
@@ -2233,7 +2318,7 @@ class VedicAstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSookshmaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSookshmaDashasRequest(mahadasha: $mahadasha, antardasha: $antardasha, pratyantardasha: $pratyantardasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2269,8 +2354,14 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. Switching frames
-     *   shifts every dasha boundary by weeks, so pick the one your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
+     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
+     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
+     *   your reference software uses.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -2309,6 +2400,7 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
@@ -2316,7 +2408,7 @@ class VedicAstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetSubDashasRequest(mahadasha: $mahadasha, date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
