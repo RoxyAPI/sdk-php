@@ -29,8 +29,13 @@ jobs:
 
       - run: composer install --prefer-dist --no-interaction
 
+      # Hermetic: regenerates from the committed spec, so this verifies that the committed
+      # generated code still reproduces from it, with no network dependency. Refreshing the
+      # spec itself is the release workflow's job.
       - name: Codegen drift check
         if: matrix.php == '8.2'
+        env:
+          ROXYAPI_SPEC_FILE: specs/openapi.json
         run: |
           node scripts/generate.mjs
           git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php tests/Generated \

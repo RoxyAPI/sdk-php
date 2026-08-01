@@ -53,8 +53,25 @@ async function fetchSpec(url, attempts = 5) {
 	}
 }
 
-console.log(`[generate] fetching ${SPEC_URL}`);
-const spec = await fetchSpec(SPEC_URL);
+/**
+ * Load the spec from disk when `ROXYAPI_SPEC_FILE` is set, from `SPEC_URL` otherwise.
+ *
+ * @remarks
+ * Orthogonal to `ROXYAPI_OPENAPI_URL`, which points the fetch at a different server. This one skips
+ * the network entirely, keeping generation offline and byte-reproducible, which is what the codegen
+ * drift check in CI relies on.
+ */
+async function loadSpec() {
+	const file = process.env.ROXYAPI_SPEC_FILE;
+	if (file) {
+		console.log(`[generate] reading ${file} (offline, ROXYAPI_SPEC_FILE)`);
+		return JSON.parse(await fs.readFile(file, 'utf8'));
+	}
+	console.log(`[generate] fetching ${SPEC_URL}`);
+	return fetchSpec(SPEC_URL);
+}
+
+const spec = await loadSpec();
 
 // Patch server URL to absolute production URL so the connector works without
 // users supplying a baseUrl (matches the TS + Python SDKs).
