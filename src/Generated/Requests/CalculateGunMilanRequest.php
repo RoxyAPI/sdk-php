@@ -35,6 +35,8 @@ class CalculateGunMilanRequest extends Request implements HasBody
     public function __construct(
         public readonly array $person1,
         public readonly array $person2,
+        public readonly ?string $ayanamsa = null,
+        public readonly ?float $ayanamsaValue = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -50,6 +52,12 @@ class CalculateGunMilanRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
+        if ($this->ayanamsa !== null) {
+            $body['ayanamsa'] = $this->ayanamsa;
+        }
+        if ($this->ayanamsaValue !== null) {
+            $body['ayanamsaValue'] = $this->ayanamsaValue;
+        }
         $body['person1'] = $this->person1;
         $body['person2'] = $this->person2;
 

@@ -32,7 +32,7 @@ class SearchCitiesRequest extends Request
     public function __construct(
         public readonly string $q,
         public readonly ?int $limit = null,
-        public readonly ?int $offset = null,
+        public readonly mixed $offset = null,
     ) {
     }
 

@@ -37,6 +37,9 @@ class GenerateBirthChartRequest extends Request implements HasBody
         public readonly float $longitude,
         public readonly string $time,
         public readonly ?bool $avasthaInfo = null,
+        public readonly ?string $ayanamsa = null,
+        public readonly ?float $ayanamsaValue = null,
+        public readonly ?bool $modernPlanets = null,
         public readonly mixed $timezone = null,
         public readonly ?string $focus = null,
         public readonly ?string $lang = null,
@@ -57,9 +60,18 @@ class GenerateBirthChartRequest extends Request implements HasBody
         if ($this->avasthaInfo !== null) {
             $body['avasthaInfo'] = $this->avasthaInfo;
         }
+        if ($this->ayanamsa !== null) {
+            $body['ayanamsa'] = $this->ayanamsa;
+        }
+        if ($this->ayanamsaValue !== null) {
+            $body['ayanamsaValue'] = $this->ayanamsaValue;
+        }
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
+        if ($this->modernPlanets !== null) {
+            $body['modernPlanets'] = $this->modernPlanets;
+        }
         $body['time'] = $this->time;
         if ($this->timezone !== null) {
             $body['timezone'] = $this->timezone;

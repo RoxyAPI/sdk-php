@@ -124,7 +124,7 @@ class CrystalsResource extends BaseResource
      *   Languages without translations yet return English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-30, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -133,7 +133,7 @@ class CrystalsResource extends BaseResource
         string $chakra,
         ?string $lang = null,
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetCrystalsByChakraRequest(chakra: $chakra, lang: $lang, limit: $limit, offset: $offset);
@@ -160,7 +160,7 @@ class CrystalsResource extends BaseResource
      *   Languages without translations yet return English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-30, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -169,7 +169,7 @@ class CrystalsResource extends BaseResource
         string $element,
         ?string $lang = null,
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetCrystalsByElementRequest(element: $element, lang: $lang, limit: $limit, offset: $offset);
@@ -196,7 +196,7 @@ class CrystalsResource extends BaseResource
      *   Languages without translations yet return English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-30, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -205,7 +205,7 @@ class CrystalsResource extends BaseResource
         string $sign,
         ?string $lang = null,
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetCrystalsByZodiacRequest(sign: $sign, lang: $lang, limit: $limit, offset: $offset);
@@ -338,7 +338,7 @@ class CrystalsResource extends BaseResource
      *   Languages without translations yet return English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-100, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      * @param string|null $planet
      *   Filter by planetary association (partial match, case-insensitive). E.g., "Venus", "Moon",
@@ -355,7 +355,7 @@ class CrystalsResource extends BaseResource
         ?string $element = null,
         ?string $lang = null,
         ?int $limit = null,
-        ?int $offset = null,
+        mixed $offset = null,
         ?string $planet = null,
         ?string $zodiac = null
     ): array
@@ -384,7 +384,7 @@ class CrystalsResource extends BaseResource
      *   Languages without translations yet return English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -393,7 +393,7 @@ class CrystalsResource extends BaseResource
         string $q,
         ?string $lang = null,
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\SearchCrystalsRequest(q: $q, lang: $lang, limit: $limit, offset: $offset);

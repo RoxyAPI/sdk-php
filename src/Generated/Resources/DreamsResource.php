@@ -140,7 +140,7 @@ class DreamsResource extends BaseResource
      *   Filter symbols by starting letter (a-z). Case-insensitive.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      * @param string|null $q
      *   Search query to match against symbol names and meanings. Case-insensitive.
@@ -150,7 +150,7 @@ class DreamsResource extends BaseResource
     public function searchDreamSymbols(
         ?string $letter = null,
         ?int $limit = null,
-        ?int $offset = null,
+        mixed $offset = null,
         ?string $q = null
     ): array
     {

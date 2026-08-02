@@ -31,9 +31,9 @@
         "saloonphp/saloon": "^4.0"
     },
     "require-dev": {
-        "pestphp/pest": "^3.0",
-        "phpstan/phpstan": "^2.1",
-        "laravel/pint": "^1.18"
+        "laravel/pint": "^1.18",
+        "pestphp/pest": "^3.8",
+        "phpstan/phpstan": "^2.1"
     },
     "autoload": {
         "psr-4": {

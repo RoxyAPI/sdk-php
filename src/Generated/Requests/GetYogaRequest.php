@@ -15,7 +15,7 @@ use Saloon\Http\Request;
 /**
  * Get yoga details by ID - Vedic Yoga Glossary Entry
  *
- * Look up the dictionary entry for a specific named yoga from the 300-entry Vedic
+ * Look up the dictionary entry for a specific named yoga from the 301-entry Vedic
  * planetary-yoga glossary. Returns formation conditions, life results, and quality
  * classification (Positive/Negative/Both). This is a glossary lookup against the static
  * catalog; it does NOT analyze a birth chart. For chart-driven present/absent verdicts on the

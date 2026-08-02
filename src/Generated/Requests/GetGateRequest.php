@@ -26,7 +26,7 @@ class GetGateRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly int $number,
+        public readonly mixed $number,
         public readonly ?string $lang = null,
     ) {
     }

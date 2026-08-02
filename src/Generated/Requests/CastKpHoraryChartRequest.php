@@ -15,20 +15,22 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get Chara Karakas including Atmakaraka - Jaimini Karaka Calculator API
+ * Cast a KP horary (Prashna) chart from a number 1-249 - KP Horary API
  *
- * Calculate the Chara Karakas of Jaimini astrology from birth details: the movable
- * significators assigned by ranking each graha on how far it has advanced into its sign. The
- * highest becomes the Atmakaraka, the soul significator and the strongest influence in the
- * chart, and the rest take the Amatya, Bhratri, Matri, Pitri, Putra, Gnati and Dara offices in
- * descending order. Supports both the eight-karaka scheme, where Rahu is included with its
- * degree reversed, and the seven-karaka scheme that excludes the nodes, because the two can
- * name a different Atmakaraka for the same chart. Atmakaraka calculator API, Darakaraka,
- * Jaimini chara karaka, Vedic astrology soul significator.
+ * Cast a Krishnamurti Paddhati horary chart, also called Prashna, from a number between 1 and
+ * 249 given by the querent plus the moment and place the question is judged. NO BIRTH DETAILS
+ * ARE NEEDED, which is what makes horary the KP answer when birth time is unknown or
+ * unreliable. The number maps to one of the 249 KP sub divisions and sets the Ascendant; the
+ * twelve Placidus cusps follow from that Ascendant at the given latitude, and every planetary
+ * position comes from the real sky at the moment of the question. Returns the Ascendant with
+ * its sub lord, all twelve cusps with star lord and sub lord, the nine grahas placed against
+ * those cusps, the five ruling planets for validating the chart, and four-level significators
+ * for judging which houses each graha supports. KP horary API, Prashna kundali calculator, 249
+ * horary number chart, Krishnamurti Paddhati horary, cusp sub lord question answering.
  *
- * POST /vedic-astrology/chara-karakas
+ * POST /vedic-astrology/kp/horary
  */
-class CalculateCharaKarakasRequest extends Request implements HasBody
+class CastKpHoraryChartRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -36,20 +38,22 @@ class CalculateCharaKarakasRequest extends Request implements HasBody
 
     public function __construct(
         public readonly string $date,
+        public readonly int $horaryNumber,
         public readonly float $latitude,
         public readonly float $longitude,
         public readonly string $time,
         public readonly ?string $ayanamsa = null,
         public readonly ?float $ayanamsaValue = null,
-        public readonly ?string $scheme = null,
+        public readonly ?string $nodeType = null,
         public readonly mixed $timezone = null,
+        public readonly ?string $focus = null,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/vedic-astrology/chara-karakas";
+        return "/vedic-astrology/kp/horary";
     }
 
     /**
@@ -65,10 +69,11 @@ class CalculateCharaKarakasRequest extends Request implements HasBody
             $body['ayanamsaValue'] = $this->ayanamsaValue;
         }
         $body['date'] = $this->date;
+        $body['horaryNumber'] = $this->horaryNumber;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
-        if ($this->scheme !== null) {
-            $body['scheme'] = $this->scheme;
+        if ($this->nodeType !== null) {
+            $body['nodeType'] = $this->nodeType;
         }
         $body['time'] = $this->time;
         if ($this->timezone !== null) {
@@ -84,6 +89,9 @@ class CalculateCharaKarakasRequest extends Request implements HasBody
     protected function defaultQuery(): array
     {
         $query = [];
+        if ($this->focus !== null) {
+            $query['focus'] = $this->focus;
+        }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
         }

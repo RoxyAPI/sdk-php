@@ -48,6 +48,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -64,11 +77,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateArudhaPadasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateArudhaPadasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -101,6 +116,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -114,10 +142,12 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateAshtakavargaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateAshtakavargaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone);
 
         return $this->callRequest($request);
     }
@@ -154,6 +184,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -178,12 +221,14 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null,
         ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateBhavaBalaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateBhavaBalaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -219,6 +264,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -243,12 +301,14 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null,
         ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateBhavChalitRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateBhavChalitRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -283,6 +343,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $scheme
      *   Which Chara Karaka scheme to rank. "eight" includes Rahu, counting its degree in reverse
      *   because it moves retrograde, and returns eight offices including Pitrikaraka. "seven" ranks
@@ -305,12 +378,14 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $scheme = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateCharaKarakasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, scheme: $scheme, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateCharaKarakasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, scheme: $scheme, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -380,6 +455,19 @@ class VedicAstrologyResource extends BaseResource
      * @param array $person2
      *   Birth data of the second person (typically the girl/bride in traditional Ashtakoot
      *   matching). Moon nakshatra compared against person 1 across all 8 kootas.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -389,10 +477,12 @@ class VedicAstrologyResource extends BaseResource
     public function calculateGunMilan(
         array $person1,
         array $person2,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateGunMilanRequest(person1: $person1, person2: $person2, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateGunMilanRequest(person1: $person1, person2: $person2, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -469,11 +559,27 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -482,10 +588,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
-        mixed $timezone = null
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateShadbalaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateShadbalaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -545,6 +654,91 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Cast a KP horary (Prashna) chart from a number 1-249 - KP Horary API
+     *
+     * Cast a Krishnamurti Paddhati horary chart, also called Prashna, from a number between 1 and
+     * 249 given by the querent plus the moment and place the question is judged. NO BIRTH DETAILS
+     * ARE NEEDED, which is what makes horary the KP answer when birth time is unknown or
+     * unreliable. The number maps to one of the 249 KP sub divisions and sets the Ascendant; the
+     * twelve Placidus cusps follow from that Ascendant at the given latitude, and every planetary
+     * position comes from the real sky at the moment of the question. Returns the Ascendant with
+     * its sub lord, all twelve cusps with star lord and sub lord, the nine grahas placed against
+     * those cusps, the five ruling planets for validating the chart, and four-level significators
+     * for judging which houses each graha supports. KP horary API, Prashna kundali calculator, 249
+     * horary number chart, Krishnamurti Paddhati horary, cusp sub lord question answering.
+     *
+     * POST /vedic-astrology/kp/horary
+     *
+     * @param string $date
+     *   Date the question was taken up for judgment, YYYY-MM-DD. Not a birth date: a horary chart
+     *   needs no birth details at all, which is the point of the method.
+     * @param int $horaryNumber
+     *   Horary number from 1 to 249, given by the querent while focused on their question. It maps
+     *   to one of the 249 KP sub divisions of the zodiac, and that division sets the Ascendant of
+     *   the chart. The querent should give the first number that comes to mind and use it once for
+     *   that question; the astrologer never chooses it. Numbers outside 1 to 249 are rejected rather
+     *   than wrapped, because a wrapped number would silently answer a different question.
+     * @param float $latitude
+     *   Latitude where the question is judged, decimal degrees. The house cusps are Placidus and
+     *   therefore latitude dependent, so this is the place of judgment, not the querent birthplace.
+     * @param float $longitude
+     *   Longitude where the question is judged, decimal degrees.
+     * @param string $time
+     *   Time the question was taken up for judgment, 24-hour HH:MM:SS. In KP practice this is the
+     *   moment the astrologer receives and understands the question, not the moment the querent
+     *   first thought of it. It sets every planetary position and all twelve cusps except the
+     *   Ascendant.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula
+     *   (most common for KP). "kp-old" uses the Krishnamurti original table. "lahiri" uses
+     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "raman" uses the B.V.
+     *   Raman ayanamsa, about 1.45 degrees below Lahiri. "custom" allows providing your own value
+     *   via ayanamsaValue. Defaults to "kp-newcomb".
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
+     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
+     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
+     *   assignments in narrow boundary cases. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "Asia/Kolkata") OR decimal hours from UTC. Defaults to 5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function castKpHoraryChart(
+        string $date,
+        int $horaryNumber,
+        float $latitude,
+        float $longitude,
+        string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        ?string $nodeType = null,
+        mixed $timezone = null,
+        ?string $focus = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CastKpHoraryChartRequest(date: $date, horaryNumber: $horaryNumber, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, timezone: $timezone, focus: $focus, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Check Kalsarpa Dosha - Kalsarpa Yoga Calculator API
      *
      * Detect Kalsarpa dosha (Kalsarpa yoga) when all 7 planets are hemmed between Rahu-Ketu axis.
@@ -572,11 +766,27 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -585,10 +795,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
-        mixed $timezone = null
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CheckKalsarpaDoshaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CheckKalsarpaDoshaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -621,11 +834,27 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -634,10 +863,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
-        mixed $timezone = null
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CheckManglikDoshaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CheckManglikDoshaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -670,11 +902,27 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
@@ -683,10 +931,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
-        mixed $timezone = null
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CheckSadhesatiRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CheckSadhesatiRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -733,6 +984,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -749,11 +1013,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\DetectYogasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\DetectYogasRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -791,6 +1057,27 @@ class VedicAstrologyResource extends BaseResource
      *   existing integration is byte-identical until it opts in. Saves a second call to GET
      *   /avasthas and the client-side join that would otherwise be needed to turn Yuva or Swapna
      *   into readable text.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
+     * @param bool|null $modernPlanets
+     *   Set true to also return Uranus, Neptune and Pluto, under the Sanskrit names Arun, Varun and
+     *   Yam that Indian software prints for them. They arrive in a separate modernPlanets array, NOT
+     *   inside meta, because classical Jyotish is defined over nine grahas: the moderns rule no
+     *   sign, so they have no dignity, avastha, combustion or aspect strength and it would be
+     *   fabrication to report one. Each carries longitude, rashi, degree in sign, nakshatra with
+     *   pada and lord, and retrograde status. Defaults to false, so an existing integration is
+     *   byte-identical until it opts in.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -816,12 +1103,15 @@ class VedicAstrologyResource extends BaseResource
         float $longitude,
         string $time,
         ?bool $avasthaInfo = null,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        ?bool $modernPlanets = null,
         mixed $timezone = null,
         ?string $focus = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, avasthaInfo: $avasthaInfo, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, avasthaInfo: $avasthaInfo, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, modernPlanets: $modernPlanets, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -862,6 +1152,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -879,11 +1182,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateDivisionalChartRequest(date: $date, division: $division, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateDivisionalChartRequest(date: $date, division: $division, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -985,6 +1290,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -1001,11 +1319,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNavamsaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNavamsaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1295,6 +1615,53 @@ class VedicAstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetEclipticCrossingsRequest(year: $year, coordinateSystem: $coordinateSystem, timezone: $timezone);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Heliacal rising and setting (udaya and asta) - Graha Asta Calculator API
+     *
+     * Calculate heliacal rising (udaya) and setting (asta) of the six visible grahas for any date
+     * and place, by the Surya Siddhanta rule. Returns whether each graha currently clears the
+     * solar glare, its separation from the Sun in classical degrees of time, and the dates its
+     * visibility last changed and next changes. This is the calculation behind Guru Asta and
+     * Shukra Asta, the periods classical muhurta withholds marriage and other auspicious
+     * ceremonies. Unlike a birth chart combustion flag it is location aware, because the angle the
+     * ecliptic makes with the local horizon decides how long a graha lingers after the Sun. Graha
+     * asta API, Guru Asta Shukra Asta dates, heliacal rising calculator, planetary combustion
+     * muhurta.
+     *
+     * POST /vedic-astrology/heliacal
+     *
+     * @param string $date
+     *   Local calendar date to judge, in YYYY-MM-DD format. There is deliberately no time field:
+     *   heliacal visibility is a once-a-day verdict read at that day sunrise or sunset, so a clock
+     *   time could only pick a different day.
+     * @param float $latitude
+     *   Observer latitude in decimal degrees, restricted to -60 to 60. Visibility depends on the
+     *   observer, unlike the longitude orb every chart API reports, because the angle the ecliptic
+     *   makes with the horizon decides how long a graha lingers after the Sun. Beyond this band the
+     *   classical rule stops describing solar glare and starts describing polar horizon geometry, so
+     *   it is declined rather than answered wrongly.
+     * @param float $longitude
+     *   Observer longitude in decimal degrees. Sets local sunrise and sunset, which are the instants
+     *   the verdict is read at. Example: Mumbai 72.8777, Delhi 77.2090, London -0.1278.
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "Asia/Kolkata", "Europe/London") OR decimal hours from UTC. Fixes
+     *   which local day the date refers to, and every datetime in the response is returned in it.
+     *   Defaults to 5.5.
+     *
+     * @return array<string, mixed>
+     */
+    public function getHeliacalVisibility(
+        string $date,
+        float $latitude,
+        float $longitude,
+        mixed $timezone = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetHeliacalVisibilityRequest(date: $date, latitude: $latitude, longitude: $longitude, timezone: $timezone);
 
         return $this->callRequest($request);
     }
@@ -2122,6 +2489,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -2138,11 +2518,13 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPlanetPositionsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPlanetPositionsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2596,6 +2978,19 @@ class VedicAstrologyResource extends BaseResource
      *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
      *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
      *   house-based predictions will be incorrect.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
@@ -2609,10 +3004,12 @@ class VedicAstrologyResource extends BaseResource
         float $latitude,
         float $longitude,
         string $time,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
         mixed $timezone = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetUpagrahaPositionsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetUpagrahaPositionsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, timezone: $timezone);
 
         return $this->callRequest($request);
     }
@@ -2620,7 +3017,7 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get yoga details by ID - Vedic Yoga Glossary Entry
      *
-     * Look up the dictionary entry for a specific named yoga from the 300-entry Vedic
+     * Look up the dictionary entry for a specific named yoga from the 301-entry Vedic
      * planetary-yoga glossary. Returns formation conditions, life results, and quality
      * classification (Positive/Negative/Both). This is a glossary lookup against the static
      * catalog; it does NOT analyze a birth chart. For chart-driven present/absent verdicts on the

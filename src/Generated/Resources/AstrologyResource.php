@@ -551,7 +551,7 @@ class AstrologyResource extends BaseResource
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
-     * @param float|null $orb
+     * @param mixed|null $orb
      *   Conjunction orb in degrees, the maximum separation for a star to count as conjunct a chart
      *   point. Defaults to 1, maximum 3. Widen it to surface looser contacts or tighten it for only
      *   the closest hits.
@@ -565,7 +565,7 @@ class AstrologyResource extends BaseResource
         string $time,
         mixed $timezone,
         ?string $lang = null,
-        ?float $orb = null
+        mixed $orb = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateFixedStarsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang, orb: $orb);

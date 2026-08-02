@@ -142,7 +142,7 @@ class AngelNumbersResource extends BaseResource
      *   Languages without translations yet return English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      * @param string|null $type
      *   Filter results by angel number pattern type. "repeating" returns numbers like 111, 444,
@@ -155,7 +155,7 @@ class AngelNumbersResource extends BaseResource
     public function listAngelNumbers(
         ?string $lang = null,
         ?int $limit = null,
-        ?int $offset = null,
+        mixed $offset = null,
         ?string $type = null
     ): array
     {

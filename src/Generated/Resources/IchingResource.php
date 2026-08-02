@@ -220,7 +220,7 @@ class IchingResource extends BaseResource
      *   Languages without translations yet return English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-64, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -228,7 +228,7 @@ class IchingResource extends BaseResource
     public function listHexagrams(
         ?string $lang = null,
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListHexagramsRequest(lang: $lang, limit: $limit, offset: $offset);

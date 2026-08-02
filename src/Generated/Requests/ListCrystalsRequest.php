@@ -32,7 +32,7 @@ class ListCrystalsRequest extends Request
         public readonly ?string $element = null,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
-        public readonly ?int $offset = null,
+        public readonly mixed $offset = null,
         public readonly ?string $planet = null,
         public readonly ?string $zodiac = null,
     ) {

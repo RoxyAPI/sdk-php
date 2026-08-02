@@ -37,8 +37,8 @@ class ListCardsRequest extends Request
         public readonly ?string $arcana = null,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
-        public readonly ?float $number = null,
-        public readonly ?int $offset = null,
+        public readonly mixed $number = null,
+        public readonly mixed $offset = null,
         public readonly ?string $suit = null,
     ) {
     }

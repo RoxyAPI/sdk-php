@@ -31,7 +31,7 @@ class SearchCrystalsRequest extends Request
         public readonly string $q,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
-        public readonly ?int $offset = null,
+        public readonly mixed $offset = null,
     ) {
     }
 

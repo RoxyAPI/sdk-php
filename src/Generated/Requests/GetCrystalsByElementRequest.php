@@ -31,7 +31,7 @@ class GetCrystalsByElementRequest extends Request
         public readonly string $element,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
-        public readonly ?int $offset = null,
+        public readonly mixed $offset = null,
     ) {
     }
 

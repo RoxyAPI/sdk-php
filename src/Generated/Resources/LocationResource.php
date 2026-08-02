@@ -36,7 +36,7 @@ class LocationResource extends BaseResource
      *   (India), BR (Brazil), JP (Japan).
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-100, default 20.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -44,7 +44,7 @@ class LocationResource extends BaseResource
     public function getCitiesByCountry(
         string $iso2,
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetCitiesByCountryRequest(iso2: $iso2, limit: $limit, offset: $offset);
@@ -64,14 +64,14 @@ class LocationResource extends BaseResource
      *
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-250, default 50.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
     public function listCountries(
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListCountriesRequest(limit: $limit, offset: $offset);
@@ -99,7 +99,7 @@ class LocationResource extends BaseResource
      *   partial matching (e.g. "ber" matches Berlin, Bern, Bergen).
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 10.
-     * @param int|null $offset
+     * @param mixed|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -107,7 +107,7 @@ class LocationResource extends BaseResource
     public function searchCities(
         string $q,
         ?int $limit = null,
-        ?int $offset = null
+        mixed $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\SearchCitiesRequest(q: $q, limit: $limit, offset: $offset);

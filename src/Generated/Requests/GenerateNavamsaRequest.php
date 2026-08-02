@@ -36,6 +36,8 @@ class GenerateNavamsaRequest extends Request implements HasBody
         public readonly float $latitude,
         public readonly float $longitude,
         public readonly string $time,
+        public readonly ?string $ayanamsa = null,
+        public readonly ?float $ayanamsaValue = null,
         public readonly mixed $timezone = null,
         public readonly ?string $lang = null,
     ) {
@@ -52,6 +54,12 @@ class GenerateNavamsaRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
+        if ($this->ayanamsa !== null) {
+            $body['ayanamsa'] = $this->ayanamsa;
+        }
+        if ($this->ayanamsaValue !== null) {
+            $body['ayanamsaValue'] = $this->ayanamsaValue;
+        }
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;

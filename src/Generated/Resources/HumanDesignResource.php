@@ -582,7 +582,7 @@ class HumanDesignResource extends BaseResource
      *
      * GET /human-design/gates/{number}
      *
-     * @param int $number
+     * @param mixed $number
      *   Gate number from 1 to 64.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
@@ -591,7 +591,7 @@ class HumanDesignResource extends BaseResource
      * @return array<string, mixed>
      */
     public function getGate(
-        int $number,
+        mixed $number,
         ?string $lang = null
     ): array
     {

@@ -28,7 +28,7 @@ class ListCountriesRequest extends Request
 
     public function __construct(
         public readonly ?int $limit = null,
-        public readonly ?int $offset = null,
+        public readonly mixed $offset = null,
     ) {
     }
 
