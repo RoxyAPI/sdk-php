@@ -123,6 +123,137 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Get Bhava Bala (house strength) for all twelve houses - Bhava Bala Calculator API
+     *
+     * Calculate Bhava Bala (house strength) for all twelve bhavas per Brihat Parashara Hora
+     * Shastra (BPHS) and BV Raman Graha and Bhava Balas. Returns the three classical components
+     * (Bhavadhipati Bala from the house lord Shadbala, Bhava Digbala from the rashi class and
+     * direction, Bhava Drishti Bala from aspects on the bhava madhya) plus totals in virupas and
+     * rupas and a strength ranking. Bhavas are built on unequal Sripati mid-cusps, so a house near
+     * a sign boundary is measured where it actually falls. Shadbala measures which graha is
+     * strong, Bhava Bala measures which life area is strong, and reading both together is how a
+     * practitioner separates a strong planet in a weak house from a weak planet in a strong one.
+     * Bhava Bala calculator API, house strength Vedic astrology, bhava bala virupas, Bhavadhipati
+     * Bala, Bhava Digbala, Sripati bhava madhya.
+     *
+     * POST /vedic-astrology/bhava-bala
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateBhavaBala(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone = null,
+        ?string $focus = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateBhavaBalaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, focus: $focus, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Get the Bhav Chalit (Chalit Kundli) cusp-based house chart - Bhav Chalit API
+     *
+     * Calculate the Bhav Chalit chart, also written Bhava Chalit or Chalit Kundli, placing every
+     * graha by unequal Sripati bhava cusps instead of by whole sign. The Rashi (D1) chart treats a
+     * whole sign as a house, so a graha a degree from a sign boundary is shown in a house it does
+     * not actually occupy; the Chalit chart resolves that by measuring from the bhava sandhis,
+     * which is why practitioners check it before reading house results, house lordship strength or
+     * transit effects. Returns the twelve bhava boundaries with their madhyas and spans, every
+     * graha in both frames, and a moved flag on the placements that differ. Bhav Chalit API,
+     * Chalit Kundli calculator, bhava chalit chart, Sripati house cusps, cusp based house chart
+     * Vedic astrology.
+     *
+     * POST /vedic-astrology/bhav-chalit
+     *
+     * @param string $date
+     *   Birth date in YYYY-MM-DD format. Date determines planetary positions and nakshatra
+     *   calculations for Vedic kundli (janam patri). Accurate birth date is essential for dashas,
+     *   yoga calculations, and divisional charts (vargas).
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Location determines local sidereal time for
+     *   Lagna calculation and affects bhava (house) cusps. Example: Delhi 28.6139, Mumbai 19.0760,
+     *   Kathmandu 27.7172.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local time calculations and ayanamsha
+     *   adjustments. Example: Delhi 77.2090, Mumbai 72.8777, Kathmandu 85.3240.
+     * @param string $time
+     *   Birth time in 24-hour HH:MM:SS format. Time is CRITICAL for Lagna (Ascendant) calculation
+     *   and house divisions. It changes every two hours roughly. Even minutes matter for accurate
+     *   nakshatra pada and divisional chart (D9, D10) calculations. Without exact time, Lagna and
+     *   house-based predictions will be incorrect.
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
+     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
+     *   5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateBhavChalit(
+        string $date,
+        float $latitude,
+        float $longitude,
+        string $time,
+        mixed $timezone = null,
+        ?string $focus = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateBhavChalitRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, focus: $focus, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get Chara Karakas including Atmakaraka - Jaimini Karaka Calculator API
      *
      * Calculate the Chara Karakas of Jaimini astrology from birth details: the movable
@@ -781,8 +912,9 @@ class VedicAstrologyResource extends BaseResource
      * @param string|null $ayanamsa
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula
      *   (most common for KP). "kp-old" uses the Krishnamurti original table. "lahiri" uses
-     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "custom" allows
-     *   providing your own value via ayanamsaValue. Defaults to "kp-newcomb".
+     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "raman" uses the B.V.
+     *   Raman ayanamsa, about 1.45 degrees below Lahiri. "custom" allows providing your own value
+     *   via ayanamsaValue. Defaults to "kp-newcomb".
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -1025,10 +1157,11 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
-     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
-     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
-     *   your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "raman" uses the
+     *   B.V. Raman ayanamsa, the second frame traditional Indian software commonly offers beside
+     *   Lahiri. "custom" takes your own value in degrees via ayanamsaValue, for reconciling exactly
+     *   against a specific reference program. Switching frames shifts every dasha boundary by weeks,
+     *   so pick the one your reference software uses.
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -1265,8 +1398,9 @@ class VedicAstrologyResource extends BaseResource
      * @param string|null $ayanamsa
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula
      *   (most common for KP). "kp-old" uses the Krishnamurti original table. "lahiri" uses
-     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "custom" allows
-     *   providing your own value via ayanamsaValue. Defaults to "kp-newcomb".
+     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "raman" uses the B.V.
+     *   Raman ayanamsa, about 1.45 degrees below Lahiri. "custom" allows providing your own value
+     *   via ayanamsaValue. Defaults to "kp-newcomb".
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -1326,8 +1460,9 @@ class VedicAstrologyResource extends BaseResource
      * @param string|null $ayanamsa
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula
      *   (most common for KP). "kp-old" uses the Krishnamurti original table. "lahiri" uses
-     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "custom" allows
-     *   providing your own value via ayanamsaValue. Defaults to "kp-newcomb".
+     *   Lahiri/Chitrapaksha ayanamsa matching most traditional Vedic software. "raman" uses the B.V.
+     *   Raman ayanamsa, about 1.45 degrees below Lahiri. "custom" allows providing your own value
+     *   via ayanamsaValue. Defaults to "kp-newcomb".
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -1387,7 +1522,9 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
      *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
-     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     *   matching most traditional Vedic software. "raman" uses the B.V. Raman ayanamsa from Hindu
+     *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
+     *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
      *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
@@ -1438,7 +1575,9 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
      *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
-     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     *   matching most traditional Vedic software. "raman" uses the B.V. Raman ayanamsa from Hindu
+     *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
+     *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
      *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
@@ -1498,7 +1637,9 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
      *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
-     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     *   matching most traditional Vedic software. "raman" uses the B.V. Raman ayanamsa from Hindu
+     *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
+     *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
      *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
@@ -1624,7 +1765,9 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
      *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
-     *   matching most traditional Vedic software. Defaults to "kp-newcomb".
+     *   matching most traditional Vedic software. "raman" uses the B.V. Raman ayanamsa from Hindu
+     *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
+     *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
      *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
@@ -1720,10 +1863,11 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
-     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
-     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
-     *   your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "raman" uses the
+     *   B.V. Raman ayanamsa, the second frame traditional Indian software commonly offers beside
+     *   Lahiri. "custom" takes your own value in degrees via ayanamsaValue, for reconciling exactly
+     *   against a specific reference program. Switching frames shifts every dasha boundary by weeks,
+     *   so pick the one your reference software uses.
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -2045,10 +2189,11 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
-     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
-     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
-     *   your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "raman" uses the
+     *   B.V. Raman ayanamsa, the second frame traditional Indian software commonly offers beside
+     *   Lahiri. "custom" takes your own value in degrees via ayanamsaValue, for reconciling exactly
+     *   against a specific reference program. Switching frames shifts every dasha boundary by weeks,
+     *   so pick the one your reference software uses.
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -2143,10 +2288,11 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
-     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
-     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
-     *   your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "raman" uses the
+     *   B.V. Raman ayanamsa, the second frame traditional Indian software commonly offers beside
+     *   Lahiri. "custom" takes your own value in degrees via ayanamsaValue, for reconciling exactly
+     *   against a specific reference program. Switching frames shifts every dasha boundary by weeks,
+     *   so pick the one your reference software uses.
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -2269,10 +2415,11 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
-     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
-     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
-     *   your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "raman" uses the
+     *   B.V. Raman ayanamsa, the second frame traditional Indian software commonly offers beside
+     *   Lahiri. "custom" takes your own value in degrees via ayanamsaValue, for reconciling exactly
+     *   against a specific reference program. Switching frames shifts every dasha boundary by weeks,
+     *   so pick the one your reference software uses.
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
@@ -2361,10 +2508,11 @@ class VedicAstrologyResource extends BaseResource
      *   Ayanamsa system used to place the birth Moon in its nakshatra, which sets every dasha start
      *   and end date. "lahiri" uses Lahiri/Chitrapaksha, the traditional Vedic standard, and is the
      *   default. "kp-newcomb" uses the KP-Newcomb dynamic formula, matching Krishnamurti Paddhati
-     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "custom" takes
-     *   your own value in degrees via ayanamsaValue, for reconciling exactly against a specific
-     *   reference program. Switching frames shifts every dasha boundary by weeks, so pick the one
-     *   your reference software uses.
+     *   software. "kp-old" uses the Krishnamurti original table from KP Reader-1. "raman" uses the
+     *   B.V. Raman ayanamsa, the second frame traditional Indian software commonly offers beside
+     *   Lahiri. "custom" takes your own value in degrees via ayanamsaValue, for reconciling exactly
+     *   against a specific reference program. Switching frames shifts every dasha boundary by weeks,
+     *   so pick the one your reference software uses.
      * @param float|null $ayanamsaValue
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular

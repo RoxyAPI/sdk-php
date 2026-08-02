@@ -41,7 +41,12 @@ class TarotResource extends BaseResource
      * POST /tarot/spreads/career
      *
      * @param string|null $question
+     *   Optional querent question to focus the career spread. It is echoed back on the reading and
+     *   gives the five career positions their context. Omit for general work and vocation guidance.
      * @param string|null $seed
+     *   Optional seed for reproducible results. The same seed always draws the same five cards into
+     *   the same career positions, which is what lets a reading be shared or re-rendered. Omit for a
+     *   random draw.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -79,7 +84,12 @@ class TarotResource extends BaseResource
      * POST /tarot/spreads/celtic-cross
      *
      * @param string|null $question
+     *   Optional querent question to focus the Celtic Cross. It is echoed back on the reading and
+     *   gives the ten positions their context. Omit for a general reading of the situation.
      * @param string|null $seed
+     *   Optional seed for reproducible results. The same seed always draws the same ten cards into
+     *   the same Celtic Cross positions, which is what lets a reading be shared or re-rendered. Omit
+     *   for a random draw.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -170,7 +180,12 @@ class TarotResource extends BaseResource
      * POST /tarot/spreads/love
      *
      * @param string|null $question
+     *   Optional querent question to focus the love spread. It is echoed back on the reading and
+     *   gives the five relationship positions their context. Omit for general relationship guidance.
      * @param string|null $seed
+     *   Optional seed for reproducible results. The same seed always draws the same five cards into
+     *   the same love positions, which is what lets a reading be shared or re-rendered. Omit for a
+     *   random draw.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
