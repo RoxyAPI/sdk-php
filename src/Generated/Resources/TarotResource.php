@@ -42,9 +42,9 @@ class TarotResource extends BaseResource
      *
      * @param string|null $question
      *   Optional querent question to focus the career spread. It is echoed back on the reading and
-     *   gives the five career positions their context. Omit for general work and vocation guidance.
+     *   gives the seven career positions their context. Omit for general work and vocation guidance.
      * @param string|null $seed
-     *   Optional seed for reproducible results. The same seed always draws the same five cards into
+     *   Optional seed for reproducible results. The same seed always draws the same seven cards into
      *   the same career positions, which is what lets a reading be shared or re-rendered. Omit for a
      *   random draw.
      * @param string|null $lang
