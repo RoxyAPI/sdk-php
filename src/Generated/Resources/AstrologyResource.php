@@ -256,6 +256,13 @@ class AstrologyResource extends BaseResource
      * @param array|null $aspectTypes
      *   Filter to specific aspect types (conjunction, opposition, trine, square, sextile, etc.).
      *   Omit to include all aspect types.
+     * @param string|null $houseSystem
+     *   House system used to divide the natal chart into 12 houses. Every house number in the
+     *   response is read against these natal cusps, for the natal bodies and the transiting bodies
+     *   alike. Placidus (default) is time sensitive and the most widely used in Western astrology.
+     *   Whole Sign assigns one sign per house. Equal divides into 30 degree segments from the
+     *   Ascendant. Koch emphasizes higher latitudes. Quadrant systems fall back to Whole Sign above
+     *   the polar circle.
      * @param float|null $minStrength
      *   Minimum aspect strength threshold (0-100). Higher values return only tighter, more potent
      *   aspects. Useful for filtering out wide-orb aspects.
@@ -276,6 +283,7 @@ class AstrologyResource extends BaseResource
     public function calculateTransitAspects(
         array $natalChart,
         ?array $aspectTypes = null,
+        ?string $houseSystem = null,
         ?float $minStrength = null,
         ?array $planets = null,
         ?string $transitDate = null,
@@ -283,7 +291,7 @@ class AstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateTransitAspectsRequest(natalChart: $natalChart, aspectTypes: $aspectTypes, minStrength: $minStrength, planets: $planets, transitDate: $transitDate, transitTime: $transitTime, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateTransitAspectsRequest(natalChart: $natalChart, aspectTypes: $aspectTypes, houseSystem: $houseSystem, minStrength: $minStrength, planets: $planets, transitDate: $transitDate, transitTime: $transitTime, lang: $lang);
 
         return $this->callRequest($request);
     }

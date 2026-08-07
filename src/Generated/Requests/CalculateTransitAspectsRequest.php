@@ -36,6 +36,7 @@ class CalculateTransitAspectsRequest extends Request implements HasBody
     public function __construct(
         public readonly array $natalChart,
         public readonly ?array $aspectTypes = null,
+        public readonly ?string $houseSystem = null,
         public readonly ?float $minStrength = null,
         public readonly ?array $planets = null,
         public readonly ?string $transitDate = null,
@@ -57,6 +58,9 @@ class CalculateTransitAspectsRequest extends Request implements HasBody
         $body = [];
         if ($this->aspectTypes !== null) {
             $body['aspectTypes'] = $this->aspectTypes;
+        }
+        if ($this->houseSystem !== null) {
+            $body['houseSystem'] = $this->houseSystem;
         }
         if ($this->minStrength !== null) {
             $body['minStrength'] = $this->minStrength;
