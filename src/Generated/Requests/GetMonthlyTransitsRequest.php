@@ -20,8 +20,10 @@ use Saloon\Traits\Body\HasJsonBody;
  * Get all planetary sign (rashi) changes for a given month. Shows when each planet transitions
  * from one zodiac sign to another. Covers all 9 Vedic planets: Sun, Moon, Mars, Mercury,
  * Jupiter, Venus, Saturn, Rahu, Ketu. Includes starting positions at the beginning of the
- * month. Essential for transit prediction, monthly horoscope generation, and muhurta planning.
- * Monthly planetary transit API, gochar calendar, rashi parivartan dates.
+ * month. Omit year and month to get the month in progress, so a published gochar calendar
+ * stays current without a redeploy. Essential for transit prediction, monthly horoscope
+ * generation, and muhurta planning. Monthly planetary transit API, gochar calendar, rashi
+ * parivartan dates.
  *
  * POST /vedic-astrology/transit/monthly
  */
@@ -32,10 +34,11 @@ class GetMonthlyTransitsRequest extends Request implements HasBody
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly int $month,
-        public readonly int $year,
         public readonly ?string $coordinateSystem = null,
+        public readonly ?int $month = null,
         public readonly mixed $timezone = null,
+        public readonly ?int $year = null,
+        public readonly ?string $lang = null,
     ) {
     }
 
@@ -53,12 +56,29 @@ class GetMonthlyTransitsRequest extends Request implements HasBody
         if ($this->coordinateSystem !== null) {
             $body['coordinateSystem'] = $this->coordinateSystem;
         }
-        $body['month'] = $this->month;
+        if ($this->month !== null) {
+            $body['month'] = $this->month;
+        }
         if ($this->timezone !== null) {
             $body['timezone'] = $this->timezone;
         }
-        $body['year'] = $this->year;
+        if ($this->year !== null) {
+            $body['year'] = $this->year;
+        }
 
         return $body;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

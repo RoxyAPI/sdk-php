@@ -1249,6 +1249,41 @@ class AstrologyResource extends BaseResource
     }
 
     /**
+     * Monthly Ephemeris - Daily tropical planetary positions for a month
+     *
+     * Get daily tropical ecliptic positions for all 14 Western bodies (the 10 classical planets
+     * Sun through Pluto, the lunar nodes, Chiron, and Black Moon Lilith) for an entire month.
+     * Returns longitude, zodiac sign, degree within sign, and retrograde status for each body on
+     * each day, calculated at noon UTC. Omit year and month to get the month in progress, so a
+     * published ephemeris page stays current without a redeploy. Essential for ephemeris tables,
+     * transit tracking, retrograde calendars, and planetary movement charts. Monthly ephemeris
+     * API, tropical position table, daily planet transit positions, ecliptic longitude calculator.
+     * Verified against NASA JPL Horizons.
+     *
+     * POST /astrology/planets/monthly
+     *
+     * @param int|null $month
+     *   Month number (1-12) for the ephemeris. Defaults to the current month (UTC).
+     * @param int|null $year
+     *   Year for the monthly ephemeris (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getMonthlyTropicalEphemeris(
+        ?int $month = null,
+        ?int $year = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyTropicalEphemerisRequest(month: $month, year: $year, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get lunar calendar - Moon phases for entire month
      *
      * Get complete lunar calendar showing moon phase and illumination for every day of a specific

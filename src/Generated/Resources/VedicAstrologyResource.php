@@ -2170,34 +2170,39 @@ class VedicAstrologyResource extends BaseResource
      * semi-sextile, undecile, semi-quintile, novile, semi-square, septile, quintile, binovile,
      * centile, biseptile, tredecile, sesqui-square, bi-quintile, quincunx, triseptile,
      * quadranovile). Returns exact date and time of each Moon aspect event with ternary search
-     * refinement to the minute. Essential for muhurta selection, daily panchang analysis, and
-     * chandra gochar predictions. Monthly lunar aspects API, Moon transit calendar, chandra
-     * drishti ephemeris, minor lunar aspects.
+     * refinement to the minute. Omit year and month to get the month in progress, so a published
+     * lunar calendar stays current without a redeploy. Essential for muhurta selection, daily
+     * panchang analysis, and chandra gochar predictions. Monthly lunar aspects API, Moon transit
+     * calendar, chandra drishti ephemeris, minor lunar aspects.
      *
      * POST /vedic-astrology/aspects/lunar
      *
-     * @param int $month
-     *   Month number (1-12).
-     * @param int $year
-     *   Year for monthly analysis (1900-2100).
      * @param string|null $coordinateSystem
      *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
+     * @param int|null $month
+     *   Month number (1-12). Defaults to the current month (UTC).
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
      *   0 (UTC).
+     * @param int|null $year
+     *   Year for monthly analysis (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
     public function getLunarAspects(
-        int $month,
-        int $year,
         ?string $coordinateSystem = null,
-        mixed $timezone = null
+        ?int $month = null,
+        mixed $timezone = null,
+        ?int $year = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetLunarAspectsRequest(month: $month, year: $year, coordinateSystem: $coordinateSystem, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetLunarAspectsRequest(coordinateSystem: $coordinateSystem, month: $month, timezone: $timezone, year: $year, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2298,34 +2303,40 @@ class VedicAstrologyResource extends BaseResource
      * centile, biseptile, tredecile, sesqui-square, bi-quintile, quincunx, triseptile,
      * quadranovile). Returns exact date and time of closest approach using ternary search
      * refinement. Uses degree-based aspect methodology on sidereal positions (Lahiri ayanamsa).
-     * For Moon-specific aspects, use the /aspects/lunar endpoint. Essential for transit timing,
-     * muhurta selection, and monthly astrological forecasting. Monthly planetary aspects API,
-     * graha drishti calendar, mutual aspect ephemeris, minor aspects.
+     * Omit year and month to get the month in progress, so a published aspect calendar stays
+     * current without a redeploy. For Moon-specific aspects, use the /aspects/lunar endpoint.
+     * Essential for transit timing, muhurta selection, and monthly astrological forecasting.
+     * Monthly planetary aspects API, graha drishti calendar, mutual aspect ephemeris, minor
+     * aspects.
      *
      * POST /vedic-astrology/aspects/monthly
      *
-     * @param int $month
-     *   Month number (1-12).
-     * @param int $year
-     *   Year for monthly analysis (1900-2100).
      * @param string|null $coordinateSystem
      *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
+     * @param int|null $month
+     *   Month number (1-12). Defaults to the current month (UTC).
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
      *   0 (UTC).
+     * @param int|null $year
+     *   Year for monthly analysis (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
     public function getMonthlyAspects(
-        int $month,
-        int $year,
         ?string $coordinateSystem = null,
-        mixed $timezone = null
+        ?int $month = null,
+        mixed $timezone = null,
+        ?int $year = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyAspectsRequest(month: $month, year: $year, coordinateSystem: $coordinateSystem, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyAspectsRequest(coordinateSystem: $coordinateSystem, month: $month, timezone: $timezone, year: $year, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2335,30 +2346,36 @@ class VedicAstrologyResource extends BaseResource
      *
      * Get daily sidereal ecliptic positions for all 9 Vedic planets (Navagraha) for an entire
      * month. Returns longitude, zodiac sign, degree within sign, and retrograde status for each
-     * planet on each day. Calculated at noon UTC. Essential for ephemeris generation, transit
-     * tracking, and planetary movement visualization. Monthly planetary ephemeris API, sidereal
-     * position table, daily graha gochara positions, ecliptic longitude calculator.
+     * planet on each day. Calculated at noon UTC. Omit year and month to get the month in
+     * progress, so a published ephemeris page stays current without a redeploy. Essential for
+     * ephemeris generation, transit tracking, and planetary movement visualization. Monthly
+     * planetary ephemeris API, sidereal position table, daily graha gochara positions, ecliptic
+     * longitude calculator.
      *
      * POST /vedic-astrology/planetary-positions/monthly
      *
-     * @param int $month
-     *   Month number (1-12) for ephemeris.
-     * @param int $year
-     *   Year for monthly ephemeris (1900-2100).
      * @param string|null $coordinateSystem
      *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
+     * @param int|null $month
+     *   Month number (1-12) for ephemeris. Defaults to the current month (UTC).
+     * @param int|null $year
+     *   Year for monthly ephemeris (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
     public function getMonthlyEphemeris(
-        int $month,
-        int $year,
-        ?string $coordinateSystem = null
+        ?string $coordinateSystem = null,
+        ?int $month = null,
+        ?int $year = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyEphemerisRequest(month: $month, year: $year, coordinateSystem: $coordinateSystem);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyEphemerisRequest(coordinateSystem: $coordinateSystem, month: $month, year: $year, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2369,29 +2386,34 @@ class VedicAstrologyResource extends BaseResource
      * Find all declination parallel and contraparallel events between the 7 visible planets for a
      * given month. Parallels occur when two planets share the same celestial declination
      * (equivalent to conjunction in strength). Contraparallels occur at opposite declinations
-     * (equivalent to opposition). Scanned daily at noon UTC. Essential for advanced transit
-     * analysis and hidden aspect discovery. Monthly declination parallels API, planetary parallel
-     * ephemeris, contraparallel event calendar.
+     * (equivalent to opposition). Scanned daily at noon UTC. Omit year and month to get the month
+     * in progress, so a published parallel calendar stays current without a redeploy. Essential
+     * for advanced transit analysis and hidden aspect discovery. Monthly declination parallels
+     * API, planetary parallel ephemeris, contraparallel event calendar.
      *
      * POST /vedic-astrology/parallels/monthly
      *
-     * @param int $month
-     *   Month number (1-12) for parallel analysis.
-     * @param int $year
-     *   Year for monthly parallel analysis (1900-2100).
+     * @param int|null $month
+     *   Month number (1-12) for parallel analysis. Defaults to the current month (UTC).
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
      *   0 (UTC).
+     * @param int|null $year
+     *   Year for monthly parallel analysis (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
     public function getMonthlyParallels(
-        int $month,
-        int $year,
-        mixed $timezone = null
+        ?int $month = null,
+        mixed $timezone = null,
+        ?int $year = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyParallelsRequest(month: $month, year: $year, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyParallelsRequest(month: $month, timezone: $timezone, year: $year, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -2402,33 +2424,39 @@ class VedicAstrologyResource extends BaseResource
      * Get all planetary sign (rashi) changes for a given month. Shows when each planet transitions
      * from one zodiac sign to another. Covers all 9 Vedic planets: Sun, Moon, Mars, Mercury,
      * Jupiter, Venus, Saturn, Rahu, Ketu. Includes starting positions at the beginning of the
-     * month. Essential for transit prediction, monthly horoscope generation, and muhurta planning.
-     * Monthly planetary transit API, gochar calendar, rashi parivartan dates.
+     * month. Omit year and month to get the month in progress, so a published gochar calendar
+     * stays current without a redeploy. Essential for transit prediction, monthly horoscope
+     * generation, and muhurta planning. Monthly planetary transit API, gochar calendar, rashi
+     * parivartan dates.
      *
      * POST /vedic-astrology/transit/monthly
      *
-     * @param int $month
-     *   Month number (1-12) for transit analysis.
-     * @param int $year
-     *   Year for monthly transit analysis (1900-2100).
      * @param string|null $coordinateSystem
      *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
+     * @param int|null $month
+     *   Month number (1-12) for transit analysis. Defaults to the current month (UTC).
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Output times are converted to this timezone. Defaults to
      *   0 (UTC).
+     * @param int|null $year
+     *   Year for monthly transit analysis (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
      *
      * @return array<string, mixed>
      */
     public function getMonthlyTransits(
-        int $month,
-        int $year,
         ?string $coordinateSystem = null,
-        mixed $timezone = null
+        ?int $month = null,
+        mixed $timezone = null,
+        ?int $year = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyTransitsRequest(month: $month, year: $year, coordinateSystem: $coordinateSystem, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyTransitsRequest(coordinateSystem: $coordinateSystem, month: $month, timezone: $timezone, year: $year, lang: $lang);
 
         return $this->callRequest($request);
     }

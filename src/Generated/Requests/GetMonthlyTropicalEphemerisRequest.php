@@ -15,26 +15,26 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Monthly Ephemeris - Daily sidereal planetary positions for a month
+ * Monthly Ephemeris - Daily tropical planetary positions for a month
  *
- * Get daily sidereal ecliptic positions for all 9 Vedic planets (Navagraha) for an entire
- * month. Returns longitude, zodiac sign, degree within sign, and retrograde status for each
- * planet on each day. Calculated at noon UTC. Omit year and month to get the month in
- * progress, so a published ephemeris page stays current without a redeploy. Essential for
- * ephemeris generation, transit tracking, and planetary movement visualization. Monthly
- * planetary ephemeris API, sidereal position table, daily graha gochara positions, ecliptic
- * longitude calculator.
+ * Get daily tropical ecliptic positions for all 14 Western bodies (the 10 classical planets
+ * Sun through Pluto, the lunar nodes, Chiron, and Black Moon Lilith) for an entire month.
+ * Returns longitude, zodiac sign, degree within sign, and retrograde status for each body on
+ * each day, calculated at noon UTC. Omit year and month to get the month in progress, so a
+ * published ephemeris page stays current without a redeploy. Essential for ephemeris tables,
+ * transit tracking, retrograde calendars, and planetary movement charts. Monthly ephemeris
+ * API, tropical position table, daily planet transit positions, ecliptic longitude calculator.
+ * Verified against NASA JPL Horizons.
  *
- * POST /vedic-astrology/planetary-positions/monthly
+ * POST /astrology/planets/monthly
  */
-class GetMonthlyEphemerisRequest extends Request implements HasBody
+class GetMonthlyTropicalEphemerisRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly ?string $coordinateSystem = null,
         public readonly ?int $month = null,
         public readonly ?int $year = null,
         public readonly ?string $lang = null,
@@ -43,7 +43,7 @@ class GetMonthlyEphemerisRequest extends Request implements HasBody
 
     public function resolveEndpoint(): string
     {
-        return "/vedic-astrology/planetary-positions/monthly";
+        return "/astrology/planets/monthly";
     }
 
     /**
@@ -52,9 +52,6 @@ class GetMonthlyEphemerisRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
-        if ($this->coordinateSystem !== null) {
-            $body['coordinateSystem'] = $this->coordinateSystem;
-        }
         if ($this->month !== null) {
             $body['month'] = $this->month;
         }

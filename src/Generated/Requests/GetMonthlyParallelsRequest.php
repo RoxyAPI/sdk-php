@@ -20,9 +20,10 @@ use Saloon\Traits\Body\HasJsonBody;
  * Find all declination parallel and contraparallel events between the 7 visible planets for a
  * given month. Parallels occur when two planets share the same celestial declination
  * (equivalent to conjunction in strength). Contraparallels occur at opposite declinations
- * (equivalent to opposition). Scanned daily at noon UTC. Essential for advanced transit
- * analysis and hidden aspect discovery. Monthly declination parallels API, planetary parallel
- * ephemeris, contraparallel event calendar.
+ * (equivalent to opposition). Scanned daily at noon UTC. Omit year and month to get the month
+ * in progress, so a published parallel calendar stays current without a redeploy. Essential
+ * for advanced transit analysis and hidden aspect discovery. Monthly declination parallels
+ * API, planetary parallel ephemeris, contraparallel event calendar.
  *
  * POST /vedic-astrology/parallels/monthly
  */
@@ -33,9 +34,10 @@ class GetMonthlyParallelsRequest extends Request implements HasBody
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly int $month,
-        public readonly int $year,
+        public readonly ?int $month = null,
         public readonly mixed $timezone = null,
+        public readonly ?int $year = null,
+        public readonly ?string $lang = null,
     ) {
     }
 
@@ -50,12 +52,29 @@ class GetMonthlyParallelsRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
-        $body['month'] = $this->month;
+        if ($this->month !== null) {
+            $body['month'] = $this->month;
+        }
         if ($this->timezone !== null) {
             $body['timezone'] = $this->timezone;
         }
-        $body['year'] = $this->year;
+        if ($this->year !== null) {
+            $body['year'] = $this->year;
+        }
 
         return $body;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

@@ -23,9 +23,10 @@ use Saloon\Traits\Body\HasJsonBody;
  * semi-sextile, undecile, semi-quintile, novile, semi-square, septile, quintile, binovile,
  * centile, biseptile, tredecile, sesqui-square, bi-quintile, quincunx, triseptile,
  * quadranovile). Returns exact date and time of each Moon aspect event with ternary search
- * refinement to the minute. Essential for muhurta selection, daily panchang analysis, and
- * chandra gochar predictions. Monthly lunar aspects API, Moon transit calendar, chandra
- * drishti ephemeris, minor lunar aspects.
+ * refinement to the minute. Omit year and month to get the month in progress, so a published
+ * lunar calendar stays current without a redeploy. Essential for muhurta selection, daily
+ * panchang analysis, and chandra gochar predictions. Monthly lunar aspects API, Moon transit
+ * calendar, chandra drishti ephemeris, minor lunar aspects.
  *
  * POST /vedic-astrology/aspects/lunar
  */
@@ -36,10 +37,11 @@ class GetLunarAspectsRequest extends Request implements HasBody
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly int $month,
-        public readonly int $year,
         public readonly ?string $coordinateSystem = null,
+        public readonly ?int $month = null,
         public readonly mixed $timezone = null,
+        public readonly ?int $year = null,
+        public readonly ?string $lang = null,
     ) {
     }
 
@@ -57,12 +59,29 @@ class GetLunarAspectsRequest extends Request implements HasBody
         if ($this->coordinateSystem !== null) {
             $body['coordinateSystem'] = $this->coordinateSystem;
         }
-        $body['month'] = $this->month;
+        if ($this->month !== null) {
+            $body['month'] = $this->month;
+        }
         if ($this->timezone !== null) {
             $body['timezone'] = $this->timezone;
         }
-        $body['year'] = $this->year;
+        if ($this->year !== null) {
+            $body['year'] = $this->year;
+        }
 
         return $body;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }
