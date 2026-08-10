@@ -40,6 +40,7 @@ class GenerateProgressionsRequest extends Request implements HasBody
         public readonly string $targetDate,
         public readonly string $time,
         public readonly mixed $timezone,
+        public readonly ?string $nodeType = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -58,6 +59,9 @@ class GenerateProgressionsRequest extends Request implements HasBody
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
+        if ($this->nodeType !== null) {
+            $body['nodeType'] = $this->nodeType;
+        }
         $body['targetDate'] = $this->targetDate;
         $body['time'] = $this->time;
         $body['timezone'] = $this->timezone;

@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Location and timezone API with city search and geocoding across 23,000+ cities in 240+
- * countries, returning latitude,...
+ * Location and timezone API with city search and geocoding across 235,000+ cities in 240+
+ * countries, returning latitude...
  *
  * Accessed via $roxy->location.
  */
@@ -82,21 +82,27 @@ class LocationResource extends BaseResource
     /**
      * Search cities worldwide - Geocoding autocomplete with coordinates and timezone
      *
-     * City autocomplete and geocoding search across 23,000+ locations in 240+ countries, including
-     * deep coverage of Indian tier-2 and tier-3 cities. Returns geographic coordinates (latitude,
-     * longitude), IANA timezone, and DST-aware UTC offset for each match. Built for birth chart
-     * location pickers, horoscope apps, event scheduling, and any feature requiring
-     * place-to-coordinates resolution. Partial name matching with intelligent ranking: exact
-     * prefix matches first, then sorted by population for relevance. Common alternate names like
-     * Bombay, Calcutta, Madras, and Banaras transparently resolve to their canonical entries.
+     * Turn a place name into coordinates, an IANA timezone and a DST-aware UTC offset, across
+     * 235,000+ cities and towns in 240+ countries. Coverage reaches rural towns of a few hundred
+     * people and every administrative seat, so a birthplace outside a major metro resolves as
+     * reliably as a capital. Matching is case-insensitive, accent-insensitive and partial, so ber
+     * matches Berlin, Bern and Bergen, native scripts are transliterated, and historic names
+     * resolve to the current place, so bombay returns Mumbai and peking returns Beijing. Results
+     * are ordered by match quality first and population second, so an exactly named small town is
+     * never buried under a larger city that merely shares its opening letters. Built for birth
+     * chart location pickers, horoscope apps, event scheduling, and any feature that needs
+     * place-to-coordinates resolution.
      *
      * GET /location/search
      *
      * @param string $q
-     *   City name to search for. Accepts bare city ("berlin"), city plus country ("berlin germany"),
-     *   or comma-qualified ("berlin, germany", "springfield, illinois") for disambiguation. Matches
-     *   against city name, province/state, or combined "city country" queries. Case-insensitive with
-     *   partial matching (e.g. "ber" matches Berlin, Bern, Bergen).
+     *   Place to search for, written the way a person would. Accepts a bare city (berlin), a city
+     *   plus country (berlin germany), a comma-qualified place (richfield, utah), a fully qualified
+     *   place (richfield, utah, united states), or a historic name (bombay, peking, constantinople).
+     *   Commas are optional, and a qualifier the dataset spells differently, such as USA for United
+     *   States, still resolves. Matched against city name, alternate names, state or province, and
+     *   country. Add the state or country whenever the name is common, since that is what separates
+     *   the six Springfields, and Richfield, Utah from Richfield, Minnesota.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 10.
      * @param mixed|null $offset

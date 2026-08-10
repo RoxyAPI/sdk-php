@@ -49,6 +49,16 @@ class AstrologyResource extends BaseResource
      *   House system used to place the Sun, which determines the chart sect (day when the Sun is
      *   above the horizon, night when below) and therefore which lot formula applies. Placidus
      *   (default), Whole Sign, Equal, or Koch.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -62,10 +72,11 @@ class AstrologyResource extends BaseResource
         string $time,
         mixed $timezone,
         ?string $houseSystem = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateArabicLotsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateArabicLotsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -312,6 +323,16 @@ class AstrologyResource extends BaseResource
      *   Transit date in YYYY-MM-DD format (defaults to current date)
      * @param array|null $natalChart
      *   Optional natal chart data to compare transits against
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $time
      *   Transit time in HH:MM:SS format (defaults to current time)
      * @param mixed|null $timezone
@@ -326,12 +347,13 @@ class AstrologyResource extends BaseResource
     public function calculateTransits(
         ?string $date = null,
         ?array $natalChart = null,
+        ?string $nodeType = null,
         ?string $time = null,
         mixed $timezone = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateTransitsRequest(date: $date, natalChart: $natalChart, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateTransitsRequest(date: $date, natalChart: $natalChart, nodeType: $nodeType, time: $time, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -365,6 +387,16 @@ class AstrologyResource extends BaseResource
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $include
      *   Comma-separated list of optional bodies to include beyond the classical 10 planets. Valid
      *   tokens (case-insensitive): chiron, northNode (also accepts north_node, north-node,
@@ -385,12 +417,13 @@ class AstrologyResource extends BaseResource
         float $longitude,
         string $time,
         mixed $timezone,
+        ?string $nodeType = null,
         ?string $include = null,
         ?string $lang = null,
         ?string $strictOrbs = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\DetectAspectPatternsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, include: $include, lang: $lang, strictOrbs: $strictOrbs);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\DetectAspectPatternsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, nodeType: $nodeType, include: $include, lang: $lang, strictOrbs: $strictOrbs);
 
         return $this->callRequest($request);
     }
@@ -424,6 +457,16 @@ class AstrologyResource extends BaseResource
      *   House system used to assign each asteroid to a natal house. Placidus (default), Whole Sign,
      *   Equal, or Koch. Above the polar circle, quadrant systems fall back to Whole Sign and the
      *   echoed houseSystem reports the system actually used.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -437,10 +480,11 @@ class AstrologyResource extends BaseResource
         string $time,
         mixed $timezone,
         ?string $houseSystem = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateAsteroidsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateAsteroidsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -470,6 +514,16 @@ class AstrologyResource extends BaseResource
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $include
      *   Optional comma separated list of extra bodies to plot beyond the ten classical planets.
      *   Allowed values: north-node, chiron, lilith. north-node is the mean lunar node. Unknown
@@ -486,11 +540,12 @@ class AstrologyResource extends BaseResource
         float $longitude,
         string $time,
         mixed $timezone,
+        ?string $nodeType = null,
         ?string $include = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateAstrocartographyRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, include: $include, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateAstrocartographyRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, nodeType: $nodeType, include: $include, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -556,6 +611,16 @@ class AstrologyResource extends BaseResource
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -572,11 +637,12 @@ class AstrologyResource extends BaseResource
         float $longitude,
         string $time,
         mixed $timezone,
+        ?string $nodeType = null,
         ?string $lang = null,
         mixed $orb = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateFixedStarsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang, orb: $orb);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateFixedStarsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, nodeType: $nodeType, lang: $lang, orb: $orb);
 
         return $this->callRequest($request);
     }
@@ -610,6 +676,16 @@ class AstrologyResource extends BaseResource
      * @param string|null $houseSystem
      *   House system used to place each Lilith variant in a house. Placidus (default), Whole Sign,
      *   Equal, or Koch.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -623,10 +699,11 @@ class AstrologyResource extends BaseResource
         string $time,
         mixed $timezone,
         ?string $houseSystem = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateLilithRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateLilithRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -770,6 +847,16 @@ class AstrologyResource extends BaseResource
      *   Western astrology and time-sensitive. Whole Sign assigns one sign per house (simpler,
      *   ancient). Equal houses divide chart into 30° segments from Ascendant. Koch emphasizes houses
      *   in high latitudes.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -783,10 +870,11 @@ class AstrologyResource extends BaseResource
         string $time,
         mixed $timezone,
         ?string $houseSystem = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNatalChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNatalChartRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, houseSystem: $houseSystem, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -884,6 +972,16 @@ class AstrologyResource extends BaseResource
      *   House system used only to report where the lord of the year sits in the natal chart. The
      *   profected house and sign always use whole sign profection from the rising sign. Placidus
      *   (default), Whole Sign, Equal, or Koch.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -898,10 +996,11 @@ class AstrologyResource extends BaseResource
         string $time,
         mixed $timezone,
         ?string $houseSystem = null,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProfectionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, houseSystem: $houseSystem, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProfectionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, houseSystem: $houseSystem, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -937,6 +1036,16 @@ class AstrologyResource extends BaseResource
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -950,10 +1059,11 @@ class AstrologyResource extends BaseResource
         string $targetDate,
         string $time,
         mixed $timezone,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProgressionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProgressionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1050,6 +1160,16 @@ class AstrologyResource extends BaseResource
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
      *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
      *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1063,10 +1183,11 @@ class AstrologyResource extends BaseResource
         string $targetDate,
         string $time,
         mixed $timezone,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateSolarArcRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateSolarArcRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1342,6 +1463,16 @@ class AstrologyResource extends BaseResource
      * @param mixed $timezone
      *   Decimal hours from UTC (e.g. -5 for EST, 5.5 for IST, 9 for JST, 5.75 for NPT) OR IANA name
      *   (e.g. "America/New_York"). IANA resolved to the DST-correct offset for the chart date.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
+     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
+     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
+     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
+     *   "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1354,10 +1485,11 @@ class AstrologyResource extends BaseResource
         float $longitude,
         string $time,
         mixed $timezone,
+        ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPlanetaryPositionsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPlanetaryPositionsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }

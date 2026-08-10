@@ -41,6 +41,7 @@ class DetectAspectPatternsRequest extends Request implements HasBody
         public readonly float $longitude,
         public readonly string $time,
         public readonly mixed $timezone,
+        public readonly ?string $nodeType = null,
         public readonly ?string $include = null,
         public readonly ?string $lang = null,
         public readonly ?string $strictOrbs = null,
@@ -61,6 +62,9 @@ class DetectAspectPatternsRequest extends Request implements HasBody
         $body['date'] = $this->date;
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
+        if ($this->nodeType !== null) {
+            $body['nodeType'] = $this->nodeType;
+        }
         $body['time'] = $this->time;
         $body['timezone'] = $this->timezone;
 

@@ -40,6 +40,7 @@ class GenerateProfectionsRequest extends Request implements HasBody
         public readonly string $time,
         public readonly mixed $timezone,
         public readonly ?string $houseSystem = null,
+        public readonly ?string $nodeType = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -61,6 +62,9 @@ class GenerateProfectionsRequest extends Request implements HasBody
         }
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
+        if ($this->nodeType !== null) {
+            $body['nodeType'] = $this->nodeType;
+        }
         $body['targetDate'] = $this->targetDate;
         $body['time'] = $this->time;
         $body['timezone'] = $this->timezone;

@@ -602,11 +602,16 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Transit Analysis - Compare current planets to natal chart (Gochar)
      *
-     * Analyze planetary transits (Gochar) over natal chart positions. Returns transiting planets
-     * with their natal house positions, aspects to natal planets, and highlights key transits from
-     * slow-moving planets (Jupiter, Saturn, Rahu, Ketu). Essential for timing predictions, event
-     * forecasting, and understanding current planetary influences. Transit analysis API, gochar
-     * calculator, vedic transit predictions.
+     * Analyze planetary transits (Gochar) over natal chart positions. Each transiting graha comes
+     * back with TWO whole-sign house numbers, because the two readings answer different questions:
+     * houseFromMoon is counted from the natal Moon sign (Janma Rashi), which is the reference
+     * classical Gochara uses, and natalHouse is counted from the Lagna. Also returns graha drishti
+     * onto the natal grahas (7th for every graha, plus Mars 4th and 8th, Jupiter 5th and 9th,
+     * Saturn 3rd and 10th), degree-based angular aspects with orbs, the Gochara Kaksha verdict,
+     * and highlighted transits from the slow-moving grahas (Jupiter, Saturn, Rahu, Ketu).
+     * Essential for timing predictions, event forecasting, and understanding current planetary
+     * influences. Transit analysis API, gochar calculator, vedic transit predictions, Chandra
+     * Lagna gochara, graha drishti.
      *
      * POST /vedic-astrology/transit
      *
@@ -699,10 +704,13 @@ class VedicAstrologyResource extends BaseResource
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
      *   reference source.
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "Asia/Kolkata") OR decimal hours from UTC. Defaults to 5.5.
      * @param string|null $focus
@@ -1225,10 +1233,13 @@ class VedicAstrologyResource extends BaseResource
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
      *   reference source.
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
      * @param string|null $focus
@@ -1835,10 +1846,13 @@ class VedicAstrologyResource extends BaseResource
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
      *   reference source.
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone offset from UTC in hours. Defaults to 5.5 (IST) for Vedic astrology.
      *
@@ -1893,10 +1907,13 @@ class VedicAstrologyResource extends BaseResource
      *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
      *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
      *   resolved to the DST-correct offset for the startDatetime date. When non-zero, all datetimes
@@ -1946,10 +1963,13 @@ class VedicAstrologyResource extends BaseResource
      *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
      *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
      *   resolved to the DST-correct offset for startDate. Output times are converted to this
@@ -2008,10 +2028,13 @@ class VedicAstrologyResource extends BaseResource
      *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
      *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone offset from UTC in decimal hours. When non-zero, all datetimes are treated as local
      *   time in this timezone (Z suffix is ignored). Output times are also converted to this
@@ -2072,10 +2095,13 @@ class VedicAstrologyResource extends BaseResource
      *   Interpreted as local time when a non-zero timezone is provided (a trailing Z is accepted but
      *   ignored); with timezone 0 it is UTC.
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC.
      *   IANA resolved to the DST-correct offset based on birthDate or datetime. Defaults to 5.5.
@@ -2136,10 +2162,13 @@ class VedicAstrologyResource extends BaseResource
      *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
      *   Lahiri. Defaults to "kp-newcomb".
      * @param string|null $nodeType
-     *   Lunar node type for Rahu and Ketu positions. "mean" uses the smooth mean node (traditional
-     *   Vedic astrology default). "true" uses the osculating node with perturbation corrections,
-     *   oscillating up to 1.5 degrees from mean with a 173-day period. Impacts KP sub-lord
-     *   assignments in narrow boundary cases. Defaults to "mean".
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
      *   resolved to the DST-correct offset for startDate. Output times are converted to this

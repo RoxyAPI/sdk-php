@@ -35,6 +35,7 @@ class CalculateTransitsRequest extends Request implements HasBody
     public function __construct(
         public readonly ?string $date = null,
         public readonly ?array $natalChart = null,
+        public readonly ?string $nodeType = null,
         public readonly ?string $time = null,
         public readonly mixed $timezone = null,
         public readonly ?string $lang = null,
@@ -57,6 +58,9 @@ class CalculateTransitsRequest extends Request implements HasBody
         }
         if ($this->natalChart !== null) {
             $body['natalChart'] = $this->natalChart;
+        }
+        if ($this->nodeType !== null) {
+            $body['nodeType'] = $this->nodeType;
         }
         if ($this->time !== null) {
             $body['time'] = $this->time;
