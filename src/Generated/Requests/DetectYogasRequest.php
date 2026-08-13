@@ -17,7 +17,7 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Detect classical Vedic yogas in a birth chart
  *
- * Chart-driven detection of 44 classical Vedic yogas. Twelve conjunction and dignity yogas:
+ * Chart-driven detection of 48 classical Vedic yogas. Twelve conjunction and dignity yogas:
  * Gajakesari (parashara three-rule definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra
  * Mangala, Budha-Aditya, and the five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa,
  * Malavya, Sasa). Plus all 32 Nabhasa distribution yogas, which describe how the seven visible
@@ -25,13 +25,19 @@ use Saloon\Traits\Body\HasJsonBody;
  * families: Asraya (Rajju, Musala, Nala), Dala (Mala, Sarpa), Akriti (Gada, Shakata, Vihaga,
  * Shringataka, Hala, Vajra, Yava, Kamala, Vapi, Yupa, Shara, Shakti, Danda, Nauka, Kuta,
  * Chhatra, Dhanusha, Ardhachandra, Chakra, Samudra) and Sankhya (Gola, Yuga, Shoola, Kedara,
- * Pasa, Damini, Veena). Each yoga is returned with an `id`, `name`, a `present` boolean, a
- * `quality` (Positive, Negative, or Both, i.e. auspicious, inauspicious, or
- * context-dependent), and a classical-text `evidence` string naming the rule that triggered or
- * failed (kendra position, dignity, malefic drishti, lordship, retrograde state, sign
- * modality, bhava distribution). Nabhasa results also apply the four classical precedence
- * norms, so a yoga that matched its own rule but was outranked by a stronger family is
- * returned as absent with evidence naming the norm that silenced it, letting you explain a
+ * Pasa, Damini, Veena). Plus four wealth and poverty verdicts, each ONE answer over a whole
+ * family of classical rules: Dhana Yoga over the eleven catalogued wealth combinations of BPHS
+ * ch. 41, Daridra Yoga over the poverty combinations of BPHS ch. 42 and Phaladeepika ch. 6,
+ * Lakshmi Yoga (BPHS ch. 36), and Dhana Malika (Jataka Parijata ch. 7). Their evidence names
+ * every rule that matched and the exact condition it matched on, so a wealth reading cites the
+ * combination rather than a label, and a rule resting on a single authority is excluded from
+ * the verdict and says so rather than quietly counting. Each yoga is returned with an `id`,
+ * `name`, a `present` boolean, a `quality` (Positive, Negative, or Both, i.e. auspicious,
+ * inauspicious, or context-dependent), and a classical-text `evidence` string naming the rule
+ * that triggered or failed (kendra position, dignity, malefic drishti, lordship, retrograde
+ * state, sign modality, bhava distribution). Nabhasa results also apply the four classical
+ * precedence norms, so a yoga that matched its own rule but was outranked by a stronger family
+ * is returned as absent with evidence naming the norm that silenced it, letting you explain a
  * verdict rather than only report it. There is no separate major/minor flag; `quality` is the
  * auspiciousness axis. Unlike GET /yoga and GET /yoga/{id} which are dictionary lookups, this
  * endpoint computes the kundli from birth data and runs the detection rules. Sources: BPHS ch.

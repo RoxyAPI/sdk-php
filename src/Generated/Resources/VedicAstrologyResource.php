@@ -953,7 +953,7 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Detect classical Vedic yogas in a birth chart
      *
-     * Chart-driven detection of 44 classical Vedic yogas. Twelve conjunction and dignity yogas:
+     * Chart-driven detection of 48 classical Vedic yogas. Twelve conjunction and dignity yogas:
      * Gajakesari (parashara three-rule definition), Sunapha, Anapha, Dhurdhura, Kemadruma, Chandra
      * Mangala, Budha-Aditya, and the five Pancha Mahapurusha yogas (Ruchaka, Bhadra, Hamsa,
      * Malavya, Sasa). Plus all 32 Nabhasa distribution yogas, which describe how the seven visible
@@ -961,13 +961,19 @@ class VedicAstrologyResource extends BaseResource
      * families: Asraya (Rajju, Musala, Nala), Dala (Mala, Sarpa), Akriti (Gada, Shakata, Vihaga,
      * Shringataka, Hala, Vajra, Yava, Kamala, Vapi, Yupa, Shara, Shakti, Danda, Nauka, Kuta,
      * Chhatra, Dhanusha, Ardhachandra, Chakra, Samudra) and Sankhya (Gola, Yuga, Shoola, Kedara,
-     * Pasa, Damini, Veena). Each yoga is returned with an `id`, `name`, a `present` boolean, a
-     * `quality` (Positive, Negative, or Both, i.e. auspicious, inauspicious, or
-     * context-dependent), and a classical-text `evidence` string naming the rule that triggered or
-     * failed (kendra position, dignity, malefic drishti, lordship, retrograde state, sign
-     * modality, bhava distribution). Nabhasa results also apply the four classical precedence
-     * norms, so a yoga that matched its own rule but was outranked by a stronger family is
-     * returned as absent with evidence naming the norm that silenced it, letting you explain a
+     * Pasa, Damini, Veena). Plus four wealth and poverty verdicts, each ONE answer over a whole
+     * family of classical rules: Dhana Yoga over the eleven catalogued wealth combinations of BPHS
+     * ch. 41, Daridra Yoga over the poverty combinations of BPHS ch. 42 and Phaladeepika ch. 6,
+     * Lakshmi Yoga (BPHS ch. 36), and Dhana Malika (Jataka Parijata ch. 7). Their evidence names
+     * every rule that matched and the exact condition it matched on, so a wealth reading cites the
+     * combination rather than a label, and a rule resting on a single authority is excluded from
+     * the verdict and says so rather than quietly counting. Each yoga is returned with an `id`,
+     * `name`, a `present` boolean, a `quality` (Positive, Negative, or Both, i.e. auspicious,
+     * inauspicious, or context-dependent), and a classical-text `evidence` string naming the rule
+     * that triggered or failed (kendra position, dignity, malefic drishti, lordship, retrograde
+     * state, sign modality, bhava distribution). Nabhasa results also apply the four classical
+     * precedence norms, so a yoga that matched its own rule but was outranked by a stronger family
+     * is returned as absent with evidence naming the norm that silenced it, letting you explain a
      * verdict rather than only report it. There is no separate major/minor flag; `quality` is the
      * auspiciousness axis. Unlike GET /yoga and GET /yoga/{id} which are dictionary lookups, this
      * endpoint computes the kundli from birth data and runs the detection rules. Sources: BPHS ch.
@@ -3078,8 +3084,9 @@ class VedicAstrologyResource extends BaseResource
      * planetary-yoga glossary. Returns formation conditions, life results, and quality
      * classification (Positive/Negative/Both). This is a glossary lookup against the static
      * catalog; it does NOT analyze a birth chart. For chart-driven present/absent verdicts on the
-     * 44 detection-grade yogas (Gajakesari, the Pancha Mahapurusha set, and all 32 Nabhasa
-     * distribution yogas) call POST /yoga/detect with birth data.
+     * 48 detection-grade yogas (Gajakesari, the Pancha Mahapurusha set, all 32 Nabhasa
+     * distribution yogas, and the wealth and poverty verdicts) call POST /yoga/detect with birth
+     * data.
      *
      * GET /vedic-astrology/yoga/{id}
      *
@@ -3189,7 +3196,7 @@ class VedicAstrologyResource extends BaseResource
      * Browse the 301-entry Vedic planetary-yoga glossary. Returns id and name for every cataloged
      * yoga (Raja, Dhana, Pancha Mahapurusha, Nabhasa, Chandra-Mangala, and more). This is a
      * dictionary lookup, not chart-driven detection: it does not inspect a birth chart. Use GET
-     * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run all 44 detection rules
+     * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run all 48 detection rules
      * against a specific kundli. Ideal for yoga-browser UIs, search, and progressive data loading.
      *
      * GET /vedic-astrology/yoga

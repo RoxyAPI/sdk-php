@@ -18,7 +18,7 @@ use Saloon\Http\Request;
  * Browse the 301-entry Vedic planetary-yoga glossary. Returns id and name for every cataloged
  * yoga (Raja, Dhana, Pancha Mahapurusha, Nabhasa, Chandra-Mangala, and more). This is a
  * dictionary lookup, not chart-driven detection: it does not inspect a birth chart. Use GET
- * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run all 44 detection rules
+ * /yoga/{id} for the full glossary entry, or POST /yoga/detect to run all 48 detection rules
  * against a specific kundli. Ideal for yoga-browser UIs, search, and progressive data loading.
  *
  * GET /vedic-astrology/yoga

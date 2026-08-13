@@ -20,6 +20,34 @@ use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 class LanguagesResource extends BaseResource
 {
     /**
+     * Get field labels for a language
+     *
+     * Returns the display label for every request field name and every selectable option across
+     * the API, in the requested language. Use this to build a birth-data form, a chart widget, or
+     * an admin picker that reads in your customer language without hardcoding a word: look a field
+     * name up in `fields`, and an option up in `enums` under `{fieldName}.{value}`. Values a
+     * caller sends stay the canonical English identifier, so a translated form still submits a
+     * valid request. Labels a language has not been translated into yet return English, and the
+     * whole payload is stable enough to cache for a day.
+     *
+     * GET /languages/field-labels
+     *
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getFieldLabels(
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetFieldLabelsRequest(lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * List supported response languages
      *
      * Returns the language codes accepted by the `lang` query parameter on every i18n-aware
