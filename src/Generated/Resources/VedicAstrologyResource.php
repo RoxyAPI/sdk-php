@@ -3078,6 +3078,83 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Daily Reading - Composed Gochara, Panchanga and Dasha for one native on one day
+     *
+     * The composed Vedic daily reading for one native on one date, in one call. Runs classical
+     * Gochara as the gate pipeline the texts describe: the house each transiting graha makes from
+     * the natal Moon (Janma Rashi), the vedha pair that can cancel it, the Ashtakavarga bindu gate
+     * that decides whether it is delivered, and the Phaladeepika XXVI.30 to XXVI.32 nullifiers, so
+     * every graha lands in ONE cited state rather than a bar of a chart. Joined to the panchanga
+     * day, which runs sunrise to sunrise with a validity window on every limb, plus tarabala and
+     * chandrabala resolved for THIS native as windows rather than as one value, the running
+     * Vimshottari chain three levels deep, and a KP finance net over the wealth and loss houses.
+     * Ships a hand-reproducible strength score with its arithmetic published in the field itself,
+     * and states plainly which part is classical and which part is our convention. Positions are
+     * computed in the Lahiri sidereal frame; the KP significators behind the finance area use the
+     * KP-Newcomb frame, as they do on every KP route. Vedic daily horoscope API, gochara API,
+     * daily panchang prediction, tarabala and chandrabala API, ashtakavarga transit strength.
+     *
+     * POST /vedic-astrology/daily
+     *
+     * @param string $birthDate
+     *   Birth date in YYYY-MM-DD format. Fixes the Janma Rashi and Janma Nakshatra every part of
+     *   this reading is counted from, and the natal Ashtakavarga the bindu gate reads.
+     * @param string $birthTime
+     *   Birth time in HH:MM:SS format (24-hour). The Moon moves about half a degree an hour, so an
+     *   error here moves the Janma Rashi and Janma Nakshatra and therefore every gochara house
+     *   count, the tarabala and the chandrabala in this response.
+     * @param float $latitude
+     *   Birth location latitude in decimal degrees. Sets the natal house cusps behind the
+     *   Ashtakavarga scorecard and the KP significators, and the sunrise that opens the panchanga
+     *   day.
+     * @param float $longitude
+     *   Birth location longitude in decimal degrees. Affects local sidereal time for the natal cusps
+     *   and the sunrise the reading is composed at.
+     * @param string|null $date
+     *   Civil date to read, in YYYY-MM-DD format. Defaults to today (UTC). The panchanga day it
+     *   names runs from sunrise at the birth coordinates to the next sunrise, not from midnight, so
+     *   a reading for this date covers the night that follows it.
+     * @param string|null $nodeType
+     *   Lunar node type for Rahu and Ketu. "mean" uses the smooth mean node, which is the
+     *   traditional Vedic default and what printed panchangs use. "true" uses the osculating node,
+     *   which swings up to 1.5 degrees either side of mean and can therefore move a node into a
+     *   different rashi and change its gochara house. Defaults to "mean".
+     * @param mixed|null $timezone
+     *   Timezone: IANA name (e.g. "Asia/Kolkata", "America/New_York") OR decimal hours from UTC
+     *   (e.g. -5 for EST, 5.5 for IST). IANA strings are resolved to the DST-correct offset for the
+     *   date being read. Interprets the birth time and the civil date below. Defaults to 5.5.
+     * @param string|null $focus
+     *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
+     *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
+     *   reading of the same twelve bhavas, so house 2 returns income and savings, 5 speculation and
+     *   risk appetite, 8 sudden money and leverage, 11 gains and profits, and 12 expenses and
+     *   capital outflow. Use "finance" for wealth, income, business and market timing questions in
+     *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
+     *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getVedicDailyReading(
+        string $birthDate,
+        string $birthTime,
+        float $latitude,
+        float $longitude,
+        ?string $date = null,
+        ?string $nodeType = null,
+        mixed $timezone = null,
+        ?string $focus = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetVedicDailyReadingRequest(birthDate: $birthDate, birthTime: $birthTime, latitude: $latitude, longitude: $longitude, date: $date, nodeType: $nodeType, timezone: $timezone, focus: $focus, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get yoga details by ID - Vedic Yoga Glossary Entry
      *
      * Look up the dictionary entry for a specific named yoga from the 301-entry Vedic
