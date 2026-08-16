@@ -555,9 +555,11 @@ class AstrologyResource extends BaseResource
      *
      * Generate a composite chart by calculating midpoints between two natal charts. The composite
      * chart represents the relationship as a single entity, showing its core identity, emotional
-     * bond, communication style, and growth direction. Returns composite planetary positions,
-     * house cusps, Ascendant, Midheaven, aspects, and relationship interpretation. Composite chart
-     * API, midpoint chart calculator, relationship astrology, couple chart analysis.
+     * bond, communication style, and growth direction. Uses the midpoint method: planets, angles
+     * and house cusps are each the midpoint of the two natal values, so the Ascendant always sits
+     * on the first cusp. Returns composite planetary positions, house cusps, Ascendant, Midheaven,
+     * aspects, and relationship interpretation. Composite chart API, midpoint chart calculator,
+     * relationship astrology, couple chart analysis.
      *
      * POST /astrology/composite-chart
      *
