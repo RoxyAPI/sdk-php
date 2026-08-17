@@ -54,11 +54,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -328,11 +327,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $time
      *   Transit time in HH:MM:SS format (defaults to current time)
      * @param mixed|null $timezone
@@ -392,11 +390,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $include
      *   Comma-separated list of optional bodies to include beyond the classical 10 planets. Valid
      *   tokens (case-insensitive): chiron, northNode (also accepts north_node, north-node,
@@ -462,11 +459,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -519,11 +515,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $include
      *   Optional comma separated list of extra bodies to plot beyond the ten classical planets.
      *   Allowed values: north-node, chiron, lilith. north-node is the mean lunar node. Unknown
@@ -618,11 +613,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -683,11 +677,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -854,11 +847,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -979,11 +971,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1043,11 +1034,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1167,11 +1157,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1372,6 +1361,58 @@ class AstrologyResource extends BaseResource
     }
 
     /**
+     * Monthly Aspects - Tropical aspect calendar for an entire month
+     *
+     * Get every planetary aspect that perfects during a given month, across the 13 non-lunar
+     * Western bodies: the Sun and Mercury through Pluto, both lunar nodes, Chiron and Black Moon
+     * Lilith. Detects nine aspects, five major (conjunction, sextile, square, trine, opposition)
+     * and four minor (semi-sextile, semi-square, sesquiquadrate, quincunx), each with its own
+     * traditional orb, and returns the exact date and time of closest approach in your timezone
+     * along with the nature of the aspect. Calculated on tropical longitudes. The Moon is excluded
+     * because it forms hundreds of aspects a month and belongs in a daily view rather than a
+     * monthly one. Omit year and month to get the month in progress, so a published calendar stays
+     * current without a redeploy. Essential for monthly forecast copy, transit calendars,
+     * electional timing, and newsletter automation. Monthly aspect calendar API, exact aspect
+     * times, planetary aspect ephemeris, transit timing. Verified against NASA JPL Horizons.
+     *
+     * POST /astrology/aspects/monthly
+     *
+     * @param int|null $month
+     *   Month number (1-12). Defaults to the current month (UTC).
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Event dates and times are reported in this zone, which is
+     *   what makes a published calendar read correctly for its audience. Defaults to 0 (UTC).
+     * @param int|null $year
+     *   Year for the aspect calendar (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getMonthlyTropicalAspects(
+        ?int $month = null,
+        ?string $nodeType = null,
+        mixed $timezone = null,
+        ?int $year = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyTropicalAspectsRequest(month: $month, nodeType: $nodeType, timezone: $timezone, year: $year, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Monthly Ephemeris - Daily tropical planetary positions for a month
      *
      * Get daily tropical ecliptic positions for all 14 Western bodies (the 10 classical planets
@@ -1402,6 +1443,56 @@ class AstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyTropicalEphemerisRequest(month: $month, year: $year, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Monthly Transits - Tropical sign ingresses for an entire month
+     *
+     * Get every tropical sign change for a given month, for all 14 Western bodies: the Sun through
+     * Pluto, both lunar nodes, Chiron and Black Moon Lilith. Returns the starting sign of each
+     * body on the first of the month and then each ingress with its exact date and time in your
+     * timezone. Omit year and month to get the month in progress, so a published transit calendar
+     * stays current without a redeploy. Essential for transit calendars, monthly forecast copy,
+     * retrograde and ingress tracking, and newsletter automation. Monthly transit API, planetary
+     * ingress calendar, sign change dates, tropical transit table. Verified against NASA JPL
+     * Horizons, with the four cardinal ingresses cross-checked against published equinox and
+     * solstice times.
+     *
+     * POST /astrology/transits/monthly
+     *
+     * @param int|null $month
+     *   Month number (1-12). Defaults to the current month (UTC).
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Ingress dates and times are reported in this zone, which
+     *   is what makes a published calendar read correctly for its audience. Defaults to 0 (UTC).
+     * @param int|null $year
+     *   Year for the monthly transit table (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getMonthlyTropicalTransits(
+        ?int $month = null,
+        ?string $nodeType = null,
+        mixed $timezone = null,
+        ?int $year = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyTropicalTransitsRequest(month: $month, nodeType: $nodeType, timezone: $timezone, year: $year, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -1470,11 +1561,10 @@ class AstrologyResource extends BaseResource
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
      *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
-     *   Node. True is what most Western software reports (Astrolabe, Cafe Astrology, TimePassages),
-     *   which is why it is the default here; astro-seek and the Steven Forrest evolutionary school
-     *   use mean, so pass "mean" to match those. Nothing else in the chart changes, and the two
-     *   agree on the sign except when the node sits within about 1.8 degrees of a cusp. Defaults to
-     *   "true".
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -1512,7 +1602,9 @@ class AstrologyResource extends BaseResource
      *
      * @param string $id
      *   Planet ID (lowercase, e.g., sun, moon, mercury) or display name (case-insensitive, e.g.,
-     *   Sun, MOON).
+     *   Sun, MOON). Spaces, hyphens and underscores are interchangeable, so the two lunar nodes
+     *   answer to north-node and south-node as well as to their ids north node and south node, and
+     *   Black Moon Lilith answers to black-moon-lilith as well as to lilith.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
