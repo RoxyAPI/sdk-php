@@ -346,15 +346,20 @@ class TarotResource extends BaseResource
      * life-changing themes. Minor Arcana cards (Ace through King in Cups, Wands, Swords,
      * Pentacles) address practical daily situations and specific challenges. Use card ID in
      * kebab-case format: Major Arcana like "fool", "magician", "death", "tower", or Minor Arcana
-     * like "ace-of-cups", "seven-of-wands", "queen-of-swords", "king-of-pentacles". Essential for
-     * detailed tarot study, reading interpretations, divination apps, fortune-telling platforms,
-     * spiritual guidance tools, and professional tarot learning applications.
+     * like "ace-of-cups", "seven-of-wands", "queen-of-swords", "king-of-pentacles". Major Arcana
+     * IDs carry no leading article, though one is accepted, so "the-star" and "star" both return
+     * The Star. Essential for detailed tarot study, reading interpretations, divination apps,
+     * fortune-telling platforms, spiritual guidance tools, and professional tarot learning
+     * applications.
      *
      * GET /tarot/cards/{id}
      *
      * @param string $id
-     *   Unique card identifier in kebab-case. Major arcana: "fool", "magician", "death", etc. Minor
-     *   arcana: "ace-of-cups", "seven-of-wands", "queen-of-swords", "king-of-pentacles", etc.
+     *   Card identifier. Major arcana: "fool", "magician", "death". Minor arcana: "ace-of-cups",
+     *   "seven-of-wands", "queen-of-swords", "king-of-pentacles". Casing and separators are
+     *   flexible, so "Fool" and "ACE_OF_CUPS" both resolve, and a leading definite article is
+     *   optional, so "the-star" resolves to "star". The canonical form, and the one every response
+     *   echoes, is kebab-case with no article.
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.

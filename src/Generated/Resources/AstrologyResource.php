@@ -1320,6 +1320,64 @@ class AstrologyResource extends BaseResource
     }
 
     /**
+     * Monthly Parallels - Declination contacts for an entire month
+     *
+     * Get every parallel and contraparallel of declination that perfects during a given month,
+     * across the 13 non-lunar Western bodies: the Sun and Mercury through Pluto, both lunar nodes,
+     * Chiron and Black Moon Lilith. A parallel is two bodies at the same declination and reads
+     * much like a conjunction; a contraparallel is equal and opposite declinations and reads much
+     * like an opposition. Neither depends on zodiacal distance, so they surface connections an
+     * aspect table cannot show, which is why traditional and modern practitioners read them
+     * alongside aspects. Declinations are geocentric, matching what an ephemeris publishes.
+     * Returns the exact date and time of closest approach in your timezone with both declinations.
+     * The Moon is excluded because its declination swings the full range every month and would
+     * bury the slow pairs. Omit year and month to get the month in progress, so a published
+     * calendar stays current without a redeploy. Essential for declination work, out-of-bounds
+     * tracking, monthly forecast copy, and electional timing. Monthly parallel calendar API,
+     * declination aspects, contraparallel ephemeris. Verified against NASA JPL Horizons.
+     *
+     * POST /astrology/parallels/monthly
+     *
+     * @param int|null $month
+     *   Month number (1-12). Defaults to the current month (UTC).
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the North and South
+     *   Node. True is the osculating node and the default, because it is what most Western chart
+     *   software reports; mean is the smoothed node preferred by several evolutionary schools, so
+     *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
+     *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
+     * @param float|null $orb
+     *   How far from exact still counts, in degrees. The traditional orb for a declination contact
+     *   is tighter than for a zodiacal aspect because declination changes slowly. Defaults to 1.5.
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Event dates and times are reported in this zone, which is
+     *   what makes a published calendar read correctly for its audience. Defaults to 0 (UTC).
+     * @param int|null $year
+     *   Year for the declination calendar (1900-2100). Defaults to the current year (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getMonthlyDeclinationParallels(
+        ?int $month = null,
+        ?string $nodeType = null,
+        ?float $orb = null,
+        mixed $timezone = null,
+        ?int $year = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyDeclinationParallelsRequest(month: $month, nodeType: $nodeType, orb: $orb, timezone: $timezone, year: $year, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Monthly horoscope by zodiac sign - 30-day transit forecast with key dates
      *
      * Get monthly horoscope for any zodiac sign with sign-specific week-by-week breakdown and real
@@ -1523,6 +1581,45 @@ class AstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetMoonCalendarRequest(year: $year, month: $month, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Ecliptic Crossings - Node passages for a whole year
+     *
+     * Get every moment a body crosses the plane of the ecliptic during a given year, for the 11
+     * Western bodies that leave it: the Moon and Mercury through Pluto, plus Chiron and Black Moon
+     * Lilith. A crossing from south to north is an ascending node passage, north to south a
+     * descending one. These are the instants a body sits exactly on the ecliptic rather than
+     * merely near it, which is what makes an eclipse possible when a lunar crossing coincides with
+     * a New or Full Moon, and what practitioners use for node-based timing. Returns the exact date
+     * and time in your timezone with the tropical longitude and sign. The Sun and the lunar nodes
+     * are excluded because they lie on the plane by definition and so have no nodes of their own.
+     * Essential for eclipse-season work, node timing, and astronomical calendars. Ecliptic
+     * crossing API, planetary node passage, ascending and descending nodes. Verified against NASA
+     * JPL Horizons.
+     *
+     * POST /astrology/ecliptic-crossings
+     *
+     * @param int $year
+     *   Year to scan for node passages (1900-2100).
+     * @param mixed|null $timezone
+     *   Timezone offset from UTC in hours. Crossing dates and times are reported in this zone.
+     *   Defaults to 0 (UTC).
+     * @param string|null $lang
+     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
+     *   Languages without translations yet return English.
+     *
+     * @return array<string, mixed>
+     */
+    public function getPlanetaryNodePassages(
+        int $year,
+        mixed $timezone = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetPlanetaryNodePassagesRequest(year: $year, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }

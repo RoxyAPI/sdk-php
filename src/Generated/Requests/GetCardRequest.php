@@ -25,9 +25,11 @@ use Saloon\Http\Request;
  * life-changing themes. Minor Arcana cards (Ace through King in Cups, Wands, Swords,
  * Pentacles) address practical daily situations and specific challenges. Use card ID in
  * kebab-case format: Major Arcana like "fool", "magician", "death", "tower", or Minor Arcana
- * like "ace-of-cups", "seven-of-wands", "queen-of-swords", "king-of-pentacles". Essential for
- * detailed tarot study, reading interpretations, divination apps, fortune-telling platforms,
- * spiritual guidance tools, and professional tarot learning applications.
+ * like "ace-of-cups", "seven-of-wands", "queen-of-swords", "king-of-pentacles". Major Arcana
+ * IDs carry no leading article, though one is accepted, so "the-star" and "star" both return
+ * The Star. Essential for detailed tarot study, reading interpretations, divination apps,
+ * fortune-telling platforms, spiritual guidance tools, and professional tarot learning
+ * applications.
  *
  * GET /tarot/cards/{id}
  */
