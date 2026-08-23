@@ -54,10 +54,12 @@ class HumanDesignResource extends BaseResource
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
      *   Node activations. True is what professional Human Design software uses (HumanDesign.ai,
      *   Total Human Design) and is the value RoxyAPI verifies against, so leave it unset for a
-     *   standard chart. It matters only when a node sits on a gate boundary, where the choice can
-     *   move a node gate and, rarely, change the completed channels and therefore the type,
-     *   authority or definition. If another calculator shows a different type, it is almost
-     *   certainly using the mean node: pass "mean" to match it. Defaults to "true".
+     *   standard chart. It matters only when a node sits on a gate boundary, where the choice moves
+     *   a node gate. Because a gate can be half of a channel, that can change the completed channels
+     *   and, with them, whether a center reads defined or open, plus the definition, authority,
+     *   profile or type. A chart where only one center disagrees is the usual shape, since the type
+     *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
+     *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -114,10 +116,12 @@ class HumanDesignResource extends BaseResource
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
      *   Node activations. True is what professional Human Design software uses (HumanDesign.ai,
      *   Total Human Design) and is the value RoxyAPI verifies against, so leave it unset for a
-     *   standard chart. It matters only when a node sits on a gate boundary, where the choice can
-     *   move a node gate and, rarely, change the completed channels and therefore the type,
-     *   authority or definition. If another calculator shows a different type, it is almost
-     *   certainly using the mean node: pass "mean" to match it. Defaults to "true".
+     *   standard chart. It matters only when a node sits on a gate boundary, where the choice moves
+     *   a node gate. Because a gate can be half of a channel, that can change the completed channels
+     *   and, with them, whether a center reads defined or open, plus the definition, authority,
+     *   profile or type. A chart where only one center disagrees is the usual shape, since the type
+     *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
+     *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -207,10 +211,12 @@ class HumanDesignResource extends BaseResource
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
      *   Node activations. True is what professional Human Design software uses (HumanDesign.ai,
      *   Total Human Design) and is the value RoxyAPI verifies against, so leave it unset for a
-     *   standard chart. It matters only when a node sits on a gate boundary, where the choice can
-     *   move a node gate and, rarely, change the completed channels and therefore the type,
-     *   authority or definition. If another calculator shows a different type, it is almost
-     *   certainly using the mean node: pass "mean" to match it. Defaults to "true".
+     *   standard chart. It matters only when a node sits on a gate boundary, where the choice moves
+     *   a node gate. Because a gate can be half of a channel, that can change the completed channels
+     *   and, with them, whether a center reads defined or open, plus the definition, authority,
+     *   profile or type. A chart where only one center disagrees is the usual shape, since the type
+     *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
+     *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -300,10 +306,12 @@ class HumanDesignResource extends BaseResource
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
      *   Node activations. True is what professional Human Design software uses (HumanDesign.ai,
      *   Total Human Design) and is the value RoxyAPI verifies against, so leave it unset for a
-     *   standard chart. It matters only when a node sits on a gate boundary, where the choice can
-     *   move a node gate and, rarely, change the completed channels and therefore the type,
-     *   authority or definition. If another calculator shows a different type, it is almost
-     *   certainly using the mean node: pass "mean" to match it. Defaults to "true".
+     *   standard chart. It matters only when a node sits on a gate boundary, where the choice moves
+     *   a node gate. Because a gate can be half of a channel, that can change the completed channels
+     *   and, with them, whether a center reads defined or open, plus the definition, authority,
+     *   profile or type. A chart where only one center disagrees is the usual shape, since the type
+     *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
+     *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -360,10 +368,12 @@ class HumanDesignResource extends BaseResource
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
      *   Node activations. True is what professional Human Design software uses (HumanDesign.ai,
      *   Total Human Design) and is the value RoxyAPI verifies against, so leave it unset for a
-     *   standard chart. It matters only when a node sits on a gate boundary, where the choice can
-     *   move a node gate and, rarely, change the completed channels and therefore the type,
-     *   authority or definition. If another calculator shows a different type, it is almost
-     *   certainly using the mean node: pass "mean" to match it. Defaults to "true".
+     *   standard chart. It matters only when a node sits on a gate boundary, where the choice moves
+     *   a node gate. Because a gate can be half of a channel, that can change the completed channels
+     *   and, with them, whether a center reads defined or open, plus the definition, authority,
+     *   profile or type. A chart where only one center disagrees is the usual shape, since the type
+     *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
+     *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -425,10 +435,12 @@ class HumanDesignResource extends BaseResource
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
      *   Node activations. True is what professional Human Design software uses (HumanDesign.ai,
      *   Total Human Design) and is the value RoxyAPI verifies against, so leave it unset for a
-     *   standard chart. It matters only when a node sits on a gate boundary, where the choice can
-     *   move a node gate and, rarely, change the completed channels and therefore the type,
-     *   authority or definition. If another calculator shows a different type, it is almost
-     *   certainly using the mean node: pass "mean" to match it. Defaults to "true".
+     *   standard chart. It matters only when a node sits on a gate boundary, where the choice moves
+     *   a node gate. Because a gate can be half of a channel, that can change the completed channels
+     *   and, with them, whether a center reads defined or open, plus the definition, authority,
+     *   profile or type. A chart where only one center disagrees is the usual shape, since the type
+     *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
+     *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
@@ -487,10 +499,12 @@ class HumanDesignResource extends BaseResource
      *   is more correct and they almost always fall in the same sign. Applies to the North and South
      *   Node activations. True is what professional Human Design software uses (HumanDesign.ai,
      *   Total Human Design) and is the value RoxyAPI verifies against, so leave it unset for a
-     *   standard chart. It matters only when a node sits on a gate boundary, where the choice can
-     *   move a node gate and, rarely, change the completed channels and therefore the type,
-     *   authority or definition. If another calculator shows a different type, it is almost
-     *   certainly using the mean node: pass "mean" to match it. Defaults to "true".
+     *   standard chart. It matters only when a node sits on a gate boundary, where the choice moves
+     *   a node gate. Because a gate can be half of a channel, that can change the completed channels
+     *   and, with them, whether a center reads defined or open, plus the definition, authority,
+     *   profile or type. A chart where only one center disagrees is the usual shape, since the type
+     *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
+     *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
      *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
      *   Languages without translations yet return English.
