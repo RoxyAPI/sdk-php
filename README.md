@@ -9,7 +9,7 @@
 [![Packagist](https://img.shields.io/packagist/v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 [![PHP Version](https://img.shields.io/packagist/php-v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 
-Official PHP SDK for [RoxyAPI](https://roxyapi.com): natal charts, daily horoscopes, synastry, Vedic kundli, tarot spreads, human design bodygraphs, and transit forecasts across Western and Vedic astrology, numerology, tarot, human design, forecast, biorhythm, I Ching, crystals, dreams, angel numbers, and location geocoding. 160+ endpoints across 12+ domains, one API key, one dependency (Saloon).
+Official PHP SDK for [RoxyAPI](https://roxyapi.com): natal charts, daily horoscopes, synastry, Vedic kundli, tarot spreads, human design bodygraphs, and transit forecasts across Western and Vedic astrology, forecast, human design, Chinese astrology, feng shui, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, and location geocoding. 209+ endpoints across 14+ domains, one API key, one dependency (Saloon).
 
 ## Install
 
@@ -135,6 +135,8 @@ $result = $roxy->astrology->getDailyHoroscope(sign: 'aries');
 - `examples/laravel.php` - Laravel service provider snippet
 - `examples/human-design.php` - full Human Design bodygraph, prints type, strategy, and profile
 - `examples/forecast.php` - cross-domain forecast timeline, prints the event count and a sample event
+- `examples/chinese-astrology.php` - BaZi four pillars plus the zodiac sign, prints the pillars and the conventions used
+- `examples/feng-shui.php` - Kua number and a flying star natal chart, prints the eight sectors and the nine palaces
 - `examples/render-with-ui.html` - server-side fetch + browser render via `@roxyapi/ui`
 
 ## Documentation

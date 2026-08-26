@@ -1,6 +1,6 @@
 # roxyapi/sdk - Agent Guide
 
-PHP SDK for RoxyAPI. 12+ domains (Western astrology, Vedic astrology, numerology, tarot, human design, forecast, biorhythm, I Ching, crystals, dreams, angel numbers, location) plus utility namespaces (usage, languages). One API key, one Composer package, zero hand-written endpoint code.
+PHP SDK for RoxyAPI. 14+ domains (Western astrology, Vedic astrology, forecast, human design, Chinese astrology, feng shui, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location) plus utility namespaces (usage, languages). One API key, one Composer package, zero hand-written endpoint code.
 
 ## Install and initialize
 
@@ -54,7 +54,7 @@ $result = $roxy->location->searchCities(q: 'New York');
 | `$roxy->languages` | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
 <!-- END:DOMAINS -->
 
-160+ endpoints across 12+ product domains plus usage and languages. The table above auto-syncs from `specs/openapi.json` at release time.
+209+ endpoints across 14+ product domains plus usage and languages. The table above auto-syncs from `specs/openapi.json` at release time.
 
 ## Critical patterns
 
@@ -112,7 +112,7 @@ $roxy->tarot->getDailyCard(date: '2026-04-22', lang: 'es');
 $roxy->numerology->calculateLifePath(year: 1990, month: 1, day: 15, lang: 'hi');
 ```
 
-Supported: `astrology`, `vedicAstrology`, `numerology`, `tarot`, `biorhythm`, `iching`, `crystals`, `angelNumbers`. English-only: `dreams`, `location`, `usage`, `languages`. To list supported codes at runtime, call `$roxy->languages->listLanguages()`.
+Supported: `astrology`, `vedicAstrology`, `forecast`, `humanDesign`, `chineseAstrology`, `fengShui`, `numerology`, `tarot`, `biorhythm`, `iching`, `crystals`, `angelNumbers`. English-only: `dreams`, `location`, `usage`, `languages`. The two Chinese scripts (`zh-Hans`, `zh-Hant`) currently ship on Chinese astrology and feng shui; every other domain answers those codes in English per field. To list supported codes at runtime, call `$roxy->languages->listLanguages()`.
 
 ### Error handling
 
