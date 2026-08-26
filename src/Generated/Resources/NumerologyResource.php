@@ -36,8 +36,9 @@ class NumerologyResource extends BaseResource
      * @param string $fullName
      *   Full birth name to analyze for missing numbers
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -68,8 +69,9 @@ class NumerologyResource extends BaseResource
      * @param int $day
      *   Day of birth (1-31)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -110,8 +112,9 @@ class NumerologyResource extends BaseResource
      *   Birth year between 100 and 2100. Used to calculate the Life Path number via Pythagorean
      *   reduction.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -145,8 +148,9 @@ class NumerologyResource extends BaseResource
      * @param string $name
      *   The business or brand name to evaluate.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -179,8 +183,9 @@ class NumerologyResource extends BaseResource
      *   The name to analyze. Chaldean tradition uses the name a person is most known by, not
      *   necessarily the full legal birth name.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -211,8 +216,9 @@ class NumerologyResource extends BaseResource
      * @param string $name
      *   The name to analyze in both systems.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -242,8 +248,9 @@ class NumerologyResource extends BaseResource
      * @param string $fullName
      *   Full birth name (first, middle, last)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -279,8 +286,9 @@ class NumerologyResource extends BaseResource
      *   Birth year between 100 and 2100. Supports historical figures like Einstein (1879) and
      *   Shakespeare (1564).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -325,8 +333,9 @@ class NumerologyResource extends BaseResource
      *   Birth year to calculate Life Path automatically. Use with month and day instead of passing
      *   lifePath directly.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -363,8 +372,9 @@ class NumerologyResource extends BaseResource
      * @param array $person1
      * @param array $person2
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -398,8 +408,9 @@ class NumerologyResource extends BaseResource
      * @param string|null $targetDate
      *   Target date in YYYY-MM-DD format. Defaults to today (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -432,8 +443,9 @@ class NumerologyResource extends BaseResource
      * @param string $fullName
      *   Full birth name (consonants will be extracted)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -467,8 +479,9 @@ class NumerologyResource extends BaseResource
      * @param int|null $year
      *   Target year for calculation (defaults to current year)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -505,8 +518,9 @@ class NumerologyResource extends BaseResource
      * @param int|null $year
      *   Year to calculate (defaults to current year)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -539,8 +553,9 @@ class NumerologyResource extends BaseResource
      * @param string $fullName
      *   Full birth name (vowels will be extracted)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -577,8 +592,9 @@ class NumerologyResource extends BaseResource
      * @param int|null $year
      *   Birth year (checks Life Path)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -622,8 +638,9 @@ class NumerologyResource extends BaseResource
      * @param int|null $currentYear
      *   Year for Personal Year calculation (defaults to current year)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -658,8 +675,9 @@ class NumerologyResource extends BaseResource
      * @param string $number
      *   Compound number from 10 to 52.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -693,8 +711,9 @@ class NumerologyResource extends BaseResource
      *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
      *   readings.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -725,8 +744,9 @@ class NumerologyResource extends BaseResource
      * @param string $number
      *   Numerology number (1-9, 11, 22, 33)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */

@@ -42,8 +42,9 @@ class AngelNumbersResource extends BaseResource
      *   transit), phone (a call or notification), address (a home or place), price (a total or
      *   amount).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -74,8 +75,9 @@ class AngelNumbersResource extends BaseResource
      *   Angel number sequence to look up (e.g., "111", "444", "1212", "1234"). Must match an entry
      *   in the database.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -109,8 +111,9 @@ class AngelNumbersResource extends BaseResource
      *   time. Pass any unique identifier (userId, email hash, session token). Omit for anonymous
      *   daily readings.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -138,8 +141,9 @@ class AngelNumbersResource extends BaseResource
      * GET /angel-numbers/numbers
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 20.
      * @param mixed|null $offset

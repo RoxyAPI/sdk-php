@@ -33,8 +33,9 @@ class LanguagesResource extends BaseResource
      * GET /languages/field-labels
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */

@@ -21,7 +21,7 @@ use Saloon\Traits\Body\HasJsonBody;
  * timing guidance. Compares current (or future) planetary positions against your natal chart
  * to identify active transits. Returns aspect type, orb, applying/separating status, narrative
  * interpretation, impact rating, and practical guidance for each transit. Supports planet and
- * aspect-type filtering. More detailed than the /transits endpoint — includes AI-friendly
+ * aspect-type filtering. More detailed than the /transits endpoint, adding AI-friendly
  * interpretation fields. Transit aspects API, transit-to-natal analysis, predictive astrology,
  * personalized transit forecast.
  *

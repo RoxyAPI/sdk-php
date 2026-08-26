@@ -15,32 +15,33 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Daily Crystal
+ * Find the Chinese zodiac animal for a birth date - Sheng Xiao calculator
  *
- * Get the crystal of the day as a discovery teaser. Returns a deterministic crystal based on
- * the current date (or a provided seed date), ensuring all users see the same crystal for any
- * given day. Use the /crystals/{id} detail endpoint for complete spiritual, emotional, and
- * physical healing properties. Perfect for daily guidance features, push notifications,
- * wellness app widgets, and crystal journal integrations.
+ * Resolve a birth date to its Chinese zodiac animal, the sexagenary year pillar behind it, and
+ * the Five Element phase of that year, so a 1990 birth returns Horse as a Metal Horse rather
+ * than merely a Horse. The year boundary is a request parameter because the two schools
+ * genuinely disagree for dates in January and early February, and the resolved convention is
+ * echoed back so the answer is self-describing. Built for sign lookups, onboarding forms and
+ * birthday features.
  *
- * POST /crystals/daily
+ * POST /chinese-astrology/zodiac/sign
  */
-class GetDailyCrystalRequest extends Request implements HasBody
+class CalculateZodiacAnimalRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly ?string $date = null,
-        public readonly ?string $seed = null,
+        public readonly string $date,
+        public readonly ?string $yearBoundary = null,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/daily";
+        return "/chinese-astrology/zodiac/sign";
     }
 
     /**
@@ -49,11 +50,9 @@ class GetDailyCrystalRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
-        if ($this->date !== null) {
-            $body['date'] = $this->date;
-        }
-        if ($this->seed !== null) {
-            $body['seed'] = $this->seed;
+        $body['date'] = $this->date;
+        if ($this->yearBoundary !== null) {
+            $body['yearBoundary'] = $this->yearBoundary;
         }
 
         return $body;

@@ -61,8 +61,9 @@ class HumanDesignResource extends BaseResource
      *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
      *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -123,8 +124,9 @@ class HumanDesignResource extends BaseResource
      *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
      *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -160,8 +162,9 @@ class HumanDesignResource extends BaseResource
      * @param array $personB
      *   Birth moment of the second person in the connection.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -218,8 +221,9 @@ class HumanDesignResource extends BaseResource
      *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
      *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -256,8 +260,9 @@ class HumanDesignResource extends BaseResource
      *   Birth moments of the three to five people in the group. Below three no Penta forms; above
      *   five a second Penta emerges.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -313,8 +318,9 @@ class HumanDesignResource extends BaseResource
      *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
      *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -375,8 +381,9 @@ class HumanDesignResource extends BaseResource
      *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
      *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -442,8 +449,9 @@ class HumanDesignResource extends BaseResource
      *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
      *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -506,8 +514,9 @@ class HumanDesignResource extends BaseResource
      *   and profile often survive unchanged. If another calculator disagrees on any of those, it is
      *   almost certainly using the mean node: pass "mean" to match it. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -550,8 +559,9 @@ class HumanDesignResource extends BaseResource
      *   Transit time in HH:MM:SS UTC. Optional. Defaults to the current UTC time when omitted.
      *   Precision matters: the Moon moves through a gate in roughly half a day.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -579,8 +589,9 @@ class HumanDesignResource extends BaseResource
      * @param string $id
      *   Center id. One of head, ajna, throat, g, heart, sacral, solar-plexus, spleen, root.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -606,8 +617,9 @@ class HumanDesignResource extends BaseResource
      * @param mixed $number
      *   Gate number from 1 to 64.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */

@@ -17,7 +17,7 @@ use Saloon\Http\Request;
  *
  * Search for healing crystals by keyword or name. Matches against crystal names, healing
  * keywords, descriptions, and spiritual/emotional/physical meaning fields. Returns summary
- * data for each crystal. Use the /crystals/:id detail endpoint for full healing properties.
+ * data for each crystal. Use the /crystals/{id} detail endpoint for full healing properties.
  * Useful for building crystal search bars, keyword-based recommendation features, and healing
  * property lookups.
  *

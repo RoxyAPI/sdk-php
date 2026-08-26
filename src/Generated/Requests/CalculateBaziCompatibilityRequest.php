@@ -15,32 +15,33 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Daily Crystal
+ * Calculate BaZi compatibility - Four Pillars matchmaking API
  *
- * Get the crystal of the day as a discovery teaser. Returns a deterministic crystal based on
- * the current date (or a provided seed date), ensuring all users see the same crystal for any
- * given day. Use the /crystals/{id} detail endpoint for complete spiritual, emotional, and
- * physical healing properties. Perfect for daily guidance features, push notifications,
- * wellness app widgets, and crystal journal integrations.
+ * Compare two BaZi charts pillar by pillar. Returns both resolved charts, how the two Day
+ * Masters stand to each other on the five-phase cycle, and every combination, clash, harm and
+ * punishment that crosses between them, each naming the two positions it joins. A tallied
+ * score summarises the balance and the interaction list behind it is returned in full, so a
+ * caller that disagrees with the weighting can recompute its own. Built for matchmaking
+ * products, relationship features, and agents that need a defensible two-chart reading.
  *
- * POST /crystals/daily
+ * POST /chinese-astrology/bazi/compatibility
  */
-class GetDailyCrystalRequest extends Request implements HasBody
+class CalculateBaziCompatibilityRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly ?string $date = null,
-        public readonly ?string $seed = null,
+        public readonly array $personA,
+        public readonly array $personB,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/daily";
+        return "/chinese-astrology/bazi/compatibility";
     }
 
     /**
@@ -49,12 +50,8 @@ class GetDailyCrystalRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         $body = [];
-        if ($this->date !== null) {
-            $body['date'] = $this->date;
-        }
-        if ($this->seed !== null) {
-            $body['seed'] = $this->seed;
-        }
+        $body['personA'] = $this->personA;
+        $body['personB'] = $this->personB;
 
         return $body;
     }

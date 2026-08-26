@@ -13,28 +13,28 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Birthstone Crystals by Month
+ * Look up a Bagua sector - Life area reference API
  *
- * Get the traditional birthstone crystals for a given birth month. Returns summary data for
- * each crystal. Use the /crystals/{id} detail endpoint for full healing properties. Based on
- * GIA-authoritative birthstone assignments. Perfect for birthday gift recommendations,
- * personalized crystal suggestions, and birthstone jewelry applications.
+ * Look up one palace of the compass Bagua map by its life area id, such as wealth, career or
+ * love. Returns the compass sector it occupies, its five phase and colours, both trigram
+ * arrangements and what the sector governs. The health palace is the centre and carries no
+ * direction and no trigram, because the centre of the Lo Shu is not a trigram.
  *
- * GET /crystals/birthstone/{month}
+ * GET /feng-shui/bagua/{id}
  */
-class GetBirthstonesRequest extends Request
+class GetBaguaSectorRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly int $month,
+        public readonly string $id,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/birthstone/{$this->month}";
+        return "/feng-shui/bagua/{$this->id}";
     }
 
     /**

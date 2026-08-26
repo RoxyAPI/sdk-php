@@ -23,7 +23,7 @@ class CrystalsResource extends BaseResource
      * Birthstone Crystals by Month
      *
      * Get the traditional birthstone crystals for a given birth month. Returns summary data for
-     * each crystal. Use the /crystals/:id detail endpoint for full healing properties. Based on
+     * each crystal. Use the /crystals/{id} detail endpoint for full healing properties. Based on
      * GIA-authoritative birthstone assignments. Perfect for birthday gift recommendations,
      * personalized crystal suggestions, and birthstone jewelry applications.
      *
@@ -32,8 +32,9 @@ class CrystalsResource extends BaseResource
      * @param int $month
      *   Birth month as a number from 1 (January) to 12 (December).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -61,8 +62,9 @@ class CrystalsResource extends BaseResource
      *   URL-safe crystal identifier, case-insensitive (e.g., "amethyst", "Amethyst", "rose-quartz"
      *   all resolve). Must match an entry in the database.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -90,8 +92,9 @@ class CrystalsResource extends BaseResource
      *   URL-safe crystal identifier to find pairings for, case-insensitive (e.g., "amethyst",
      *   "Amethyst", "rose-quartz" all resolve).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -109,7 +112,7 @@ class CrystalsResource extends BaseResource
      * Crystals by Chakra
      *
      * Get healing crystals and gemstones that resonate with a specific chakra energy center.
-     * Returns summary data for each crystal. Use the /crystals/:id detail endpoint for full
+     * Returns summary data for each crystal. Use the /crystals/{id} detail endpoint for full
      * healing properties. Supports all 7 primary chakras: Root, Sacral, Solar Plexus, Heart,
      * Throat, Third Eye, and Crown. Essential for crystal grid building, chakra balancing, and
      * energy healing applications.
@@ -120,8 +123,9 @@ class CrystalsResource extends BaseResource
      *   Chakra name, case-insensitive (e.g., heart, Heart, HEART all work). Valid: Root, Sacral,
      *   Solar Plexus, Heart, Throat, Third Eye, Crown.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-30, default 20.
      * @param mixed|null $offset
@@ -145,7 +149,7 @@ class CrystalsResource extends BaseResource
      * Crystals by Element
      *
      * Get healing crystals and gemstones associated with a specific natural element. Returns
-     * summary data for each crystal. Use the /crystals/:id detail endpoint for full healing
+     * summary data for each crystal. Use the /crystals/{id} detail endpoint for full healing
      * properties. Supports five elements: Earth, Water, Fire, Air, and Storm. Essential for
      * elemental crystal selection, nature-based healing, and element-themed crystal grid
      * applications.
@@ -156,8 +160,9 @@ class CrystalsResource extends BaseResource
      *   Element name, case-insensitive (e.g., water, Water, WATER all work). Valid: Earth, Water,
      *   Fire, Air, Storm.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-30, default 20.
      * @param mixed|null $offset
@@ -181,7 +186,7 @@ class CrystalsResource extends BaseResource
      * Crystals by Zodiac Sign
      *
      * Get healing crystals and gemstones associated with a specific zodiac sign. Returns summary
-     * data for each crystal. Use the /crystals/:id detail endpoint for full healing properties.
+     * data for each crystal. Use the /crystals/{id} detail endpoint for full healing properties.
      * Supports all 12 zodiac signs from Aries through Pisces. Perfect for personalized crystal
      * recommendations based on astrological birth chart data.
      *
@@ -192,8 +197,9 @@ class CrystalsResource extends BaseResource
      *   taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius,
      *   pisces.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-30, default 20.
      * @param mixed|null $offset
@@ -218,7 +224,7 @@ class CrystalsResource extends BaseResource
      *
      * Get the crystal of the day as a discovery teaser. Returns a deterministic crystal based on
      * the current date (or a provided seed date), ensuring all users see the same crystal for any
-     * given day. Use the /crystals/:id detail endpoint for complete spiritual, emotional, and
+     * given day. Use the /crystals/{id} detail endpoint for complete spiritual, emotional, and
      * physical healing properties. Perfect for daily guidance features, push notifications,
      * wellness app widgets, and crystal journal integrations.
      *
@@ -232,8 +238,9 @@ class CrystalsResource extends BaseResource
      *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
      *   readings.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -252,7 +259,7 @@ class CrystalsResource extends BaseResource
      * Random Crystal
      *
      * Get a randomly selected healing crystal as a discovery teaser. Returns a different crystal
-     * on each request (non-deterministic). Use the /crystals/:id detail endpoint for complete
+     * on each request (non-deterministic). Use the /crystals/{id} detail endpoint for complete
      * spiritual, emotional, and physical healing properties. Perfect for crystal discovery
      * features, surprise crystal picks, crystal roulette games, and exploration widgets. For a
      * deterministic daily crystal that is the same for all users on a given date, use the /daily
@@ -261,8 +268,9 @@ class CrystalsResource extends BaseResource
      * GET /crystals/random
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -334,8 +342,9 @@ class CrystalsResource extends BaseResource
      *   Filter by elemental association, case-insensitive. Valid values: Earth, Water, Fire, Air,
      *   Storm.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-100, default 20.
      * @param mixed|null $offset
@@ -370,7 +379,7 @@ class CrystalsResource extends BaseResource
      *
      * Search for healing crystals by keyword or name. Matches against crystal names, healing
      * keywords, descriptions, and spiritual/emotional/physical meaning fields. Returns summary
-     * data for each crystal. Use the /crystals/:id detail endpoint for full healing properties.
+     * data for each crystal. Use the /crystals/{id} detail endpoint for full healing properties.
      * Useful for building crystal search bars, keyword-based recommendation features, and healing
      * property lookups.
      *
@@ -380,8 +389,9 @@ class CrystalsResource extends BaseResource
      *   Search query (2-50 characters). Matches against crystal names, keywords, descriptions, and
      *   meaning fields. Case-insensitive partial matching.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 20.
      * @param mixed|null $offset

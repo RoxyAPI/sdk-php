@@ -59,8 +59,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -104,8 +105,9 @@ class AstrologyResource extends BaseResource
      *   Optional: specific bodies to calculate aspects for (defaults to all 14: the 10 classical
      *   planets, the lunar nodes, Chiron, and Black Moon Lilith)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -143,8 +145,9 @@ class AstrologyResource extends BaseResource
      *   Second person birth details. Compared against person1 to evaluate inter-chart aspects and
      *   compatibility.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -192,8 +195,9 @@ class AstrologyResource extends BaseResource
      *   Sign (ancient) uses signs, Equal divides from Ascendant. Use "all" to compare all 4 systems
      *   side-by-side for educational purposes.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -230,8 +234,9 @@ class AstrologyResource extends BaseResource
      * @param string|null $houseSystem
      *   House system for both natal charts. Placidus (default), Whole Sign, Equal, or Koch.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -254,7 +259,7 @@ class AstrologyResource extends BaseResource
      * timing guidance. Compares current (or future) planetary positions against your natal chart
      * to identify active transits. Returns aspect type, orb, applying/separating status, narrative
      * interpretation, impact rating, and practical guidance for each transit. Supports planet and
-     * aspect-type filtering. More detailed than the /transits endpoint — includes AI-friendly
+     * aspect-type filtering. More detailed than the /transits endpoint, adding AI-friendly
      * interpretation fields. Transit aspects API, transit-to-natal analysis, predictive astrology,
      * personalized transit forecast.
      *
@@ -285,8 +290,9 @@ class AstrologyResource extends BaseResource
      * @param string|null $transitTime
      *   Transit time in HH:MM:SS format. Defaults to 12:00:00 (noon) if omitted.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -337,8 +343,9 @@ class AstrologyResource extends BaseResource
      *   Transit timezone: decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA
      *   resolved to the DST-correct offset for the transit date. Defaults to 0 (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -399,12 +406,13 @@ class AstrologyResource extends BaseResource
      *   tokens (case-insensitive): chiron, northNode (also accepts north_node, north-node,
      *   northnode). Empty by default.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param string|null $strictOrbs
-     *   Use tighter orbs (Pontopia "optimal" recommendations). Truthy values (true, 1, yes, on;
-     *   case-insensitive) narrow trine to 5, square to 5, sextile to 4, quincunx to 2. Defaults to
-     *   false (industry-standard orbs).
+     *   Use tighter orbs, so only closely formed patterns are reported. Truthy values (true, 1, yes,
+     *   on; case-insensitive) narrow trine to 5 degrees, square to 5, sextile to 4, quincunx to 2.
+     *   Defaults to false, the standard pattern-detection orbs.
      *
      * @return array<string, mixed>
      */
@@ -464,8 +472,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -524,8 +533,9 @@ class AstrologyResource extends BaseResource
      *   Allowed values: north-node, chiron, lilith. north-node is the mean lunar node. Unknown
      *   values are ignored. Defaults to none.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -565,8 +575,9 @@ class AstrologyResource extends BaseResource
      * @param string|null $houseSystem
      *   House system for the composite chart. Placidus (default), Whole Sign, Equal, or Koch.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -618,8 +629,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param mixed|null $orb
      *   Conjunction orb in degrees, the maximum separation for a star to count as conjunct a chart
      *   point. Defaults to 1, maximum 3. Widen it to surface looser contacts or tighten it for only
@@ -682,8 +694,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -736,8 +749,9 @@ class AstrologyResource extends BaseResource
      *   values: north-node, chiron, lilith. north-node is the mean lunar node. Omit to return the 10
      *   classical planets only.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -790,8 +804,9 @@ class AstrologyResource extends BaseResource
      * @param string|null $houseSystem
      *   House system for the lunar return chart. Placidus (default), Whole Sign, Equal, or Koch.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -852,8 +867,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -910,8 +926,9 @@ class AstrologyResource extends BaseResource
      * @param string|null $houseSystem
      *   House system for the return chart. Placidus (default), Whole Sign, Equal, or Koch.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -976,8 +993,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1039,8 +1057,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1100,8 +1119,9 @@ class AstrologyResource extends BaseResource
      *   Equal divides into 30 degree segments from the Ascendant. Koch emphasizes higher latitudes.
      *   Quadrant systems fall back to Whole Sign above the polar circle.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1162,8 +1182,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1218,8 +1239,9 @@ class AstrologyResource extends BaseResource
      *   House system for the solar return chart. Placidus (default) is most common in Western
      *   astrology. Whole Sign, Equal, and Koch also supported.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1253,8 +1275,9 @@ class AstrologyResource extends BaseResource
      * @param string|null $date
      *   Date in YYYY-MM-DD format. Defaults to today if omitted.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param string|null $time
      *   Time in 24-hour HH:MM:SS format. Defaults to 12:00:00 (noon). Moon moves ~13 degrees per day
      *   so time affects phase precision.
@@ -1296,8 +1319,9 @@ class AstrologyResource extends BaseResource
      *   Forecast date in YYYY-MM-DD format. Past and future dates are both supported, for editorial
      *   scheduling and backfill. Defaults to the current period in the timezone parameter.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param string|null $timezone
      *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
      *   forecast rolls over at 00:00 UTC on each day. Pass the timezone of the end user to roll over
@@ -1358,8 +1382,9 @@ class AstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for the declination calendar (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1395,8 +1420,9 @@ class AstrologyResource extends BaseResource
      *   Any date inside the target month, in YYYY-MM-DD format. The forecast covers the whole
      *   calendar month containing it. Defaults to the current period in the timezone parameter.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param string|null $timezone
      *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
      *   forecast rolls over at 00:00 UTC on the 1st. Pass the timezone of the end user to roll over
@@ -1452,8 +1478,9 @@ class AstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for the aspect calendar (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1489,8 +1516,9 @@ class AstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for the monthly ephemeris (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1537,8 +1565,9 @@ class AstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for the monthly transit table (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1569,8 +1598,9 @@ class AstrologyResource extends BaseResource
      * @param float $month
      *   Calendar month (1-12). 1 = January, 12 = December.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1608,8 +1638,9 @@ class AstrologyResource extends BaseResource
      *   Timezone offset from UTC in hours. Crossing dates and times are reported in this zone.
      *   Defaults to 0 (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1663,8 +1694,9 @@ class AstrologyResource extends BaseResource
      *   pass "mean" to match one. Nothing else in the chart changes, and the two agree on the sign
      *   except when the node sits within about 1.8 degrees of a cusp. Defaults to "true".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1703,8 +1735,9 @@ class AstrologyResource extends BaseResource
      *   answer to north-node and south-node as well as to their ids north node and south node, and
      *   Black Moon Lilith answers to black-moon-lilith as well as to lilith.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1730,8 +1763,9 @@ class AstrologyResource extends BaseResource
      * @param float|null $count
      *   Number of upcoming moon phase transitions to return (1-20). Defaults to 8.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param string|null $startDate
      *   Start date in YYYY-MM-DD format. Defaults to today if omitted.
      *
@@ -1765,8 +1799,9 @@ class AstrologyResource extends BaseResource
      *   Any date inside the target week, in YYYY-MM-DD format. The forecast covers the Monday to
      *   Sunday week containing it. Defaults to the current period in the timezone parameter.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param string|null $timezone
      *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
      *   forecast rolls over at 00:00 UTC on each Monday. Pass the timezone of the end user to roll
@@ -1806,8 +1841,9 @@ class AstrologyResource extends BaseResource
      *   Sign ID (lowercase, e.g., aries, taurus) or display name (case-insensitive, e.g., Aries,
      *   TAURUS).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1835,8 +1871,9 @@ class AstrologyResource extends BaseResource
      * GET /astrology/planet-meanings
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1862,8 +1899,9 @@ class AstrologyResource extends BaseResource
      * GET /astrology/signs
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */

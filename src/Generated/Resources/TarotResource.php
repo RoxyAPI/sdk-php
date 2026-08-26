@@ -48,8 +48,9 @@ class TarotResource extends BaseResource
      *   the same career positions, which is what lets a reading be shared or re-rendered. Omit for a
      *   random draw.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -91,8 +92,9 @@ class TarotResource extends BaseResource
      *   the same Celtic Cross positions, which is what lets a reading be shared or re-rendered. Omit
      *   for a random draw.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -141,8 +143,9 @@ class TarotResource extends BaseResource
      *   Optional name for your custom tarot spread layout. Used as the spread identifier in the
      *   response.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -187,8 +190,9 @@ class TarotResource extends BaseResource
      *   the same love positions, which is what lets a reading be shared or re-rendered. Omit for a
      *   random draw.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -225,8 +229,9 @@ class TarotResource extends BaseResource
      *   for sharing readings, testing, or ensuring users get consistent results. Omit for random
      *   draws.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -264,8 +269,9 @@ class TarotResource extends BaseResource
      *   Optional seed for reproducible results. Same seed + same question = same answer. Useful for
      *   testing, sharing readings, or ensuring consistency. Omit for random draws each time.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -315,8 +321,9 @@ class TarotResource extends BaseResource
      *   like "userId-date" for daily consistency, or "readingId" for shareable readings. Omit for
      *   true randomness.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -361,8 +368,9 @@ class TarotResource extends BaseResource
      *   optional, so "the-star" resolves to "star". The canonical form, and the one every response
      *   echoes, is kebab-case with no article.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -396,8 +404,9 @@ class TarotResource extends BaseResource
      *   any unique identifier (userId, email hash, session token). Omit for anonymous daily
      *   readings.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -423,7 +432,7 @@ class TarotResource extends BaseResource
      * swords for intellect and conflict, pentacles for material wealth and finances), or card
      * number (Ace=1 for new beginnings, 2-10 for progression, Page=11 for messages, Knight=12 for
      * action, Queen=13 for mastery, King=14 for authority). Returns lightweight basic card data -
-     * use GET /cards/:id for full upright and reversed interpretations with keywords. Perfect for
+     * use GET /cards/{id} for full upright and reversed interpretations with keywords. Perfect for
      * building tarot reference libraries, card databases, learning applications, or browsing the
      * complete traditional deck used by professional tarot readers worldwide.
      *
@@ -433,8 +442,9 @@ class TarotResource extends BaseResource
      *   Filter by arcana type. Major arcana (0-21) represents life lessons and spiritual themes.
      *   Minor arcana (Ace-King in 4 suits) represents daily situations and practical matters.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-100, default 20.
      * @param mixed|null $number

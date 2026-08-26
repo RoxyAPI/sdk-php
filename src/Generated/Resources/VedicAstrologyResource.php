@@ -67,8 +67,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -211,8 +212,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -291,8 +293,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -368,8 +371,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -469,8 +473,9 @@ class VedicAstrologyResource extends BaseResource
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
      *   reference source.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -578,8 +583,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -722,8 +728,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -793,8 +800,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -861,8 +869,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -929,8 +938,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1017,8 +1027,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1106,8 +1117,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1185,8 +1197,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1257,8 +1270,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1326,8 +1340,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1360,8 +1375,9 @@ class VedicAstrologyResource extends BaseResource
      *   Avastha slug. Baladi: bala, kumara, yuva, vriddha, mrita. Jagradadi: jagrat, swapna,
      *   sushupti. Deeptadi: dipta, svastha, pramudita, shanta, dina, duhkhita, vikala, khala, kopa.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1401,8 +1417,9 @@ class VedicAstrologyResource extends BaseResource
      * @param mixed|null $timezone
      *   Timezone offset from UTC in decimal hours. Defaults to 5.5 (IST).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1529,8 +1546,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1582,8 +1600,9 @@ class VedicAstrologyResource extends BaseResource
      *   periods for the wrong window, shifted by the difference between 5.5 and the real offset.
      *   Defaults to 5.5 (IST).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -1800,8 +1819,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2054,8 +2074,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2120,8 +2141,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2224,8 +2246,9 @@ class VedicAstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for monthly analysis (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2305,8 +2328,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2358,8 +2382,9 @@ class VedicAstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for monthly analysis (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2398,8 +2423,9 @@ class VedicAstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for monthly ephemeris (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2436,8 +2462,9 @@ class VedicAstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for monthly parallel analysis (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2478,8 +2505,9 @@ class VedicAstrologyResource extends BaseResource
      * @param int|null $year
      *   Year for monthly transit analysis (1900-2100). Defaults to the current year (UTC).
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2509,8 +2537,9 @@ class VedicAstrologyResource extends BaseResource
      *   Nakshatra ID slug. Examples: ashwini, bharani, krittika, rohini, mrigashira, ardra,
      *   punarvasu, pushya, ashlesha, magha, etc.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2571,8 +2600,9 @@ class VedicAstrologyResource extends BaseResource
      *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
      *   5.5.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2669,8 +2699,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2768,8 +2799,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2807,8 +2839,9 @@ class VedicAstrologyResource extends BaseResource
      *   Rashi ID slug. One of: mesha, vrishabha, mithun, karka, simha, kanya, tula, vrischika,
      *   dhanu, makar, kumbha, meen.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2895,8 +2928,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -2988,8 +3022,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -3132,8 +3167,9 @@ class VedicAstrologyResource extends BaseResource
      *   Krishnamurti Paddhati, where the significator house groups 2, 6, 10, 11 for earned income
      *   and 5, 8, 11 for speculation are read against a running dasha. Defaults to "general".
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -3170,8 +3206,9 @@ class VedicAstrologyResource extends BaseResource
      * @param string $id
      *   Yoga identifier (lowercase, hyphenated)
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -3198,8 +3235,9 @@ class VedicAstrologyResource extends BaseResource
      * GET /vedic-astrology/avasthas
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      * @param string|null $system
      *   Return only the states of one system: "baladi" (5), "jagradadi" (3) or "deeptadi" (9). Omit
      *   for all 17.
@@ -3228,8 +3266,9 @@ class VedicAstrologyResource extends BaseResource
      * GET /vedic-astrology/nakshatras
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -3253,8 +3292,9 @@ class VedicAstrologyResource extends BaseResource
      * GET /vedic-astrology/rashis
      *
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
@@ -3283,8 +3323,9 @@ class VedicAstrologyResource extends BaseResource
      *   Omit for the full catalog. `classical` is accepted but matches nothing here, because it is a
      *   detection-verdict value for single-combination yogas rather than a catalog grouping.
      * @param string|null $lang
-     *   Response language (ISO 639-1). Supported: en, tr, de, es, hi, pt, fr, ru. Defaults to en.
-     *   Languages without translations yet return English.
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */

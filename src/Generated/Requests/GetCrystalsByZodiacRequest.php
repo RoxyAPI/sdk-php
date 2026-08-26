@@ -16,7 +16,7 @@ use Saloon\Http\Request;
  * Crystals by Zodiac Sign
  *
  * Get healing crystals and gemstones associated with a specific zodiac sign. Returns summary
- * data for each crystal. Use the /crystals/:id detail endpoint for full healing properties.
+ * data for each crystal. Use the /crystals/{id} detail endpoint for full healing properties.
  * Supports all 12 zodiac signs from Aries through Pisces. Perfect for personalized crystal
  * recommendations based on astrological birth chart data.
  *

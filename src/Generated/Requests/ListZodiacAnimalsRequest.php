@@ -13,22 +13,21 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystals by Element
+ * List the 12 Chinese zodiac animals - Sheng Xiao sign catalogue
  *
- * Get healing crystals and gemstones associated with a specific natural element. Returns
- * summary data for each crystal. Use the /crystals/{id} detail endpoint for full healing
- * properties. Supports five elements: Earth, Water, Fire, Air, and Storm. Essential for
- * elemental crystal selection, nature-based healing, and element-themed crystal grid
- * applications.
+ * Retrieve all twelve Chinese zodiac animals in cycle order, from Rat through Pig. Each entry
+ * returns the machine id, the Chinese character and tone-marked pinyin for the animal, its
+ * Earthly Branch, the fixed Five Element phase and yin or yang polarity of that branch, and a
+ * set of trait keywords. Built for sign pickers, zodiac cards and compatibility widgets that
+ * need the whole set in one call.
  *
- * GET /crystals/element/{element}
+ * GET /chinese-astrology/zodiac/animals
  */
-class GetCrystalsByElementRequest extends Request
+class ListZodiacAnimalsRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly string $element,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
         public readonly mixed $offset = null,
@@ -37,7 +36,7 @@ class GetCrystalsByElementRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/element/{$this->element}";
+        return "/chinese-astrology/zodiac/animals";
     }
 
     /**

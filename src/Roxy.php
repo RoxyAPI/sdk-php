@@ -17,8 +17,10 @@ use RoxyAPI\Sdk\Auth\ApiKeyAuthenticator;
 use RoxyAPI\Sdk\Generated\Resources\AngelNumbersResource;
 use RoxyAPI\Sdk\Generated\Resources\AstrologyResource;
 use RoxyAPI\Sdk\Generated\Resources\BiorhythmResource;
+use RoxyAPI\Sdk\Generated\Resources\ChineseAstrologyResource;
 use RoxyAPI\Sdk\Generated\Resources\CrystalsResource;
 use RoxyAPI\Sdk\Generated\Resources\DreamsResource;
+use RoxyAPI\Sdk\Generated\Resources\FengShuiResource;
 use RoxyAPI\Sdk\Generated\Resources\ForecastResource;
 use RoxyAPI\Sdk\Generated\Resources\HumanDesignResource;
 use RoxyAPI\Sdk\Generated\Resources\IchingResource;
@@ -39,8 +41,10 @@ use Saloon\Traits\Plugins\AcceptsJson;
  * @property AngelNumbersResource $angelNumbers
  * @property AstrologyResource $astrology
  * @property BiorhythmResource $biorhythm
+ * @property ChineseAstrologyResource $chineseAstrology
  * @property CrystalsResource $crystals
  * @property DreamsResource $dreams
+ * @property FengShuiResource $fengShui
  * @property ForecastResource $forecast
  * @property HumanDesignResource $humanDesign
  * @property IchingResource $iching
@@ -62,8 +66,10 @@ class Roxy extends Connector
         'angelNumbers' => AngelNumbersResource::class,
         'astrology' => AstrologyResource::class,
         'biorhythm' => BiorhythmResource::class,
+        'chineseAstrology' => ChineseAstrologyResource::class,
         'crystals' => CrystalsResource::class,
         'dreams' => DreamsResource::class,
+        'fengShui' => FengShuiResource::class,
         'forecast' => ForecastResource::class,
         'humanDesign' => HumanDesignResource::class,
         'iching' => IchingResource::class,

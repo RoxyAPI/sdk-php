@@ -13,22 +13,21 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystals by Element
+ * List the nine flying stars - Xuan Kong star reference API
  *
- * Get healing crystals and gemstones associated with a specific natural element. Returns
- * summary data for each crystal. Use the /crystals/{id} detail endpoint for full healing
- * properties. Supports five elements: Earth, Water, Fire, Air, and Storm. Essential for
- * elemental crystal selection, nature-based healing, and element-themed crystal grid
- * applications.
+ * The reference catalogue of the nine flying stars: name, Chinese characters, five phase, home
+ * palace and trigram, the period each rules, what each means, and which element strengthens or
+ * drains it. The remedy element is what the star itself produces, because a harmful star is
+ * drained by giving it somewhere to go rather than fought with the phase that controls it. A
+ * pure reference endpoint that needs no chart.
  *
- * GET /crystals/element/{element}
+ * GET /feng-shui/flying-stars/stars
  */
-class GetCrystalsByElementRequest extends Request
+class ListFlyingStarsRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly string $element,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
         public readonly mixed $offset = null,
@@ -37,7 +36,7 @@ class GetCrystalsByElementRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/element/{$this->element}";
+        return "/feng-shui/flying-stars/stars";
     }
 
     /**

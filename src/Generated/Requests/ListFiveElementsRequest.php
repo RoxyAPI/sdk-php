@@ -13,22 +13,22 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystals by Element
+ * List the five elements - Wu Xing API with generating and controlling cycles
  *
- * Get healing crystals and gemstones associated with a specific natural element. Returns
- * summary data for each crystal. Use the /crystals/{id} detail endpoint for full healing
- * properties. Supports five elements: Earth, Water, Fire, Air, and Storm. Essential for
- * elemental crystal selection, nature-based healing, and element-themed crystal grid
- * applications.
+ * Return the five phases of Wu Xing with the Chinese character, the season and direction each
+ * governs, the Heavenly Stems and Earthly Branches that carry it, and both of the cycles that
+ * connect them. The generating cycle and the controlling cycle are returned as ordered rings
+ * as well as on each phase, so a caller can render either without deriving it. This is the one
+ * place the five phase vocabulary is defined: BaZi charts, Na Yin, zodiac element variants and
+ * every feng shui star reuse these identifiers rather than restating them.
  *
- * GET /crystals/element/{element}
+ * GET /chinese-astrology/elements
  */
-class GetCrystalsByElementRequest extends Request
+class ListFiveElementsRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly string $element,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
         public readonly mixed $offset = null,
@@ -37,7 +37,7 @@ class GetCrystalsByElementRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/element/{$this->element}";
+        return "/chinese-astrology/elements";
     }
 
     /**

@@ -13,28 +13,30 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Birthstone Crystals by Month
+ * Look up a Kua number - Eight Mansions reference API
  *
- * Get the traditional birthstone crystals for a given birth month. Returns summary data for
- * each crystal. Use the /crystals/{id} detail endpoint for full healing properties. Based on
- * GIA-authoritative birthstone assignments. Perfect for birthday gift recommendations,
- * personalized crystal suggestions, and birthstone jewelry applications.
+ * Look up the reference chart for one Kua number: its trigram, its east or west life group,
+ * and how it classifies all eight compass sectors. A pure reference endpoint with no birth
+ * data required, for building a lookup table or a picker. Number 5 is served for completeness
+ * and is never a computed result, because it belongs to the centre and has no direction of its
+ * own: a man whose formula gives 5 reads Kua 2 and a woman reads Kua 8, and the chart returned
+ * for 5 is therefore the Kua 2 chart.
  *
- * GET /crystals/birthstone/{month}
+ * GET /feng-shui/kua/{number}
  */
-class GetBirthstonesRequest extends Request
+class GetKuaNumberRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly int $month,
+        public readonly float $number,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/birthstone/{$this->month}";
+        return "/feng-shui/kua/{$this->number}";
     }
 
     /**

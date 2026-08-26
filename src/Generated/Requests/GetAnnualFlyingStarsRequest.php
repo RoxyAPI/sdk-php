@@ -13,28 +13,30 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Birthstone Crystals by Month
+ * Annual flying stars - Yearly feng shui star chart API
  *
- * Get the traditional birthstone crystals for a given birth month. Returns summary data for
- * each crystal. Use the /crystals/{id} detail endpoint for full healing properties. Based on
- * GIA-authoritative birthstone assignments. Perfect for birthday gift recommendations,
- * personalized crystal suggestions, and birthstone jewelry applications.
+ * Return the annual flying star plate for a solar year: which of the nine stars occupies each
+ * of the nine palaces, what it means there, and which element strengthens or drains it. The
+ * annual plate is universal and does not depend on any building, so it is the layer every
+ * yearly feng shui guide is built on. The changeover is Li Chun in early February rather than
+ * Lunar New Year, and the exact date is returned so a caller can apply the plate on the right
+ * day.
  *
- * GET /crystals/birthstone/{month}
+ * GET /feng-shui/flying-stars/annual/{year}
  */
-class GetBirthstonesRequest extends Request
+class GetAnnualFlyingStarsRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly int $month,
+        public readonly int $year,
         public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/birthstone/{$this->month}";
+        return "/feng-shui/flying-stars/annual/{$this->year}";
     }
 
     /**

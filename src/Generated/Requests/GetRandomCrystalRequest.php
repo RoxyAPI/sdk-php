@@ -16,7 +16,7 @@ use Saloon\Http\Request;
  * Random Crystal
  *
  * Get a randomly selected healing crystal as a discovery teaser. Returns a different crystal
- * on each request (non-deterministic). Use the /crystals/:id detail endpoint for complete
+ * on each request (non-deterministic). Use the /crystals/{id} detail endpoint for complete
  * spiritual, emotional, and physical healing properties. Perfect for crystal discovery
  * features, surprise crystal picks, crystal roulette games, and exploration widgets. For a
  * deterministic daily crystal that is the same for all users on a given date, use the /daily

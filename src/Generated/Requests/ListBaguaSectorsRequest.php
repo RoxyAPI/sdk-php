@@ -13,22 +13,23 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystals by Element
+ * List Bagua sectors - Feng shui bagua map API
  *
- * Get healing crystals and gemstones associated with a specific natural element. Returns
- * summary data for each crystal. Use the /crystals/{id} detail endpoint for full healing
- * properties. Supports five elements: Earth, Water, Fire, Air, and Storm. Essential for
- * elemental crystal selection, nature-based healing, and element-themed crystal grid
- * applications.
+ * The nine palaces of the compass Bagua map: the eight trigram sectors plus the centre, each
+ * with the life area it governs, its five phase, its colours, and both its Later Heaven and
+ * Earlier Heaven trigrams. This is the compass map aligned to true directions, so career is
+ * always North and wealth is always Southeast whichever way the entrance faces. Trigram
+ * details are served from the same source as the I-Ching trigram endpoints, so the two agree
+ * field for field. Built for floor plan overlays, room-by-room guides and any interface that
+ * maps a space onto life areas.
  *
- * GET /crystals/element/{element}
+ * GET /feng-shui/bagua
  */
-class GetCrystalsByElementRequest extends Request
+class ListBaguaSectorsRequest extends Request
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly string $element,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
         public readonly mixed $offset = null,
@@ -37,7 +38,7 @@ class GetCrystalsByElementRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/crystals/element/{$this->element}";
+        return "/feng-shui/bagua";
     }
 
     /**

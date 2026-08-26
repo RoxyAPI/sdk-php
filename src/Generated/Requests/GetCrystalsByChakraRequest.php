@@ -16,7 +16,7 @@ use Saloon\Http\Request;
  * Crystals by Chakra
  *
  * Get healing crystals and gemstones that resonate with a specific chakra energy center.
- * Returns summary data for each crystal. Use the /crystals/:id detail endpoint for full
+ * Returns summary data for each crystal. Use the /crystals/{id} detail endpoint for full
  * healing properties. Supports all 7 primary chakras: Root, Sacral, Solar Plexus, Heart,
  * Throat, Third Eye, and Crown. Essential for crystal grid building, chakra balancing, and
  * energy healing applications.
