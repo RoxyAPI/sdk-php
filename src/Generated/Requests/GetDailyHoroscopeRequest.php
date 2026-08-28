@@ -13,15 +13,19 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Daily horoscope by zodiac sign - Transit-based forecast with house activations
+ * Daily horoscope by zodiac sign - Transit-based editorial columns
  *
- * Get the daily horoscope for any zodiac sign. Forecast is generated from real-time planetary
- * transits using whole-sign house positions, so every sign receives unique content. Returns
- * love, career, health, finance, overview with active transits, Moon sign, Moon phase, energy
- * rating, lucky number, lucky color, and compatible signs. Content is fixed for a given date
- * and rolls over at midnight, by default UTC. Pass date for editorial scheduling, or timezone
- * to roll over on a local clock. Daily horoscope API, zodiac forecast, sun sign horoscope,
- * astrology prediction.
+ * A publish-ready column for any zodiac sign, built from the dated transits over it and
+ * returned with those events for fact-checking. The reading names the aspects, sign ingresses,
+ * lunations and retrograde stations driving it and reads each into the whole-sign houses of
+ * that sign, so every sign gets different content rather than one blurb reused twelve times.
+ * Alongside the column come overview, love, career, health, finance and advice, the active
+ * transits, Moon sign and phase, an energy rating, lucky number and color, and compatible
+ * signs. No language model is involved, so a given sign and date always returns the same text
+ * and a piece scheduled months ahead is the piece that runs. Content rolls over at midnight,
+ * by default UTC. Pass date for editorial scheduling, or timezone to roll over on a local
+ * clock. Available in eight languages. Daily horoscope API, zodiac forecast, sun sign
+ * horoscope, astrology prediction.
  *
  * GET /astrology/horoscope/{sign}/daily
  */

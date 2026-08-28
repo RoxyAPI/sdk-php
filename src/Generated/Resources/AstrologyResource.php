@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Western astrology API for natal birth charts, daily, weekly, and monthly horoscopes with
- * unique content per sign, syn...
+ * Western astrology API for natal birth charts, daily, weekly, monthly, and yearly horoscopes
+ * with unique content per s...
  *
  * Accessed via $roxy->astrology.
  */
@@ -1301,15 +1301,19 @@ class AstrologyResource extends BaseResource
     }
 
     /**
-     * Daily horoscope by zodiac sign - Transit-based forecast with house activations
+     * Daily horoscope by zodiac sign - Transit-based editorial columns
      *
-     * Get the daily horoscope for any zodiac sign. Forecast is generated from real-time planetary
-     * transits using whole-sign house positions, so every sign receives unique content. Returns
-     * love, career, health, finance, overview with active transits, Moon sign, Moon phase, energy
-     * rating, lucky number, lucky color, and compatible signs. Content is fixed for a given date
-     * and rolls over at midnight, by default UTC. Pass date for editorial scheduling, or timezone
-     * to roll over on a local clock. Daily horoscope API, zodiac forecast, sun sign horoscope,
-     * astrology prediction.
+     * A publish-ready column for any zodiac sign, built from the dated transits over it and
+     * returned with those events for fact-checking. The reading names the aspects, sign ingresses,
+     * lunations and retrograde stations driving it and reads each into the whole-sign houses of
+     * that sign, so every sign gets different content rather than one blurb reused twelve times.
+     * Alongside the column come overview, love, career, health, finance and advice, the active
+     * transits, Moon sign and phase, an energy rating, lucky number and color, and compatible
+     * signs. No language model is involved, so a given sign and date always returns the same text
+     * and a piece scheduled months ahead is the piece that runs. Content rolls over at midnight,
+     * by default UTC. Pass date for editorial scheduling, or timezone to roll over on a local
+     * clock. Available in eight languages. Daily horoscope API, zodiac forecast, sun sign
+     * horoscope, astrology prediction.
      *
      * GET /astrology/horoscope/{sign}/daily
      *
@@ -1403,13 +1407,16 @@ class AstrologyResource extends BaseResource
     }
 
     /**
-     * Monthly horoscope by zodiac sign - 30-day transit forecast with key dates
+     * Monthly horoscope by zodiac sign - Editorial column with key dates
      *
-     * Get monthly horoscope for any zodiac sign with sign-specific week-by-week breakdown and real
-     * lunar phase key dates. Based on planetary transits with house activations unique to each
-     * sign, covering love, career, health, and finance for the entire month. Key dates include
-     * actual New Moon, Full Moon, and retrograde dates from ephemeris calculations. Pass any date
-     * inside a month to retrieve that month, or timezone to roll over on a local clock. Monthly
+     * A month-long column for any zodiac sign, plus a week-by-week breakdown and dated key dates a
+     * calendar page renders directly. The column names every aspect, ingress, lunation and station
+     * of the month and reads each into the whole-sign houses of that sign, and those events come
+     * back beside the prose with their exact instants, so a piece can be checked against NASA JPL
+     * Horizons or the US Naval Observatory before it runs. Key dates are the real New Moon, Full
+     * Moon and retrograde instants, never approximations. Alongside the column come overview,
+     * love, career, health, finance and advice. Pass any date inside a month to retrieve that
+     * month, or timezone to roll over on a local clock. Available in eight languages. Monthly
      * horoscope API, zodiac monthly forecast, astrology monthly prediction.
      *
      * GET /astrology/horoscope/{sign}/monthly
@@ -1783,13 +1790,16 @@ class AstrologyResource extends BaseResource
     }
 
     /**
-     * Weekly horoscope by zodiac sign - 7-day transit forecast
+     * Weekly horoscope by zodiac sign - Seven-day editorial column
      *
-     * Get weekly horoscope for any zodiac sign. Forecast covers a full Monday to Sunday period
-     * based on planetary transits with house-based content unique to each sign, with love, career,
-     * health, finance guidance plus lucky days, lucky numbers, and compatible signs. Pass any date
-     * inside a week to retrieve that week, or timezone to roll over on a local clock. Weekly
-     * horoscope API, zodiac weekly forecast, astrology weekly prediction.
+     * A Monday to Sunday column for any zodiac sign, naming the transits that perfect during the
+     * week and the days they fall on. Each event is read into the whole-sign houses of that sign,
+     * so content is unique per sign, and the dated events come back beside the prose so an editor
+     * can check a piece before it runs. Alongside the column come overview, love, career, health,
+     * finance and advice, plus lucky days, lucky numbers and compatible signs. No language model
+     * is involved, so the same sign and week always returns the same text. Pass any date inside a
+     * week to retrieve that week, or timezone to roll over on a local clock. Available in eight
+     * languages. Weekly horoscope API, zodiac weekly forecast, astrology weekly prediction.
      *
      * GET /astrology/horoscope/{sign}/weekly
      *
@@ -1819,6 +1829,52 @@ class AstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetWeeklyHoroscopeRequest(sign: $sign, date: $date, lang: $lang, timezone: $timezone);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Yearly horoscope by zodiac sign - Year ahead forecast with themes, key periods, eclipses and
+     * retrogrades
+     *
+     * Get the year ahead for any zodiac sign, as a long-form column plus the structured arrays a
+     * year-ahead page is built from: the slow-body themes that set the backdrop, a dated key
+     * period for each of the twelve houses, the best month for love, career, health and finance,
+     * and every eclipse and every retrograde and direct station with the house it falls in for
+     * this sign. Love, career, health, finance and advice cover the whole year, and the dated
+     * events behind the copy come back beside it so an editor can check the piece before it runs.
+     * Omit the year for the one in progress, or pass any year from 1900 to 2100 to build an
+     * archive or a forecast ahead of time. Yearly horoscope API, year ahead astrology, annual
+     * zodiac forecast, eclipse and retrograde calendar.
+     *
+     * GET /astrology/horoscope/{sign}/yearly
+     *
+     * @param string $sign
+     *   Zodiac sign, case-insensitive (e.g., aries, Aries, ARIES all work).
+     * @param string|null $lang
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
+     * @param string|null $timezone
+     *   Selects which year counts as current when year is omitted. Defaults to UTC, so the forecast
+     *   rolls over at 00:00 UTC on January 1. Pass the timezone of the end user to roll over on
+     *   their local clock instead. Ignored when year is set. Accepts an IANA name (e.g.
+     *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
+     *   "-05:00").
+     * @param float|null $year
+     *   Calendar year to forecast, 1900 to 2100. Defaults to the current year in the timezone
+     *   parameter.
+     *
+     * @return array<string, mixed>
+     */
+    public function getYearlyHoroscope(
+        string $sign,
+        ?string $lang = null,
+        ?string $timezone = null,
+        ?float $year = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetYearlyHoroscopeRequest(sign: $sign, lang: $lang, timezone: $timezone, year: $year);
 
         return $this->callRequest($request);
     }

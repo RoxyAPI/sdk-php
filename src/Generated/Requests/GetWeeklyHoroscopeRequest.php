@@ -13,13 +13,16 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Weekly horoscope by zodiac sign - 7-day transit forecast
+ * Weekly horoscope by zodiac sign - Seven-day editorial column
  *
- * Get weekly horoscope for any zodiac sign. Forecast covers a full Monday to Sunday period
- * based on planetary transits with house-based content unique to each sign, with love, career,
- * health, finance guidance plus lucky days, lucky numbers, and compatible signs. Pass any date
- * inside a week to retrieve that week, or timezone to roll over on a local clock. Weekly
- * horoscope API, zodiac weekly forecast, astrology weekly prediction.
+ * A Monday to Sunday column for any zodiac sign, naming the transits that perfect during the
+ * week and the days they fall on. Each event is read into the whole-sign houses of that sign,
+ * so content is unique per sign, and the dated events come back beside the prose so an editor
+ * can check a piece before it runs. Alongside the column come overview, love, career, health,
+ * finance and advice, plus lucky days, lucky numbers and compatible signs. No language model
+ * is involved, so the same sign and week always returns the same text. Pass any date inside a
+ * week to retrieve that week, or timezone to roll over on a local clock. Available in eight
+ * languages. Weekly horoscope API, zodiac weekly forecast, astrology weekly prediction.
  *
  * GET /astrology/horoscope/{sign}/weekly
  */

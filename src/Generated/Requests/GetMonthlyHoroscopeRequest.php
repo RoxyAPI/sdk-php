@@ -13,13 +13,16 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Monthly horoscope by zodiac sign - 30-day transit forecast with key dates
+ * Monthly horoscope by zodiac sign - Editorial column with key dates
  *
- * Get monthly horoscope for any zodiac sign with sign-specific week-by-week breakdown and real
- * lunar phase key dates. Based on planetary transits with house activations unique to each
- * sign, covering love, career, health, and finance for the entire month. Key dates include
- * actual New Moon, Full Moon, and retrograde dates from ephemeris calculations. Pass any date
- * inside a month to retrieve that month, or timezone to roll over on a local clock. Monthly
+ * A month-long column for any zodiac sign, plus a week-by-week breakdown and dated key dates a
+ * calendar page renders directly. The column names every aspect, ingress, lunation and station
+ * of the month and reads each into the whole-sign houses of that sign, and those events come
+ * back beside the prose with their exact instants, so a piece can be checked against NASA JPL
+ * Horizons or the US Naval Observatory before it runs. Key dates are the real New Moon, Full
+ * Moon and retrograde instants, never approximations. Alongside the column come overview,
+ * love, career, health, finance and advice. Pass any date inside a month to retrieve that
+ * month, or timezone to roll over on a local clock. Available in eight languages. Monthly
  * horoscope API, zodiac monthly forecast, astrology monthly prediction.
  *
  * GET /astrology/horoscope/{sign}/monthly
