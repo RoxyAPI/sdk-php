@@ -98,7 +98,7 @@ Stable codes: `validation_error`, `api_key_required`, `invalid_api_key`, `subscr
 
 ## Multi-language responses
 
-Pass `lang` (ISO 639-1) on supported endpoints. Defaults to English. Eight languages: `en`, `tr`, `de`, `es`, `fr`, `hi`, `pt`, `ru`.
+Pass `lang` (ISO 639-1) on supported endpoints. Defaults to English. Ten languages: `en`, `tr`, `de`, `es`, `fr`, `hi`, `pt`, `ru`, `zh-Hans`, `zh-Hant`.
 
 ```php
 $roxy->tarot->getDailyCard(seed: 'user-42', lang: 'es');
