@@ -111,12 +111,13 @@ class ChineseAstrologyResource extends BaseResource
     /**
      * Calculate BaZi compatibility - Four Pillars matchmaking API
      *
-     * Compare two BaZi charts pillar by pillar. Returns both resolved charts, how the two Day
-     * Masters stand to each other on the five-phase cycle, and every combination, clash, harm and
-     * punishment that crosses between them, each naming the two positions it joins. A tallied
-     * score summarises the balance and the interaction list behind it is returned in full, so a
-     * caller that disagrees with the weighting can recompute its own. Built for matchmaking
-     * products, relationship features, and agents that need a defensible two-chart reading.
+     * Compare two BaZi charts pillar by pillar, the Chinese astrology reading of how two people
+     * match. Returns both resolved charts, how the two Day Masters stand to each other on the
+     * five-phase cycle, and every combination, clash, harm and punishment that crosses between
+     * them, each naming the two positions it joins. A tallied score summarises the balance and the
+     * interaction list behind it is returned in full, so a caller that disagrees with the
+     * weighting can recompute its own. Built for matchmaking products, relationship features, and
+     * agents that need a defensible two-chart reading.
      *
      * POST /chinese-astrology/bazi/compatibility
      *
@@ -585,11 +586,11 @@ class ChineseAstrologyResource extends BaseResource
     /**
      * Get a month of almanac days - Chinese calendar month view API
      *
-     * Return every day of one Gregorian month with its lunisolar date, its three pillars, its day
-     * officer, its lunar mansion and its clash animal, plus the solar terms that fall inside the
-     * month. This is the month view a calendar widget renders in one call rather than thirty one.
-     * Omit the year and month to get the month in progress. Built for calendar UIs, almanac pages,
-     * and planning tools that show a whole month at a glance.
+     * Return every day of one Gregorian month of the Chinese almanac with its lunisolar date, its
+     * three pillars, its day officer, its lunar mansion and its clash animal, plus the solar terms
+     * that fall inside the month. This is the month view a calendar widget renders in one call
+     * rather than thirty one. Omit the year and month to get the month in progress. Built for
+     * calendar UIs, almanac pages, and planning tools that show a whole month at a glance.
      *
      * GET /chinese-astrology/calendar/monthly
      *

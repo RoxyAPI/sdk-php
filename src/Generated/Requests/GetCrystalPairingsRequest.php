@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystal Pairings
+ * Crystal pairings - Crystal combination API
  *
  * Get crystals that pair well with a given crystal for enhanced healing combinations. Returns
  * the source crystal along with its recommended companion stones and their properties.

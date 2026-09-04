@@ -13,9 +13,9 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List all 8 trigrams
+ * List all 8 trigrams - Bagua trigram catalog API
  *
- * Retrieve all 8 I-Ching trigrams (bagua) - the fundamental building blocks of hexagrams. Each
+ * Retrieve all 8 I-Ching trigrams (bagua), the fundamental building blocks of hexagrams. Each
  * trigram consists of three lines and represents a primal force of nature: Heaven (Qian),
  * Earth (Kun), Thunder (Zhen), Wind (Xun), Water (Kan), Fire (Li), Mountain (Gen), and Lake
  * (Dui). Understanding trigrams is essential for interpreting hexagram meanings, as each

@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystals by Zodiac Sign
+ * Crystals by zodiac sign - Zodiac birthstone API
  *
  * Get healing crystals and gemstones associated with a specific zodiac sign. Returns summary
  * data for each crystal. Use the /crystals/{id} detail endpoint for full healing properties.

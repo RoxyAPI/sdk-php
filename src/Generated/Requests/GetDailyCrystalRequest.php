@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Daily Crystal
+ * Daily crystal - Crystal of the day API
  *
  * Get the crystal of the day as a discovery teaser. Returns a deterministic crystal based on
  * the current date (or a provided seed date), ensuring all users see the same crystal for any

@@ -15,20 +15,20 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Custom Spread Builder
+ * Custom spread builder - Configurable tarot spread API
  *
  * Build and perform your own custom tarot spread with personalized positions and
  * interpretations (1-10 cards). This flexible endpoint lets you create unique spread layouts
- * for any purpose - define your own position names, meanings, and card count to match your
+ * for any purpose: define your own position names, meanings, and card count to match your
  * specific needs or therapeutic framework. Perfect for therapists using tarot in counseling,
  * coaches creating signature spreads, app developers building custom reading features,
  * spiritual practitioners with proprietary methods, or anyone wanting to design specialized
  * layouts beyond traditional spreads. Create spreads for specific themes like chakra readings
  * (7 cards), lunar phases (8 cards), elements (4 cards), goals setting (any count), shadow
  * work, inner child healing, decision matrices, or creative problem-solving. Each position
- * requires a name and interpretation - you define what each card position represents in your
+ * requires a name and interpretation, so you define what each card position represents in your
  * reading. The API draws the exact number of cards you specify and maps them to your custom
- * positions. No pre-generated summary provided - you interpret the reading based on your
+ * positions. No pre-generated summary is provided, so you interpret the reading based on your
  * framework. Ideal for innovative tarot apps, therapeutic tools, personal development
  * platforms, spiritual coaching services, or experimental divination methods. Maximum 10
  * positions to maintain reading clarity and practical interpretation time.

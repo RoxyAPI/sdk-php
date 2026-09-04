@@ -20,7 +20,7 @@ use Saloon\Traits\Body\HasJsonBody;
  * Calculate the 5 ruling planets at any moment using Krishnamurti Paddhati horary astrology.
  * Returns Day Lord, Moon Sign/Star/Sub Lord, Lagna Sign/Star/Sub Lord. Optionally provide
  * birth data (birthDate, birthTime) to include significators showing which houses each ruling
- * planet signifies in the birth chart - essential for KP prediction.
+ * planet signifies in the birth chart, which is essential for KP prediction.
  *
  * POST /vedic-astrology/kp/ruling-planets
  */

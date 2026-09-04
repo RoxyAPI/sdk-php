@@ -15,9 +15,9 @@ use Saloon\Http\Request;
 /**
  * Get avastha by ID - Planetary State Detail
  *
- * Look up a single avastha state by its slug, which is the lowercased state name a birth chart
- * returns in `awastha`, `jagradadi` or `deeptadi`. Returns the system it belongs to, a short
- * label, and what the state means for the results the graha delivers.
+ * Look up a single avastha state by its slug, which is the lowercased state name a Vedic birth
+ * chart returns in `awastha`, `jagradadi` or `deeptadi`. Returns the system it belongs to, a
+ * short label, and what the state means for the results the graha delivers.
  *
  * GET /vedic-astrology/avasthas/{id}
  */

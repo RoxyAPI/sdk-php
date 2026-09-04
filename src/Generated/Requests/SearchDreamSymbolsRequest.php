@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List and search dream symbols
+ * List and search dream symbols - Dream dictionary API
  *
  * Browse and search our complete dream interpretation dictionary containing 2,000+ dream
  * symbols with psychological meanings. Find dream meanings for animals (snake dreams, spider

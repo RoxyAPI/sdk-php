@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Search Crystals
+ * Search crystals - Crystal search API
  *
  * Search for healing crystals by keyword or name. Matches against crystal names, healing
  * keywords, descriptions, and spiritual/emotional/physical meaning fields. Returns summary

@@ -15,10 +15,10 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get daily tarot card reading
+ * Daily tarot card - Card of the day API
  *
  * Receive a single tarot card for daily guidance and reflection. This endpoint uses seeded
- * randomness to ensure the same seed gets the same card on the same day - perfect for "Card of
+ * randomness to ensure the same seed gets the same card on the same day, perfect for "Card of
  * the Day" features. Provide a seed (userId, email hash, session token) for reproducible
  * consistency, or omit for anonymous daily draws. Returns card with keywords, full meaning,
  * and a daily message summary. Great for tarot apps, wellness platforms, morning ritual apps,

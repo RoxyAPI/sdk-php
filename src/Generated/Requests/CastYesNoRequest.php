@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get yes/no answer to your question
+ * Yes or no answer - Yes no tarot reading API
  *
  * Ask a specific question and receive a yes, no, or maybe answer based on a single tarot card
  * draw. Upright cards indicate "Yes" with positive energy, reversed cards indicate "No" with

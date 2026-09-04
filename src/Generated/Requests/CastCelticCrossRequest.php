@@ -15,14 +15,14 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Celtic Cross Spread (10 cards)
+ * Celtic Cross spread, 10 cards - Tarot spread API
  *
- * Perform the legendary Celtic Cross spread - the most comprehensive and detailed tarot
- * reading available, used by professional tarot readers worldwide for over a century. This
- * 10-card layout reveals the complete picture of any situation through distinct positions:
- * Present Situation (what is happening now), Challenge (obstacles crossing your path), Distant
- * Past (root causes), Recent Past (recent influences), Best Outcome (potential positive
- * result), Near Future (what is approaching in weeks ahead), Your Approach (your attitude and
+ * Perform the legendary Celtic Cross spread, the most comprehensive and detailed tarot reading
+ * available, used by professional tarot readers worldwide for over a century. This 10-card
+ * layout reveals the complete picture of any situation through distinct positions: Present
+ * Situation (what is happening now), Challenge (obstacles crossing your path), Distant Past
+ * (root causes), Recent Past (recent influences), Best Outcome (potential positive result),
+ * Near Future (what is approaching in weeks ahead), Your Approach (your attitude and
  * self-perception), External Influences (environment and other people impact), Hopes and Fears
  * (your desires and anxieties), and Final Outcome (where everything is headed). Perfect for
  * life-changing decisions, complex relationship questions, career transitions, spiritual

@@ -20,7 +20,7 @@ use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 class IchingResource extends BaseResource
 {
     /**
-     * Cast daily I-Ching reading with changing lines
+     * Cast daily reading with changing lines - I-Ching divination API
      *
      * Cast a complete daily I-Ching reading using the traditional three-coin method with seeded
      * randomness. Unlike the simple daily hexagram, this provides the full casting experience with
@@ -56,7 +56,7 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * Cast an I-Ching reading
+     * Cast an I-Ching reading - Hexagram divination API
      *
      * Generate an authentic I-Ching reading using the traditional three-coin casting method. Each
      * of the six lines is determined by virtually tossing three coins, producing values 6-9 where
@@ -89,10 +89,10 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * Get daily I-Ching hexagram
+     * Daily hexagram - Daily I-Ching oracle API
      *
      * Receive a daily I-Ching hexagram for guidance and reflection. This endpoint uses seeded
-     * randomness to ensure the same seed gets the same hexagram on the same day - perfect for
+     * randomness to ensure the same seed gets the same hexagram on the same day, perfect for
      * "Hexagram of the Day" features in oracle apps, meditation platforms, and daily wisdom tools.
      * Returns the hexagram with judgment, image, and interpretations for love, career, decisions,
      * and practical advice based on ancient Chinese wisdom from the Book of Changes.
@@ -125,7 +125,7 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * Get hexagram by number
+     * Get hexagram by number - I-Ching hexagram detail API
      *
      * Retrieve complete I-Ching hexagram details by King Wen sequence number (1-64). Returns the
      * full hexagram with Chinese name, English translation, judgment text, image text, modern
@@ -155,7 +155,7 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * Get a random hexagram
+     * Random hexagram - I-Ching hexagram picker API
      *
      * Receive a random I-Ching hexagram with full interpretation. Perfect for daily oracle
      * features, meditation prompts, or exploring the Book of Changes. Returns complete hexagram
@@ -181,7 +181,7 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * Get trigram by number or name
+     * Get trigram by number or name - Bagua trigram detail API
      *
      * Retrieve a specific I-Ching trigram by its number (1-8) or English name (Heaven, Earth,
      * Thunder, Wind, Water, Fire, Mountain, Lake). Returns complete trigram information including
@@ -211,7 +211,7 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * List all 64 hexagrams
+     * List all 64 hexagrams - I-Ching hexagram catalog API
      *
      * Browse all 64 I-Ching hexagrams from the Book of Changes with their Chinese names, English
      * translations, and trigram compositions. The hexagrams are ordered by the traditional King
@@ -244,9 +244,9 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * List all 8 trigrams
+     * List all 8 trigrams - Bagua trigram catalog API
      *
-     * Retrieve all 8 I-Ching trigrams (bagua) - the fundamental building blocks of hexagrams. Each
+     * Retrieve all 8 I-Ching trigrams (bagua), the fundamental building blocks of hexagrams. Each
      * trigram consists of three lines and represents a primal force of nature: Heaven (Qian),
      * Earth (Kun), Thunder (Zhen), Wind (Xun), Water (Kan), Fire (Li), Mountain (Gen), and Lake
      * (Dui). Understanding trigrams is essential for interpreting hexagram meanings, as each
@@ -271,7 +271,7 @@ class IchingResource extends BaseResource
     }
 
     /**
-     * Lookup hexagram by line pattern
+     * Lookup hexagram by line pattern - I-Ching binary lookup API
      *
      * Find an I-Ching hexagram by its binary line pattern. Provide 6 digits (0 or 1) representing
      * broken (yin) and solid (yang) lines from bottom to top. Use this for custom divination

@@ -21,8 +21,9 @@ use Saloon\Http\Request;
  * time and timezone to pin a birth moment exactly. This is the precession offset subtracted
  * from a tropical longitude to obtain the sidereal one, and it is what makes a KP chart
  * reproduce the reference software your practitioners already use. Returns the same value
- * every KP endpoint applies internally. KP Newcomb ayanamsa API, dynamic ayanamsa calculator,
- * Krishnamurti ayanamsa today, current KP ayanamsa
+ * every KP endpoint applies internally. Use it as a dynamic KP Newcomb ayanamsa calculator
+ * when you need the Krishnamurti ayanamsa for today, for a birth moment, or for any instant a
+ * chart is being rectified against.
  *
  * GET /vedic-astrology/kp/ayanamsa
  */

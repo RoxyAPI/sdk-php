@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get Angel Number Meaning
+ * Get angel number meaning - Angel number lookup API
  *
  * Get the complete, authoritative meaning and interpretation for a specific angel number.
  * Returns detailed spiritual, love, career, money, and twin flame interpretations, plus a

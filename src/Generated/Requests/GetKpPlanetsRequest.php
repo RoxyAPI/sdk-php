@@ -20,8 +20,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * Get planetary positions with detailed KP star-lord and sub-lord calculations for precise
  * event timing and significator analysis. Returns all 9 planets (Sun through Ketu) with
  * nakshatra, star-lord, sub-lord, and KP horary numbers (1-249). Essential for KP astrology
- * software, significator analysis, and event prediction. KP planet positions API, star lord
- * sub lord calculator, KP significator API, Krishnamurti Paddhati planets
+ * software, significator analysis, and event prediction. Use it as a star lord and sub lord
+ * calculator wherever Krishnamurti Paddhati planet positions drive the reading.
  *
  * POST /vedic-astrology/kp/planets
  */

@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get trigram by number or name
+ * Get trigram by number or name - Bagua trigram detail API
  *
  * Retrieve a specific I-Ching trigram by its number (1-8) or English name (Heaven, Earth,
  * Thunder, Wind, Water, Fire, Mountain, Lake). Returns complete trigram information including

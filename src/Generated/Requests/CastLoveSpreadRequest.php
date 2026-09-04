@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Love Spread (5 cards)
+ * Love spread, 5 cards - Relationship tarot reading API
  *
  * Perform a specialized 5-card relationship tarot spread analyzing romantic connections,
  * emotional dynamics, and partnership potential. This love-focused reading examines five

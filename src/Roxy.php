@@ -16,6 +16,7 @@ namespace RoxyAPI\Sdk;
 use RoxyAPI\Sdk\Auth\ApiKeyAuthenticator;
 use RoxyAPI\Sdk\Generated\Resources\AngelNumbersResource;
 use RoxyAPI\Sdk\Generated\Resources\AstrologyResource;
+use RoxyAPI\Sdk\Generated\Resources\AyurvedaResource;
 use RoxyAPI\Sdk\Generated\Resources\BiorhythmResource;
 use RoxyAPI\Sdk\Generated\Resources\ChineseAstrologyResource;
 use RoxyAPI\Sdk\Generated\Resources\CrystalsResource;
@@ -24,11 +25,14 @@ use RoxyAPI\Sdk\Generated\Resources\FengShuiResource;
 use RoxyAPI\Sdk\Generated\Resources\ForecastResource;
 use RoxyAPI\Sdk\Generated\Resources\HumanDesignResource;
 use RoxyAPI\Sdk\Generated\Resources\IchingResource;
+use RoxyAPI\Sdk\Generated\Resources\KabbalahResource;
 use RoxyAPI\Sdk\Generated\Resources\LanguagesResource;
 use RoxyAPI\Sdk\Generated\Resources\LocationResource;
+use RoxyAPI\Sdk\Generated\Resources\MesoamericanAstrologyResource;
 use RoxyAPI\Sdk\Generated\Resources\NumerologyResource;
 use RoxyAPI\Sdk\Generated\Resources\TarotResource;
 use RoxyAPI\Sdk\Generated\Resources\UsageResource;
+use RoxyAPI\Sdk\Generated\Resources\VastuResource;
 use RoxyAPI\Sdk\Generated\Resources\VedicAstrologyResource;
 use Saloon\Contracts\Authenticator;
 use Saloon\Http\Connector;
@@ -40,6 +44,7 @@ use Saloon\Traits\Plugins\AcceptsJson;
  *
  * @property AngelNumbersResource $angelNumbers
  * @property AstrologyResource $astrology
+ * @property AyurvedaResource $ayurveda
  * @property BiorhythmResource $biorhythm
  * @property ChineseAstrologyResource $chineseAstrology
  * @property CrystalsResource $crystals
@@ -48,11 +53,14 @@ use Saloon\Traits\Plugins\AcceptsJson;
  * @property ForecastResource $forecast
  * @property HumanDesignResource $humanDesign
  * @property IchingResource $iching
+ * @property KabbalahResource $kabbalah
  * @property LanguagesResource $languages
  * @property LocationResource $location
+ * @property MesoamericanAstrologyResource $mesoamericanAstrology
  * @property NumerologyResource $numerology
  * @property TarotResource $tarot
  * @property UsageResource $usage
+ * @property VastuResource $vastu
  * @property VedicAstrologyResource $vedicAstrology
  */
 class Roxy extends Connector
@@ -65,6 +73,7 @@ class Roxy extends Connector
     private const RESOURCES = [
         'angelNumbers' => AngelNumbersResource::class,
         'astrology' => AstrologyResource::class,
+        'ayurveda' => AyurvedaResource::class,
         'biorhythm' => BiorhythmResource::class,
         'chineseAstrology' => ChineseAstrologyResource::class,
         'crystals' => CrystalsResource::class,
@@ -73,11 +82,14 @@ class Roxy extends Connector
         'forecast' => ForecastResource::class,
         'humanDesign' => HumanDesignResource::class,
         'iching' => IchingResource::class,
+        'kabbalah' => KabbalahResource::class,
         'languages' => LanguagesResource::class,
         'location' => LocationResource::class,
+        'mesoamericanAstrology' => MesoamericanAstrologyResource::class,
         'numerology' => NumerologyResource::class,
         'tarot' => TarotResource::class,
         'usage' => UsageResource::class,
+        'vastu' => VastuResource::class,
         'vedicAstrology' => VedicAstrologyResource::class,
     ];
 

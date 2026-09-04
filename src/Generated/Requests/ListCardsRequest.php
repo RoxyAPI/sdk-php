@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List all 78 tarot cards
+ * List all 78 tarot cards - Tarot deck catalog API
  *
  * Retrieve the complete Rider-Waite-Smith tarot deck of 78 cards: 22 Major Arcana (numbered
  * 0-21, representing life lessons, spiritual themes, and karmic influences like The Fool,
@@ -22,8 +22,8 @@ use Saloon\Http\Request;
  * concerns), suit (cups for emotions and relationships, wands for creativity and passion,
  * swords for intellect and conflict, pentacles for material wealth and finances), or card
  * number (Ace=1 for new beginnings, 2-10 for progression, Page=11 for messages, Knight=12 for
- * action, Queen=13 for mastery, King=14 for authority). Returns lightweight basic card data -
- * use GET /cards/{id} for full upright and reversed interpretations with keywords. Perfect for
+ * action, Queen=13 for mastery, King=14 for authority). Returns lightweight basic card data.
+ * Use GET /cards/{id} for full upright and reversed interpretations with keywords. Perfect for
  * building tarot reference libraries, card databases, learning applications, or browsing the
  * complete traditional deck used by professional tarot readers worldwide.
  *

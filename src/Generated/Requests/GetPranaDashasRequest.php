@@ -17,12 +17,12 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Get all Prana dashas for a Mahadasha, Antardasha, Pratyantardasha and Sookshma
  *
- * Prana dasha API. Returns the 9 Prana periods inside a chosen Sookshma dasha, the fifth and
- * finest level of the Vimshottari dasha hierarchy. Completes the full vimshottari drill down
- * from the 120-year cycle to hour level timing, typically 20 minutes to 4 days per period
- * depending on the parent Mahadasha. Built for five column dasha drill down tables, muhurta
- * selection, and pinpointing the trigger moment inside an event window already found at the
- * Sookshma level.
+ * Prana dasha API for Vedic astrology. Returns the 9 Prana periods inside a chosen Sookshma
+ * dasha, the fifth and finest level of the Vimshottari dasha hierarchy. Completes the full
+ * vimshottari drill down from the 120-year cycle to hour level timing, typically 20 minutes to
+ * 4 days per period depending on the parent Mahadasha. Built for five column dasha drill down
+ * tables, muhurta selection, and pinpointing the trigger moment inside an event window already
+ * found at the Sookshma level.
  *
  * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}/{pratyantardasha}/{sookshma}
  */

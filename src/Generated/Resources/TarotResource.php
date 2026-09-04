@@ -20,7 +20,7 @@ use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 class TarotResource extends BaseResource
 {
     /**
-     * Career Spread (7 cards)
+     * Career spread, 7 cards - Career tarot reading API
      *
      * Perform a comprehensive 7-card career tarot spread using SWOT analysis framework (Strengths,
      * Weaknesses, Opportunities, Threats) for professional guidance, business decisions, and
@@ -66,14 +66,14 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Celtic Cross Spread (10 cards)
+     * Celtic Cross spread, 10 cards - Tarot spread API
      *
-     * Perform the legendary Celtic Cross spread - the most comprehensive and detailed tarot
-     * reading available, used by professional tarot readers worldwide for over a century. This
-     * 10-card layout reveals the complete picture of any situation through distinct positions:
-     * Present Situation (what is happening now), Challenge (obstacles crossing your path), Distant
-     * Past (root causes), Recent Past (recent influences), Best Outcome (potential positive
-     * result), Near Future (what is approaching in weeks ahead), Your Approach (your attitude and
+     * Perform the legendary Celtic Cross spread, the most comprehensive and detailed tarot reading
+     * available, used by professional tarot readers worldwide for over a century. This 10-card
+     * layout reveals the complete picture of any situation through distinct positions: Present
+     * Situation (what is happening now), Challenge (obstacles crossing your path), Distant Past
+     * (root causes), Recent Past (recent influences), Best Outcome (potential positive result),
+     * Near Future (what is approaching in weeks ahead), Your Approach (your attitude and
      * self-perception), External Influences (environment and other people impact), Hopes and Fears
      * (your desires and anxieties), and Final Outcome (where everything is headed). Perfect for
      * life-changing decisions, complex relationship questions, career transitions, spiritual
@@ -110,20 +110,20 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Custom Spread Builder
+     * Custom spread builder - Configurable tarot spread API
      *
      * Build and perform your own custom tarot spread with personalized positions and
      * interpretations (1-10 cards). This flexible endpoint lets you create unique spread layouts
-     * for any purpose - define your own position names, meanings, and card count to match your
+     * for any purpose: define your own position names, meanings, and card count to match your
      * specific needs or therapeutic framework. Perfect for therapists using tarot in counseling,
      * coaches creating signature spreads, app developers building custom reading features,
      * spiritual practitioners with proprietary methods, or anyone wanting to design specialized
      * layouts beyond traditional spreads. Create spreads for specific themes like chakra readings
      * (7 cards), lunar phases (8 cards), elements (4 cards), goals setting (any count), shadow
      * work, inner child healing, decision matrices, or creative problem-solving. Each position
-     * requires a name and interpretation - you define what each card position represents in your
+     * requires a name and interpretation, so you define what each card position represents in your
      * reading. The API draws the exact number of cards you specify and maps them to your custom
-     * positions. No pre-generated summary provided - you interpret the reading based on your
+     * positions. No pre-generated summary is provided, so you interpret the reading based on your
      * framework. Ideal for innovative tarot apps, therapeutic tools, personal development
      * platforms, spiritual coaching services, or experimental divination methods. Maximum 10
      * positions to maintain reading clarity and practical interpretation time.
@@ -163,7 +163,7 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Love Spread (5 cards)
+     * Love spread, 5 cards - Relationship tarot reading API
      *
      * Perform a specialized 5-card relationship tarot spread analyzing romantic connections,
      * emotional dynamics, and partnership potential. This love-focused reading examines five
@@ -208,7 +208,7 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Three-Card Spread: Past, Present, Future
+     * Three card spread, past present future - Tarot spread API
      *
      * Perform the classic three-card tarot spread revealing Past (what led to this situation),
      * Present (current energy and circumstances), and Future (likely outcome if current path
@@ -247,7 +247,7 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Get yes/no answer to your question
+     * Yes or no answer - Yes no tarot reading API
      *
      * Ask a specific question and receive a yes, no, or maybe answer based on a single tarot card
      * draw. Upright cards indicate "Yes" with positive energy, reversed cards indicate "No" with
@@ -287,22 +287,23 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Draw random tarot cards with reproducible results
+     * Draw tarot cards - Seeded tarot draw API
      *
      * Draw 1-78 tarot cards from the complete Rider-Waite-Smith deck with seeded reproducibility
      * for consistent personalized readings. Provide an optional seed string (like
      * "user123-2025-12-27" or "readingId") to ensure the same seed always returns identical cards
-     * in the exact same order - essential for daily tarot features, personalized user experiences,
-     * shareable readings, or reproducible testing. Omit seed for true random draws each time.
-     * Control card reversals (upright vs reversed/inverted orientations - reversed cards provide
-     * alternative meanings when drawn upside down) and duplicates (traditional deck draws each of
-     * 78 cards once, or oracle-style allows repeating same card). Each drawn card includes
-     * position number, reversal state (boolean), keywords for quick interpretation, full meaning
-     * text (400+ words), authentic Rider-Waite imagery, and card metadata. Perfect for custom
-     * spread builders, random card generators, automated tarot reading platforms, daily card
-     * features, meditation apps, journaling prompts, divination tools, and any application
-     * requiring reproducible or random tarot draws from the industry-standard 78-card deck (22
-     * Major Arcana spiritual lessons + 56 Minor Arcana practical guidance across 4 suits).
+     * in the exact same order, which is essential for daily tarot features, personalized user
+     * experiences, shareable readings, or reproducible testing. Omit seed for true random draws
+     * each time. Control card reversals (upright vs reversed or inverted orientations, where
+     * reversed cards provide alternative meanings when drawn upside down) and duplicates
+     * (traditional deck draws each of 78 cards once, or oracle-style allows repeating same card).
+     * Each drawn card includes position number, reversal state (boolean), keywords for quick
+     * interpretation, full meaning text (400+ words), authentic Rider-Waite imagery, and card
+     * metadata. Perfect for custom spread builders, random card generators, automated tarot
+     * reading platforms, daily card features, meditation apps, journaling prompts, divination
+     * tools, and any application requiring reproducible or random tarot draws from the
+     * industry-standard 78-card deck (22 Major Arcana spiritual lessons + 56 Minor Arcana
+     * practical guidance across 4 suits).
      *
      * POST /tarot/draw
      *
@@ -341,7 +342,7 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Get detailed tarot card information
+     * Get tarot card by id - Tarot card meaning API
      *
      * Retrieve comprehensive details for a specific tarot card from the traditional
      * Rider-Waite-Smith deck including complete upright meanings (card drawn normally) and
@@ -385,10 +386,10 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * Get daily tarot card reading
+     * Daily tarot card - Card of the day API
      *
      * Receive a single tarot card for daily guidance and reflection. This endpoint uses seeded
-     * randomness to ensure the same seed gets the same card on the same day - perfect for "Card of
+     * randomness to ensure the same seed gets the same card on the same day, perfect for "Card of
      * the Day" features. Provide a seed (userId, email hash, session token) for reproducible
      * consistency, or omit for anonymous daily draws. Returns card with keywords, full meaning,
      * and a daily message summary. Great for tarot apps, wellness platforms, morning ritual apps,
@@ -422,7 +423,7 @@ class TarotResource extends BaseResource
     }
 
     /**
-     * List all 78 tarot cards
+     * List all 78 tarot cards - Tarot deck catalog API
      *
      * Retrieve the complete Rider-Waite-Smith tarot deck of 78 cards: 22 Major Arcana (numbered
      * 0-21, representing life lessons, spiritual themes, and karmic influences like The Fool,
@@ -431,8 +432,8 @@ class TarotResource extends BaseResource
      * concerns), suit (cups for emotions and relationships, wands for creativity and passion,
      * swords for intellect and conflict, pentacles for material wealth and finances), or card
      * number (Ace=1 for new beginnings, 2-10 for progression, Page=11 for messages, Knight=12 for
-     * action, Queen=13 for mastery, King=14 for authority). Returns lightweight basic card data -
-     * use GET /cards/{id} for full upright and reversed interpretations with keywords. Perfect for
+     * action, Queen=13 for mastery, King=14 for authority). Returns lightweight basic card data.
+     * Use GET /cards/{id} for full upright and reversed interpretations with keywords. Perfect for
      * building tarot reference libraries, card databases, learning applications, or browsing the
      * complete traditional deck used by professional tarot readers worldwide.
      *

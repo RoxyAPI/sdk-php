@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get Crystal Healing Properties
+ * Get crystal by id - Crystal healing properties API
  *
  * Get complete healing properties and metaphysical data for a specific crystal or gemstone.
  * Returns spiritual, emotional, and physical healing interpretations along with chakra

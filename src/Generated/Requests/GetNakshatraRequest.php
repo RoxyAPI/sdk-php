@@ -15,9 +15,10 @@ use Saloon\Http\Request;
 /**
  * Get Nakshatra by ID - Lunar Mansion Detail
  *
- * Get detailed information for a single nakshatra (lunar mansion) by its ID slug. Returns
- * name, zodiac range, ruling planet, presiding deity, symbol, personality characteristics, and
- * traditional remedies including mantras, gemstones, and rituals.
+ * Get detailed information for a single nakshatra (lunar mansion) by its ID slug, one of the
+ * 27 nakshatras of Vedic astrology. Returns name, zodiac range, ruling planet, presiding
+ * deity, symbol, personality characteristics, and traditional remedies including mantras,
+ * gemstones, and rituals.
  *
  * GET /vedic-astrology/nakshatras/{id}
  */

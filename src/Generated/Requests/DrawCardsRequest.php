@@ -15,22 +15,23 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Draw random tarot cards with reproducible results
+ * Draw tarot cards - Seeded tarot draw API
  *
  * Draw 1-78 tarot cards from the complete Rider-Waite-Smith deck with seeded reproducibility
  * for consistent personalized readings. Provide an optional seed string (like
  * "user123-2025-12-27" or "readingId") to ensure the same seed always returns identical cards
- * in the exact same order - essential for daily tarot features, personalized user experiences,
- * shareable readings, or reproducible testing. Omit seed for true random draws each time.
- * Control card reversals (upright vs reversed/inverted orientations - reversed cards provide
- * alternative meanings when drawn upside down) and duplicates (traditional deck draws each of
- * 78 cards once, or oracle-style allows repeating same card). Each drawn card includes
- * position number, reversal state (boolean), keywords for quick interpretation, full meaning
- * text (400+ words), authentic Rider-Waite imagery, and card metadata. Perfect for custom
- * spread builders, random card generators, automated tarot reading platforms, daily card
- * features, meditation apps, journaling prompts, divination tools, and any application
- * requiring reproducible or random tarot draws from the industry-standard 78-card deck (22
- * Major Arcana spiritual lessons + 56 Minor Arcana practical guidance across 4 suits).
+ * in the exact same order, which is essential for daily tarot features, personalized user
+ * experiences, shareable readings, or reproducible testing. Omit seed for true random draws
+ * each time. Control card reversals (upright vs reversed or inverted orientations, where
+ * reversed cards provide alternative meanings when drawn upside down) and duplicates
+ * (traditional deck draws each of 78 cards once, or oracle-style allows repeating same card).
+ * Each drawn card includes position number, reversal state (boolean), keywords for quick
+ * interpretation, full meaning text (400+ words), authentic Rider-Waite imagery, and card
+ * metadata. Perfect for custom spread builders, random card generators, automated tarot
+ * reading platforms, daily card features, meditation apps, journaling prompts, divination
+ * tools, and any application requiring reproducible or random tarot draws from the
+ * industry-standard 78-card deck (22 Major Arcana spiritual lessons + 56 Minor Arcana
+ * practical guidance across 4 suits).
  *
  * POST /tarot/draw
  */

@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get dream symbol details
+ * Get dream symbol by id - Dream interpretation API
  *
  * Get the complete dream interpretation for a specific symbol. Understand what your dream
  * means with detailed psychological analysis covering subconscious symbolism, emotional

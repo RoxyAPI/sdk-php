@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Birthstone Crystals by Month
+ * Birthstones by month - Birthstone lookup API
  *
  * Get the traditional birthstone crystals for a given birth month. Returns summary data for
  * each crystal. Use the /crystals/{id} detail endpoint for full healing properties. Based on

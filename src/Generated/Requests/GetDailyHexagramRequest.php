@@ -15,10 +15,10 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get daily I-Ching hexagram
+ * Daily hexagram - Daily I-Ching oracle API
  *
  * Receive a daily I-Ching hexagram for guidance and reflection. This endpoint uses seeded
- * randomness to ensure the same seed gets the same hexagram on the same day - perfect for
+ * randomness to ensure the same seed gets the same hexagram on the same day, perfect for
  * "Hexagram of the Day" features in oracle apps, meditation platforms, and daily wisdom tools.
  * Returns the hexagram with judgment, image, and interpretations for love, career, decisions,
  * and practical advice based on ancient Chinese wisdom from the Book of Changes.

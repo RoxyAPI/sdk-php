@@ -20,8 +20,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * Calculate unequal Placidus house cusps with ruling sign-lord, nakshatra-lord, and sub-lord
  * for each cusp. Dynamic KP-Newcomb or custom ayanamsa support. Used in KP horary astrology,
  * cusp sub-lord analysis, and birth chart rectification. Returns all 12 house cusps with KP
- * sub-division details. SEO: Placidus house cusps API, KP cusp calculator, house cusps star
- * sub lord, KP horary cusps
+ * sub-division details. Use it as a Placidus house cusp calculator that also carries the star
+ * lord and sub lord of each cusp, which is what Krishnamurti Paddhati horary work reads first.
  *
  * POST /vedic-astrology/kp/cusps
  */

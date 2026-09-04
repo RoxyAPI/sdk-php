@@ -17,12 +17,13 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Calculate BaZi compatibility - Four Pillars matchmaking API
  *
- * Compare two BaZi charts pillar by pillar. Returns both resolved charts, how the two Day
- * Masters stand to each other on the five-phase cycle, and every combination, clash, harm and
- * punishment that crosses between them, each naming the two positions it joins. A tallied
- * score summarises the balance and the interaction list behind it is returned in full, so a
- * caller that disagrees with the weighting can recompute its own. Built for matchmaking
- * products, relationship features, and agents that need a defensible two-chart reading.
+ * Compare two BaZi charts pillar by pillar, the Chinese astrology reading of how two people
+ * match. Returns both resolved charts, how the two Day Masters stand to each other on the
+ * five-phase cycle, and every combination, clash, harm and punishment that crosses between
+ * them, each naming the two positions it joins. A tallied score summarises the balance and the
+ * interaction list behind it is returned in full, so a caller that disagrees with the
+ * weighting can recompute its own. Built for matchmaking products, relationship features, and
+ * agents that need a defensible two-chart reading.
  *
  * POST /chinese-astrology/bazi/compatibility
  */

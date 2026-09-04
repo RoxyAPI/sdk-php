@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Lookup hexagram by line pattern
+ * Lookup hexagram by line pattern - I-Ching binary lookup API
  *
  * Find an I-Ching hexagram by its binary line pattern. Provide 6 digits (0 or 1) representing
  * broken (yin) and solid (yang) lines from bottom to top. Use this for custom divination

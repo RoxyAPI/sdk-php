@@ -53,9 +53,9 @@ class LanguagesResource extends BaseResource
      *
      * Returns the language codes accepted by the `lang` query parameter on every i18n-aware
      * endpoint. Use this to populate language pickers, validate user input before calling chart or
-     * reading endpoints, or auto-detect available locales in agent integrations. Codes follow ISO
-     * 639-1. Endpoints without a translation for the requested language fall back to English
-     * silently.
+     * reading endpoints, or auto-detect which languages an agent integration can offer. Codes
+     * follow ISO 639-1. Endpoints without a translation for the requested language fall back to
+     * English silently.
      *
      * GET /languages
      *

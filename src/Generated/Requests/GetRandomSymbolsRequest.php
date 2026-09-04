@@ -13,10 +13,10 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get random dream symbols
+ * Random dream symbols - Dream symbol discovery API
  *
  * Discover random dream symbols and their interpretations for daily dream insights and
- * exploration. Each request returns different symbols from the 2,000+ dream meaning database -
+ * exploration. Each request returns different symbols from the 2,000+ dream meaning database,
  * perfect for dream of the day features, dream journaling prompts, meditation on subconscious
  * themes, or exploring what different dreams mean. Get one or multiple random dream
  * interpretations with full psychological meanings.

@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List All Crystals
+ * List all crystals - Crystal healing database API
  *
  * Retrieve healing crystals and gemstones with pagination. Supports optional filtering by
  * chakra, zodiac sign, element, color, or planet. Returns minimal summary fields per crystal.

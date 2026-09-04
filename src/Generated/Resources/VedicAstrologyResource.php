@@ -419,7 +419,7 @@ class VedicAstrologyResource extends BaseResource
      *   Time in HH:MM:SS format (24-hour). Exact time affects fast-moving planets (Moon, Mercury)
      *   and aspect orbs.
      * @param string|null $coordinateSystem
-     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
      * @param mixed|null $timezone
@@ -637,7 +637,7 @@ class VedicAstrologyResource extends BaseResource
      *   Transit date to analyze in YYYY-MM-DD format. Planetary positions on this date are overlaid
      *   on the natal chart.
      * @param string|null $coordinateSystem
-     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
      * @param mixed|null $timezone
@@ -1228,8 +1228,8 @@ class VedicAstrologyResource extends BaseResource
      * calculation. Returns complete chart with all 9 planets (Sun through Ketu), Ascendant, 12
      * Placidus house cusps, nakshatra details, star-lords, sub-lords, and KP horary numbers
      * (1-249). Perfect for KP astrology software, horary prediction apps, and event timing
-     * analysis. SEO: KP astrology chart API, Placidus house cusps planets, Krishnamurti Paddhati
-     * chart generator, KP birth chart calculator
+     * analysis. One call is a complete Krishnamurti Paddhati chart generator, returning the
+     * Placidus cusps and the planets with their sub lords together.
      *
      * POST /vedic-astrology/kp/chart
      *
@@ -1365,9 +1365,9 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get avastha by ID - Planetary State Detail
      *
-     * Look up a single avastha state by its slug, which is the lowercased state name a birth chart
-     * returns in `awastha`, `jagradadi` or `deeptadi`. Returns the system it belongs to, a short
-     * label, and what the state means for the results the graha delivers.
+     * Look up a single avastha state by its slug, which is the lowercased state name a Vedic birth
+     * chart returns in `awastha`, `jagradadi` or `deeptadi`. Returns the system it belongs to, a
+     * short label, and what the state means for the results the graha delivers.
      *
      * GET /vedic-astrology/avasthas/{id}
      *
@@ -1635,7 +1635,7 @@ class VedicAstrologyResource extends BaseResource
      * @param int $year
      *   Year to scan for ecliptic crossings (1900-2100).
      * @param string|null $coordinateSystem
-     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
      * @param mixed|null $timezone
@@ -1749,8 +1749,9 @@ class VedicAstrologyResource extends BaseResource
      * time and timezone to pin a birth moment exactly. This is the precession offset subtracted
      * from a tropical longitude to obtain the sidereal one, and it is what makes a KP chart
      * reproduce the reference software your practitioners already use. Returns the same value
-     * every KP endpoint applies internally. KP Newcomb ayanamsa API, dynamic ayanamsa calculator,
-     * Krishnamurti ayanamsa today, current KP ayanamsa
+     * every KP endpoint applies internally. Use it as a dynamic KP Newcomb ayanamsa calculator
+     * when you need the Krishnamurti ayanamsa for today, for a birth moment, or for any instant a
+     * chart is being rectified against.
      *
      * GET /vedic-astrology/kp/ayanamsa
      *
@@ -1785,8 +1786,8 @@ class VedicAstrologyResource extends BaseResource
      * Calculate unequal Placidus house cusps with ruling sign-lord, nakshatra-lord, and sub-lord
      * for each cusp. Dynamic KP-Newcomb or custom ayanamsa support. Used in KP horary astrology,
      * cusp sub-lord analysis, and birth chart rectification. Returns all 12 house cusps with KP
-     * sub-division details. SEO: Placidus house cusps API, KP cusp calculator, house cusps star
-     * sub lord, KP horary cusps
+     * sub-division details. Use it as a Placidus house cusp calculator that also carries the star
+     * lord and sub lord of each cusp, which is what Krishnamurti Paddhati horary work reads first.
      *
      * POST /vedic-astrology/kp/cusps
      *
@@ -1848,8 +1849,8 @@ class VedicAstrologyResource extends BaseResource
      * Get planetary positions with detailed KP star-lord and sub-lord calculations for precise
      * event timing and significator analysis. Returns all 9 planets (Sun through Ketu) with
      * nakshatra, star-lord, sub-lord, and KP horary numbers (1-249). Essential for KP astrology
-     * software, significator analysis, and event prediction. KP planet positions API, star lord
-     * sub lord calculator, KP significator API, Krishnamurti Paddhati planets
+     * software, significator analysis, and event prediction. Use it as a star lord and sub lord
+     * calculator wherever Krishnamurti Paddhati planet positions drive the reading.
      *
      * POST /vedic-astrology/kp/planets
      *
@@ -2104,7 +2105,7 @@ class VedicAstrologyResource extends BaseResource
      * Calculate the 5 ruling planets at any moment using Krishnamurti Paddhati horary astrology.
      * Returns Day Lord, Moon Sign/Star/Sub Lord, Lagna Sign/Star/Sub Lord. Optionally provide
      * birth data (birthDate, birthTime) to include significators showing which houses each ruling
-     * planet signifies in the birth chart - essential for KP prediction.
+     * planet signifies in the birth chart, which is essential for KP prediction.
      *
      * POST /vedic-astrology/kp/ruling-planets
      *
@@ -2235,7 +2236,7 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/aspects/lunar
      *
      * @param string|null $coordinateSystem
-     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
      * @param int|null $month
@@ -2268,8 +2269,11 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get all 9 Mahadasha periods (120-year cycle)
      *
-     * Returns complete Vimshottari Dasha cycle starting from birth. Shows all major planetary
-     * periods from birth through 120 years.
+     * Returns the complete Vimshottari dasha cycle from birth, all 9 Mahadasha periods across the
+     * full 120 year span. Each period carries its ruling graha, exact start and end dates, and the
+     * houses it signifies, with the birth dasha balance and Moon nakshatra that anchor the
+     * sequence. This is the top level timeline a Vedic astrology report opens with, and the entry
+     * point for drilling into Antardasha and finer sub periods.
      *
      * POST /vedic-astrology/dasha/major
      *
@@ -2371,7 +2375,7 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/aspects/monthly
      *
      * @param string|null $coordinateSystem
-     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
      * @param int|null $month
@@ -2415,7 +2419,7 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/planetary-positions/monthly
      *
      * @param string|null $coordinateSystem
-     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
      * @param int|null $month
@@ -2494,7 +2498,7 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/transit/monthly
      *
      * @param string|null $coordinateSystem
-     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa -
+     *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
      *   Western astrology. Defaults to "sidereal".
      * @param int|null $month
@@ -2527,9 +2531,10 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get Nakshatra by ID - Lunar Mansion Detail
      *
-     * Get detailed information for a single nakshatra (lunar mansion) by its ID slug. Returns
-     * name, zodiac range, ruling planet, presiding deity, symbol, personality characteristics, and
-     * traditional remedies including mantras, gemstones, and rituals.
+     * Get detailed information for a single nakshatra (lunar mansion) by its ID slug, one of the
+     * 27 nakshatras of Vedic astrology. Returns name, zodiac range, ruling planet, presiding
+     * deity, symbol, personality characteristics, and traditional remedies including mantras,
+     * gemstones, and rituals.
      *
      * GET /vedic-astrology/nakshatras/{id}
      *
@@ -2625,12 +2630,12 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get all Prana dashas for a Mahadasha, Antardasha, Pratyantardasha and Sookshma
      *
-     * Prana dasha API. Returns the 9 Prana periods inside a chosen Sookshma dasha, the fifth and
-     * finest level of the Vimshottari dasha hierarchy. Completes the full vimshottari drill down
-     * from the 120-year cycle to hour level timing, typically 20 minutes to 4 days per period
-     * depending on the parent Mahadasha. Built for five column dasha drill down tables, muhurta
-     * selection, and pinpointing the trigger moment inside an event window already found at the
-     * Sookshma level.
+     * Prana dasha API for Vedic astrology. Returns the 9 Prana periods inside a chosen Sookshma
+     * dasha, the fifth and finest level of the Vimshottari dasha hierarchy. Completes the full
+     * vimshottari drill down from the 120-year cycle to hour level timing, typically 20 minutes to
+     * 4 days per period depending on the parent Mahadasha. Built for five column dasha drill down
+     * tables, muhurta selection, and pinpointing the trigger moment inside an event window already
+     * found at the Sookshma level.
      *
      * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}/{pratyantardasha}/{sookshma}
      *
@@ -2731,10 +2736,11 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get all Pratyantardashas (antara periods) for a Mahadasha and Antardasha
      *
-     * Pratyantardasha calculator API. Returns the 9 Pratyantardasha (antara) periods inside a
-     * chosen Antardasha, the third level of the Vimshottari dasha hierarchy. Use it to drill from
-     * a Mahadasha into month level timing for event prediction, muhurta selection, and dasha
-     * timeline UIs. Each period is proportional to the Vimshottari years of its lord.
+     * Pratyantardasha calculator API for Vedic astrology. Returns the 9 Pratyantardasha (antara)
+     * periods inside a chosen Antardasha, the third level of the Vimshottari dasha hierarchy. Use
+     * it to drill from a Mahadasha into month level timing for event prediction, muhurta
+     * selection, and dasha timeline UIs. Each period is proportional to the Vimshottari years of
+     * its lord.
      *
      * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}
      *
@@ -2959,8 +2965,11 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get all Antardashas (sub-periods) for a specific Mahadasha
      *
-     * Returns 9 Antardasha sub-periods within a Mahadasha. Each Mahadasha is divided into 9
-     * proportional sub-periods.
+     * Returns the 9 Antardasha sub periods inside a chosen Mahadasha, each proportional to the
+     * Vimshottari years of its lord. Every period carries its ruling graha, exact start and end
+     * dates, and the houses it signifies, alongside the parent Mahadasha it sits in. Use it to
+     * narrow a multi year Mahadasha down to the months that matter for event prediction, muhurta
+     * selection, and dasha timeline UIs.
      *
      * POST /vedic-astrology/dasha/sub/{mahadasha}
      *

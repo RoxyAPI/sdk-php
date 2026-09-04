@@ -17,8 +17,11 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Get all Antardashas (sub-periods) for a specific Mahadasha
  *
- * Returns 9 Antardasha sub-periods within a Mahadasha. Each Mahadasha is divided into 9
- * proportional sub-periods.
+ * Returns the 9 Antardasha sub periods inside a chosen Mahadasha, each proportional to the
+ * Vimshottari years of its lord. Every period carries its ruling graha, exact start and end
+ * dates, and the houses it signifies, alongside the parent Mahadasha it sits in. Use it to
+ * narrow a multi year Mahadasha down to the months that matter for event prediction, muhurta
+ * selection, and dasha timeline UIs.
  *
  * POST /vedic-astrology/dasha/sub/{mahadasha}
  */

@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystals by Element
+ * Crystals by element - Elemental crystal lookup API
  *
  * Get healing crystals and gemstones associated with a specific natural element. Returns
  * summary data for each crystal. Use the /crystals/{id} detail endpoint for full healing

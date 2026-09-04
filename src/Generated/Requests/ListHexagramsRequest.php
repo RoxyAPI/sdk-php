@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List all 64 hexagrams
+ * List all 64 hexagrams - I-Ching hexagram catalog API
  *
  * Browse all 64 I-Ching hexagrams from the Book of Changes with their Chinese names, English
  * translations, and trigram compositions. The hexagrams are ordered by the traditional King

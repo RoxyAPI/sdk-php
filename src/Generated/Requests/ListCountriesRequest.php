@@ -17,8 +17,8 @@ use Saloon\Http\Request;
  *
  * Returns every country with ISO 3166-1 alpha-2 and alpha-3 codes, plus the number of
  * searchable cities per country. Use this endpoint to build country dropdown menus, regional
- * filters, or to check city coverage before querying. Sorted alphabetically by country name.
- * Covers Europe, Americas, Asia, Middle East, Africa, and Oceania.
+ * filters, or to check city coverage before querying a birth location. Countries are sorted
+ * alphabetically by name. Covers Europe, Americas, Asia, Middle East, Africa, and Oceania.
  *
  * GET /location/countries
  */

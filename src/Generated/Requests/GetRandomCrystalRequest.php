@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Random Crystal
+ * Random crystal - Crystal discovery API
  *
  * Get a randomly selected healing crystal as a discovery teaser. Returns a different crystal
  * on each request (non-deterministic). Use the /crystals/{id} detail endpoint for complete

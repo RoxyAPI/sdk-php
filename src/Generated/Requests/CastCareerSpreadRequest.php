@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Career Spread (7 cards)
+ * Career spread, 7 cards - Career tarot reading API
  *
  * Perform a comprehensive 7-card career tarot spread using SWOT analysis framework (Strengths,
  * Weaknesses, Opportunities, Threats) for professional guidance, business decisions, and

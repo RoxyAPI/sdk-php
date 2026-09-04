@@ -126,7 +126,7 @@ class AstrologyResource extends BaseResource
     }
 
     /**
-     * Compatibility Score. Relationship compatibility analysis with category breakdown
+     * Compatibility score - Relationship compatibility API
      *
      * Calculate a detailed compatibility score between two birth charts using Western synastry
      * (inter-chart aspects). Returns overall score (0-100) plus category breakdowns for romantic,
@@ -184,7 +184,7 @@ class AstrologyResource extends BaseResource
      *   Birth location longitude in decimal degrees (-180 to 180). Affects local time and horizon
      *   calculations for house cusps.
      * @param string $time
-     *   Birth time in 24-hour HH:MM:SS format. Time is ESSENTIAL for accurate house cusps - even
+     *   Birth time in 24-hour HH:MM:SS format. Time is ESSENTIAL for accurate house cusps, and even
      *   minutes matter. The Ascendant (1st house cusp) changes roughly every 4 minutes. Without
      *   accurate time, house placements will be incorrect.
      * @param mixed $timezone

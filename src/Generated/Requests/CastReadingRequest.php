@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Cast an I-Ching reading
+ * Cast an I-Ching reading - Hexagram divination API
  *
  * Generate an authentic I-Ching reading using the traditional three-coin casting method. Each
  * of the six lines is determined by virtually tossing three coins, producing values 6-9 where

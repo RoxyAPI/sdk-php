@@ -15,11 +15,11 @@ use Saloon\Http\Request;
 /**
  * Get a month of almanac days - Chinese calendar month view API
  *
- * Return every day of one Gregorian month with its lunisolar date, its three pillars, its day
- * officer, its lunar mansion and its clash animal, plus the solar terms that fall inside the
- * month. This is the month view a calendar widget renders in one call rather than thirty one.
- * Omit the year and month to get the month in progress. Built for calendar UIs, almanac pages,
- * and planning tools that show a whole month at a glance.
+ * Return every day of one Gregorian month of the Chinese almanac with its lunisolar date, its
+ * three pillars, its day officer, its lunar mansion and its clash animal, plus the solar terms
+ * that fall inside the month. This is the month view a calendar widget renders in one call
+ * rather than thirty one. Omit the year and month to get the month in progress. Built for
+ * calendar UIs, almanac pages, and planning tools that show a whole month at a glance.
  *
  * GET /chinese-astrology/calendar/monthly
  */

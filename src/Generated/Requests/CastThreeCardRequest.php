@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Three-Card Spread: Past, Present, Future
+ * Three card spread, past present future - Tarot spread API
  *
  * Perform the classic three-card tarot spread revealing Past (what led to this situation),
  * Present (current energy and circumstances), and Future (likely outcome if current path

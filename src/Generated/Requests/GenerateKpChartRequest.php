@@ -22,8 +22,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * calculation. Returns complete chart with all 9 planets (Sun through Ketu), Ascendant, 12
  * Placidus house cusps, nakshatra details, star-lords, sub-lords, and KP horary numbers
  * (1-249). Perfect for KP astrology software, horary prediction apps, and event timing
- * analysis. SEO: KP astrology chart API, Placidus house cusps planets, Krishnamurti Paddhati
- * chart generator, KP birth chart calculator
+ * analysis. One call is a complete Krishnamurti Paddhati chart generator, returning the
+ * Placidus cusps and the planets with their sub lords together.
  *
  * POST /vedic-astrology/kp/chart
  */

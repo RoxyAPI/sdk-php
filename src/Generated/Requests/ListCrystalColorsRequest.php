@@ -13,11 +13,13 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List Crystal Colors
+ * List crystal colors - Crystal color filter API
  *
  * List all unique crystal colors available in the database. Use these values with the color
  * filter on GET /crystals to find crystals by color. Essential reference endpoint for building
- * color-based crystal browsing, visual crystal pickers, and filtering UI.
+ * color-based browsing of healing stones, visual crystal pickers, and filtering UI. The values
+ * are filter identifiers and stay in English under every lang, so a translated picker still
+ * submits a color the filter accepts.
  *
  * GET /crystals/colors
  */
@@ -26,12 +28,25 @@ class ListCrystalColorsRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-
+        public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
         return "/crystals/colors";
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

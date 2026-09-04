@@ -20,7 +20,7 @@ use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 class AngelNumbersResource extends BaseResource
 {
     /**
-     * Analyze Any Number Sequence
+     * Analyze any number sequence - Angel number analysis API
      *
      * Smart angel number analysis that works for ANY number sequence, not just known angel
      * numbers. Automatically classifies the pattern type (repeating, sequential, mirror, master,
@@ -60,7 +60,7 @@ class AngelNumbersResource extends BaseResource
     }
 
     /**
-     * Get Angel Number Meaning
+     * Get angel number meaning - Angel number lookup API
      *
      * Get the complete, authoritative meaning and interpretation for a specific angel number.
      * Returns detailed spiritual, love, career, money, and twin flame interpretations, plus a
@@ -92,7 +92,7 @@ class AngelNumbersResource extends BaseResource
     }
 
     /**
-     * Daily Angel Number
+     * Daily angel number - Angel number of the day API
      *
      * Get the angel number of the day with full meaning and interpretation. Returns a
      * deterministic angel number based on the current date (or a provided seed date), ensuring all
@@ -129,7 +129,7 @@ class AngelNumbersResource extends BaseResource
     }
 
     /**
-     * List All Angel Numbers
+     * List all angel numbers - Angel number catalog API
      *
      * Retrieve the complete database of angel numbers with summary information. Returns 75+ angel
      * numbers covering root digits (0-9), master numbers (11, 22, 33), double digits (44-99),

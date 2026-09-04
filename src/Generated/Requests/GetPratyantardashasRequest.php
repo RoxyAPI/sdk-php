@@ -17,10 +17,11 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Get all Pratyantardashas (antara periods) for a Mahadasha and Antardasha
  *
- * Pratyantardasha calculator API. Returns the 9 Pratyantardasha (antara) periods inside a
- * chosen Antardasha, the third level of the Vimshottari dasha hierarchy. Use it to drill from
- * a Mahadasha into month level timing for event prediction, muhurta selection, and dasha
- * timeline UIs. Each period is proportional to the Vimshottari years of its lord.
+ * Pratyantardasha calculator API for Vedic astrology. Returns the 9 Pratyantardasha (antara)
+ * periods inside a chosen Antardasha, the third level of the Vimshottari dasha hierarchy. Use
+ * it to drill from a Mahadasha into month level timing for event prediction, muhurta
+ * selection, and dasha timeline UIs. Each period is proportional to the Vimshottari years of
+ * its lord.
  *
  * POST /vedic-astrology/dasha/sub/{mahadasha}/{antardasha}
  */

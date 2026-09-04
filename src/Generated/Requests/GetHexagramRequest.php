@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get hexagram by number
+ * Get hexagram by number - I-Ching hexagram detail API
  *
  * Retrieve complete I-Ching hexagram details by King Wen sequence number (1-64). Returns the
  * full hexagram with Chinese name, English translation, judgment text, image text, modern

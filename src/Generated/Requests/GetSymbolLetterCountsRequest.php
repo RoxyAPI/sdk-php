@@ -13,12 +13,11 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get symbol counts by letter
+ * Symbol counts by letter - Dream dictionary index API
  *
  * Get the count of dream symbols available for each letter A-Z. Build alphabetical dream
- * dictionary navigation to help users browse dream interpretations by letter - from
- * abandonment dreams to zodiac dreams. See how many dream meanings exist for each starting
- * letter.
+ * dictionary navigation to help users browse dream interpretations by letter, from abandonment
+ * dreams to zodiac dreams. See how many dream meanings exist for each starting letter.
  *
  * GET /dreams/symbols/letters
  */

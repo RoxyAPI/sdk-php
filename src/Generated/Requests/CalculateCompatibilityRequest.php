@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Compatibility Score. Relationship compatibility analysis with category breakdown
+ * Compatibility score - Relationship compatibility API
  *
  * Calculate a detailed compatibility score between two birth charts using Western synastry
  * (inter-chart aspects). Returns overall score (0-100) plus category breakdowns for romantic,

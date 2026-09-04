@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Crystals by Chakra
+ * Crystals by chakra - Chakra healing stones API
  *
  * Get healing crystals and gemstones that resonate with a specific chakra energy center.
  * Returns summary data for each crystal. Use the /crystals/{id} detail endpoint for full

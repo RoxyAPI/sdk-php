@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Cast daily I-Ching reading with changing lines
+ * Cast daily reading with changing lines - I-Ching divination API
  *
  * Cast a complete daily I-Ching reading using the traditional three-coin method with seeded
  * randomness. Unlike the simple daily hexagram, this provides the full casting experience with

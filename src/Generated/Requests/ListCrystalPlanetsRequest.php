@@ -13,12 +13,13 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List Crystal Planets
+ * List crystal planets - Planetary ruler filter API
  *
  * List all unique planetary associations available in the database. Use these values with the
  * planet filter on GET /crystals to find crystals by ruling planet. Essential reference
  * endpoint for astrology app builders who want to recommend crystals based on planetary
- * placements in a birth chart.
+ * placements in a birth chart. The values are filter identifiers and stay in English under
+ * every lang, so a translated picker still submits a planet the filter accepts.
  *
  * GET /crystals/planets
  */
@@ -27,12 +28,25 @@ class ListCrystalPlanetsRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-
+        public readonly ?string $lang = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
         return "/crystals/planets";
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

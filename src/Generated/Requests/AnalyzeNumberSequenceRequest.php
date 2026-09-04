@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Analyze Any Number Sequence
+ * Analyze any number sequence - Angel number analysis API
  *
  * Smart angel number analysis that works for ANY number sequence, not just known angel
  * numbers. Automatically classifies the pattern type (repeating, sequential, mirror, master,

@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get detailed tarot card information
+ * Get tarot card by id - Tarot card meaning API
  *
  * Retrieve comprehensive details for a specific tarot card from the traditional
  * Rider-Waite-Smith deck including complete upright meanings (card drawn normally) and

@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get a random hexagram
+ * Random hexagram - I-Ching hexagram picker API
  *
  * Receive a random I-Ching hexagram with full interpretation. Perfect for daily oracle
  * features, meditation prompts, or exploring the Book of Changes. Returns complete hexagram

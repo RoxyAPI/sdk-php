@@ -13,7 +13,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * List All Angel Numbers
+ * List all angel numbers - Angel number catalog API
  *
  * Retrieve the complete database of angel numbers with summary information. Returns 75+ angel
  * numbers covering root digits (0-9), master numbers (11, 22, 33), double digits (44-99),

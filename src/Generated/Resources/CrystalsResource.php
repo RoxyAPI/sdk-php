@@ -20,7 +20,7 @@ use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 class CrystalsResource extends BaseResource
 {
     /**
-     * Birthstone Crystals by Month
+     * Birthstones by month - Birthstone lookup API
      *
      * Get the traditional birthstone crystals for a given birth month. Returns summary data for
      * each crystal. Use the /crystals/{id} detail endpoint for full healing properties. Based on
@@ -49,7 +49,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Get Crystal Healing Properties
+     * Get crystal by id - Crystal healing properties API
      *
      * Get complete healing properties and metaphysical data for a specific crystal or gemstone.
      * Returns spiritual, emotional, and physical healing interpretations along with chakra
@@ -79,7 +79,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Crystal Pairings
+     * Crystal pairings - Crystal combination API
      *
      * Get crystals that pair well with a given crystal for enhanced healing combinations. Returns
      * the source crystal along with its recommended companion stones and their properties.
@@ -109,7 +109,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Crystals by Chakra
+     * Crystals by chakra - Chakra healing stones API
      *
      * Get healing crystals and gemstones that resonate with a specific chakra energy center.
      * Returns summary data for each crystal. Use the /crystals/{id} detail endpoint for full
@@ -146,7 +146,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Crystals by Element
+     * Crystals by element - Elemental crystal lookup API
      *
      * Get healing crystals and gemstones associated with a specific natural element. Returns
      * summary data for each crystal. Use the /crystals/{id} detail endpoint for full healing
@@ -183,7 +183,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Crystals by Zodiac Sign
+     * Crystals by zodiac sign - Zodiac birthstone API
      *
      * Get healing crystals and gemstones associated with a specific zodiac sign. Returns summary
      * data for each crystal. Use the /crystals/{id} detail endpoint for full healing properties.
@@ -220,7 +220,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Daily Crystal
+     * Daily crystal - Crystal of the day API
      *
      * Get the crystal of the day as a discovery teaser. Returns a deterministic crystal based on
      * the current date (or a provided seed date), ensuring all users see the same crystal for any
@@ -256,7 +256,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Random Crystal
+     * Random crystal - Crystal discovery API
      *
      * Get a randomly selected healing crystal as a discovery teaser. Returns a different crystal
      * on each request (non-deterministic). Use the /crystals/{id} detail endpoint for complete
@@ -284,46 +284,61 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * List Crystal Colors
+     * List crystal colors - Crystal color filter API
      *
      * List all unique crystal colors available in the database. Use these values with the color
      * filter on GET /crystals to find crystals by color. Essential reference endpoint for building
-     * color-based crystal browsing, visual crystal pickers, and filtering UI.
+     * color-based browsing of healing stones, visual crystal pickers, and filtering UI. The values
+     * are filter identifiers and stay in English under every lang, so a translated picker still
+     * submits a color the filter accepts.
      *
      * GET /crystals/colors
      *
+     * @param string|null $lang
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
-    public function listCrystalColors(): array
+    public function listCrystalColors(
+        ?string $lang = null
+    ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\ListCrystalColorsRequest();
+        $request = new \RoxyAPI\Sdk\Generated\Requests\ListCrystalColorsRequest(lang: $lang);
 
         return $this->callRequest($request);
     }
 
     /**
-     * List Crystal Planets
+     * List crystal planets - Planetary ruler filter API
      *
      * List all unique planetary associations available in the database. Use these values with the
      * planet filter on GET /crystals to find crystals by ruling planet. Essential reference
      * endpoint for astrology app builders who want to recommend crystals based on planetary
-     * placements in a birth chart.
+     * placements in a birth chart. The values are filter identifiers and stay in English under
+     * every lang, so a translated picker still submits a planet the filter accepts.
      *
      * GET /crystals/planets
      *
+     * @param string|null $lang
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
-    public function listCrystalPlanets(): array
+    public function listCrystalPlanets(
+        ?string $lang = null
+    ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\ListCrystalPlanetsRequest();
+        $request = new \RoxyAPI\Sdk\Generated\Requests\ListCrystalPlanetsRequest(lang: $lang);
 
         return $this->callRequest($request);
     }
 
     /**
-     * List All Crystals
+     * List all crystals - Crystal healing database API
      *
      * Retrieve healing crystals and gemstones with pagination. Supports optional filtering by
      * chakra, zodiac sign, element, color, or planet. Returns minimal summary fields per crystal.
@@ -375,7 +390,7 @@ class CrystalsResource extends BaseResource
     }
 
     /**
-     * Search Crystals
+     * Search crystals - Crystal search API
      *
      * Search for healing crystals by keyword or name. Matches against crystal names, healing
      * keywords, descriptions, and spiritual/emotional/physical meaning fields. Returns summary

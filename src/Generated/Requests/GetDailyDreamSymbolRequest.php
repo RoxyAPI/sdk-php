@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get daily dream symbol
+ * Daily dream symbol - Dream symbol of the day API
  *
  * Receive a single dream symbol for daily reflection and subconscious exploration. Uses seeded
  * randomness so the same seed gets the same symbol on the same day, perfect for "Dream Symbol

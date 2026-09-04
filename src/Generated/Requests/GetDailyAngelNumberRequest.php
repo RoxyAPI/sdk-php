@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Daily Angel Number
+ * Daily angel number - Angel number of the day API
  *
  * Get the angel number of the day with full meaning and interpretation. Returns a
  * deterministic angel number based on the current date (or a provided seed date), ensuring all
