@@ -42,11 +42,11 @@ class MesoamericanAstrologyResource extends BaseResource
      *   that shifts every value in the response, so it is a parameter rather than a hidden default,
      *   and the resolved value comes back under conventions. "gmt-584283" is the commonly accepted
      *   constant and the default, and it is the one the major institutional converter runs on.
-     *   "martinez-hernando-584281" sits two days earlier, "astronomical-584285" two days later, and
+     *   "martinez-hernandez-584281" sits two days earlier, "astronomical-584285" two days later, and
      *   "martin-skidmore-584286" three days later, each shifting the Long Count by exactly its
      *   difference in days. Four of the eight published constants are offered: the other four sit
      *   tens of thousands of days away and are of historical interest only. The 584281 constant is
-     *   attributed to Martinez and Hernando, printed in the literature as Martinéz-Hernando.
+     *   the Martínez Hernández correlation, after Juan Martínez Hernández.
      * @param string|null $directionScheme
      *   Which reading of the world direction and colour to serve for a day sign. The two published
      *   assignments differ by exactly one quarter turn on all twenty signs, so neither is a rounding
@@ -130,11 +130,11 @@ class MesoamericanAstrologyResource extends BaseResource
      *   that shifts every value in the response, so it is a parameter rather than a hidden default,
      *   and the resolved value comes back under conventions. "gmt-584283" is the commonly accepted
      *   constant and the default, and it is the one the major institutional converter runs on.
-     *   "martinez-hernando-584281" sits two days earlier, "astronomical-584285" two days later, and
+     *   "martinez-hernandez-584281" sits two days earlier, "astronomical-584285" two days later, and
      *   "martin-skidmore-584286" three days later, each shifting the Long Count by exactly its
      *   difference in days. Four of the eight published constants are offered: the other four sit
      *   tens of thousands of days away and are of historical interest only. The 584281 constant is
-     *   attributed to Martinez and Hernando, printed in the literature as Martinéz-Hernando.
+     *   the Martínez Hernández correlation, after Juan Martínez Hernández.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -170,11 +170,11 @@ class MesoamericanAstrologyResource extends BaseResource
      *   that shifts every value in the response, so it is a parameter rather than a hidden default,
      *   and the resolved value comes back under conventions. "gmt-584283" is the commonly accepted
      *   constant and the default, and it is the one the major institutional converter runs on.
-     *   "martinez-hernando-584281" sits two days earlier, "astronomical-584285" two days later, and
+     *   "martinez-hernandez-584281" sits two days earlier, "astronomical-584285" two days later, and
      *   "martin-skidmore-584286" three days later, each shifting the Long Count by exactly its
      *   difference in days. Four of the eight published constants are offered: the other four sit
      *   tens of thousands of days away and are of historical interest only. The 584281 constant is
-     *   attributed to Martinez and Hernando, printed in the literature as Martinéz-Hernando.
+     *   the Martínez Hernández correlation, after Juan Martínez Hernández.
      * @param string|null $date
      *   Proleptic Gregorian date to convert INTO a Long Count. Supply this or longCount, never both
      *   and never neither.
@@ -226,11 +226,11 @@ class MesoamericanAstrologyResource extends BaseResource
      *   that shifts every value in the response, so it is a parameter rather than a hidden default,
      *   and the resolved value comes back under conventions. "gmt-584283" is the commonly accepted
      *   constant and the default, and it is the one the major institutional converter runs on.
-     *   "martinez-hernando-584281" sits two days earlier, "astronomical-584285" two days later, and
+     *   "martinez-hernandez-584281" sits two days earlier, "astronomical-584285" two days later, and
      *   "martin-skidmore-584286" three days later, each shifting the Long Count by exactly its
      *   difference in days. Four of the eight published constants are offered: the other four sit
      *   tens of thousands of days away and are of historical interest only. The 584281 constant is
-     *   attributed to Martinez and Hernando, printed in the literature as Martinéz-Hernando.
+     *   the Martínez Hernández correlation, after Juan Martínez Hernández.
      * @param string|null $yearBearerSystem
      *   Which Haab day is read as the start of the year when naming its Year Bearer. Only four of
      *   the twenty day signs can ever carry a year, and which four depends entirely on this choice,
@@ -368,11 +368,11 @@ class MesoamericanAstrologyResource extends BaseResource
      *   that shifts every value in the response, so it is a parameter rather than a hidden default,
      *   and the resolved value comes back under conventions. "gmt-584283" is the commonly accepted
      *   constant and the default, and it is the one the major institutional converter runs on.
-     *   "martinez-hernando-584281" sits two days earlier, "astronomical-584285" two days later, and
+     *   "martinez-hernandez-584281" sits two days earlier, "astronomical-584285" two days later, and
      *   "martin-skidmore-584286" three days later, each shifting the Long Count by exactly its
      *   difference in days. Four of the eight published constants are offered: the other four sit
      *   tens of thousands of days away and are of historical interest only. The 584281 constant is
-     *   attributed to Martinez and Hernando, printed in the literature as Martinéz-Hernando.
+     *   the Martínez Hernández correlation, after Juan Martínez Hernández.
      * @param string|null $date
      *   Date in YYYY-MM-DD format, in the PROLEPTIC GREGORIAN calendar, extended backwards unchanged
      *   through the 1582 reform. Years 1 to 4000 are accepted. A reference converter that switches
@@ -480,11 +480,11 @@ class MesoamericanAstrologyResource extends BaseResource
      *   that shifts every value in the response, so it is a parameter rather than a hidden default,
      *   and the resolved value comes back under conventions. "gmt-584283" is the commonly accepted
      *   constant and the default, and it is the one the major institutional converter runs on.
-     *   "martinez-hernando-584281" sits two days earlier, "astronomical-584285" two days later, and
+     *   "martinez-hernandez-584281" sits two days earlier, "astronomical-584285" two days later, and
      *   "martin-skidmore-584286" three days later, each shifting the Long Count by exactly its
      *   difference in days. Four of the eight published constants are offered: the other four sit
      *   tens of thousands of days away and are of historical interest only. The 584281 constant is
-     *   attributed to Martinez and Hernando, printed in the literature as Martinéz-Hernando.
+     *   the Martínez Hernández correlation, after Juan Martínez Hernández.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
