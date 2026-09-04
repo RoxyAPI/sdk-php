@@ -1,6 +1,6 @@
 # roxyapi/sdk - Agent Guide
 
-PHP SDK for RoxyAPI. 14+ domains (Western astrology, Vedic astrology, forecast, human design, Chinese astrology, feng shui, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location) plus utility namespaces (usage, languages). One API key, one Composer package, zero hand-written endpoint code.
+PHP SDK for RoxyAPI. 18+ domains (Western astrology, Vedic astrology, forecast, human design, Chinese astrology, feng shui, Mesoamerican astrology, Vastu, numerology, Kabbalah, tarot, biorhythm, Ayurveda, I Ching, crystals, dreams, angel numbers, location) plus utility namespaces (usage, languages). One API key, one Composer package, zero hand-written endpoint code.
 
 ## Install and initialize
 
@@ -58,7 +58,7 @@ $result = $roxy->location->searchCities(q: 'New York');
 | `$roxy->languages` | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
 <!-- END:DOMAINS -->
 
-209+ endpoints across 14+ product domains plus usage and languages. The table above auto-syncs from `specs/openapi.json` at release time.
+258+ endpoints across 18+ product domains plus usage and languages. The table above auto-syncs from `specs/openapi.json` at release time.
 
 ## Critical patterns
 

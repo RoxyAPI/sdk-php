@@ -9,7 +9,7 @@
 [![Packagist](https://img.shields.io/packagist/v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 [![PHP Version](https://img.shields.io/packagist/php-v/roxyapi/sdk.svg)](https://packagist.org/packages/roxyapi/sdk)
 
-Official PHP SDK for [RoxyAPI](https://roxyapi.com): natal charts, daily horoscopes, synastry, Vedic kundli, tarot spreads, human design bodygraphs, and transit forecasts across Western and Vedic astrology, forecast, human design, Chinese astrology, feng shui, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, and location geocoding. 209+ endpoints across 14+ domains, one API key, one dependency (Saloon).
+Official PHP SDK for [RoxyAPI](https://roxyapi.com): natal charts, daily horoscopes, synastry, Vedic kundli, tarot spreads, human design bodygraphs, and transit forecasts across Western and Vedic astrology, forecast, human design, Chinese astrology, feng shui, Mesoamerican astrology, Vastu, numerology, Kabbalah, tarot, biorhythm, Ayurveda, I Ching, crystals, dreams, angel numbers, and location geocoding. 258+ endpoints across 18+ domains, one API key, one dependency (Saloon).
 
 ## Install
 
