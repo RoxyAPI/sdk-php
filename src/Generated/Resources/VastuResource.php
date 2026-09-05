@@ -118,8 +118,10 @@ class VastuResource extends BaseResource
      *   Where the main door sits along the facing side, as a fraction from 0 to 1 measured from the
      *   corner the chapter starts that side at: the north-east for an east facing, the south-east
      *   for a south facing, the south-west for a west facing and the north-west for a north facing.
-     *   Requires a cardinal facing, since an intercardinal facing names no single side. Send this or
-     *   door, never both.
+     *   The side carries 8 padas, so to aim at pada n of 8 send its midpoint, (n - 0.5) / 8: 0.0625
+     *   for the first pada, 0.4375 for the fourth, 0.9375 for the eighth. The response names the
+     *   pada the fraction resolved to in ordinalOnSide. Requires a cardinal facing, since an
+     *   intercardinal facing names no single side. Send this or door, never both.
      * @param string|null $facing
      *   Direction the front of the house looks out toward, one of the eight compass sectors. Case
      *   and punctuation are folded, so north-east, northeast and NorthEast all resolve. Send this or

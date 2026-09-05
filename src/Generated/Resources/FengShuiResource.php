@@ -342,9 +342,9 @@ class FengShuiResource extends BaseResource
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
      * @param int|null $limit
-     *   Maximum sectors to return per page. Range 1 to 9, default 20.
+     *   Maximum items to return per page. Range: 1-9, default 9.
      * @param mixed|null $offset
-     *   Number of sectors to skip for pagination. Default 0.
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
@@ -375,9 +375,9 @@ class FengShuiResource extends BaseResource
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
      * @param int|null $limit
-     *   Maximum stars to return per page. Range 1 to 9, default 20.
+     *   Maximum items to return per page. Range: 1-9, default 9.
      * @param mixed|null $offset
-     *   Number of stars to skip for pagination. Default 0.
+     *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
