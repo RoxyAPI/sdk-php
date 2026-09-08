@@ -1976,12 +1976,13 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/kp/rasi-changes
      *
      * @param string $endDate
-     *   End date for sign ingress search (YYYY-MM-DD format)
+     *   Last day of the search, inclusive (YYYY-MM-DD), a calendar day in `timezone`. Not before
+     *   startDate, at most 365 days after it.
      * @param string $planet
      *   Planet to track (case-insensitive). Valid values: Sun, Moon, Mars, Mercury, Jupiter, Venus,
      *   Saturn
      * @param string $startDate
-     *   Start date for sign ingress search (YYYY-MM-DD format)
+     *   First day of the search (YYYY-MM-DD), a calendar day in `timezone`.
      * @param string|null $ayanamsa
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
@@ -1998,9 +1999,12 @@ class VedicAstrologyResource extends BaseResource
      *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
      *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
-     *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
-     *   resolved to the DST-correct offset for startDate. Output times are converted to this
-     *   timezone. Defaults to 0 (UTC).
+     *   IANA name (e.g. "America/New_York", "Europe/London"), a fixed offset like "+05:30", OR
+     *   decimal hours from UTC. One offset is taken from startDate (DST-correct for that date) and
+     *   used for the whole range, so a window crossing a daylight-saving change is read on the
+     *   earlier offset throughout; send a fixed offset if you need that explicit. The two dates are
+     *   read as calendar days in this timezone and output times are converted to it, so one date
+     *   with 5.5 is that whole Indian day. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -2172,17 +2176,18 @@ class VedicAstrologyResource extends BaseResource
      * Paddhati event timing. Returns exact timestamps when a planet transitions between sublords,
      * essential for prashna kundali analysis and dasha predictions. Use this to find favorable
      * windows when benefic sublords are active. Supports Sun, Moon, Mars, Mercury, Jupiter, Venus,
-     * and Saturn tracking over any date range.
+     * and Saturn tracking over any window up to 365 days.
      *
      * POST /vedic-astrology/kp/sublord-changes
      *
      * @param string $endDate
-     *   End date for sublord change search (YYYY-MM-DD format)
+     *   Last day of the search, inclusive (YYYY-MM-DD), a calendar day in `timezone`. Not before
+     *   startDate, at most 365 days after it.
      * @param string $planet
      *   Planet to track (case-insensitive). Valid values: Sun, Moon, Mars, Mercury, Jupiter, Venus,
      *   Saturn
      * @param string $startDate
-     *   Start date for sublord change search (YYYY-MM-DD format)
+     *   First day of the search (YYYY-MM-DD), a calendar day in `timezone`.
      * @param string|null $ayanamsa
      *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
      *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
@@ -2199,9 +2204,12 @@ class VedicAstrologyResource extends BaseResource
      *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
      *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
-     *   IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. IANA
-     *   resolved to the DST-correct offset for startDate. Output times are converted to this
-     *   timezone. Defaults to 0 (UTC).
+     *   IANA name (e.g. "America/New_York", "Europe/London"), a fixed offset like "+05:30", OR
+     *   decimal hours from UTC. One offset is taken from startDate (DST-correct for that date) and
+     *   used for the whole range, so a window crossing a daylight-saving change is read on the
+     *   earlier offset throughout; send a fixed offset if you need that explicit. The two dates are
+     *   read as calendar days in this timezone and output times are converted to it, so one date
+     *   with 5.5 is that whole Indian day. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */

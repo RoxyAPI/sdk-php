@@ -21,7 +21,7 @@ use Saloon\Traits\Body\HasJsonBody;
  * Paddhati event timing. Returns exact timestamps when a planet transitions between sublords,
  * essential for prashna kundali analysis and dasha predictions. Use this to find favorable
  * windows when benefic sublords are active. Supports Sun, Moon, Mars, Mercury, Jupiter, Venus,
- * and Saturn tracking over any date range.
+ * and Saturn tracking over any window up to 365 days.
  *
  * POST /vedic-astrology/kp/sublord-changes
  */
