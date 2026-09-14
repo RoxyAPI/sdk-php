@@ -26,10 +26,9 @@ use Saloon\Traits\Body\HasJsonBody;
  * chandrabala resolved for THIS native as windows rather than as one value, the running
  * Vimshottari chain three levels deep, and a KP finance net over the wealth and loss houses.
  * Ships a hand-reproducible strength score with its arithmetic published in the field itself,
- * and states plainly which part is classical and which part is our convention. Positions are
- * computed in the Lahiri sidereal frame; the KP significators behind the finance area use the
- * KP-Newcomb frame, as they do on every KP route. Vedic daily horoscope API, gochara API,
- * daily panchang prediction, tarabala and chandrabala API, ashtakavarga transit strength.
+ * and states plainly which part is classical and which part is a RoxyAPI counting convention.
+ * Positions are computed in the Lahiri sidereal frame; the KP significators behind the finance
+ * area use the KP-Newcomb frame, as they do on every KP route.
  *
  * POST /vedic-astrology/daily
  */

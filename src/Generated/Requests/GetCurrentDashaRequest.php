@@ -20,11 +20,13 @@ use Saloon\Traits\Body\HasJsonBody;
  * Calculate all five running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
  * Sookshma, Prana) with remaining time in each. Accurate dasha calculator API for life phase
  * prediction and planetary period analysis. Returns the dasha timeline with start/end dates
- * for every level, ready for a current DBA readout down to hour-level timing. Set
- * significators true to add the KP star lord, sub lord, signified houses and strength grade of
- * each running lord, plus the houses they have in common. Essential for understanding current
- * planetary influences, dasha transitions, and timing events in Vedic astrology. 120-year
- * dasha system based on moon nakshatra at birth, with selectable Lahiri or KP ayanamsa.
+ * for every level, ready for a current DBA readout down to hour-level timing. Pass datetime to
+ * read the five lords at any moment instead of now, which is what a reading prepared for
+ * tomorrow or a backtest over a past day needs. Set significators true to add the KP star
+ * lord, sub lord, signified houses and strength grade of each running lord, plus the houses
+ * they have in common. Essential for understanding current planetary influences, dasha
+ * transitions, and timing events in Vedic astrology. 120-year dasha system based on moon
+ * nakshatra at birth, with selectable Lahiri or KP ayanamsa.
  *
  * POST /vedic-astrology/dasha/current
  */
@@ -41,6 +43,7 @@ class GetCurrentDashaRequest extends Request implements HasBody
         public readonly string $time,
         public readonly ?string $ayanamsa = null,
         public readonly ?float $ayanamsaValue = null,
+        public readonly ?string $datetime = null,
         public readonly ?string $nodeType = null,
         public readonly ?bool $significators = null,
         public readonly mixed $timezone = null,
@@ -67,6 +70,9 @@ class GetCurrentDashaRequest extends Request implements HasBody
             $body['ayanamsaValue'] = $this->ayanamsaValue;
         }
         $body['date'] = $this->date;
+        if ($this->datetime !== null) {
+            $body['datetime'] = $this->datetime;
+        }
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
         if ($this->nodeType !== null) {

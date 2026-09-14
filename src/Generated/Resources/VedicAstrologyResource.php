@@ -1483,11 +1483,13 @@ class VedicAstrologyResource extends BaseResource
      * Calculate all five running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
      * Sookshma, Prana) with remaining time in each. Accurate dasha calculator API for life phase
      * prediction and planetary period analysis. Returns the dasha timeline with start/end dates
-     * for every level, ready for a current DBA readout down to hour-level timing. Set
-     * significators true to add the KP star lord, sub lord, signified houses and strength grade of
-     * each running lord, plus the houses they have in common. Essential for understanding current
-     * planetary influences, dasha transitions, and timing events in Vedic astrology. 120-year
-     * dasha system based on moon nakshatra at birth, with selectable Lahiri or KP ayanamsa.
+     * for every level, ready for a current DBA readout down to hour-level timing. Pass datetime to
+     * read the five lords at any moment instead of now, which is what a reading prepared for
+     * tomorrow or a backtest over a past day needs. Set significators true to add the KP star
+     * lord, sub lord, signified houses and strength grade of each running lord, plus the houses
+     * they have in common. Essential for understanding current planetary influences, dasha
+     * transitions, and timing events in Vedic astrology. 120-year dasha system based on moon
+     * nakshatra at birth, with selectable Lahiri or KP ayanamsa.
      *
      * POST /vedic-astrology/dasha/current
      *
@@ -1520,6 +1522,11 @@ class VedicAstrologyResource extends BaseResource
      *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
      *   selected type. Use for testing with specific ayanamsa values or matching a particular
      *   reference source.
+     * @param string|null $datetime
+     *   ISO 8601 datetime (YYYY-MM-DDTHH:MM:SS) to read the running periods at, for a reading
+     *   prepared for a future day, a backtest, or a chart cast for a past moment. Defaults to the
+     *   current instant. Interpreted as local time in the request timezone (a trailing Z is accepted
+     *   but ignored); with timezone 0 it is UTC.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -1559,6 +1566,7 @@ class VedicAstrologyResource extends BaseResource
         string $time,
         ?string $ayanamsa = null,
         ?float $ayanamsaValue = null,
+        ?string $datetime = null,
         ?string $nodeType = null,
         ?bool $significators = null,
         mixed $timezone = null,
@@ -1566,7 +1574,7 @@ class VedicAstrologyResource extends BaseResource
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetCurrentDashaRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, datetime: $datetime, nodeType: $nodeType, significators: $significators, timezone: $timezone, focus: $focus, lang: $lang);
 
         return $this->callRequest($request);
     }
@@ -3141,10 +3149,9 @@ class VedicAstrologyResource extends BaseResource
      * chandrabala resolved for THIS native as windows rather than as one value, the running
      * Vimshottari chain three levels deep, and a KP finance net over the wealth and loss houses.
      * Ships a hand-reproducible strength score with its arithmetic published in the field itself,
-     * and states plainly which part is classical and which part is our convention. Positions are
-     * computed in the Lahiri sidereal frame; the KP significators behind the finance area use the
-     * KP-Newcomb frame, as they do on every KP route. Vedic daily horoscope API, gochara API,
-     * daily panchang prediction, tarabala and chandrabala API, ashtakavarga transit strength.
+     * and states plainly which part is classical and which part is a RoxyAPI counting convention.
+     * Positions are computed in the Lahiri sidereal frame; the KP significators behind the finance
+     * area use the KP-Newcomb frame, as they do on every KP route.
      *
      * POST /vedic-astrology/daily
      *
