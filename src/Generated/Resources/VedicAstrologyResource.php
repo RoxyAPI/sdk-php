@@ -1852,6 +1852,101 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Score the day for money with four sub lord layers - KP Daily Finance API
+     *
+     * A Krishnamurti Paddhati daily finance reading for one native on one date. Four KP layers are
+     * each scored against the money houses and weighed into one number: the cusp sub lords of the
+     * gain and loss houses (structural promise), the four running Vimshottari lords at the reading
+     * moment (timing), the ruling planets of that moment (the pulse), and the sub lord windows the
+     * Moon passes through across the civil day (the hour hand), with the best and worst windows
+     * named. Weights cusps 30, dasha 40, rulingPlanets 15, moonWindows 15. Every input is the
+     * shipped KP arithmetic: Placidus cusps, the 249 sub lord table, the four tier significator
+     * rule, the Vimshottari chain to the sookshma level, all in the one ayanamsa you choose. Every
+     * row prints its planet, its standing against the two sets and its score, so the number can be
+     * audited rather than trusted. The house groups, the classification, the inversion on the loss
+     * cusps, the retrograde penalty, the level weights and the layer weights are a KP practitioner
+     * convention adopted as the published convention of this route: no classical KP text weighs
+     * these four layers against each other, and every table behind the number is printed so the
+     * result can be checked line by line rather than trusted. The score measures what the method
+     * outputs for the day, never the probability of a gain or a loss. Override the two house
+     * groups to run your own school.
+     *
+     * POST /vedic-astrology/kp/daily-finance
+     *
+     * @param string $birthDate
+     *   Birth date, YYYY-MM-DD. Fixes the Placidus cusps, the four tier significators and the
+     *   Vimshottari balance every layer reads.
+     * @param string $birthTime
+     *   Birth time, HH:MM:SS, 24 hour, local to the birth place. The cusp sub lords move about one
+     *   sub every four minutes of clock time, so this is the input the whole reading is most
+     *   sensitive to.
+     * @param float $latitude
+     *   Birth latitude in decimal degrees. Sets the Placidus cusps; also the place the ruling
+     *   planets and the Moon windows are read at.
+     * @param float $longitude
+     *   Birth longitude in decimal degrees, east positive.
+     * @param string|null $ayanamsa
+     *   Ayanamsa system for sidereal conversion. "kp-newcomb" uses the KP-Newcomb dynamic formula,
+     *   the most common choice for KP astrology. "kp-old" uses the Krishnamurti original table from
+     *   KP Reader-1 with constant precession rate. "lahiri" uses Lahiri/Chitrapaksha ayanamsa,
+     *   matching most traditional Vedic software. "raman" uses the B.V. Raman ayanamsa from Hindu
+     *   Predictive Astrology, a recognised traditional school that sits about 1.45 degrees below
+     *   Lahiri. Defaults to "kp-newcomb".
+     * @param string|null $date
+     *   Civil date to read, YYYY-MM-DD in the request timezone. Defaults to today (UTC). The Moon
+     *   windows cover this date from midnight to midnight.
+     * @param array|null $gainHouses
+     *   Houses whose significators count as gain, 1 to 12. Defaults to the convention, 2 and 11.
+     *   Override it to run your own school: the two lists may not share a house.
+     * @param array|null $lossHouses
+     *   Houses whose significators count as loss, 1 to 12. Defaults to the convention, 6 and 8 and
+     *   12. Override it to run your own school: the two lists may not share a house.
+     * @param string|null $nodeType
+     *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
+     *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
+     *   1.5 degrees either side of the mean on a 173-day cycle, and can briefly turn direct. Neither
+     *   is more correct and they almost always fall in the same sign. Applies to the Rahu and Ketu
+     *   positions. Mean is the traditional Vedic default and what printed panchangs use; the choice
+     *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
+     *   degrees. Defaults to "mean".
+     * @param string|null $time
+     *   Reading moment on that date, HH:MM:SS local. The ruling planets and the running sookshma
+     *   lord are read at this instant. Defaults to 12:00:00; pass a market open or any hour for an
+     *   intraday read.
+     * @param mixed|null $timezone
+     *   Timezone as an IANA name (Asia/Kolkata) or decimal hours from UTC. Applies to the birth
+     *   time, to the reading date and time, and to every local timestamp in the response. IANA names
+     *   resolve to the offset in force on the date being read.
+     * @param array|null $weights
+     *   Layer weights in percent, all four required, summing to 100. Defaults to the convention,
+     *   cusps 30, dasha 40, rulingPlanets 15, moonWindows 15. Seventy percent of the default sits on
+     *   the cusps and the outer dasha levels, which hold for months, so a chart reads inside a
+     *   narrow band all month and the bands separate charts more than days. Move weight onto
+     *   rulingPlanets and moonWindows for a reading that turns with the day.
+     *
+     * @return array<string, mixed>
+     */
+    public function getKpDailyFinance(
+        string $birthDate,
+        string $birthTime,
+        float $latitude,
+        float $longitude,
+        ?string $ayanamsa = null,
+        ?string $date = null,
+        ?array $gainHouses = null,
+        ?array $lossHouses = null,
+        ?string $nodeType = null,
+        ?string $time = null,
+        mixed $timezone = null,
+        ?array $weights = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetKpDailyFinanceRequest(birthDate: $birthDate, birthTime: $birthTime, latitude: $latitude, longitude: $longitude, ayanamsa: $ayanamsa, date: $date, gainHouses: $gainHouses, lossHouses: $lossHouses, nodeType: $nodeType, time: $time, timezone: $timezone, weights: $weights);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get KP planetary positions with sub-lords
      *
      * Get planetary positions with detailed KP star-lord and sub-lord calculations for precise
