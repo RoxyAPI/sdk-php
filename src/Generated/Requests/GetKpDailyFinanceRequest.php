@@ -15,7 +15,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Score the day for money with four sub lord layers - KP Daily Finance API
+ * Daily finance score from four KP sub lord layers - KP Daily Finance API
  *
  * A Krishnamurti Paddhati daily finance reading for one native on one date. Four KP layers are
  * each scored against the money houses and weighed into one number: the cusp sub lords of the
