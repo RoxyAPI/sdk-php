@@ -43,8 +43,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $houseSystem
      *   House system used to place the Sun, which determines the chart sect (day when the Sun is
      *   above the horizon, night when below) and therefore which lot formula applies. Placidus
@@ -390,8 +390,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $nodeType
      *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
@@ -456,8 +456,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $houseSystem
      *   House system used to assign each asteroid to a natal house. Placidus (default), Whole Sign,
      *   Equal, or Koch. Above the polar circle, quadrant systems fall back to Whole Sign and the
@@ -517,8 +517,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $nodeType
      *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
@@ -617,8 +617,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $nodeType
      *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
@@ -679,8 +679,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $houseSystem
      *   House system used to place each Lilith variant in a house. Placidus (default), Whole Sign,
      *   Equal, or Koch.
@@ -743,7 +743,7 @@ class AstrologyResource extends BaseResource
      *   time.
      * @param mixed $timezone
      *   Decimal hours from UTC (e.g. -5 for EST, 5.5 for IST, 9 for JST) OR IANA name (e.g.
-     *   "America/New_York"). IANA resolved to the DST-correct offset for the birth date.
+     *   "America/New_York"). IANA resolved to the offset in force at the birth date and time.
      * @param string|null $include
      *   Optional comma-separated extra bodies to add beyond the 10 classical planets. Allowed
      *   values: north-node, chiron, lilith. north-node is the mean lunar node. Omit to return the 10
@@ -850,8 +850,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $houseSystem
      *   House system for dividing the chart into 12 houses. Placidus (default) is most popular in
      *   Western astrology and time-sensitive. Whole Sign assigns one sign per house (simpler,
@@ -977,8 +977,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $houseSystem
      *   House system used only to report where the lord of the year sits in the natal chart. The
      *   profected house and sign always use whole sign profection from the rising sign. Placidus
@@ -1045,8 +1045,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $nodeType
      *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
@@ -1111,7 +1111,7 @@ class AstrologyResource extends BaseResource
      *   instant, which the relocated angles and houses are recomputed for.
      * @param mixed $timezone
      *   Birth timezone: decimal hours from UTC (e.g. -5 for EST, 5.5 for IST) OR IANA name (e.g.
-     *   "America/New_York"). Resolved to the DST-correct offset for the birth date. This is the
+     *   "America/New_York"). Resolved to the offset in force at the birth date and time. This is the
      *   birthplace timezone, not the new location timezone.
      * @param string|null $houseSystem
      *   House system for dividing the relocated chart into 12 houses. Placidus (default) is
@@ -1170,8 +1170,8 @@ class AstrologyResource extends BaseResource
      *   cusps. Use 12:00:00 if unknown.
      * @param mixed $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly.
      * @param string|null $nodeType
      *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about

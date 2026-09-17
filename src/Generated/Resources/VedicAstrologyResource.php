@@ -63,9 +63,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -132,9 +132,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      *
      * @return array<string, mixed>
      */
@@ -200,9 +200,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -281,9 +281,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -367,9 +367,9 @@ class VedicAstrologyResource extends BaseResource
      *   for the same chart, so select the one your reference software uses. Defaults to "eight".
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -579,9 +579,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -796,9 +796,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -865,9 +865,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -934,9 +934,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1023,9 +1023,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1105,9 +1105,9 @@ class VedicAstrologyResource extends BaseResource
      *   byte-identical until it opts in.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -1193,9 +1193,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1336,9 +1336,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1541,9 +1541,9 @@ class VedicAstrologyResource extends BaseResource
      *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -1772,8 +1772,8 @@ class VedicAstrologyResource extends BaseResource
      *   only when reconciling a chart against reference software to the arcsecond.
      * @param string|null $timezone
      *   IANA name (e.g. "Asia/Kolkata", "America/New_York"), decimal hours (e.g. 5.5 for IST, -5 for
-     *   EST), or a fixed UTC offset (e.g. "+05:30"). IANA resolved to the DST-correct offset for the
-     *   given date. Applies to the time field above. Defaults to 0 (UTC).
+     *   EST), or a fixed UTC offset (e.g. "+05:30"). IANA resolved to the offset in force at the
+     *   given date and the time field above. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
@@ -2431,9 +2431,9 @@ class VedicAstrologyResource extends BaseResource
      *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -2712,9 +2712,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -2803,9 +2803,9 @@ class VedicAstrologyResource extends BaseResource
      *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -2904,9 +2904,9 @@ class VedicAstrologyResource extends BaseResource
      *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -3033,9 +3033,9 @@ class VedicAstrologyResource extends BaseResource
      *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -3130,9 +3130,9 @@ class VedicAstrologyResource extends BaseResource
      *   and uses the same ayanamsa frame selected above.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -3211,9 +3211,9 @@ class VedicAstrologyResource extends BaseResource
      *   reference source.
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the DST-correct offset for the
-     *   given date, so you can pass `cities[0].timezone` from /location/search directly. Defaults to
-     *   5.5.
+     *   (e.g. -5 for EST, 1 for CET). IANA strings are resolved to the offset in force at the given
+     *   date and time, so you can pass `cities[0].timezone` from /location/search directly. Defaults
+     *   to 5.5.
      *
      * @return array<string, mixed>
      */
