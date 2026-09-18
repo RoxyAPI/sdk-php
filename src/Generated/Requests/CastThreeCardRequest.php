@@ -17,13 +17,14 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Three card spread, past present future - Tarot spread API
  *
- * Perform the classic three-card tarot spread revealing Past (what led to this situation),
- * Present (current energy and circumstances), and Future (likely outcome if current path
- * continues). The most popular beginner-friendly spread, perfect for quick insights, daily
- * guidance, or exploring specific questions. Each position includes a drawn card with reversal
- * state, keywords, full meaning, and position-specific interpretation. Returns a summary
- * connecting all three cards. Ideal for tarot reading apps, decision-making tools, and
- * personal growth platforms. Optionally provide a seed for reproducible readings.
+ * Perform the classic three-card tarot spread revealing Past, Present, and Future. Past is
+ * what led to this situation, Present the current energy and circumstances, and Future the
+ * likely outcome if the current path continues. The most popular beginner-friendly spread,
+ * perfect for quick insights, daily guidance, or exploring specific questions. Each position
+ * includes a drawn card with reversal state, keywords, full meaning, and position-specific
+ * interpretation. Returns a summary connecting all three cards. Ideal for tarot reading apps,
+ * decision-making tools, and personal growth platforms. Optionally provide a seed for
+ * reproducible readings.
  *
  * POST /tarot/spreads/three-card
  */

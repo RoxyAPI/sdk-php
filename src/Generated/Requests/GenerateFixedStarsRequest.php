@@ -17,12 +17,12 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Fixed stars and star conjunctions calculator - Regulus, Spica, Algol natal report
  *
- * Calculate the tropical zodiac positions of the major named fixed stars for any birth moment,
- * including the four Royal stars and the fifteen Behenian stars, then detect conjunctions to
- * the natal planets, Ascendant, and Midheaven. Each star returns its precessed ecliptic
- * longitude, zodiac sign, visual magnitude, and traditional planetary nature, with a plain
- * language interpretation for every conjunction inside the chosen orb. A focused tool for
- * natal reports that weigh Regulus, Spica, Aldebaran, Antares, and Algol against the chart.
+ * Calculate the tropical zodiac positions of the major named fixed stars for any birth moment.
+ * Covers the four Royal stars and the fifteen Behenian stars, then detects conjunctions to the
+ * natal planets, Ascendant, and Midheaven. Each star returns its precessed ecliptic longitude,
+ * zodiac sign, visual magnitude, and traditional planetary nature, with a plain language
+ * interpretation for every conjunction inside the chosen orb. A focused tool for natal reports
+ * that weigh Regulus, Spica, Aldebaran, Antares, and Algol against the chart.
  *
  * POST /astrology/fixed-stars
  */

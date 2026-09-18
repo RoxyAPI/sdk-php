@@ -13,7 +13,7 @@ use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
  * Vedic astrology (Jyotish) and KP API for kundli generation with 15 divisional charts
- * (D1-D60), Ashtakoot Gun Milan ku...
+ * (D1-D60), panchang with choghadi...
  *
  * Accessed via $roxy->vedicAstrology.
  */
@@ -1480,14 +1480,14 @@ class VedicAstrologyResource extends BaseResource
     /**
      * Get current Mahadasha, Antardasha, Pratyantardasha, Sookshma, Prana - Dasha Calculator API
      *
-     * Calculate all five running Vimshottari Dasha levels (Mahadasha, Antardasha, Pratyantardasha,
-     * Sookshma, Prana) with remaining time in each. Accurate dasha calculator API for life phase
-     * prediction and planetary period analysis. Returns the dasha timeline with start/end dates
-     * for every level, ready for a current DBA readout down to hour-level timing. Pass datetime to
-     * read the five lords at any moment instead of now, which is what a reading prepared for
-     * tomorrow or a backtest over a past day needs. Set significators true to add the KP star
-     * lord, sub lord, signified houses and strength grade of each running lord, plus the houses
-     * they have in common. Essential for understanding current planetary influences, dasha
+     * Calculate all five running Vimshottari Dasha levels with remaining time in each. The levels
+     * are Mahadasha, Antardasha, Pratyantardasha, Sookshma, and Prana. Accurate dasha calculator
+     * API for life phase prediction and planetary period analysis. Returns the dasha timeline with
+     * start/end dates for every level, ready for a current DBA readout down to hour-level timing.
+     * Pass datetime to read the five lords at any moment instead of now, which is what a reading
+     * prepared for tomorrow or a backtest over a past day needs. Set significators true to add the
+     * KP star lord, sub lord, signified houses and strength grade of each running lord, plus the
+     * houses they have in common. Essential for understanding current planetary influences, dasha
      * transitions, and timing events in Vedic astrology. 120-year dasha system based on moon
      * nakshatra at birth, with selectable Lahiri or KP ayanamsa.
      *

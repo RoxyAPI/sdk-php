@@ -12,7 +12,7 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Location and timezone API with city search and geocoding across 235,000+ cities in 240+
+ * Timezone and location API with city search and geocoding across 235,000+ cities in 240+
  * countries, returning latitude...
  *
  * Accessed via $roxy->location.

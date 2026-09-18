@@ -17,10 +17,10 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Secondary progressions calculator - progressed chart, progressed Sun and Moon
  *
- * Generate the secondary progressed chart for any date using the day-for-a-year key, where
- * each day of ephemeris motion after birth stands in for one year of life. Returns every
- * progressed body with its sign, degree, whole-sign house, motion, and retrograde state, plus
- * the progressed Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed
+ * Generate the secondary progressed chart for any date using the day-for-a-year key. Each day
+ * of ephemeris motion after birth stands in for one year of life. Returns every progressed
+ * body with its sign, degree, whole-sign house, motion, and retrograde state, plus the
+ * progressed Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed
  * Moon are the headline timing markers for inner growth and emotional chapters. Secondary
  * progressions API, progressed chart calculator, progressed Sun and Moon, progressed Ascendant
  * and Midheaven.

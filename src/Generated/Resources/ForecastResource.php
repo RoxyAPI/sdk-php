@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Forecast API that merges upcoming transit aspects, sign ingresses, retrograde stations, new
- * and full moons, biorhythm...
+ * Astrology forecast API that merges upcoming transit aspects, sign ingresses, retrograde
+ * stations, new and full moons,...
  *
  * Accessed via $roxy->forecast.
  */

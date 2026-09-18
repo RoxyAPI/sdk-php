@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Calculate BaZi Four Pillars charts, Chinese zodiac signs, and the Chinese lunisolar calendar
- * from any birth moment: y...
+ * Chinese zodiac and BaZi astrology API: Four Pillars charts, Chinese zodiac signs and the
+ * Chinese lunisolar calendar f...
  *
  * Accessed via $roxy->chineseAstrology.
  */

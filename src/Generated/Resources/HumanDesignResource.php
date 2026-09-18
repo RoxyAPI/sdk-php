@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Generate the full Human Design bodygraph from a birth moment: type, strategy, inner
- * authority, profile, definition, i...
+ * Human Design API that generates the full bodygraph from a birth moment: type, strategy,
+ * inner authority, profile, def...
  *
  * Accessed via $roxy->humanDesign.
  */

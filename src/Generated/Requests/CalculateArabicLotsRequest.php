@@ -17,12 +17,12 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Arabic lots calculator - seven Hermetic parts including Part of Fortune and Spirit
  *
- * Calculate the seven Hermetic lots (Arabic parts) for any birth moment: Part of Fortune, Part
- * of Spirit, Eros, Necessity, Courage, Victory, and Nemesis. Each lot is a sensitive point
- * projected by arc from the Ascendant, with the day or night formula applied automatically
- * from the chart sect. Returns the zodiac sign, degree, exact longitude, the arc used, and a
- * plain language interpretation per lot, for Hellenistic and traditional astrology apps. Built
- * on accurate tropical chart positions, no astronomy expertise needed.
+ * Calculate the seven Hermetic lots (Arabic parts) for any birth moment. The lots are the Part
+ * of Fortune, Part of Spirit, Eros, Necessity, Courage, Victory, and Nemesis. Each lot is a
+ * sensitive point projected by arc from the Ascendant, with the day or night formula applied
+ * automatically from the chart sect. Returns the zodiac sign, degree, exact longitude, the arc
+ * used, and a plain language interpretation per lot, for Hellenistic and traditional astrology
+ * apps. Built on accurate tropical chart positions, no astronomy expertise needed.
  *
  * POST /astrology/arabic-lots
  */

@@ -15,10 +15,10 @@ use Saloon\Http\Request;
 /**
  * List all 78 tarot cards - Tarot deck catalog API
  *
- * Retrieve the complete Rider-Waite-Smith tarot deck of 78 cards: 22 Major Arcana (numbered
- * 0-21, representing life lessons, spiritual themes, and karmic influences like The Fool,
- * Death, The Tower) plus 56 Minor Arcana (4 suits × 14 cards each for daily situations and
- * practical matters). Filter by arcana type (major for spiritual guidance, minor for everyday
+ * Retrieve the complete Rider-Waite-Smith tarot deck of 78 cards. The 22 Major Arcana
+ * (numbered 0-21) carry life lessons, spiritual themes, and karmic influences like The Fool,
+ * Death, The Tower; the 56 Minor Arcana (4 suits × 14 cards each) cover daily situations and
+ * practical matters. Filter by arcana type (major for spiritual guidance, minor for everyday
  * concerns), suit (cups for emotions and relationships, wands for creativity and passion,
  * swords for intellect and conflict, pentacles for material wealth and finances), or card
  * number (Ace=1 for new beginnings, 2-10 for progression, Page=11 for messages, Knight=12 for

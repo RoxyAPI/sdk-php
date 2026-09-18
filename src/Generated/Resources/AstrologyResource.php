@@ -22,12 +22,12 @@ class AstrologyResource extends BaseResource
     /**
      * Arabic lots calculator - seven Hermetic parts including Part of Fortune and Spirit
      *
-     * Calculate the seven Hermetic lots (Arabic parts) for any birth moment: Part of Fortune, Part
-     * of Spirit, Eros, Necessity, Courage, Victory, and Nemesis. Each lot is a sensitive point
-     * projected by arc from the Ascendant, with the day or night formula applied automatically
-     * from the chart sect. Returns the zodiac sign, degree, exact longitude, the arc used, and a
-     * plain language interpretation per lot, for Hellenistic and traditional astrology apps. Built
-     * on accurate tropical chart positions, no astronomy expertise needed.
+     * Calculate the seven Hermetic lots (Arabic parts) for any birth moment. The lots are the Part
+     * of Fortune, Part of Spirit, Eros, Necessity, Courage, Victory, and Nemesis. Each lot is a
+     * sensitive point projected by arc from the Ascendant, with the day or night formula applied
+     * automatically from the chart sect. Returns the zodiac sign, degree, exact longitude, the arc
+     * used, and a plain language interpretation per lot, for Hellenistic and traditional astrology
+     * apps. Built on accurate tropical chart positions, no astronomy expertise needed.
      *
      * POST /astrology/arabic-lots
      *
@@ -596,12 +596,12 @@ class AstrologyResource extends BaseResource
     /**
      * Fixed stars and star conjunctions calculator - Regulus, Spica, Algol natal report
      *
-     * Calculate the tropical zodiac positions of the major named fixed stars for any birth moment,
-     * including the four Royal stars and the fifteen Behenian stars, then detect conjunctions to
-     * the natal planets, Ascendant, and Midheaven. Each star returns its precessed ecliptic
-     * longitude, zodiac sign, visual magnitude, and traditional planetary nature, with a plain
-     * language interpretation for every conjunction inside the chosen orb. A focused tool for
-     * natal reports that weigh Regulus, Spica, Aldebaran, Antares, and Algol against the chart.
+     * Calculate the tropical zodiac positions of the major named fixed stars for any birth moment.
+     * Covers the four Royal stars and the fifteen Behenian stars, then detects conjunctions to the
+     * natal planets, Ascendant, and Midheaven. Each star returns its precessed ecliptic longitude,
+     * zodiac sign, visual magnitude, and traditional planetary nature, with a plain language
+     * interpretation for every conjunction inside the chosen orb. A focused tool for natal reports
+     * that weigh Regulus, Spica, Aldebaran, Antares, and Algol against the chart.
      *
      * POST /astrology/fixed-stars
      *
@@ -1019,10 +1019,10 @@ class AstrologyResource extends BaseResource
     /**
      * Secondary progressions calculator - progressed chart, progressed Sun and Moon
      *
-     * Generate the secondary progressed chart for any date using the day-for-a-year key, where
-     * each day of ephemeris motion after birth stands in for one year of life. Returns every
-     * progressed body with its sign, degree, whole-sign house, motion, and retrograde state, plus
-     * the progressed Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed
+     * Generate the secondary progressed chart for any date using the day-for-a-year key. Each day
+     * of ephemeris motion after birth stands in for one year of life. Returns every progressed
+     * body with its sign, degree, whole-sign house, motion, and retrograde state, plus the
+     * progressed Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed
      * Moon are the headline timing markers for inner growth and emotional chapters. Secondary
      * progressions API, progressed chart calculator, progressed Sun and Moon, progressed Ascendant
      * and Midheaven.
@@ -1666,10 +1666,10 @@ class AstrologyResource extends BaseResource
     /**
      * Get planetary positions - Ephemeris calculator for all planets
      *
-     * Calculate accurate tropical zodiac positions for all 14 celestial bodies (the 10 classical
-     * planets Sun through Pluto, the lunar nodes, Chiron, and Black Moon Lilith) for any date,
-     * time, and location. Returns longitude, latitude, zodiac sign, degree within sign, daily
-     * motion speed, and retrograde status. Perfect for transit tracking, ephemeris tables,
+     * Calculate accurate tropical zodiac positions for all 14 celestial bodies for any date, time,
+     * and location. The bodies are the 10 classical planets Sun through Pluto, the lunar nodes,
+     * Chiron, and Black Moon Lilith. Returns longitude, latitude, zodiac sign, degree within sign,
+     * daily motion speed, and retrograde status. Perfect for transit tracking, ephemeris tables,
      * astrology apps, and planetary position widgets. Verified against NASA JPL Horizons.
      *
      * POST /astrology/planets

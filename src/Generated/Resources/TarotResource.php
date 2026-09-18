@@ -210,13 +210,14 @@ class TarotResource extends BaseResource
     /**
      * Three card spread, past present future - Tarot spread API
      *
-     * Perform the classic three-card tarot spread revealing Past (what led to this situation),
-     * Present (current energy and circumstances), and Future (likely outcome if current path
-     * continues). The most popular beginner-friendly spread, perfect for quick insights, daily
-     * guidance, or exploring specific questions. Each position includes a drawn card with reversal
-     * state, keywords, full meaning, and position-specific interpretation. Returns a summary
-     * connecting all three cards. Ideal for tarot reading apps, decision-making tools, and
-     * personal growth platforms. Optionally provide a seed for reproducible readings.
+     * Perform the classic three-card tarot spread revealing Past, Present, and Future. Past is
+     * what led to this situation, Present the current energy and circumstances, and Future the
+     * likely outcome if the current path continues. The most popular beginner-friendly spread,
+     * perfect for quick insights, daily guidance, or exploring specific questions. Each position
+     * includes a drawn card with reversal state, keywords, full meaning, and position-specific
+     * interpretation. Returns a summary connecting all three cards. Ideal for tarot reading apps,
+     * decision-making tools, and personal growth platforms. Optionally provide a seed for
+     * reproducible readings.
      *
      * POST /tarot/spreads/three-card
      *
@@ -425,10 +426,10 @@ class TarotResource extends BaseResource
     /**
      * List all 78 tarot cards - Tarot deck catalog API
      *
-     * Retrieve the complete Rider-Waite-Smith tarot deck of 78 cards: 22 Major Arcana (numbered
-     * 0-21, representing life lessons, spiritual themes, and karmic influences like The Fool,
-     * Death, The Tower) plus 56 Minor Arcana (4 suits × 14 cards each for daily situations and
-     * practical matters). Filter by arcana type (major for spiritual guidance, minor for everyday
+     * Retrieve the complete Rider-Waite-Smith tarot deck of 78 cards. The 22 Major Arcana
+     * (numbered 0-21) carry life lessons, spiritual themes, and karmic influences like The Fool,
+     * Death, The Tower; the 56 Minor Arcana (4 suits × 14 cards each) cover daily situations and
+     * practical matters. Filter by arcana type (major for spiritual guidance, minor for everyday
      * concerns), suit (cups for emotions and relationships, wands for creativity and passion,
      * swords for intellect and conflict, pentacles for material wealth and finances), or card
      * number (Ace=1 for new beginnings, 2-10 for progression, Page=11 for messages, Knight=12 for
