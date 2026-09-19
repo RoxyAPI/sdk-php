@@ -8,6 +8,12 @@ updates:
     groups:
       dev-dependencies:
         dependency-type: development
+    ignore:
+      # A Pest major raises the PHP floor: 4.x needs PHP 8.3 and 5.x needs 8.4, while the
+      # package supports 8.2 and CI runs 8.2, 8.3 and 8.4. Adopting one is a supported-PHP
+      # decision made by hand, never a dependency bump.
+      - dependency-name: "pestphp/pest"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /

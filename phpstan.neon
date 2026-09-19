@@ -5,6 +5,5 @@ parameters:
         - tests
     excludePaths:
         - src/Generated
-        - tests/Generated
     tmpDir: .phpstan-cache
     treatPhpDocTypesAsCertain: false

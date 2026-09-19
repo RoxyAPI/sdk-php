@@ -1,6 +1,6 @@
 {
     "name": "roxyapi/sdk",
-    "description": "Official PHP SDK for RoxyAPI: Western and Vedic astrology, numerology, tarot, biorhythm, I Ching, crystals, dreams, angel numbers, location, usage, and languages.",
+    "description": "Official PHP SDK for RoxyAPI: Western and Vedic astrology, astrology forecast, human design, Chinese astrology, feng shui, Mesoamerican astrology, vastu, numerology, kabbalah, tarot, biorhythm, ayurveda, I Ching, crystals, dreams, angel numbers, and location behind one API key.",
     "type": "library",
     "license": "MIT",
     "homepage": "https://roxyapi.com",
@@ -13,15 +13,26 @@
         "roxyapi",
         "astrology",
         "vedic-astrology",
-        "tarot",
+        "forecast",
+        "human-design",
+        "chinese-astrology",
+        "bazi",
+        "feng-shui",
+        "mayan-astrology",
+        "vastu",
         "numerology",
+        "kabbalah",
+        "tarot",
         "biorhythm",
+        "ayurveda",
         "iching",
         "crystals",
         "dreams",
         "angel-numbers",
         "horoscope",
+        "natal-chart",
         "kundli",
+        "geocoding",
         "spiritual",
         "saloon",
         "sdk"
@@ -64,25 +75,5 @@
         "sort-packages": true
     },
     "minimum-stability": "stable",
-    "prefer-stable": true,
-    "archive": {
-        "exclude": [
-            "/.github",
-            "/.phpstan-cache",
-            "/.phpunit.cache",
-            "/.gitignore",
-            "/assets",
-            "/composer.lock",
-            "/examples",
-            "/lefthook.yml",
-            "/package.json",
-            "/phpstan.neon",
-            "/phpunit.xml",
-            "/pint.json",
-            "/scripts",
-            "/specs",
-            "/tests"
-        ]
-    },
-    "version": "0.1.61"
+    "prefer-stable": true
 }

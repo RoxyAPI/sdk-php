@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/*
+ * The hand-written client: createRoxy, the connector headers and base URL, the resource
+ * accessors, and the RoxyApiException shape. The generated surface is covered by SurfaceTest.
+ */
+
 use RoxyAPI\Sdk\Generated\Requests\GetDailyHoroscopeRequest;
 use RoxyAPI\Sdk\Generated\Requests\ListLanguagesRequest;
 use RoxyAPI\Sdk\Generated\Requests\SearchCitiesRequest;
@@ -9,10 +14,16 @@ use RoxyAPI\Sdk\Generated\Resources\AstrologyResource;
 use RoxyAPI\Sdk\Roxy;
 use RoxyAPI\Sdk\RoxyApiException;
 use RoxyAPI\Sdk\Version;
+use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
+use Saloon\Http\PendingRequest;
 
 use function RoxyAPI\Sdk\createRoxy;
+
+/** @var array<string, mixed> $spec */
+$spec = json_decode((string) file_get_contents(__DIR__ . '/../specs/openapi.json'), true, 512, JSON_THROW_ON_ERROR);
+$baseUrl = $spec['servers'][0]['url'];
 
 it('createRoxy returns a Roxy connector with the api key', function (): void {
     $roxy = createRoxy('test-key');
@@ -21,11 +32,12 @@ it('createRoxy returns a Roxy connector with the api key', function (): void {
         ->and($roxy->apiKey)->toBe('test-key');
 });
 
-it('exposes resource accessors as lazy properties', function (): void {
+it('exposes resource accessors as lazy properties, one instance per name', function (): void {
     $roxy = createRoxy('test-key');
 
     expect($roxy->astrology)->toBeInstanceOf(AstrologyResource::class)
-        ->and($roxy->astrology)->toBe($roxy->astrology); // cached
+        ->and($roxy->astrology)->toBe($roxy->astrology)
+        ->and($roxy->astrology)->not->toBe($roxy->location);
 });
 
 it('throws on unknown resource accessor', function (): void {
@@ -33,22 +45,23 @@ it('throws on unknown resource accessor', function (): void {
     $roxy->bogus; // @phpstan-ignore-line
 })->throws(InvalidArgumentException::class);
 
-it('sends X-API-Key, X-SDK-Client, and Accept on every request', function (): void {
+it('calls the production base URL of the spec with the key and the SDK header', function () use ($baseUrl): void {
     $mock = new MockClient([
-        ListLanguagesRequest::class => MockResponse::make(['languages' => []]),
+        GetDailyHoroscopeRequest::class => MockResponse::make(['sign' => 'leo']),
     ]);
     $roxy = createRoxy('secret-123');
     $roxy->withMockClient($mock);
 
-    $roxy->languages->listLanguages();
+    $roxy->astrology->getDailyHoroscope(sign: 'leo', lang: 'es');
 
-    $mock->assertSent(function ($request, $response): bool {
-        $headers = $response->getPendingRequest()->headers()->all();
+    $pending = lastPending($mock);
+    $headers = $pending->headers()->all();
 
-        return ('secret-123' === ($headers['X-API-Key'] ?? null))
-            && ('roxy-sdk-php/' . Version::VERSION === ($headers['X-SDK-Client'] ?? null))
-            && ('application/json' === ($headers['Accept'] ?? null));
-    });
+    expect($pending->getUrl())->toBe($baseUrl . '/astrology/horoscope/leo/daily')
+        ->and($pending->query()->all())->toBe(['lang' => 'es'])
+        ->and($headers['X-API-Key'] ?? null)->toBe('secret-123')
+        ->and($headers['X-SDK-Client'] ?? null)->toBe('roxy-sdk-php/' . Version::VERSION)
+        ->and($headers['Accept'] ?? null)->toBe('application/json');
 });
 
 it('decodes successful JSON responses to arrays', function (): void {
@@ -66,23 +79,25 @@ it('decodes successful JSON responses to arrays', function (): void {
     expect($result)->toBe(['sign' => 'aries', 'overview' => 'Today is a fine day.']);
 });
 
-it('throws RoxyApiException on 4xx with structured error body', function (): void {
+it('throws RoxyApiException carrying the error body of a 401', function (): void {
     $mock = new MockClient([
         SearchCitiesRequest::class => MockResponse::make([
-            'error' => 'Missing required query parameter "q"',
-            'code' => 'validation_error',
-        ], 400),
+            'error' => 'API key required',
+            'code' => 'api_key_required',
+        ], 401),
     ]);
     $roxy = createRoxy('test-key');
     $roxy->withMockClient($mock);
 
     try {
-        $roxy->location->searchCities(q: 'mumbai');
+        $roxy->location->searchCities(q: 'London');
         expect(true)->toBeFalse('expected RoxyApiException');
     } catch (RoxyApiException $e) {
-        expect($e->statusCode)->toBe(400)
-            ->and($e->errorCode)->toBe('validation_error')
-            ->and($e->error)->toBe('Missing required query parameter "q"');
+        expect($e->statusCode)->toBe(401)
+            ->and($e->errorCode)->toBe('api_key_required')
+            ->and($e->error)->toBe('API key required')
+            ->and($e->getMessage())->toBe('[401] api_key_required: API key required')
+            ->and($e->response?->status())->toBe(401);
     }
 });
 
@@ -98,7 +113,8 @@ it('throws RoxyApiException on 5xx with code "unknown" when body lacks code', fu
         expect(true)->toBeFalse('expected RoxyApiException');
     } catch (RoxyApiException $e) {
         expect($e->statusCode)->toBe(500)
-            ->and($e->errorCode)->toBe('unknown');
+            ->and($e->errorCode)->toBe('unknown')
+            ->and($e->error)->toBe('Server exploded');
     }
 });
 
@@ -112,53 +128,15 @@ it('returns [] when the server replies 200 with an empty body', function (): voi
     expect($roxy->languages->listLanguages())->toBe([]);
 });
 
-it('wraps Saloon FatalRequestException as RoxyApiException with code connection_error', function (): void {
-    Saloon\Config::allowStrayRequests();
-
+it('wraps a Saloon FatalRequestException as RoxyApiException with code connection_error', function (): void {
     $roxy = createRoxy('test-key');
-    $pending = new Saloon\Http\PendingRequest($roxy, new ListLanguagesRequest());
-    $fatal = new Saloon\Exceptions\Request\FatalRequestException(
-        new Exception('connect timeout'),
-        $pending,
-    );
+    $pending = new PendingRequest($roxy, new ListLanguagesRequest());
+    $fatal = new FatalRequestException(new Exception('connect timeout'), $pending);
 
     $wrapped = RoxyApiException::fromFatal($fatal);
 
     expect($wrapped->statusCode)->toBe(0)
         ->and($wrapped->errorCode)->toBe('connection_error')
-        ->and($wrapped->error)->toContain('connect timeout');
-});
-
-it('shares one connector across all resource accessors', function (): void {
-    $roxy = createRoxy('test-key');
-
-    $astrology = $roxy->astrology;
-    $location = $roxy->location;
-
-    expect($astrology)->not->toBe($location);
-    $astroConn = (new ReflectionClass($astrology))->getProperty('connector');
-    $locConn = (new ReflectionClass($location))->getProperty('connector');
-    $astroConn->setAccessible(true);
-    $locConn->setAccessible(true);
-    expect($astroConn->getValue($astrology))->toBe($roxy)
-        ->and($locConn->getValue($location))->toBe($roxy);
-});
-
-it('builds the correct URL for path + query parameters', function (): void {
-    $mock = new MockClient([
-        GetDailyHoroscopeRequest::class => MockResponse::make(['sign' => 'leo']),
-    ]);
-    $roxy = createRoxy('test-key');
-    $roxy->withMockClient($mock);
-
-    $roxy->astrology->getDailyHoroscope(sign: 'leo', lang: 'es');
-
-    $mock->assertSent(function ($request, $response): bool {
-        $pending = $response->getPendingRequest();
-        $url = $pending->getUrl();
-        $query = $pending->query()->all();
-
-        return str_contains($url, '/astrology/horoscope/leo/daily')
-            && ($query['lang'] ?? null) === 'es';
-    });
+        ->and($wrapped->error)->toContain('connect timeout')
+        ->and($wrapped->response)->toBeNull();
 });

@@ -1,12 +1,18 @@
 pre-commit:
   parallel: true
   commands:
+    # Generated files are formatted by the generator, never by pint: pint given explicit paths
+    # ignores the exclude list in pint.json, and a reformatted generated file is drift on CI.
     pint:
       glob: "*.php"
+      exclude:
+        - src/Generated/**
+        - src/Roxy.php
+        - src/Version.php
       run: vendor/bin/pint {staged_files}
       stage_fixed: true
     docs-sync:
-      glob: "{specs/openapi.json,scripts/tag-descriptions.mjs,scripts/sync-docs.mjs}"
+      glob: "{specs/openapi.json,scripts/namespace.mjs,scripts/tag-descriptions.mjs,scripts/sync-docs.mjs}"
       run: node scripts/sync-docs.mjs && git add README.md AGENTS.md
       stage_fixed: true
 
@@ -21,18 +27,14 @@ pre-push:
       priority: 2
     # Hermetic: regenerates from the committed spec, so this verifies the committed code still
     # reproduces from it, with no network dependency. Refreshing the spec is the release job.
+    # generate.mjs also runs sync-docs.mjs, so README.md and AGENTS.md are asserted in the same diff.
     codegen-drift:
       env:
         ROXYAPI_SPEC_FILE: specs/openapi.json
       run: >-
-        node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php tests/Generated
+        node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php README.md AGENTS.md
         || { echo 'codegen drift: commit the regenerated files'; exit 1; }
       priority: 3
-    docs-drift:
-      run: >-
-        node scripts/sync-docs.mjs && git diff --exit-code -- README.md AGENTS.md
-        || { echo 'docs drift: commit the regenerated README.md/AGENTS.md'; exit 1; }
-      priority: 4
     test:
       run: vendor/bin/pest
-      priority: 5
+      priority: 4

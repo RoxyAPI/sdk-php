@@ -3,20 +3,23 @@
  * RoxyAPI PHP SDK code generator.
  *
  * Fetches the live OpenAPI spec, writes it to specs/openapi.json (the
- * change-detection baseline), and emits one Saloon Resource class per OpenAPI
- * tag and one Saloon Request class per operation into src/Generated/. Also
- * regenerates src/Version.php from package.json.
+ * change-detection baseline), and emits one Saloon Resource class per URL path
+ * segment and one Saloon Request class per operation into src/Generated/. Also
+ * regenerates src/Roxy.php and src/Version.php, then runs sync-docs.mjs so the
+ * README and AGENTS regions are asserted in the same drift diff.
  *
  *   node scripts/generate.mjs
  *
  * Output is deterministic: two consecutive runs produce byte-identical files.
  * The pre-push hook (lefthook.yml) and CI re-run this and fail if anything
- * differs from what's committed.
+ * differs from what is committed.
  */
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tagToNamespace, tagToClassName, tagSummary } from './tag-descriptions.mjs';
+import { pathNamespace, resourceClassName } from './namespace.mjs';
+import { tagSummary } from './tag-descriptions.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -28,7 +31,6 @@ const RESOURCES_DIR = path.join(OUT_DIR, 'Resources');
 const REQUESTS_DIR = path.join(OUT_DIR, 'Requests');
 const VERSION_FILE = path.join(ROOT, 'src', 'Version.php');
 const ROXY_FILE = path.join(ROOT, 'src', 'Roxy.php');
-const TESTS_GENERATED_DIR = path.join(ROOT, 'tests', 'Generated');
 
 // ---------------------------------------------------------------------------
 // 1. Fetch + patch + persist spec
@@ -84,27 +86,19 @@ await fs.writeFile(SPEC_FILE, JSON.stringify(spec, null, 2) + '\n', 'utf8');
 console.log(`[generate] wrote ${path.relative(ROOT, SPEC_FILE)}`);
 
 // ---------------------------------------------------------------------------
-// 2. Collect tag list from operations
+// 2. Walk operations, group by the namespace of their path (sorted for determinism)
 // ---------------------------------------------------------------------------
 
-const specTags = new Set();
-for (const path of Object.values(spec.paths || {})) {
-	for (const method of ['get', 'post', 'put', 'patch', 'delete']) {
-		const op = path[method];
-		if (!op) continue;
-		for (const t of op.tags || []) specTags.add(t);
-	}
+function fail(msg) {
+	console.error(`[generate] ${msg}`);
+	process.exit(1);
 }
 
 // Index the tag objects (with descriptions) for summary extraction.
 const tagObjects = Object.fromEntries((spec.tags || []).map((t) => [t.name, t]));
 
-// ---------------------------------------------------------------------------
-// 3. Walk operations, group by tag (sorted for determinism)
-// ---------------------------------------------------------------------------
-
 /**
- * @typedef {{operationId: string, method: string, path: string, tag: string, summary: string, description: string, parameters: Array<any>, requestBody: any, responses: any}} Operation
+ * @typedef {{operationId: string, method: string, path: string, namespace: string, tag: string, summary: string, description: string, parameters: Array<any>, requestBody: any, responses: any}} Operation
  */
 
 /** @type {Operation[]} */
@@ -113,12 +107,15 @@ for (const apiPath of Object.keys(spec.paths || {}).sort()) {
 	const pathItem = spec.paths[apiPath];
 	for (const method of ['get', 'post', 'put', 'patch', 'delete']) {
 		const op = pathItem[method];
-		if (!op || !op.operationId) continue;
+		if (!op) continue;
+		if (!op.operationId) fail(`${method.toUpperCase()} ${apiPath} has no operationId`);
+		if (!op.tags?.[0]) fail(`${method.toUpperCase()} ${apiPath} has no tag`);
 		operations.push({
 			operationId: op.operationId,
 			method: method.toUpperCase(),
 			path: apiPath,
-			tag: (op.tags || ['Other'])[0],
+			namespace: pathNamespace(apiPath),
+			tag: op.tags[0],
 			summary: (op.summary || '').trim(),
 			description: (op.description || '').trim(),
 			parameters: op.parameters || [],
@@ -129,13 +126,27 @@ for (const apiPath of Object.keys(spec.paths || {}).sort()) {
 }
 operations.sort((a, b) => a.operationId.localeCompare(b.operationId));
 
-console.log(`[generate] found ${operations.length} operations across ${specTags.size} tags`);
-
 /** @type {Record<string, Operation[]>} */
-const opsByTag = {};
+const opsByNamespace = {};
 for (const op of operations) {
-	(opsByTag[op.tag] ??= []).push(op);
+	(opsByNamespace[op.namespace] ??= []).push(op);
 }
+
+// One namespace is one tag and one tag is one namespace: the resource docblock reads the
+// tag description, and the docs tables list one row per tag, so either side spanning two
+// of the other has no single home and must fail here rather than land somewhere silently.
+for (const [namespace, ops] of Object.entries(opsByNamespace)) {
+	const tags = [...new Set(ops.map((op) => op.tag))];
+	if (tags.length !== 1) fail(`namespace "${namespace}" spans ${tags.length} tags (${tags.join(', ')}); expected exactly one`);
+}
+for (const tag of new Set(operations.map((op) => op.tag))) {
+	const namespaces = [...new Set(operations.filter((op) => op.tag === tag).map((op) => op.namespace))];
+	if (namespaces.length !== 1) fail(`tag "${tag}" maps to ${namespaces.length} path segments (${namespaces.join(', ')}); expected exactly one`);
+}
+
+const namespaces = Object.keys(opsByNamespace).sort((a, b) => a.localeCompare(b));
+
+console.log(`[generate] found ${operations.length} operations across ${namespaces.length} namespaces`);
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -228,10 +239,6 @@ function wrapDoc(text, indent = ' * ') {
 	return lines;
 }
 
-function pathParams(apiPath) {
-	return (apiPath.match(/\{([^}]+)\}/g) || []).map((m) => m.slice(1, -1));
-}
-
 function bodyFields(op) {
 	if (!op.requestBody) return { fields: [], hasBody: false };
 	const content = op.requestBody.content?.['application/json'];
@@ -306,7 +313,7 @@ function emitRequest(op) {
 	const { fields: bodyArgs, hasBody } = bodyFields(op);
 	const isPostLike = op.method !== 'GET' && op.method !== 'DELETE';
 
-	// Constructor parameter list — path params (required), then required body
+	// Constructor parameter list: path params (required), then required body
 	// fields, then required query, then optional body, then optional query.
 	const ctorParts = [];
 	for (const p of pathArgs) {
@@ -471,9 +478,9 @@ ${bodyMethod}${queryMethod}}
 // 5. Emit Resource classes (one per tag) with one method per operation
 // ---------------------------------------------------------------------------
 
-function emitResource(tagName, ops) {
-	const namespace = tagToNamespace(tagName);
-	const className = tagToClassName(tagName);
+function emitResource(namespace, ops) {
+	const className = resourceClassName(namespace);
+	const tagName = ops[0].tag;
 	const summary = tagSummary(tagObjects[tagName] ?? { name: tagName });
 	ops.sort((a, b) => a.operationId.localeCompare(b.operationId));
 
@@ -568,7 +575,7 @@ ${methodSnippets.join('\n\n')}
 }
 
 // ---------------------------------------------------------------------------
-// 6. Emit BaseResource (shared) — calls connector, unwraps response, throws
+// 6. Emit BaseResource (shared): calls connector, unwraps response, throws
 // ---------------------------------------------------------------------------
 
 const BASE_RESOURCE = `${HEADER}
@@ -614,85 +621,24 @@ abstract class BaseResource extends SaloonBaseResource
 `;
 
 // ---------------------------------------------------------------------------
-// 7. Emit per-resource smoke test stubs (mocked Saloon::fake)
-// ---------------------------------------------------------------------------
-
-function emitResourceTest(tagName, ops) {
-	const namespace = tagToNamespace(tagName);
-	// Pick the first GET operation with no required body/path/query, else first op.
-	const sample = ops.find((o) => o.method === 'GET' && pathParamsList(o).length === 0 && queryParams(o).filter((q) => q.required).length === 0)
-		|| ops[0];
-	const requestClass = pascalCase(sample.operationId) + 'Request';
-
-	const args = [];
-	for (const p of pathParamsList(sample)) args.push(`${safePhpVar(p.name)}: 'sample'`);
-	const { fields: bodyArgs, hasBody } = bodyFields(sample);
-	if (hasBody) {
-		for (const f of bodyArgs.filter((f) => f.required)) {
-			const v = safePhpVar(f.name);
-			if (f.type === 'int') args.push(`${v}: 1`);
-			else if (f.type === 'float') args.push(`${v}: 0.0`);
-			else if (f.type === 'bool') args.push(`${v}: false`);
-			else if (f.type === 'array') args.push(`${v}: []`);
-			else args.push(`${v}: 'sample'`);
-		}
-	}
-	for (const q of queryParams(sample).filter((q) => q.required)) {
-		const v = safePhpVar(q.name);
-		if (q.type === 'int') args.push(`${v}: 1`);
-		else if (q.type === 'float') args.push(`${v}: 0.0`);
-		else if (q.type === 'bool') args.push(`${v}: false`);
-		else args.push(`${v}: 'sample'`);
-	}
-	const argsStr = args.join(', ');
-
-	return `${HEADER}
-use RoxyAPI\\Sdk\\Generated\\Requests\\${requestClass};
-use Saloon\\Config;
-use Saloon\\Http\\Faking\\MockClient;
-use Saloon\\Http\\Faking\\MockResponse;
-
-use function RoxyAPI\\Sdk\\createRoxy;
-
-it('${namespace} resource sends ${sample.operationId} and parses JSON', function (): void {
-    $mock = new MockClient([
-        ${requestClass}::class => MockResponse::make(['ok' => true]),
-    ]);
-    Config::preventStrayRequests();
-
-    $roxy = createRoxy('test-key');
-    $roxy->withMockClient($mock);
-
-    $result = $roxy->${namespace}->${sample.operationId}(${argsStr});
-
-    expect($result)->toBe(['ok' => true]);
-    $mock->assertSent(${requestClass}::class);
-});
-`;
-}
-
-// ---------------------------------------------------------------------------
-// 8. Write everything
+// 7. Write everything
 // ---------------------------------------------------------------------------
 
 // Clean generated dirs first so deletions in the spec actually remove files.
 await fs.rm(RESOURCES_DIR, { recursive: true, force: true });
 await fs.rm(REQUESTS_DIR, { recursive: true, force: true });
-await fs.rm(path.join(OUT_DIR, 'Dto'), { recursive: true, force: true });
-await fs.rm(TESTS_GENERATED_DIR, { recursive: true, force: true });
 await fs.mkdir(RESOURCES_DIR, { recursive: true });
 await fs.mkdir(REQUESTS_DIR, { recursive: true });
-await fs.mkdir(TESTS_GENERATED_DIR, { recursive: true });
 
-// BaseResource (committed once, never changes per spec — but emit every time
-// so a single regenerate run lands a working tree).
+// BaseResource never changes per spec, but is emitted every time so a single
+// regenerate run lands a working tree.
 await fs.writeFile(path.join(RESOURCES_DIR, 'BaseResource.php'), BASE_RESOURCE, 'utf8');
 
-// Per-tag Resource files
-for (const tag of Object.keys(opsByTag).sort()) {
+// Per-namespace Resource files
+for (const namespace of namespaces) {
 	await fs.writeFile(
-		path.join(RESOURCES_DIR, tagToClassName(tag) + '.php'),
-		emitResource(tag, opsByTag[tag]),
+		path.join(RESOURCES_DIR, resourceClassName(namespace) + '.php'),
+		emitResource(namespace, opsByNamespace[namespace]),
 		'utf8',
 	);
 }
@@ -703,14 +649,8 @@ for (const op of operations) {
 	await fs.writeFile(file, emitRequest(op), 'utf8');
 }
 
-// Per-tag smoke tests
-for (const tag of Object.keys(opsByTag).sort()) {
-	const file = path.join(TESTS_GENERATED_DIR, tagToClassName(tag) + 'Test.php');
-	await fs.writeFile(file, emitResourceTest(tag, opsByTag[tag]), 'utf8');
-}
-
 // ---------------------------------------------------------------------------
-// 9. Regenerate Version.php from package.json
+// 8. Regenerate Version.php from package.json
 // ---------------------------------------------------------------------------
 
 const pkg = JSON.parse(await fs.readFile(path.join(ROOT, 'package.json'), 'utf8'));
@@ -732,27 +672,20 @@ final class Version
 await fs.writeFile(VERSION_FILE, versionPhp, 'utf8');
 
 // ---------------------------------------------------------------------------
-// 10. Auto-generate src/Roxy.php (RESOURCES map + @property block + Connector
-//     setup). Hand-edited only for cross-cutting Saloon plumbing, not per-tag.
+// 9. Auto-generate src/Roxy.php (RESOURCES map + @property block + Connector
+//    setup). The Saloon plumbing is edited in the template below, never per namespace.
 // ---------------------------------------------------------------------------
 
-const sortedTags = Object.keys(opsByTag).sort((a, b) =>
-	tagToNamespace(a).localeCompare(tagToNamespace(b)),
-);
-
-const useLines = sortedTags
-	.map((tag) => `use RoxyAPI\\Sdk\\Generated\\Resources\\${tagToClassName(tag)};`)
+const useLines = namespaces
+	.map((namespace) => `use RoxyAPI\\Sdk\\Generated\\Resources\\${resourceClassName(namespace)};`)
 	.join('\n');
 
-const propertyLines = sortedTags
-	.map((tag) => ` * @property ${tagToClassName(tag)} \$${tagToNamespace(tag)}`)
+const propertyLines = namespaces
+	.map((namespace) => ` * @property ${resourceClassName(namespace)} \$${namespace}`)
 	.join('\n');
 
-const resourceMapLines = sortedTags
-	.map(
-		(tag) =>
-			`        '${tagToNamespace(tag)}' => ${tagToClassName(tag)}::class,`,
-	)
+const resourceMapLines = namespaces
+	.map((namespace) => `        '${namespace}' => ${resourceClassName(namespace)}::class,`)
 	.join('\n');
 
 const roxyPhp = `<?php
@@ -764,8 +697,8 @@ declare(strict_types=1);
  * Do not edit this file by hand. Regenerate with: node scripts/generate.mjs.
  *
  * The hand-written surface lives in createRoxy.php, Auth/ApiKeyAuthenticator.php,
- * and RoxyApiException.php. Everything per-tag in this file is derived from
- * specs/openapi.json + scripts/tag-descriptions.mjs (namespace aliases only).
+ * and RoxyApiException.php. Every resource in this file is derived from the URL
+ * paths of specs/openapi.json.
  */
 
 namespace RoxyAPI\\Sdk;
@@ -777,7 +710,7 @@ use Saloon\\Http\\Connector;
 use Saloon\\Traits\\Plugins\\AcceptsJson;
 
 /**
- * Top-level RoxyAPI connector. One resource per OpenAPI tag, lazy-instantiated
+ * Top-level RoxyAPI connector. One resource per URL path segment, lazy-instantiated
  * via the __get accessor below.
  *
 ${propertyLines}
@@ -802,7 +735,7 @@ ${resourceMapLines}
 
     public function resolveBaseUrl(): string
     {
-        return 'https://roxyapi.com/api/v2';
+        return ${phpStr(spec.servers[0].url)};
     }
 
     protected function defaultAuth(): ?Authenticator
@@ -838,5 +771,11 @@ ${resourceMapLines}
 
 await fs.writeFile(ROXY_FILE, roxyPhp, 'utf8');
 
-console.log(`[generate] wrote ${operations.length} requests, ${Object.keys(opsByTag).length} resources, Roxy.php, Version ${versionFromPkg}`);
+console.log(`[generate] wrote ${operations.length} requests, ${namespaces.length} resources, Roxy.php, Version ${versionFromPkg}`);
+
+// ---------------------------------------------------------------------------
+// 10. Sync the spec-derived regions of README.md and AGENTS.md
+// ---------------------------------------------------------------------------
+
+execFileSync(process.execPath, [path.join(__dirname, 'sync-docs.mjs')], { cwd: ROOT, stdio: 'inherit' });
 console.log('[generate] done');

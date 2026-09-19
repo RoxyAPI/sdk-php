@@ -57,9 +57,9 @@ $place = $roxy->location->searchCities(q: 'New York');
 | `$roxy->location` | Timezone and location API with city search and geocoding across 235,000+ cities in 240+ countries, returning latitude... |
 | `$roxy->usage` | Monitor your API usage, check rate limits, and track request consumption |
 | `$roxy->languages` | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
-<!-- END:DOMAINS -->
 
-**Total:** 258+ endpoints across 18+ product domains plus usage and languages. The table above auto-syncs from `specs/openapi.json` at release time.
+**Total:** 259 endpoints across the 20 namespaces above. This table auto-syncs from the OpenAPI spec at release time.
+<!-- END:DOMAINS -->
 
 ## Quality guidelines for agents
 
@@ -68,7 +68,7 @@ Five rules to follow when writing any call with this SDK. Get these right and th
 - **Named arguments, flattened.** Every method takes path params, query params and body fields as one list of named arguments, camelCase, matching the spec verbatim. Right: `$roxy->astrology->getDailyHoroscope(sign: 'aries')`. Wrong: `$roxy->astrology->getDailyHoroscope(['sign' => 'aries'])`. A nested body object (`person1`, `birthData`, `plot`, `rooms`) is an associative array; a birth array spreads into the named arguments with `...$birth`.
 - **Arrays back, never objects.** Every method returns `array<string, mixed>`. Access fields with `$result['key']['subkey']`, never `$result->key->subkey`: object syntax throws `Error: Attempt to read property "key" on array`. Sub-objects are arrays too: the natal-chart `ascendant` is `['sign' => ..., 'degree' => ...]`, so `echo $chart['ascendant']['sign']`, not `echo $chart['ascendant']`.
 - **Method names match the OpenAPI `operationId` verbatim** (already camelCase). When in doubt, read `vendor/roxyapi/sdk/src/Generated/Resources/<Tag>Resource.php`: it lists every method with its full signature. Never invent a method from the URL path or a guess.
-- **Response field names come from the response schema of the spec.** `vendor/roxyapi/sdk/specs/openapi.json` is the authoritative shape: drill into nested `.properties` for sub-objects and `.items.properties` for array items. An invented field is an `Undefined array key` warning at runtime, so read every field you name from a real response before shipping.
+- **Response field names come from the response schema of the spec.** The OpenAPI spec at <https://roxyapi.com/api/v2/openapi.json> is the authoritative shape: drill into nested `.properties` for sub-objects and `.items.properties` for array items. An invented field is an `Undefined array key` warning at runtime, so read every field you name from a real response before shipping.
 - **Do not hand-roll requests.** No raw `curl`, no direct Guzzle. The SDK injects auth, the base URL and error decoding; it does not retry, so wrap calls you want retried. `RoxyApiException` is a real PHP object: `$e->statusCode`, `$e->errorCode`, `$e->error` use object syntax. Only successful payloads are arrays.
 
 ## Critical patterns
@@ -117,14 +117,16 @@ $roxy->numerology->calculateLifePath(year: 1990, month: 1, day: 15);
 
 ### Multi-language via `lang`
 
-Ten languages: `en`, `tr`, `de`, `es`, `fr`, `hi`, `pt`, `ru`, `zh-Hans`, `zh-Hant`. Defaults to `en`.
+<!-- BEGIN:LANGS -->
+10 languages: `en`, `tr`, `de`, `es`, `hi`, `pt`, `fr`, `ru`, `zh-Hans`, `zh-Hant`. Defaults to `en`. Supported: `astrology`, `vedicAstrology`, `forecast`, `humanDesign`, `chineseAstrology`, `fengShui`, `mesoamericanAstrology`, `vastu`, `numerology`, `kabbalah`, `tarot`, `biorhythm`, `ayurveda`, `iching`, `crystals`, `angelNumbers`, `languages`. English-only: `dreams`, `location`, `usage`.
+<!-- END:LANGS -->
 
 ```php
 $roxy->tarot->getDailyCard(date: '2026-04-22', lang: 'es');
 $roxy->numerology->calculateLifePath(year: 1990, month: 1, day: 15, lang: 'hi');
 ```
 
-Supported: `astrology`, `vedicAstrology`, `forecast`, `humanDesign`, `chineseAstrology`, `fengShui`, `mesoamericanAstrology`, `vastu`, `numerology`, `kabbalah`, `tarot`, `biorhythm`, `ayurveda`, `iching`, `crystals`, `angelNumbers`. English-only: `dreams`, `location`, `usage`, `languages`. The two Chinese scripts (`zh-Hans`, `zh-Hant`) currently ship on Chinese astrology and feng shui; every other domain answers those codes in English per field. To list supported codes at runtime, call `$roxy->languages->listLanguages()`.
+The two Chinese scripts (`zh-Hans`, `zh-Hant`) currently ship on Chinese astrology and feng shui; every other domain answers those codes in English per field. To list supported codes at runtime, call `$roxy->languages->listLanguages()`.
 
 ### Error handling
 
@@ -264,7 +266,7 @@ echo json_encode($roxy->astrology->generateNatalChart(
 </script>
 ```
 
-See `examples/render-with-ui.html` for the full pattern. Component coverage and docs: <https://roxyapi.github.io/ui/>.
+See <https://github.com/RoxyAPI/sdk-php/blob/main/examples/render-with-ui.html> for the full pattern. Component coverage and docs: <https://roxyapi.github.io/ui/>.
 
 ## Testing your integration
 

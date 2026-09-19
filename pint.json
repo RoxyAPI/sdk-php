@@ -2,9 +2,12 @@
     "preset": "symfony",
     "exclude": [
         "src/Generated",
-        "tests/Generated",
         "vendor",
         "node_modules"
+    ],
+    "notPath": [
+        "src/Roxy.php",
+        "src/Version.php"
     ],
     "rules": {
         "concat_space": {

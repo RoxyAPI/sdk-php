@@ -8,11 +8,11 @@ use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Http\Response;
 
 /**
- * Thrown when RoxyAPI returns a 4xx/5xx response.
+ * Thrown when RoxyAPI returns a 4xx/5xx response, or the request never reached it.
  *
- * Mirrors the Python SDK's RoxyAPIError exactly: human-readable `error`,
- * machine-readable stable `code`, original HTTP `statusCode`, and the raw
- * Saloon Response for advanced inspection.
+ * The same shape every RoxyAPI SDK exposes: human-readable `error`, the stable
+ * machine-readable `errorCode` to switch on, the HTTP `statusCode` (0 for a
+ * transport failure), and the raw Saloon Response for advanced inspection.
  */
 class RoxyApiException extends \RuntimeException
 {
@@ -33,7 +33,7 @@ class RoxyApiException extends \RuntimeException
             $decoded = (array) $response->json();
             $body = $decoded;
         } catch (\Throwable) {
-            // body wasn't JSON; leave as-is
+            // not a JSON body: the raw text becomes the error below
         }
 
         $errorField = $body['error'] ?? null;

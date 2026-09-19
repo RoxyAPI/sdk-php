@@ -99,6 +99,8 @@ Get an API key at [roxyapi.com/pricing](https://roxyapi.com/pricing). Never expo
 | `$roxy->location` | Timezone and location API with city search and geocoding across 235,000+ cities in 240+ countries, returning latitude... |
 | `$roxy->usage` | Monitor your API usage, check rate limits, and track request consumption |
 | `$roxy->languages` | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
+
+**Total:** 259 endpoints across the 20 namespaces above. This table auto-syncs from the OpenAPI spec at release time.
 <!-- END:DOMAINS -->
 
 ## Most-used endpoints
@@ -463,7 +465,9 @@ try {
 
 ## Multi-language responses
 
-Pass `lang` (BCP 47) on supported endpoints. Defaults to English. Ten languages: `en`, `tr`, `de`, `es`, `fr`, `hi`, `pt`, `ru`, `zh-Hans`, `zh-Hant`.
+<!-- BEGIN:LANGS -->
+Interpretations and editorial text are available in 10 languages: `en`, `tr`, `de`, `es`, `hi`, `pt`, `fr`, `ru`, `zh-Hans`, `zh-Hant`. Pass `lang:` as a named argument on any supported method. Defaults to `en`. Supported: `astrology`, `vedicAstrology`, `forecast`, `humanDesign`, `chineseAstrology`, `fengShui`, `mesoamericanAstrology`, `vastu`, `numerology`, `kabbalah`, `tarot`, `biorhythm`, `ayurveda`, `iching`, `crystals`, `angelNumbers`, `languages`. English-only: `dreams`, `location`, `usage`. Languages without translations yet fall back to English.
+<!-- END:LANGS -->
 
 ```php
 $roxy->tarot->getDailyCard(seed: 'user-42', lang: 'es');
@@ -476,7 +480,7 @@ $roxy->numerology->calculateLifePath(year: 1990, month: 1, day: 15, lang: 'hi');
 
 This SDK fetches JSON. For HTML rendering, hand the JSON to [@roxyapi/ui](https://github.com/roxyapi/ui) web components in the browser.
 
-`examples/render-with-ui.html` shows the full pattern: PHP endpoint backed by the SDK, browser fetches JSON and assigns it to a `<roxy-natal-chart>` element. No PHP-side templating.
+[examples/render-with-ui.html](https://github.com/RoxyAPI/sdk-php/blob/main/examples/render-with-ui.html) shows the full pattern: a PHP endpoint backed by the SDK (`examples/natal-chart.php`), the browser fetches JSON and assigns it to a `<roxy-natal-chart>` element. No PHP-side templating.
 
 ## Testing your integration
 
@@ -500,13 +504,15 @@ $result = $roxy->astrology->getDailyHoroscope(sign: 'aries');
 
 ## Examples
 
+In [examples/](https://github.com/RoxyAPI/sdk-php/tree/main/examples) on GitHub (not shipped in the Composer package):
+
 - `examples/vanilla-php.php` - raw PHP, prints a horoscope
 - `examples/laravel.php` - Laravel service provider snippet
 - `examples/human-design.php` - full Human Design bodygraph, prints type, strategy, and profile
 - `examples/forecast.php` - cross-domain forecast timeline, prints the event count and a sample event
 - `examples/chinese-astrology.php` - BaZi four pillars plus the zodiac sign, prints the pillars and the conventions used
 - `examples/feng-shui.php` - Kua number and a flying star natal chart, prints the eight sectors and the nine palaces
-- `examples/render-with-ui.html` - server-side fetch + browser render via `@roxyapi/ui`
+- `examples/render-with-ui.html` + `examples/natal-chart.php` - server-side fetch + browser render via `@roxyapi/ui`
 
 ## Documentation
 

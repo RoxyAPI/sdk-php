@@ -1,5 +1,5 @@
-# Mirror composer.json `archive.exclude` so `git archive` (and any tarball
-# generated outside Packagist's dist API) produces the same lean tree.
+# The one list of what the published package leaves out. Packagist serves the GitHub
+# zipball and `composer archive` reads this file too, so nothing else restates it.
 
 /.github         export-ignore
 /.gitignore      export-ignore
