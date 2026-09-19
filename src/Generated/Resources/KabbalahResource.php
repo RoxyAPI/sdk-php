@@ -404,7 +404,7 @@ class KabbalahResource extends BaseResource
      *
      * GET /kabbalah/names/{number}
      *
-     * @param mixed $number
+     * @param int $number
      *   Index of the name, 1 to 72.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
@@ -414,7 +414,7 @@ class KabbalahResource extends BaseResource
      * @return array<string, mixed>
      */
     public function getShemName(
-        mixed $number,
+        int $number,
         ?string $lang = null
     ): array
     {

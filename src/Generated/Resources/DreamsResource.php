@@ -89,13 +89,13 @@ class DreamsResource extends BaseResource
      *
      * GET /dreams/symbols/random
      *
-     * @param float|null $count
+     * @param int|null $count
      *   Number of random symbols to return (1-10). Default: 1.
      *
      * @return array<string, mixed>
      */
     public function getRandomSymbols(
-        ?float $count = null
+        ?int $count = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetRandomSymbolsRequest(count: $count);

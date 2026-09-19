@@ -36,7 +36,7 @@ class GetYearlyHoroscopeRequest extends Request
         public readonly string $sign,
         public readonly ?string $lang = null,
         public readonly ?string $timezone = null,
-        public readonly ?float $year = null,
+        public readonly ?int $year = null,
     ) {
     }
 

@@ -308,7 +308,7 @@ class TarotResource extends BaseResource
      *
      * POST /tarot/draw
      *
-     * @param float $count
+     * @param int $count
      *   Number of cards to draw (1-78). Common values: 1 for daily card, 3 for past-present-future,
      *   5 for relationship spread, 10 for Celtic Cross. Drawing 78 returns the entire shuffled deck.
      * @param bool|null $allowDuplicates
@@ -330,7 +330,7 @@ class TarotResource extends BaseResource
      * @return array<string, mixed>
      */
     public function drawCards(
-        float $count,
+        int $count,
         ?bool $allowDuplicates = null,
         ?bool $allowReversals = null,
         ?string $seed = null,

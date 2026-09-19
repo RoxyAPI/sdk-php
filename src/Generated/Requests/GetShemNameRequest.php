@@ -28,7 +28,7 @@ class GetShemNameRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly mixed $number,
+        public readonly int $number,
         public readonly ?string $lang = null,
     ) {
     }

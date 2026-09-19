@@ -26,7 +26,7 @@ class GetUpcomingMoonPhasesRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly ?float $count = null,
+        public readonly ?int $count = null,
         public readonly ?string $lang = null,
         public readonly ?string $startDate = null,
     ) {

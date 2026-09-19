@@ -1601,9 +1601,9 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/moon-phase/calendar/{year}/{month}
      *
-     * @param float $year
+     * @param int $year
      *   Calendar year (1900-2100).
-     * @param float $month
+     * @param int $month
      *   Calendar month (1-12). 1 = January, 12 = December.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
@@ -1613,8 +1613,8 @@ class AstrologyResource extends BaseResource
      * @return array<string, mixed>
      */
     public function getMoonCalendar(
-        float $year,
-        float $month,
+        int $year,
+        int $month,
         ?string $lang = null
     ): array
     {
@@ -1768,7 +1768,7 @@ class AstrologyResource extends BaseResource
      *
      * GET /astrology/moon-phase/upcoming
      *
-     * @param float|null $count
+     * @param int|null $count
      *   Number of upcoming moon phase transitions to return (1-20). Defaults to 8.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
@@ -1780,7 +1780,7 @@ class AstrologyResource extends BaseResource
      * @return array<string, mixed>
      */
     public function getUpcomingMoonPhases(
-        ?float $count = null,
+        ?int $count = null,
         ?string $lang = null,
         ?string $startDate = null
     ): array
@@ -1862,7 +1862,7 @@ class AstrologyResource extends BaseResource
      *   their local clock instead. Ignored when year is set. Accepts an IANA name (e.g.
      *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
      *   "-05:00").
-     * @param float|null $year
+     * @param int|null $year
      *   Calendar year to forecast, 1900 to 2100. Defaults to the current year in the timezone
      *   parameter.
      *
@@ -1872,7 +1872,7 @@ class AstrologyResource extends BaseResource
         string $sign,
         ?string $lang = null,
         ?string $timezone = null,
-        ?float $year = null
+        ?int $year = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetYearlyHoroscopeRequest(sign: $sign, lang: $lang, timezone: $timezone, year: $year);

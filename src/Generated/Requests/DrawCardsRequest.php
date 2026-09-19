@@ -42,7 +42,7 @@ class DrawCardsRequest extends Request implements HasBody
     protected Method $method = Method::POST;
 
     public function __construct(
-        public readonly float $count,
+        public readonly int $count,
         public readonly ?bool $allowDuplicates = null,
         public readonly ?bool $allowReversals = null,
         public readonly ?string $seed = null,

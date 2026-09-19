@@ -269,7 +269,7 @@ class FengShuiResource extends BaseResource
      *
      * GET /feng-shui/kua/{number}
      *
-     * @param float $number
+     * @param int $number
      *   Kua number, 1 to 9.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
@@ -279,7 +279,7 @@ class FengShuiResource extends BaseResource
      * @return array<string, mixed>
      */
     public function getKuaNumber(
-        float $number,
+        int $number,
         ?string $lang = null
     ): array
     {

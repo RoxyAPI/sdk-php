@@ -26,8 +26,8 @@ class GetMoonCalendarRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly float $year,
-        public readonly float $month,
+        public readonly int $year,
+        public readonly int $month,
         public readonly ?string $lang = null,
     ) {
     }

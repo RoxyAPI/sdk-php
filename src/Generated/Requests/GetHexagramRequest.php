@@ -28,7 +28,7 @@ class GetHexagramRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly float $number,
+        public readonly int $number,
         public readonly ?string $lang = null,
     ) {
     }

@@ -19375,7 +19375,7 @@
           },
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
               "minimum": 1,
               "maximum": 20,
               "default": 8,
@@ -19651,7 +19651,7 @@
         "parameters": [
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
               "minimum": 1900,
               "maximum": 2100,
               "example": 2026,
@@ -19664,7 +19664,7 @@
           },
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
               "minimum": 1,
               "maximum": 12,
               "example": 3,
@@ -30272,7 +30272,9 @@
           },
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100,
               "example": 2026,
               "description": "Calendar year to forecast, 1900 to 2100. Defaults to the current year in the timezone parameter."
             },
@@ -63235,7 +63237,7 @@
                         "name": {
                           "type": "string",
                           "example": "Left Angle Cross of the Clarion",
-                          "description": "Canonical published name of the incarnation cross, determined by the Personality Sun gate and the angle. Falls back to a name composed from the angle and the four gates if no canonical name exists."
+                          "description": "Canonical published name of the incarnation cross, determined by the Personality Sun gate and the angle. All 192 crosses (64 Personality Sun gates times three angles) carry their published name, numbered variants included, so this is never a composed placeholder. Always begins with the angle followed by Cross of. Always English, whatever the lang parameter says."
                         },
                         "description": {
                           "type": "string",
@@ -66346,10 +66348,9 @@
         "parameters": [
           {
             "schema": {
-              "type": [
-                "integer",
-                "null"
-              ],
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64,
               "example": 34,
               "description": "Gate number from 1 to 64."
             },
@@ -66584,32 +66585,6 @@
                     "code": {
                       "type": "string",
                       "description": "Machine-readable error code. Stable identifier."
-                    }
-                  },
-                  "required": [
-                    "error",
-                    "code"
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Gate number is outside the range 1 to 64",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "Resource not found",
-                      "description": "Human-readable error message. The wording may change, so do not parse it programmatically. Switch on the stable code instead."
-                    },
-                    "code": {
-                      "type": "string",
-                      "example": "not_found",
-                      "description": "Machine-readable error code. Stable identifier for programmatic error handling."
                     }
                   },
                   "required": [
@@ -75878,7 +75853,9 @@
         "parameters": [
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100,
               "example": 2026,
               "description": "Solar year, 1900 to 2100. The year opens at Li Chun rather than on 1 January, so its last two terms fall in the following January."
             },
@@ -77273,7 +77250,9 @@
           },
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100,
               "example": 1990,
               "description": "Gregorian year, 1900 to 2100. Defaults to the current UTC year when omitted, together with month."
             },
@@ -77284,7 +77263,9 @@
           },
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
               "example": 6,
               "description": "Gregorian month, 1 to 12. Defaults to the current UTC month when omitted, together with year."
             },
@@ -79610,7 +79591,7 @@
         "parameters": [
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
               "minimum": 1,
               "maximum": 9,
               "example": 8,
@@ -86631,6 +86612,8 @@
           {
             "schema": {
               "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100,
               "example": 2026,
               "description": "Gregorian year of the grid, 1900 to 2100. Defaults to the current year in UTC. Wider historical ranges are available on the single date routes, which are not bounded to this window."
             },
@@ -86642,6 +86625,8 @@
           {
             "schema": {
               "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
               "example": 9,
               "description": "Calendar month of the grid, 1 to 12. Defaults to the current month in UTC."
             },
@@ -110788,14 +110773,13 @@
         "parameters": [
           {
             "schema": {
-              "type": [
-                "integer",
-                "null"
-              ],
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 72,
               "example": 27,
               "description": "Index of the name, 1 to 72."
             },
-            "required": false,
+            "required": true,
             "description": "Index of the name, 1 to 72.",
             "name": "number",
             "in": "path"
@@ -111034,32 +111018,6 @@
                     "code": {
                       "type": "string",
                       "description": "Machine-readable error code. Stable identifier."
-                    }
-                  },
-                  "required": [
-                    "error",
-                    "code"
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No name carries that index.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "Resource not found",
-                      "description": "Human-readable error message. The wording may change, so do not parse it programmatically. Switch on the stable code instead."
-                    },
-                    "code": {
-                      "type": "string",
-                      "example": "not_found",
-                      "description": "Machine-readable error code. Stable identifier for programmatic error handling."
                     }
                   },
                   "required": [
@@ -114200,7 +114158,7 @@
           {
             "schema": {
               "type": [
-                "number",
+                "integer",
                 "null"
               ],
               "minimum": 0,
@@ -114805,7 +114763,7 @@
                 "type": "object",
                 "properties": {
                   "count": {
-                    "type": "number",
+                    "type": "integer",
                     "minimum": 1,
                     "maximum": 78,
                     "example": 3,
@@ -127397,7 +127355,7 @@
         "parameters": [
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
               "minimum": 1,
               "maximum": 64,
               "example": 1,
@@ -133361,7 +133319,7 @@
         "parameters": [
           {
             "schema": {
-              "type": "number",
+              "type": "integer",
               "minimum": 1,
               "maximum": 10,
               "default": 1,

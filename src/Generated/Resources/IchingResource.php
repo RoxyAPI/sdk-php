@@ -135,7 +135,7 @@ class IchingResource extends BaseResource
      *
      * GET /iching/hexagrams/{number}
      *
-     * @param float $number
+     * @param int $number
      *   Hexagram number in King Wen sequence (1-64).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
@@ -145,7 +145,7 @@ class IchingResource extends BaseResource
      * @return array<string, mixed>
      */
     public function getHexagram(
-        float $number,
+        int $number,
         ?string $lang = null
     ): array
     {

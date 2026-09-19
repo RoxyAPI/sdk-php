@@ -606,10 +606,10 @@ class ChineseAstrologyResource extends BaseResource
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
-     * @param float|null $month
+     * @param int|null $month
      *   Gregorian month, 1 to 12. Defaults to the current UTC month when omitted, together with
      *   year.
-     * @param float|null $year
+     * @param int|null $year
      *   Gregorian year, 1900 to 2100. Defaults to the current UTC year when omitted, together with
      *   month.
      *
@@ -617,8 +617,8 @@ class ChineseAstrologyResource extends BaseResource
      */
     public function getMonthlyAlmanac(
         ?string $lang = null,
-        ?float $month = null,
-        ?float $year = null
+        ?int $month = null,
+        ?int $year = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetMonthlyAlmanacRequest(lang: $lang, month: $month, year: $year);
@@ -743,7 +743,7 @@ class ChineseAstrologyResource extends BaseResource
      *
      * GET /chinese-astrology/calendar/solar-terms/{year}
      *
-     * @param float $year
+     * @param int $year
      *   Solar year, 1900 to 2100. The year opens at Li Chun rather than on 1 January, so its last
      *   two terms fall in the following January.
      * @param string|null $lang
@@ -754,7 +754,7 @@ class ChineseAstrologyResource extends BaseResource
      * @return array<string, mixed>
      */
     public function listSolarTerms(
-        float $year,
+        int $year,
         ?string $lang = null
     ): array
     {
