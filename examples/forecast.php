@@ -28,9 +28,9 @@ try {
         birthData: [
             'date' => '1990-07-04',
             'time' => '10:12:00',
-            'timezone' => 5.5,
-            'latitude' => 28.6139,
-            'longitude' => 77.209,
+            'timezone' => 'America/New_York',
+            'latitude' => 40.7143,
+            'longitude' => -74.006,
         ],
         startDate: '2026-06-01',
         endDate: '2026-06-30',

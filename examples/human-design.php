@@ -23,16 +23,14 @@ if ('' === $apiKey) {
 $roxy = createRoxy($apiKey);
 
 try {
-    // Full bodygraph in one call. timezone is decimal hours (5.5 = IST) or an IANA name.
+    // Full bodygraph in one call. timezone is an IANA name or decimal hours from UTC.
     $chart = $roxy->humanDesign->generateBodygraph(
         date: '1990-07-04',
         time: '10:12:00',
-        timezone: 5.5,
-        latitude: 28.6139,
-        longitude: 77.209,
+        timezone: 'America/New_York',
     );
 
-    echo "=== Human Design bodygraph (1990-07-04 10:12 IST) ===\n";
+    echo "=== Human Design bodygraph (1990-07-04 10:12 America/New_York) ===\n";
     echo 'Type:       ' . ($chart['type'] ?? '?') . "\n";
     echo 'Strategy:   ' . ($chart['strategy'] ?? '?') . "\n";
     echo 'Profile:    ' . ($chart['profile'] ?? '?') . "\n";

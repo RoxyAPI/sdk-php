@@ -29,10 +29,10 @@ try {
     echo ($horoscope['overview'] ?? json_encode($horoscope)) . "\n\n";
 
     // 2. Geocode then natal chart (the standard two-step pattern).
-    $cities = $roxy->location->searchCities(q: 'Mumbai');
+    $cities = $roxy->location->searchCities(q: 'New York');
     $first = $cities['cities'][0] ?? null;
     if (null === $first) {
-        fwrite(STDERR, "No cities returned for Mumbai.\n");
+        fwrite(STDERR, "No cities returned for New York.\n");
         exit(2);
     }
 
@@ -41,7 +41,7 @@ try {
         time: '14:30:00',
         latitude: (float) $first['latitude'],
         longitude: (float) $first['longitude'],
-        timezone: $first['timezone'] ?? 5.5,
+        timezone: $first['timezone'],
     );
 
     // Planets come back as a list; index by name for display.
@@ -52,7 +52,7 @@ try {
         }
     }
 
-    echo "=== Natal chart (Mumbai, 1990-01-15 14:30) ===\n";
+    echo "=== Natal chart (New York, 1990-01-15 14:30) ===\n";
     echo 'Sun:       ' . ($byName['sun']['sign'] ?? '?') . "\n";
     echo 'Moon:      ' . ($byName['moon']['sign'] ?? '?') . "\n";
     echo 'Ascendant: ' . ($chart['ascendant']['sign'] ?? '?') . "\n";

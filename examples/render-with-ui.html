@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-    <h1>Aries natal chart</h1>
+    <h1>Natal chart</h1>
     <p>
         Server endpoint <code>natal-chart.php</code> calls
         <code>$roxy-&gt;astrology-&gt;generateNatalChart(...)</code> via the PHP SDK
@@ -36,7 +36,7 @@
     <roxy-natal-chart id="chart"></roxy-natal-chart>
 
     <script type="module">
-        const url = '/natal-chart.php?date=1990-01-15&time=14:30:00&lat=28.6139&lon=77.209&tz=5.5';
+        const url = '/natal-chart.php?date=1990-01-15&time=14:30:00&lat=40.7143&lon=-74.006&tz=America/New_York';
         const res = await fetch(url);
         if (!res.ok) {
             document.body.insertAdjacentHTML(

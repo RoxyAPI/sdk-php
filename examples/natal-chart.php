@@ -20,7 +20,7 @@ header('Content-Type: application/json');
 $roxy = createRoxy(getenv('ROXY_API_KEY') ?: '');
 
 try {
-    $tz = $_GET['tz'] ?? '5.5';
+    $tz = $_GET['tz'] ?? 'America/New_York';
     echo json_encode($roxy->astrology->generateNatalChart(
         date: (string) ($_GET['date'] ?? ''),
         time: (string) ($_GET['time'] ?? ''),
