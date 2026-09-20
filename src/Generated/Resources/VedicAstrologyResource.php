@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Vedic astrology (Jyotish) and KP API for kundli generation with 15 divisional charts
- * (D1-D60), panchang with choghadi...
+ * Vedic astrology (Jyotish) and KP API for kundli generation with the sixteen Shodasavarga
+ * divisional charts (D1 to D60...
  *
  * Accessed via $roxy->vedicAstrology.
  */
@@ -395,6 +395,62 @@ class VedicAstrologyResource extends BaseResource
     }
 
     /**
+     * Calculate ten porutham match - Dashakoot South Indian Kundli Matching API
+     *
+     * Calculate the South Indian ten porutham marriage match (Dashakoot, also called Dasa
+     * Porutham) for two birth records. Returns a pass or fail on each of Dina, Gana, Mahendra,
+     * Stree Deergha, Yoni, Rasi, Rasyadhipati, Vasya, Rajju and Vedha, a total out of ten, and
+     * Rajju and Vedha as explicit hard vetoes that disqualify a match whatever the rest of the
+     * sheet reads. This is a different system from the 36 point Ashtakoot Gun Milan on POST
+     * /vedic-astrology/compatibility and the two are never reconciled, so a Tamil, Malayalam or
+     * Telugu matrimonial desk can read the sheet it actually uses. Direction matters: person1 is
+     * the groom and person2 is the bride, because five of the ten poruthams count from the bride
+     * birth star to the groom birth star.
+     *
+     * POST /vedic-astrology/compatibility/dashakoot
+     *
+     * @param array $person1
+     *   Birth data of the GROOM. Direction is load bearing in this system: Dina, Mahendra, Stree
+     *   Deergha, Rasi and Vasya all count from the bride toward the groom, so sending the two people
+     *   the wrong way round returns a different and wrong sheet without any error.
+     * @param array $person2
+     *   Birth data of the BRIDE. Five of the ten poruthams count FROM this birth star, so this field
+     *   is not interchangeable with person1. Date, time and location determine the Moon nakshatra
+     *   and Moon rashi every porutham reads.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
+     * @param string|null $lang
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculateDashakoot(
+        array $person1,
+        array $person2,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateDashakootRequest(person1: $person1, person2: $person2, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
      * Get planetary aspects (Drishti) - Mutual aspects between all planets
      *
      * Calculate all planetary aspects (Drishti) for a given time. Returns full aspects (7th house
@@ -488,6 +544,62 @@ class VedicAstrologyResource extends BaseResource
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\CalculateGunMilanRequest(person1: $person1, person2: $person2, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, lang: $lang);
+
+        return $this->callRequest($request);
+    }
+
+    /**
+     * Compare malefic affliction - Papasamyam Kundli Matching API
+     *
+     * Calculate Papasamyam, the balance of malefic (papa) points between two birth charts, for
+     * Vedic marriage matching. Counts Mars, Saturn, Sun and Rahu sitting in the afflicting bhavas
+     * 1, 2, 4, 7, 8 and 12 read from three reference points in each chart, the Lagna weighted 1,
+     * the Moon weighted 0.5 and Venus weighted 0.25, and returns both totals with the graha, the
+     * bhava and the weight behind every point. The verdict is a comparison and never a judgement
+     * on one person: the bride total must be equal to or below the groom total, so a heavily
+     * afflicted groom matched with a comparably afflicted bride reads as balanced while an
+     * unafflicted groom matched with an afflicted bride does not. Use it beside Gun Milan and the
+     * ten porutham sheet on a matrimonial platform, since a koota score says nothing about malefic
+     * balance.
+     *
+     * POST /vedic-astrology/compatibility/papasamyam
+     *
+     * @param array $person1
+     *   Birth data of the GROOM. The comparison is directional, so this field is not interchangeable
+     *   with person2: the match reads as balanced only when the bride carries no more affliction
+     *   than the groom, and swapping the two people can flip the verdict.
+     * @param array $person2
+     *   Birth data of the BRIDE. Date, time and location determine the Lagna, the Moon and Venus,
+     *   which are the three points every papa point is counted from.
+     * @param string|null $ayanamsa
+     *   Sidereal frame (ayanamsa) the chart is cast in. "lahiri" is Lahiri/Chitrapaksha, the
+     *   traditional Vedic standard used by most software, and is the default. "raman" is the B.V.
+     *   Raman ayanamsa from Hindu Predictive Astrology, about 1.45 degrees below Lahiri.
+     *   "kp-newcomb" and "kp-old" are the two Krishnamurti Paddhati frames. "custom" takes your own
+     *   value in degrees via ayanamsaValue, for reconciling exactly against a specific reference
+     *   program. The frame rotates the whole zodiac, so a graha sitting within 1.45 degrees of a
+     *   boundary can change rashi or nakshatra when you switch: pick the one your reference software
+     *   uses and keep it.
+     * @param float|null $ayanamsaValue
+     *   Custom ayanamsa value in degrees. When provided, overrides the computed ayanamsa from the
+     *   selected type. Use for testing with specific ayanamsa values or matching a particular
+     *   reference source.
+     * @param string|null $lang
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
+     *
+     * @return array<string, mixed>
+     */
+    public function calculatePapasamyam(
+        array $person1,
+        array $person2,
+        ?string $ayanamsa = null,
+        ?float $ayanamsaValue = null,
+        ?string $lang = null
+    ): array
+    {
+        $request = new \RoxyAPI\Sdk\Generated\Requests\CalculatePapasamyamRequest(person1: $person1, person2: $person2, ayanamsa: $ayanamsa, ayanamsaValue: $ayanamsaValue, lang: $lang);
 
         return $this->callRequest($request);
     }
