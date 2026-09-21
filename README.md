@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://roxyapi.com">
-    <img src="https://raw.githubusercontent.com/RoxyAPI/sdk-php/main/assets/hero.png" alt="Roxy PHP SDK. Astrology, Vedic, numerology, tarot, and more behind one API key." width="100%">
+    <img src="https://raw.githubusercontent.com/RoxyAPI/sdk-php/main/assets/hero.png" alt="RoxyAPI PHP SDK: the Spiritual OS layer for agentic AI. One key, flat pricing." width="100%">
   </a>
 </p>
 
