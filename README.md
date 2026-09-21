@@ -430,6 +430,23 @@ $sequence = $roxy->angelNumbers->analyzeNumberSequence(number: '4242');
 // $sequence['digitRoot'], ['isRepeating'], ['knownMeaning'] (null when not curated), $sequence['digitRootMeaning']['title']
 ```
 
+## Built for AI agents (Cursor, Claude Code, Copilot, Codex, Gemini CLI)
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/RoxyAPI/sdk-php/main/assets/agents.png" alt="Your coding agent already knows the API. Built for AI agents, Remote MCP, no local setup." width="100%">
+</p>
+
+This package ships with `AGENTS.md`, a quick start, patterns, gotchas and common-tasks reference that AI coding agents read directly from `vendor/`.
+
+Agents supporting `AGENTS.md` (Claude Code, Cursor, GitHub Copilot, OpenAI Codex, Gemini CLI) will pick it up automatically. For other tools, point your agent to `vendor/roxyapi/sdk/AGENTS.md`.
+
+Prefer MCP? Every domain has a [Remote MCP server](https://roxyapi.com/docs/mcp) at `https://roxyapi.com/mcp/{domain}` (Streamable HTTP, no stdio, no self-hosting). One-line Claude Code setup:
+
+```bash
+claude mcp add-json --scope user roxy-astrology \
+  '{"type":"http","url":"https://roxyapi.com/mcp/astrology","headers":{"X-API-Key":"YOUR_KEY"}}'
+```
+
 ## Error handling
 
 Every method throws `RoxyAPI\Sdk\RoxyApiException` on 4xx / 5xx, so a successful return is always the decoded payload. The exception carries `statusCode`, `errorCode` (machine-readable, stable: switch on this) and `error` (human-readable, may change wording).
