@@ -31,7 +31,7 @@ class ListMayanDaySignsRequest extends Request
         public readonly ?string $directionScheme = null,
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
-        public readonly mixed $offset = null,
+        public readonly ?int $offset = null,
     ) {
     }
 

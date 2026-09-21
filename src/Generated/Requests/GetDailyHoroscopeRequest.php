@@ -24,8 +24,8 @@ use Saloon\Http\Request;
  * signs. No language model is involved, so a given sign and date always returns the same text
  * and a piece scheduled months ahead is the piece that runs. Content rolls over at midnight,
  * by default UTC. Pass date for editorial scheduling, or timezone to roll over on a local
- * clock. Available in eight languages. Daily horoscope API, zodiac forecast, sun sign
- * horoscope, astrology prediction.
+ * clock. Composed in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns
+ * English. Daily horoscope API, zodiac forecast, sun sign horoscope, astrology prediction.
  *
  * GET /astrology/horoscope/{sign}/daily
  */

@@ -32,8 +32,8 @@ class ListShemNamesRequest extends Request
     public function __construct(
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
-        public readonly mixed $longitude = null,
-        public readonly mixed $offset = null,
+        public readonly ?float $longitude = null,
+        public readonly ?int $offset = null,
     ) {
     }
 

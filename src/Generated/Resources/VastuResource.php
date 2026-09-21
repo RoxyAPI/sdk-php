@@ -460,7 +460,7 @@ class VastuResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-45, default 45.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -468,7 +468,7 @@ class VastuResource extends BaseResource
     public function listDevatas(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListDevatasRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -493,7 +493,7 @@ class VastuResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-8, default 8.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -501,7 +501,7 @@ class VastuResource extends BaseResource
     public function listDikpalaDirections(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListDikpalaDirectionsRequest(lang: $lang, limit: $limit, offset: $offset);

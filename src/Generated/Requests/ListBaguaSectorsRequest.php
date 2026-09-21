@@ -32,7 +32,7 @@ class ListBaguaSectorsRequest extends Request
     public function __construct(
         public readonly ?string $lang = null,
         public readonly ?int $limit = null,
-        public readonly mixed $offset = null,
+        public readonly ?int $offset = null,
     ) {
     }
 

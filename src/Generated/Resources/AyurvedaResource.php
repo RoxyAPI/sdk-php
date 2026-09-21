@@ -100,6 +100,11 @@ class AyurvedaResource extends BaseResource
      *
      * GET /ayurveda/daily
      *
+     * @param float $latitude
+     *   Latitude in decimal degrees. It sets how long the day and the night actually are, which is
+     *   what the dosha periods are cut from.
+     * @param float $longitude
+     *   Longitude in decimal degrees. It sets the clock time of sunrise at this place.
      * @param string|null $date
      *   Reading date in YYYY-MM-DD format. Past and future dates are both supported, for editorial
      *   scheduling and backfill. Defaults to the current day in the timezone parameter.
@@ -107,11 +112,6 @@ class AyurvedaResource extends BaseResource
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
-     * @param mixed|null $latitude
-     *   Latitude in decimal degrees. It sets how long the day and the night actually are, which is
-     *   what the dosha periods are cut from.
-     * @param mixed|null $longitude
-     *   Longitude in decimal degrees. It sets the clock time of sunrise at this place.
      * @param string|null $timezone
      *   Selects which day counts as current when date is omitted, and which local day sunrise is
      *   computed for. Defaults to UTC, so the reading rolls over at 00:00 UTC. Accepts an IANA name
@@ -121,14 +121,14 @@ class AyurvedaResource extends BaseResource
      * @return array<string, mixed>
      */
     public function getDailyAyurvedaReading(
+        float $latitude,
+        float $longitude,
         ?string $date = null,
         ?string $lang = null,
-        mixed $latitude = null,
-        mixed $longitude = null,
         ?string $timezone = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetDailyAyurvedaReadingRequest(date: $date, lang: $lang, latitude: $latitude, longitude: $longitude, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetDailyAyurvedaReadingRequest(latitude: $latitude, longitude: $longitude, date: $date, lang: $lang, timezone: $timezone);
 
         return $this->callRequest($request);
     }
@@ -290,7 +290,7 @@ class AyurvedaResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-3, default 3.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -298,7 +298,7 @@ class AyurvedaResource extends BaseResource
     public function listDoshas(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListDoshasRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -325,7 +325,7 @@ class AyurvedaResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-10, default 10.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -333,7 +333,7 @@ class AyurvedaResource extends BaseResource
     public function listGunas(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListGunasRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -359,7 +359,7 @@ class AyurvedaResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-6, default 6.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -367,7 +367,7 @@ class AyurvedaResource extends BaseResource
     public function listRasas(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListRasasRequest(lang: $lang, limit: $limit, offset: $offset);

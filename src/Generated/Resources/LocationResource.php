@@ -36,7 +36,7 @@ class LocationResource extends BaseResource
      *   (India), BR (Brazil), JP (Japan).
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-100, default 20.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -44,7 +44,7 @@ class LocationResource extends BaseResource
     public function getCitiesByCountry(
         string $iso2,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GetCitiesByCountryRequest(iso2: $iso2, limit: $limit, offset: $offset);
@@ -64,14 +64,14 @@ class LocationResource extends BaseResource
      *
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-250, default 50.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
      */
     public function listCountries(
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListCountriesRequest(limit: $limit, offset: $offset);
@@ -105,7 +105,7 @@ class LocationResource extends BaseResource
      *   the six Springfields, and Richfield, Utah from Richfield, Minnesota.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-50, default 10.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -113,7 +113,7 @@ class LocationResource extends BaseResource
     public function searchCities(
         string $q,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\SearchCitiesRequest(q: $q, limit: $limit, offset: $offset);

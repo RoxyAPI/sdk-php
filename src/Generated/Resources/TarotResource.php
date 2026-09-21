@@ -449,10 +449,10 @@ class TarotResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-100, default 20.
-     * @param mixed|null $number
+     * @param int|null $number
      *   Filter by card number. Major Arcana: 0 (The Fool) through 21 (The World). Minor Arcana: 1
      *   (Ace) through 14 (King). Combine with arcana or suit filters for precise results.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      * @param string|null $suit
      *   Filter minor arcana by suit. Cups=emotions/relationships, Wands=creativity/passion,
@@ -464,8 +464,8 @@ class TarotResource extends BaseResource
         ?string $arcana = null,
         ?string $lang = null,
         ?int $limit = null,
-        mixed $number = null,
-        mixed $offset = null,
+        ?int $number = null,
+        ?int $offset = null,
         ?string $suit = null
     ): array
     {

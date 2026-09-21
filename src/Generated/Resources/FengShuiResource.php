@@ -343,7 +343,7 @@ class FengShuiResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-9, default 9.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -351,7 +351,7 @@ class FengShuiResource extends BaseResource
     public function listBaguaSectors(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListBaguaSectorsRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -376,7 +376,7 @@ class FengShuiResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-9, default 9.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -384,7 +384,7 @@ class FengShuiResource extends BaseResource
     public function listFlyingStars(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListFlyingStarsRequest(lang: $lang, limit: $limit, offset: $offset);

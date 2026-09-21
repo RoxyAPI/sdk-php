@@ -29,10 +29,10 @@ class GetDailyAyurvedaReadingRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
+        public readonly float $latitude,
+        public readonly float $longitude,
         public readonly ?string $date = null,
         public readonly ?string $lang = null,
-        public readonly mixed $latitude = null,
-        public readonly mixed $longitude = null,
         public readonly ?string $timezone = null,
     ) {
     }
@@ -48,17 +48,13 @@ class GetDailyAyurvedaReadingRequest extends Request
     protected function defaultQuery(): array
     {
         $query = [];
+        $query['latitude'] = $this->latitude;
+        $query['longitude'] = $this->longitude;
         if ($this->date !== null) {
             $query['date'] = $this->date;
         }
         if ($this->lang !== null) {
             $query['lang'] = $this->lang;
-        }
-        if ($this->latitude !== null) {
-            $query['latitude'] = $this->latitude;
-        }
-        if ($this->longitude !== null) {
-            $query['longitude'] = $this->longitude;
         }
         if ($this->timezone !== null) {
             $query['timezone'] = $this->timezone;

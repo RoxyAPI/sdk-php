@@ -555,7 +555,7 @@ class MesoamericanAstrologyResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-20, default 20.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -563,7 +563,7 @@ class MesoamericanAstrologyResource extends BaseResource
     public function listAztecDaySigns(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListAztecDaySignsRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -587,7 +587,7 @@ class MesoamericanAstrologyResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-20, default 20.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -595,7 +595,7 @@ class MesoamericanAstrologyResource extends BaseResource
     public function listAztecTrecenas(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListAztecTrecenasRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -619,7 +619,7 @@ class MesoamericanAstrologyResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-19, default 19.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -627,7 +627,7 @@ class MesoamericanAstrologyResource extends BaseResource
     public function listHaabMonths(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListHaabMonthsRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -657,7 +657,7 @@ class MesoamericanAstrologyResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-20, default 20.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -666,7 +666,7 @@ class MesoamericanAstrologyResource extends BaseResource
         ?string $directionScheme = null,
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListMayanDaySignsRequest(directionScheme: $directionScheme, lang: $lang, limit: $limit, offset: $offset);
@@ -690,7 +690,7 @@ class MesoamericanAstrologyResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-20, default 20.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -698,7 +698,7 @@ class MesoamericanAstrologyResource extends BaseResource
     public function listTrecenas(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListTrecenasRequest(lang: $lang, limit: $limit, offset: $offset);

@@ -632,7 +632,7 @@ class AstrologyResource extends BaseResource
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
-     * @param mixed|null $orb
+     * @param float|null $orb
      *   Conjunction orb in degrees, the maximum separation for a star to count as conjunct a chart
      *   point. Defaults to 1, maximum 3. Widen it to surface looser contacts or tighten it for only
      *   the closest hits.
@@ -647,7 +647,7 @@ class AstrologyResource extends BaseResource
         mixed $timezone,
         ?string $nodeType = null,
         ?string $lang = null,
-        mixed $orb = null
+        ?float $orb = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateFixedStarsRequest(date: $date, latitude: $latitude, longitude: $longitude, time: $time, timezone: $timezone, nodeType: $nodeType, lang: $lang, orb: $orb);
@@ -1312,8 +1312,8 @@ class AstrologyResource extends BaseResource
      * signs. No language model is involved, so a given sign and date always returns the same text
      * and a piece scheduled months ahead is the piece that runs. Content rolls over at midnight,
      * by default UTC. Pass date for editorial scheduling, or timezone to roll over on a local
-     * clock. Available in eight languages. Daily horoscope API, zodiac forecast, sun sign
-     * horoscope, astrology prediction.
+     * clock. Composed in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns
+     * English. Daily horoscope API, zodiac forecast, sun sign horoscope, astrology prediction.
      *
      * GET /astrology/horoscope/{sign}/daily
      *
@@ -1416,9 +1416,9 @@ class AstrologyResource extends BaseResource
      * can be checked against NASA JPL Horizons or the US Naval Observatory before it runs. Key
      * dates are the real New Moon, Full Moon and retrograde instants, never approximations.
      * Alongside the column come overview, love, career, health, finance and advice. Pass any date
-     * inside a month to retrieve that month, or timezone to roll over on a local clock. Available
-     * in eight languages. Monthly horoscope API, zodiac monthly forecast, astrology monthly
-     * prediction.
+     * inside a month to retrieve that month, or timezone to roll over on a local clock. Composed
+     * in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English.
+     * Monthly horoscope API, zodiac monthly forecast, astrology monthly prediction.
      *
      * GET /astrology/horoscope/{sign}/monthly
      *
@@ -1799,8 +1799,9 @@ class AstrologyResource extends BaseResource
      * can check a piece before it runs. Alongside the column come overview, love, career, health,
      * finance and advice, plus lucky days, lucky numbers and compatible signs. No language model
      * is involved, so the same sign and week always returns the same text. Pass any date inside a
-     * week to retrieve that week, or timezone to roll over on a local clock. Available in eight
-     * languages. Weekly horoscope API, zodiac weekly forecast, astrology weekly prediction.
+     * week to retrieve that week, or timezone to roll over on a local clock. Composed in 8
+     * languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English. Weekly
+     * horoscope API, zodiac weekly forecast, astrology weekly prediction.
      *
      * GET /astrology/horoscope/{sign}/weekly
      *

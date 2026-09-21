@@ -550,11 +550,11 @@ class KabbalahResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-72, default 20.
-     * @param mixed|null $longitude
+     * @param float|null $longitude
      *   Ecliptic longitude in degrees, 0 inclusive to 360 exclusive, measured from 0 Aries. Returns
      *   the single name governing that degree instead of the list. 360 is rejected because it is the
      *   same point as 0 and the arcs are half open at the top.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -562,8 +562,8 @@ class KabbalahResource extends BaseResource
     public function listShemNames(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $longitude = null,
-        mixed $offset = null
+        ?float $longitude = null,
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListShemNamesRequest(lang: $lang, limit: $limit, longitude: $longitude, offset: $offset);

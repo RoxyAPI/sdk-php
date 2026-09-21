@@ -40,7 +40,7 @@ class GenerateFixedStarsRequest extends Request implements HasBody
         public readonly mixed $timezone,
         public readonly ?string $nodeType = null,
         public readonly ?string $lang = null,
-        public readonly mixed $orb = null,
+        public readonly ?float $orb = null,
     ) {
     }
 

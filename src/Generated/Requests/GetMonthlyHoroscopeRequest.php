@@ -22,9 +22,9 @@ use Saloon\Http\Request;
  * can be checked against NASA JPL Horizons or the US Naval Observatory before it runs. Key
  * dates are the real New Moon, Full Moon and retrograde instants, never approximations.
  * Alongside the column come overview, love, career, health, finance and advice. Pass any date
- * inside a month to retrieve that month, or timezone to roll over on a local clock. Available
- * in eight languages. Monthly horoscope API, zodiac monthly forecast, astrology monthly
- * prediction.
+ * inside a month to retrieve that month, or timezone to roll over on a local clock. Composed
+ * in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English.
+ * Monthly horoscope API, zodiac monthly forecast, astrology monthly prediction.
  *
  * GET /astrology/horoscope/{sign}/monthly
  */

@@ -714,7 +714,7 @@ class ChineseAstrologyResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-5, default 5.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -722,7 +722,7 @@ class ChineseAstrologyResource extends BaseResource
     public function listFiveElements(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListFiveElementsRequest(lang: $lang, limit: $limit, offset: $offset);
@@ -780,7 +780,7 @@ class ChineseAstrologyResource extends BaseResource
      *   language returns English.
      * @param int|null $limit
      *   Maximum items to return per page. Range: 1-12, default 12.
-     * @param mixed|null $offset
+     * @param int|null $offset
      *   Number of items to skip for pagination. Default 0.
      *
      * @return array<string, mixed>
@@ -788,7 +788,7 @@ class ChineseAstrologyResource extends BaseResource
     public function listZodiacAnimals(
         ?string $lang = null,
         ?int $limit = null,
-        mixed $offset = null
+        ?int $offset = null
     ): array
     {
         $request = new \RoxyAPI\Sdk\Generated\Requests\ListZodiacAnimalsRequest(lang: $lang, limit: $limit, offset: $offset);

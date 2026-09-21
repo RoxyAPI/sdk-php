@@ -22,8 +22,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * one side of the ecliptic to the other. Ascending crossings (south to north) correspond to
  * the ascending node, descending crossings (north to south) to the descending node. Moon
  * crosses ~2 times per month, outer planets cross less frequently. Returns exact date, time,
- * direction, sidereal longitude, and zodiac sign. Ecliptic crossing API, planetary node
- * crossing, ascending descending node ephemeris.
+ * direction, longitude and zodiac sign in the requested coordinateSystem, sidereal by default.
+ * Ecliptic crossing API, planetary node crossing, ascending descending node ephemeris.
  *
  * POST /vedic-astrology/ecliptic-crossings
  */

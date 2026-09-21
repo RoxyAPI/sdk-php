@@ -21,8 +21,9 @@ use Saloon\Http\Request;
  * can check a piece before it runs. Alongside the column come overview, love, career, health,
  * finance and advice, plus lucky days, lucky numbers and compatible signs. No language model
  * is involved, so the same sign and week always returns the same text. Pass any date inside a
- * week to retrieve that week, or timezone to roll over on a local clock. Available in eight
- * languages. Weekly horoscope API, zodiac weekly forecast, astrology weekly prediction.
+ * week to retrieve that week, or timezone to roll over on a local clock. Composed in 8
+ * languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English. Weekly
+ * horoscope API, zodiac weekly forecast, astrology weekly prediction.
  *
  * GET /astrology/horoscope/{sign}/weekly
  */
