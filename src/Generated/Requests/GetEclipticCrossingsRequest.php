@@ -37,6 +37,7 @@ class GetEclipticCrossingsRequest extends Request implements HasBody
         public readonly int $year,
         public readonly ?string $coordinateSystem = null,
         public readonly mixed $timezone = null,
+        public readonly ?string $lang = null,
     ) {
     }
 
@@ -60,5 +61,18 @@ class GetEclipticCrossingsRequest extends Request implements HasBody
         $body['year'] = $this->year;
 
         return $body;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaultQuery(): array
+    {
+        $query = [];
+        if ($this->lang !== null) {
+            $query['lang'] = $this->lang;
+        }
+
+        return $query;
     }
 }

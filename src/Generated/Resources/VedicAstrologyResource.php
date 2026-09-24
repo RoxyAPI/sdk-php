@@ -1763,16 +1763,21 @@ class VedicAstrologyResource extends BaseResource
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
      *   name is resolved once, at the start of the window, and that offset applies to every time in
      *   the response. Output times are converted to this timezone. Defaults to 0 (UTC).
+     * @param string|null $lang
+     *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
+     *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
+     *   language returns English.
      *
      * @return array<string, mixed>
      */
     public function getEclipticCrossings(
         int $year,
         ?string $coordinateSystem = null,
-        mixed $timezone = null
+        mixed $timezone = null,
+        ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GetEclipticCrossingsRequest(year: $year, coordinateSystem: $coordinateSystem, timezone: $timezone);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GetEclipticCrossingsRequest(year: $year, coordinateSystem: $coordinateSystem, timezone: $timezone, lang: $lang);
 
         return $this->callRequest($request);
     }
