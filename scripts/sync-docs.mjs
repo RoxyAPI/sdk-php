@@ -62,7 +62,7 @@ const totalEndpoints = [...opsByTag.values()].reduce((sum, ops) => sum + ops.len
 
 function renderDomains() {
 	const rows = specTags.map((tag) => `| \`$roxy->${namespaceByTag.get(tag)}\` | ${tagSummary(tagByName.get(tag))} |`);
-	const total = `**Total:** ${totalEndpoints} endpoints across the ${specTags.length} namespaces above. This table auto-syncs from the OpenAPI spec at release time.`;
+	const total = 'The table above covers every endpoint and auto-syncs from the OpenAPI spec at release time.';
 	return [DOMAINS_BEGIN, '| Property | What it covers |', '|---|---|', ...rows, '', total, DOMAINS_END].join('\n');
 }
 

@@ -58,7 +58,7 @@ $place = $roxy->location->searchCities(q: 'New York');
 | `$roxy->usage` | Monitor your API usage, check rate limits, and track request consumption |
 | `$roxy->languages` | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
 
-**Total:** 261 endpoints across the 20 namespaces above. This table auto-syncs from the OpenAPI spec at release time.
+The table above covers every endpoint and auto-syncs from the OpenAPI spec at release time.
 <!-- END:DOMAINS -->
 
 ## Quality guidelines for agents
@@ -69,6 +69,7 @@ Five rules to follow when writing any call with this SDK. Get these right and th
 - **Arrays back, never objects.** Every method returns `array<string, mixed>`. Access fields with `$result['key']['subkey']`, never `$result->key->subkey`: object syntax throws `Error: Attempt to read property "key" on array`. Sub-objects are arrays too: the natal-chart `ascendant` is `['sign' => ..., 'degree' => ...]`, so `echo $chart['ascendant']['sign']`, not `echo $chart['ascendant']`.
 - **Method names match the OpenAPI `operationId` verbatim** (already camelCase). When in doubt, read `vendor/roxyapi/sdk/src/Generated/Resources/<Tag>Resource.php`: it lists every method with its full signature. Never invent a method from the URL path or a guess.
 - **Response field names come from the response schema of the spec.** The OpenAPI spec at <https://roxyapi.com/api/v2/openapi.json> is the authoritative shape: drill into nested `.properties` for sub-objects and `.items.properties` for array items. An invented field is an `Undefined array key` warning at runtime, so read every field you name from a real response before shipping.
+- **Look up any operation or field beyond this guide.** Query the combined OpenAPI spec at <https://roxyapi.com/api/v2/openapi.json> with the jq recipe in <https://roxyapi.com/AGENTS.md>, or search the keyless Docs MCP server at <https://roxyapi.com/mcp/docs> (one tool, `search_docs`).
 - **Do not hand-roll requests.** No raw `curl`, no direct Guzzle. The SDK injects auth, the base URL and error decoding; it does not retry, so wrap calls you want retried. `RoxyApiException` is a real PHP object: `$e->statusCode`, `$e->errorCode`, `$e->error` use object syntax. Only successful payloads are arrays.
 
 ## Critical patterns
@@ -266,7 +267,7 @@ echo json_encode($roxy->astrology->generateNatalChart(
 </script>
 ```
 
-See <https://github.com/RoxyAPI/sdk-php/blob/main/examples/render-with-ui.html> for the full pattern. Component coverage and docs: <https://roxyapi.github.io/ui/>.
+See <https://raw.githubusercontent.com/RoxyAPI/sdk-php/main/examples/render-with-ui.html> for the full pattern. Component coverage: fetch <https://raw.githubusercontent.com/RoxyAPI/ui/main/AGENTS.md> whole with `curl -s`.
 
 ## Testing your integration
 

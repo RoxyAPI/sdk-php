@@ -100,7 +100,7 @@ Get an API key at [roxyapi.com/pricing](https://roxyapi.com/pricing). Never expo
 | `$roxy->usage` | Monitor your API usage, check rate limits, and track request consumption |
 | `$roxy->languages` | List the response languages accepted by the `lang` query parameter on every i18n-aware endpoint |
 
-**Total:** 261 endpoints across the 20 namespaces above. This table auto-syncs from the OpenAPI spec at release time.
+The table above covers every endpoint and auto-syncs from the OpenAPI spec at release time.
 <!-- END:DOMAINS -->
 
 ## Most-used endpoints
