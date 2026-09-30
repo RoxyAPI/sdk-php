@@ -406,7 +406,8 @@ class FengShuiResource extends BaseResource
      *
      * @param string|null $date
      *   Date to resolve the current period for, in YYYY-MM-DD format. Defaults to today in UTC.
-     *   Useful for asking which period a building was completed in.
+     *   Useful for asking which period a building was completed in. A date landing exactly on the Li
+     *   Chun day a period opens is placed in the outgoing period.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested

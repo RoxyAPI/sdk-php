@@ -572,19 +572,19 @@ class NumerologyResource extends BaseResource
     /**
      * Detect Karmic Debt numbers - Past life challenges (13, 14, 16, 19)
      *
-     * Check for Karmic Debt numbers (13, 14, 16, 19) in Life Path, Expression, Soul Urge, or
-     * Personality calculations using Pythagorean numerology. Karmic debt indicates challenges
-     * carried from past lives that must be resolved in this lifetime. These numbers appear during
-     * reduction and represent specific lessons and tests. Returns comprehensive analysis including
-     * debt descriptions, challenges to overcome, and resolution guidance. Perfect for spiritual
-     * growth apps, karmic astrology platforms, past life exploration services, and personal
-     * transformation tools. Get detailed meanings for all four karmic debt numbers with practical
-     * resolution strategies.
+     * Check for Karmic Debt numbers (13, 14, 16, 19) in the five core numbers that carry it, Life
+     * Path, Birth Day, Expression, Soul Urge and Personality, using Pythagorean numerology. Karmic
+     * debt indicates challenges carried from past lives that must be resolved in this lifetime.
+     * These numbers appear during reduction and represent specific lessons and tests. Returns
+     * comprehensive analysis including debt descriptions, challenges to overcome, and resolution
+     * guidance. Perfect for spiritual growth apps, karmic astrology platforms, past life
+     * exploration services, and personal transformation tools. Get detailed meanings for all four
+     * karmic debt numbers with practical resolution strategies.
      *
      * POST /numerology/karmic-debt
      *
      * @param int|null $day
-     *   Birth day (checks Life Path)
+     *   Birth day (checks Birth Day on its own, and Life Path with year and month)
      * @param string|null $fullName
      *   Full birth name (checks Expression, Soul Urge, Personality)
      * @param int|null $month

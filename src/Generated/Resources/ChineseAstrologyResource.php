@@ -65,8 +65,9 @@ class ChineseAstrologyResource extends BaseResource
      *   from the next day. The three give three different answers for a late-evening birth and
      *   identical answers for every other birth.
      * @param string|null $hourClock
-     *   Which clock the HOUR branch is read from. "clock" is civil time exactly as a birth
-     *   certificate records it, which is what most calculators use and the default here.
+     *   Which clock the day boundary and the hour branch are read from, so a correction that carries
+     *   a birth across midnight moves the day pillar with the hour. "clock" is civil time exactly as
+     *   a birth certificate records it, which is what most calculators use and the default here.
      *   "local-mean" shifts to the mean sun over the birth longitude, a correction of up to 59
      *   minutes at the edge of a wide time zone. "solar" adds the equation of time on top of that,
      *   up to a further 16 minutes. Both non-civil options need "longitude" in the request and
@@ -152,10 +153,11 @@ class ChineseAstrologyResource extends BaseResource
      * Assess how well the Day Master is supported by the rest of a BaZi chart, and which of the
      * five elements help it. Uses the classical three-factor method: whether the birth month
      * season backs the Day Master element, whether any branch stores a root for it, and whether
-     * the other stems help or spend it. Returns the verdict, an auditable score with each factor
-     * contribution, the seasonal state, the root count, the element headcount, and the favorable
-     * and unfavorable element lists that follow from the verdict. Built for chart readers, remedy
-     * features, and agents that need the usable half of a Four Pillars reading.
+     * the other stems and the branches outside the month help or spend it. Returns the verdict, an
+     * auditable score with each factor contribution, the seasonal state, the root count, the
+     * element headcount, and the favorable and unfavorable element lists that follow from the
+     * verdict. Built for chart readers, remedy features, and agents that need the usable half of a
+     * Four Pillars reading.
      *
      * POST /chinese-astrology/bazi/day-master
      *
@@ -188,8 +190,9 @@ class ChineseAstrologyResource extends BaseResource
      *   from the next day. The three give three different answers for a late-evening birth and
      *   identical answers for every other birth.
      * @param string|null $hourClock
-     *   Which clock the HOUR branch is read from. "clock" is civil time exactly as a birth
-     *   certificate records it, which is what most calculators use and the default here.
+     *   Which clock the day boundary and the hour branch are read from, so a correction that carries
+     *   a birth across midnight moves the day pillar with the hour. "clock" is civil time exactly as
+     *   a birth certificate records it, which is what most calculators use and the default here.
      *   "local-mean" shifts to the mean sun over the birth longitude, a correction of up to 59
      *   minutes at the edge of a wide time zone. "solar" adds the equation of time on top of that,
      *   up to a further 16 minutes. Both non-civil options need "longitude" in the request and
@@ -288,8 +291,9 @@ class ChineseAstrologyResource extends BaseResource
      *   from the next day. The three give three different answers for a late-evening birth and
      *   identical answers for every other birth.
      * @param string|null $hourClock
-     *   Which clock the HOUR branch is read from. "clock" is civil time exactly as a birth
-     *   certificate records it, which is what most calculators use and the default here.
+     *   Which clock the day boundary and the hour branch are read from, so a correction that carries
+     *   a birth across midnight moves the day pillar with the hour. "clock" is civil time exactly as
+     *   a birth certificate records it, which is what most calculators use and the default here.
      *   "local-mean" shifts to the mean sun over the birth longitude, a correction of up to 59
      *   minutes at the edge of a wide time zone. "solar" adds the equation of time on top of that,
      *   up to a further 16 minutes. Both non-civil options need "longitude" in the request and
@@ -352,7 +356,10 @@ class ChineseAstrologyResource extends BaseResource
      *
      * @param string|null $date
      *   Gregorian date to convert to the lunisolar calendar. Send this OR the lunar fields, never
-     *   both.
+     *   both. Converts from the first day of lunar year 1551 to the last day of lunar year 2648, a
+     *   little inside the supported date span, because numbering a lunar month needs the winter
+     *   solstice on each side of it and placing a leap month needs the year before; a date outside
+     *   that answers 400 date_out_of_range.
      * @param bool|null $isLeapMonth
      *   Set true to address the leap repetition of lunarMonth rather than the first pass. Requesting
      *   a leap month a year does not have returns 400.
@@ -468,8 +475,9 @@ class ChineseAstrologyResource extends BaseResource
      *   from the next day. The three give three different answers for a late-evening birth and
      *   identical answers for every other birth.
      * @param string|null $hourClock
-     *   Which clock the HOUR branch is read from. "clock" is civil time exactly as a birth
-     *   certificate records it, which is what most calculators use and the default here.
+     *   Which clock the day boundary and the hour branch are read from, so a correction that carries
+     *   a birth across midnight moves the day pillar with the hour. "clock" is civil time exactly as
+     *   a birth certificate records it, which is what most calculators use and the default here.
      *   "local-mean" shifts to the mean sun over the birth longitude, a correction of up to 59
      *   minutes at the edge of a wide time zone. "solar" adds the equation of time on top of that,
      *   up to a further 16 minutes. Both non-civil options need "longitude" in the request and

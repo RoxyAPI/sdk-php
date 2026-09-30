@@ -904,8 +904,10 @@ class AstrologyResource extends BaseResource
      * POST /astrology/planetary-returns
      *
      * @param string $approximateDate
-     *   Approximate date near the expected planetary return (YYYY-MM-DD). Provide a date within the
-     *   expected return window. The algorithm searches from this starting point.
+     *   Approximate date near the expected planetary return (YYYY-MM-DD). The return nearest this
+     *   date is returned, so a date off by months still lands on a genuine return; during a
+     *   retrograde loop the planet crosses its natal degree up to three times and the crossing
+     *   nearest the date is the one returned.
      * @param string $birthDate
      *   Original birth date in YYYY-MM-DD format. Used to determine the natal longitude of the
      *   selected planet.
@@ -1388,7 +1390,7 @@ class AstrologyResource extends BaseResource
      *   the response. Event dates and times are reported in this zone, which is what makes a
      *   published calendar read correctly for its audience. Defaults to 0 (UTC).
      * @param int|null $year
-     *   Year for the declination calendar (1900-2100). Defaults to the current year (UTC).
+     *   Year for the declination calendar (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1491,7 +1493,7 @@ class AstrologyResource extends BaseResource
      *   the response. Event dates and times are reported in this zone, which is what makes a
      *   published calendar read correctly for its audience. Defaults to 0 (UTC).
      * @param int|null $year
-     *   Year for the aspect calendar (1900-2100). Defaults to the current year (UTC).
+     *   Year for the aspect calendar (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1529,7 +1531,7 @@ class AstrologyResource extends BaseResource
      * @param int|null $month
      *   Month number (1-12) for the ephemeris. Defaults to the current month (UTC).
      * @param int|null $year
-     *   Year for the monthly ephemeris (1900-2100). Defaults to the current year (UTC).
+     *   Year for the monthly ephemeris (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1581,7 +1583,7 @@ class AstrologyResource extends BaseResource
      *   the response. Ingress dates and times are reported in this zone, which is what makes a
      *   published calendar read correctly for its audience. Defaults to 0 (UTC).
      * @param int|null $year
-     *   Year for the monthly transit table (1900-2100). Defaults to the current year (UTC).
+     *   Year for the monthly transit table (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1612,7 +1614,7 @@ class AstrologyResource extends BaseResource
      * GET /astrology/moon-phase/calendar/{year}/{month}
      *
      * @param int $year
-     *   Calendar year (1900-2100).
+     *   Calendar year, 1551 to 2649.
      * @param int $month
      *   Calendar month (1-12). 1 = January, 12 = December.
      * @param string|null $lang
@@ -1651,7 +1653,7 @@ class AstrologyResource extends BaseResource
      * POST /astrology/ecliptic-crossings
      *
      * @param int $year
-     *   Year to scan for node passages (1900-2100).
+     *   Year to scan for node passages (1551 to 2649).
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA

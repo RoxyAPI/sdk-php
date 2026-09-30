@@ -616,10 +616,11 @@ class VedicAstrologyResource extends BaseResource
      *   Date in YYYY-MM-DD format. Planetary declinations are calculated for this date to find
      *   parallel and contraparallel aspects.
      * @param float $latitude
-     *   Observer latitude in decimal degrees. Used for topocentric declination corrections.
+     *   Birth latitude in decimal degrees, part of the birth record. Declinations are geocentric, as
+     *   every published ephemeris prints them, so it does not move them.
      * @param float $longitude
-     *   Observer longitude in decimal degrees. Affects local time context for declination
-     *   calculations.
+     *   Birth longitude in decimal degrees, part of the birth record. Declinations are geocentric,
+     *   so it does not move them; the instant comes from date, time and timezone.
      * @param string $time
      *   Time in HH:MM:SS format (24-hour). Exact time affects declination values, especially for the
      *   fast-moving Moon.
@@ -1561,7 +1562,10 @@ class VedicAstrologyResource extends BaseResource
      *
      * @param string $date
      *   Date in YYYY-MM-DD format. A single-digit month or day is accepted and zero-padded (2026-3-5
-     *   becomes 2026-03-05). Impossible calendar dates are rejected.
+     *   becomes 2026-03-05). Impossible calendar dates are rejected. Calculations that read
+     *   planetary positions support 1550-01-02 to 2650-01-22; outside that span they answer 400 with
+     *   code date_out_of_range, and a calculation that reads a window around the date (a sunrise
+     *   search, a run of days) may answer the same 400 for a date within a few days of either end.
      * @param float $latitude
      *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
      *   day/night boundaries for muhurta calculations.
@@ -1704,7 +1708,10 @@ class VedicAstrologyResource extends BaseResource
      *
      * @param string $date
      *   Date in YYYY-MM-DD format. A single-digit month or day is accepted and zero-padded (2026-3-5
-     *   becomes 2026-03-05). Impossible calendar dates are rejected.
+     *   becomes 2026-03-05). Impossible calendar dates are rejected. Calculations that read
+     *   planetary positions support 1550-01-02 to 2650-01-22; outside that span they answer 400 with
+     *   code date_out_of_range, and a calculation that reads a window around the date (a sunrise
+     *   search, a run of days) may answer the same 400 for a date within a few days of either end.
      * @param float $latitude
      *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
      *   day/night boundaries for muhurta calculations.
@@ -1753,7 +1760,7 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/ecliptic-crossings
      *
      * @param int $year
-     *   Year to scan for ecliptic crossings (1900-2100).
+     *   Year to scan for ecliptic crossings (1551 to 2649).
      * @param string|null $coordinateSystem
      *   Coordinate system for longitude output. "sidereal" (Nirayana) uses Lahiri ayanamsa, the
      *   standard for Vedic astrology. "tropical" (Sayana) uses raw ecliptic longitude matching
@@ -1841,7 +1848,10 @@ class VedicAstrologyResource extends BaseResource
      *
      * @param string $date
      *   Date in YYYY-MM-DD format. A single-digit month or day is accepted and zero-padded (2026-3-5
-     *   becomes 2026-03-05). Impossible calendar dates are rejected.
+     *   becomes 2026-03-05). Impossible calendar dates are rejected. Calculations that read
+     *   planetary positions support 1550-01-02 to 2650-01-22; outside that span they answer 400 with
+     *   code date_out_of_range, and a calculation that reads a window around the date (a sunrise
+     *   search, a run of days) may answer the same 400 for a date within a few days of either end.
      * @param float $latitude
      *   Observer latitude in decimal degrees. Determines sunrise and sunset times which define
      *   day/night boundaries for muhurta calculations.
@@ -2487,7 +2497,7 @@ class VedicAstrologyResource extends BaseResource
      *   name is resolved once, at the start of the window, and that offset applies to every time in
      *   the response. Output times are converted to this timezone. Defaults to 0 (UTC).
      * @param int|null $year
-     *   Year for monthly analysis (1900-2100). Defaults to the current year (UTC).
+     *   Year for monthly analysis (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -2627,7 +2637,7 @@ class VedicAstrologyResource extends BaseResource
      *   name is resolved once, at the start of the window, and that offset applies to every time in
      *   the response. Output times are converted to this timezone. Defaults to 0 (UTC).
      * @param int|null $year
-     *   Year for monthly analysis (1900-2100). Defaults to the current year (UTC).
+     *   Year for monthly analysis (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -2668,7 +2678,7 @@ class VedicAstrologyResource extends BaseResource
      * @param int|null $month
      *   Month number (1-12) for ephemeris. Defaults to the current month (UTC).
      * @param int|null $year
-     *   Year for monthly ephemeris (1900-2100). Defaults to the current year (UTC).
+     *   Year for monthly ephemeris (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -2709,7 +2719,7 @@ class VedicAstrologyResource extends BaseResource
      *   name is resolved once, at the start of the window, and that offset applies to every time in
      *   the response. Output times are converted to this timezone. Defaults to 0 (UTC).
      * @param int|null $year
-     *   Year for monthly parallel analysis (1900-2100). Defaults to the current year (UTC).
+     *   Year for monthly parallel analysis (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -2754,7 +2764,7 @@ class VedicAstrologyResource extends BaseResource
      *   name is resolved once, at the start of the window, and that offset applies to every time in
      *   the response. Output times are converted to this timezone. Defaults to 0 (UTC).
      * @param int|null $year
-     *   Year for monthly transit analysis (1900-2100). Defaults to the current year (UTC).
+     *   Year for monthly transit analysis (1551 to 2649). Defaults to the current year (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested

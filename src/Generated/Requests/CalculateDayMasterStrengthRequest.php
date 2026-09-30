@@ -20,10 +20,11 @@ use Saloon\Traits\Body\HasJsonBody;
  * Assess how well the Day Master is supported by the rest of a BaZi chart, and which of the
  * five elements help it. Uses the classical three-factor method: whether the birth month
  * season backs the Day Master element, whether any branch stores a root for it, and whether
- * the other stems help or spend it. Returns the verdict, an auditable score with each factor
- * contribution, the seasonal state, the root count, the element headcount, and the favorable
- * and unfavorable element lists that follow from the verdict. Built for chart readers, remedy
- * features, and agents that need the usable half of a Four Pillars reading.
+ * the other stems and the branches outside the month help or spend it. Returns the verdict, an
+ * auditable score with each factor contribution, the seasonal state, the root count, the
+ * element headcount, and the favorable and unfavorable element lists that follow from the
+ * verdict. Built for chart readers, remedy features, and agents that need the usable half of a
+ * Four Pillars reading.
  *
  * POST /chinese-astrology/bazi/day-master
  */

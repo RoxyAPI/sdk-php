@@ -65,7 +65,7 @@ class DreamsResource extends BaseResource
      * GET /dreams/symbols/{id}
      *
      * @param string $id
-     *   Unique symbol identifier in kebab-case (e.g., "snake", "being-chased", "teeth-falling-out").
+     *   Unique symbol identifier in kebab-case (e.g., "snake", "chase-dreams", "losing-teeth").
      *
      * @return array<string, mixed>
      */

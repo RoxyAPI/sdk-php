@@ -164,8 +164,10 @@ class AyurvedaResource extends BaseResource
      *   against the other.
      * @param mixed|null $timezone
      *   Timezone as an IANA name such as "Europe/London", or as decimal hours from UTC such as 5.5.
-     *   An IANA name is resolved to the offset in force on the requested date. It decides which
-     *   local day is meant and, on the clock-hour grid, where the blocks fall. Defaults to 0.
+     *   An IANA name is resolved to the offset in force on the requested date, and on the clock-hour
+     *   grid at the local hour each block opens, so on a daylight-saving change every block keeps
+     *   its printed hour and one that falls in the skipped hour moves forward past it. It decides
+     *   which local day is meant and, on the clock-hour grid, where the blocks fall. Defaults to 0.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -231,7 +233,9 @@ class AyurvedaResource extends BaseResource
      * @param string $date
      *   The date to resolve, in YYYY-MM-DD format. The season is read at midday UTC on this date,
      *   because a season boundary is an instant and a calendar day has to be reduced to one; on a
-     *   day that carries a boundary, the half the midday falls in is the answer.
+     *   day that carries a boundary, the half the midday falls in is the answer. Within about two
+     *   months of either end of the supported span, a date whose season opens or closes outside that
+     *   span answers 400.
      * @param string|null $hemisphere
      *   Which half of the world the season names are stated for. Defaults to "northern", which is
      *   the half the primary text describes. It is NEVER inferred from a latitude: a silent flip
