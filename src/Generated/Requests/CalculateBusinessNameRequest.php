@@ -15,16 +15,15 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Business name numerology - Chaldean brand name analysis and lucky numbers
+ * Calculate business name numerology - Brand name numerology API
  *
  * Analyze a business or brand name with Chaldean numerology, the system practitioners use for
- * trade names. Returns the name number (compound and root), its planetary ruler, an overall
- * business rating, the industries the number favors, and whether the compound is one of Cheiro
- * fortunate compounds. The most favorable business roots are 1 (leadership), 3 (expansion), 5
- * (commerce) and 6 (beauty and hospitality); the numbers 4 and 8 carry caution as the karmic
- * numbers of instability and heavy demand. Use it to vet a company name, compare brand
- * options, or guide a naming decision. This is positioning guidance layered over the
- * fundamentals of a memorable, available name, not a guarantee.
+ * trade names. The name is read word by word, and the response returns the compound number and
+ * root with every step, the planetary ruler, a business rating, the industries the number
+ * favors, whether the compound is one of the fortunate compounds Cheiro names, and guidance,
+ * in the language set by lang. The roots 1, 3, 5 and 6 rate excellent, 2 and 9 good, 7 and 8
+ * caution and 4 avoid. Built for naming tools, brand agencies and founder apps; the rating is
+ * positioning guidance, not a guarantee.
  *
  * POST /numerology/business-name
  */

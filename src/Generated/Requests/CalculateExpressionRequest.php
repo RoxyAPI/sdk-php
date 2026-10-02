@@ -15,15 +15,14 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Calculate Expression number - Natural talents and life goals
+ * Calculate Expression number - Destiny number calculator API
  *
- * Calculate your Expression (Destiny) number from your full birth name using Pythagorean
- * numerology. This number reveals your natural talents, abilities, and life goals. It shows
- * what you came here to do and what tools you have to accomplish your life purpose. Returns
- * comprehensive interpretation including personality traits, career paths, relationship
- * dynamics, and spiritual insights. Automatically detects Master Numbers (11, 22, 33). Perfect
- * for name numerology apps, career guidance tools, personal development platforms, and talent
- * assessment services. Get detailed 300-500 word meanings for all numbers 1-9, 11, 22, and 33.
+ * Calculate the Expression number, also called the Destiny number, from a full birth name with
+ * Pythagorean numerology. Every letter is valued and the name is reduced name by name, with
+ * master numbers 11, 22 and 33 kept and a karmic debt of 13, 14, 16 or 19 flagged with its
+ * meaning. The response lists every letter value and returns a full interpretation of natural
+ * talents, career, relationships and spiritual path in the language set by lang. Built for
+ * name numerology apps, career and personal brand tools, and AI agents.
  *
  * POST /numerology/expression
  */

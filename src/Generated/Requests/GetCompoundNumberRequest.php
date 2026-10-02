@@ -13,16 +13,15 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Compound number meaning - Cheiro Chaldean interpretation 10 to 52
+ * Get compound number meaning - Chaldean compound numbers 10 to 52 API
  *
- * Get the classical Chaldean interpretation of a compound number (also called a fadic number)
- * from 10 to 52, as defined by Cheiro in the Book of Numbers. Compound numbers are the
- * unreduced two-digit numbers that reveal the hidden influence behind a name or date, beyond
- * the single-digit root. Each returns its symbolic title (such as The Wheel of Fortune for 10,
- * The Star of the Magi for 17, or The Crown of the Magi for 21), its nature (fortunate,
- * unfortunate, or mixed), and a full interpretation. Numbers 33 to 52 share the meaning of a
- * lower number in their series, returned with a sameAs pointer. Perfect for Chaldean
- * numerology references, compound number lookups, and AI numerology tools.
+ * Get the classical Chaldean meaning of a compound number, also called a fadic number, from 10
+ * to 52 as Cheiro defines it. A compound number is the unreduced two-digit total behind a name
+ * or date, read beside its single-digit root. The response returns the root, the nature
+ * (fortunate, unfortunate or mixed), the full interpretation in the language set by lang, and
+ * the symbolic name where Cheiro gives one, such as The Wheel of Fortune for 10 or The Crown
+ * of the Magi for 21; a number from 33 up that repeats a lower one carries a sameAs pointer to
+ * it. Built for Chaldean numerology references, name analysis tools and AI agents.
  *
  * GET /numerology/compound-number/{number}
  */

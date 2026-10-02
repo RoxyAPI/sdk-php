@@ -15,17 +15,14 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Calculate Bridge Numbers - Harmonize different aspects of personality
+ * Calculate Bridge Numbers - Numerology bridge numbers API
  *
- * Calculate three Bridge Numbers that reveal the adjustments needed to create harmony between
- * different aspects of your numerology profile. Bridge Numbers are the absolute difference
- * between pairs of core numbers: Life Path and Expression, Expression and Personality,
- * Expression and Soul Urge. A Bridge of 0 means the two aspects are already aligned. Higher
- * bridges (1 to 8) indicate greater tension and provide specific guidance on what changes to
- * make. Bridge Numbers are essential for personal development, coaching applications,
- * self-improvement platforms, and AI-powered personality analysis tools. Requires both a full
- * birth name and birth date to calculate all four core numbers (Life Path, Expression, Soul
- * Urge, Personality) internally before deriving the bridges.
+ * Calculate four numerology Bridge numbers from a full birth name and birth date: Life Path
+ * and Expression, Expression and Soul Urge, Soul Urge and Personality, and Expression and
+ * Personality. Each bridge is the distance between two core numbers, from 0 to 8, where 0
+ * means the two are already in harmony, and comes with guidance for closing the gap in the
+ * language set by lang. Built for personal development, coaching and personality analysis
+ * tools and AI agents.
  *
  * POST /numerology/bridge
  */

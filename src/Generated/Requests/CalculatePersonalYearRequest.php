@@ -15,15 +15,14 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Calculate Personal Year - Annual cycle and forecast for current year
+ * Calculate Personal Year - Personal Year number forecast API
  *
- * Calculate your Personal Year number from your birth month, day, and current year using
- * Pythagorean numerology. Personal Year runs in 9-year cycles (1-9) and reveals the theme,
- * opportunities, and challenges for the current year. Each year has a specific energy and
- * lessons. Returns comprehensive annual forecast including year theme, opportunities,
- * challenges, and actionable advice. Perfect for yearly planning apps, life coaching
- * platforms, astrology services, and personal development tools. Get detailed forecasts for
- * all 9 Personal Year cycles with practical guidance.
+ * Calculate the Personal Year number from a birth month and day with Pythagorean numerology,
+ * the 1 to 9 cycle that sets the theme of a calendar year. The year is the one sent, or the
+ * current UTC year when omitted, and it turns over on 1 January; the birth year is not needed.
+ * The response returns the place in the nine-year cycle, the theme, a forecast, opportunities,
+ * challenges and advice in the language set by lang. Built for yearly planning features, New
+ * Year content, coaching tools and AI agents.
  *
  * POST /numerology/personal-year
  */

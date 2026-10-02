@@ -15,14 +15,14 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get daily numerology number - Number of the Day with interpretation
+ * Get daily numerology number - Number of the Day API
  *
- * Receive a daily numerology number (1-9, 11, 22, 33) for guidance and reflection. Uses seeded
- * randomness so the same seed gets the same number on the same date, perfect for "Number of
- * the Day" features in numerology apps, wellness platforms, and daily guidance tools. Returns
- * the number with full interpretation including archetype, keywords, strengths, challenges,
- * career, relationships, and spiritual insights. Ideal for daily push notifications, morning
- * briefings, and personalized numerology experiences.
+ * Get the numerology Number of the Day, one of 1 to 9, 11, 22 or 33, with its full
+ * interpretation. The same seed returns the same number for the same date, so a user keeps one
+ * number all day, and the date defaults to today in UTC. The response returns the number, its
+ * type, a daily message and the archetype, keywords, strengths, challenges, career,
+ * relationships and spirituality reading in the language set by lang. Built for Number of the
+ * Day widgets, push notifications and daily content.
  *
  * POST /numerology/daily
  */

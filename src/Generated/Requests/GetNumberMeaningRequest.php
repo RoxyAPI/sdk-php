@@ -13,15 +13,13 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * Get Number Meaning - Interpretation for any number 1-9, 11, 22, 33
+ * Get number meaning - Numerology number meanings API
  *
- * Get the complete meaning and interpretation for any numerology number (1-9, 11, 22, 33)
- * using Pythagorean numerology. Returns comprehensive description including archetype title,
- * keywords, personality traits, strengths, weaknesses, career guidance, relationship dynamics,
- * and spiritual insights. Master numbers (11, 22, 33) include amplified meanings with their
- * reduced base number. Perfect for numerology reference tools, educational apps, quick
- * lookups, and building custom numerology calculators. Get detailed 300-500 word
- * expert-written meanings for all 12 valid numerology numbers.
+ * Get the full numerology meaning of any number 1 to 9 or the master numbers 11, 22 and 33.
+ * The response returns the archetype title, keywords, a core description, strengths,
+ * challenges, career, relationships and spirituality in the language set by lang, the same
+ * reading every core number endpoint returns for that number. Built for numerology reference
+ * pages, custom calculators, educational apps and AI agents.
  *
  * GET /numerology/meanings/{number}
  */

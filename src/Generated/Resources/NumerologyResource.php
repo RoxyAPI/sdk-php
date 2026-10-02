@@ -12,29 +12,29 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Numerology API to calculate life path, expression, soul urge, personality, and maturity
- * numbers, with Pinnacle and Ch...
+ * Numerology API for life path numbers, complete numerology charts and compatibility, in both
+ * Pythagorean and Chaldean...
  *
  * Accessed via $roxy->numerology.
  */
 class NumerologyResource extends BaseResource
 {
     /**
-     * Analyze Karmic Lessons - Life lessons from missing numbers
+     * Analyze Karmic Lessons - Missing numbers numerology API
      *
-     * Analyze your Karmic Lessons from your birth name using Pythagorean numerology. Karmic
-     * lessons are indicated by numbers missing from your name (numbers 1-9 that do not appear).
-     * These represent challenges you came to learn and skills you need to develop in this
-     * lifetime. Returns comprehensive analysis including missing numbers, specific lessons for
-     * each, challenges to overcome, and practical guidance for development. Perfect for spiritual
-     * growth apps, personal development platforms, life coaching services, and self-improvement
-     * tools. Get detailed lesson descriptions, development strategies, and practical exercises for
-     * each missing number.
+     * Analyze the Karmic Lessons of a full birth name with Pythagorean numerology: the numbers 1
+     * to 9 that no letter of the name carries. Each missing number is returned with its lesson, a
+     * fuller explanation and practical guidance for developing it, in the language set by lang,
+     * beside the count of letters behind every number present. Built for spiritual growth apps,
+     * coaching tools, full numerology reports and AI agents.
      *
      * POST /numerology/karmic-lessons
      *
      * @param string $fullName
-     *   Full birth name to analyze for missing numbers
+     *   Full birth name to analyze for missing numbers. A name in any script is converted to Latin
+     *   letters before it is counted, Cyrillic and Greek as the passport spelling and accents folded
+     *   to the base letter, and the calculation lists the letters counted. For a script that does
+     *   not write its vowels, send the Latin spelling the person uses.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -53,16 +53,14 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Birth Day number - Special talents from day of birth
+     * Calculate Birth Day number - Birthday numerology API
      *
-     * Calculate your Birth Day number from the day you were born (1-31) using Pythagorean
-     * numerology. This number reveals special talents and abilities you possess from birth. It
-     * shows natural gifts that can help you achieve your life purpose. Returns comprehensive
-     * interpretation including innate talents, natural abilities, career advantages, and how to
-     * leverage your special gifts. Automatically detects Master Numbers (11, 22) and reduces
-     * double-digit days. Perfect for talent discovery apps, career counseling platforms, personal
-     * development services, and skill assessment tools. Get detailed 300-500 word meanings for all
-     * numbers 1-9, 11, and 22.
+     * Calculate the Birth Day number from the day of the month a person was born, 1 to 31, with
+     * Pythagorean numerology. The 11th, 22nd and 29th keep the master numbers 11 and 22, other
+     * two-digit days reduce to one digit, and the 13th, 14th, 16th and 19th are flagged as karmic
+     * debt with their meaning. The response returns the calculation and a full interpretation of
+     * the special talents the day brings in the language set by lang. Built for birthday features,
+     * talent and career discovery tools, and AI agents.
      *
      * POST /numerology/birth-day
      *
@@ -86,26 +84,26 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Bridge Numbers - Harmonize different aspects of personality
+     * Calculate Bridge Numbers - Numerology bridge numbers API
      *
-     * Calculate three Bridge Numbers that reveal the adjustments needed to create harmony between
-     * different aspects of your numerology profile. Bridge Numbers are the absolute difference
-     * between pairs of core numbers: Life Path and Expression, Expression and Personality,
-     * Expression and Soul Urge. A Bridge of 0 means the two aspects are already aligned. Higher
-     * bridges (1 to 8) indicate greater tension and provide specific guidance on what changes to
-     * make. Bridge Numbers are essential for personal development, coaching applications,
-     * self-improvement platforms, and AI-powered personality analysis tools. Requires both a full
-     * birth name and birth date to calculate all four core numbers (Life Path, Expression, Soul
-     * Urge, Personality) internally before deriving the bridges.
+     * Calculate four numerology Bridge numbers from a full birth name and birth date: Life Path
+     * and Expression, Expression and Soul Urge, Soul Urge and Personality, and Expression and
+     * Personality. Each bridge is the distance between two core numbers, from 0 to 8, where 0
+     * means the two are already in harmony, and comes with guidance for closing the gap in the
+     * language set by lang. Built for personal development, coaching and personality analysis
+     * tools and AI agents.
      *
      * POST /numerology/bridge
      *
      * @param int $day
      *   Birth day (1 to 31)
      * @param string $fullName
-     *   Full legal birth name as it appears on the birth certificate. Used to calculate Expression,
-     *   Soul Urge, and Personality numbers. Include first, middle, and last names separated by
-     *   spaces.
+     *   Full birth name as it appears on the birth certificate, first, middle and last names
+     *   separated by spaces. Used to calculate the Expression, Soul Urge and Personality numbers. A
+     *   name in any script is converted to Latin letters before it is counted, Cyrillic and Greek as
+     *   the passport spelling and accents folded to the base letter, and the calculation lists the
+     *   letters counted. For a script that does not write its vowels, send the Latin spelling the
+     *   person uses.
      * @param int $month
      *   Birth month (1 to 12)
      * @param int $year
@@ -132,21 +130,23 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Business name numerology - Chaldean brand name analysis and lucky numbers
+     * Calculate business name numerology - Brand name numerology API
      *
      * Analyze a business or brand name with Chaldean numerology, the system practitioners use for
-     * trade names. Returns the name number (compound and root), its planetary ruler, an overall
-     * business rating, the industries the number favors, and whether the compound is one of Cheiro
-     * fortunate compounds. The most favorable business roots are 1 (leadership), 3 (expansion), 5
-     * (commerce) and 6 (beauty and hospitality); the numbers 4 and 8 carry caution as the karmic
-     * numbers of instability and heavy demand. Use it to vet a company name, compare brand
-     * options, or guide a naming decision. This is positioning guidance layered over the
-     * fundamentals of a memorable, available name, not a guarantee.
+     * trade names. The name is read word by word, and the response returns the compound number and
+     * root with every step, the planetary ruler, a business rating, the industries the number
+     * favors, whether the compound is one of the fortunate compounds Cheiro names, and guidance,
+     * in the language set by lang. The roots 1, 3, 5 and 6 rate excellent, 2 and 9 good, 7 and 8
+     * caution and 4 avoid. Built for naming tools, brand agencies and founder apps; the rating is
+     * positioning guidance, not a guarantee.
      *
      * POST /numerology/business-name
      *
      * @param string $name
-     *   The business or brand name to evaluate.
+     *   The business or brand name to evaluate. A name in any script is converted to Latin letters
+     *   before it is counted, Cyrillic and Greek as the passport spelling and accents folded to the
+     *   base letter, and the calculation lists the letters counted. For a script that does not write
+     *   its vowels, send the Latin spelling the person uses.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -165,23 +165,26 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Chaldean numerology name reading - Destiny, compound number, planetary ruler
+     * Calculate Chaldean numerology - Chaldean name number calculator API
      *
-     * Calculate a complete Chaldean numerology reading for a name. The older Chaldean system maps
-     * letters to values 1 to 8 by vibration (the number 9 is sacred and never assigned to a
-     * letter) and reads the unreduced two-digit compound number (10 to 52, also called a fadic
-     * number, defined by Cheiro) in addition to the single-digit root. Returns the Destiny or name
-     * number from all letters, the Soul Urge from vowels, and the Personality from consonants,
-     * each with its compound number, root, and Cheiro compound interpretation, plus the planetary
-     * ruler of the Destiny root and a caution flag for the karmic numbers 4 and 8. Perfect for
-     * Chaldean numerology calculators, name analysis tools, and AI numerology assistants that need
-     * both the compound and root layers in one call.
+     * Calculate a complete Chaldean numerology reading for a name, following Cheiro. The Destiny
+     * or name number, the Soul Urge from the vowels and the Personality from the consonants each
+     * come with the compound number from 10 to 52, the single-digit root and the classical
+     * compound interpretation, and a longer name is read name by name with every step shown in its
+     * calculation. The response adds the planetary ruler and meaning of the Destiny root, a
+     * caution flag for the roots 4 and 8, and a summary, in the language set by lang. Built for
+     * Chaldean numerology calculators, name analysis tools and AI agents.
      *
      * POST /numerology/chaldean
      *
      * @param string $name
      *   The name to analyze. Chaldean tradition uses the name a person is most known by, not
-     *   necessarily the full legal birth name.
+     *   necessarily the full legal birth name. It needs at least one vowel (A, E, I, O, U) and one
+     *   consonant, since the Soul Urge is read from the vowels and the Personality from the
+     *   consonants; Y counts as a consonant. A name in any script is converted to Latin letters
+     *   before it is counted, Cyrillic and Greek as the passport spelling and accents folded to the
+     *   base letter, and the calculation lists the letters counted. For a script that does not write
+     *   its vowels, send the Latin spelling the person uses.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -200,21 +203,23 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Dual numerology - Pythagorean and Chaldean name numbers in one call
+     * Calculate dual numerology - Pythagorean and Chaldean name number API
      *
-     * Calculate a name number in both major numerology systems at once and compare them. The
-     * Pythagorean system maps letters 1 to 9 in alphabetical order and preserves master numbers
-     * (11, 22, 33), giving the Expression or Destiny number used in modern Western numerology. The
-     * Chaldean system maps letters 1 to 8 by vibration, reads the compound number (10 to 52), and
-     * reduces to a root 1 to 9. Returns both results with their interpretations, plus an agreement
-     * flag showing whether the two systems point to the same single-digit energy. The only
-     * numerology API that returns Pythagorean and Chaldean for a name in a single request, ideal
-     * for comparison tools and AI numerology assistants.
+     * Calculate a name number in both Pythagorean and Chaldean numerology in one call and compare
+     * them. The Pythagorean side returns the Expression or Destiny number with master numbers 11,
+     * 22 and 33 kept; the Chaldean side returns the compound number from 10 to 52, the root, its
+     * planetary ruler and the compound interpretation; each shows its calculation name by name. An
+     * agreement flag and a plain-language note show whether the two systems point to the same
+     * single-digit energy, in the language set by lang. Built for system comparison tools, name
+     * analysis features and AI agents.
      *
      * POST /numerology/dual
      *
      * @param string $name
-     *   The name to analyze in both systems.
+     *   The name to analyze in both systems. A name in any script is converted to Latin letters
+     *   before it is counted, Cyrillic and Greek as the passport spelling and accents folded to the
+     *   base letter, and the calculation lists the letters counted. For a script that does not write
+     *   its vowels, send the Latin spelling the person uses.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -233,20 +238,22 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Expression number - Natural talents and life goals
+     * Calculate Expression number - Destiny number calculator API
      *
-     * Calculate your Expression (Destiny) number from your full birth name using Pythagorean
-     * numerology. This number reveals your natural talents, abilities, and life goals. It shows
-     * what you came here to do and what tools you have to accomplish your life purpose. Returns
-     * comprehensive interpretation including personality traits, career paths, relationship
-     * dynamics, and spiritual insights. Automatically detects Master Numbers (11, 22, 33). Perfect
-     * for name numerology apps, career guidance tools, personal development platforms, and talent
-     * assessment services. Get detailed 300-500 word meanings for all numbers 1-9, 11, 22, and 33.
+     * Calculate the Expression number, also called the Destiny number, from a full birth name with
+     * Pythagorean numerology. Every letter is valued and the name is reduced name by name, with
+     * master numbers 11, 22 and 33 kept and a karmic debt of 13, 14, 16 or 19 flagged with its
+     * meaning. The response lists every letter value and returns a full interpretation of natural
+     * talents, career, relationships and spiritual path in the language set by lang. Built for
+     * name numerology apps, career and personal brand tools, and AI agents.
      *
      * POST /numerology/expression
      *
      * @param string $fullName
-     *   Full birth name (first, middle, last)
+     *   Full birth name (first, middle, last). A name in any script is converted to Latin letters
+     *   before it is counted, Cyrillic and Greek as the passport spelling and accents folded to the
+     *   base letter, and the calculation lists the letters counted. For a script that does not write
+     *   its vowels, send the Latin spelling the person uses.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -265,16 +272,15 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Life Path number - Most important numerology calculation
+     * Calculate Life Path number - Calculator and meaning API
      *
-     * Calculate your Life Path number from your birth date using Pythagorean numerology. This is
-     * the most significant number in your numerology chart, revealing your life purpose, natural
-     * talents, and destiny path. Automatically detects Master Numbers (11, 22, 33) and Karmic Debt
-     * numbers (13, 14, 16, 19). Returns comprehensive interpretation including personality traits,
-     * strengths, challenges, career guidance, relationship compatibility, and spiritual insights.
-     * Perfect for numerology apps, birth chart calculators, life purpose discovery tools, personal
-     * development platforms, and astrology services. Get detailed 300-500 word meanings for all
-     * numbers 1-9, 11, 22, and 33.
+     * Calculate a Life Path number from a birth date with Pythagorean numerology. The Life Path is
+     * the core number of a numerology chart, read from the birth year, month and day alone, with
+     * master numbers 11, 22 and 33 kept and a karmic debt of 13, 14, 16 or 19 flagged with its
+     * meaning. The response returns every reduction step and a full interpretation (archetype
+     * title, keywords, description, strengths, challenges, career, relationships and spirituality)
+     * in the language set by lang. Built for Life Path calculators, numerology apps, onboarding
+     * personality profiles and AI agents.
      *
      * POST /numerology/life-path
      *
@@ -305,16 +311,15 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Maturity number - Who you become in later life
+     * Calculate Maturity number - Realization number numerology API
      *
-     * Calculate your Maturity (Realization) number by adding Life Path and Expression numbers
-     * using Pythagorean numerology. This number reveals who you become in the second half of life,
-     * typically manifesting after age 35-40. It shows the ultimate goal of personal development
-     * and mature self-expression. Returns comprehensive interpretation including life
-     * transformation, mature personality, later-life purpose, and wisdom development.
-     * Automatically detects Master Numbers (11, 22, 33). Perfect for life coaching apps, midlife
-     * guidance platforms, personal development services, and aging wisdom tools. Get detailed
-     * 300-500 word meanings for all numbers 1-9, 11, 22, and 33.
+     * Calculate the Maturity number, also called the Realization number, from the Life Path and
+     * Expression numbers with Pythagorean numerology. Send a full birth name and birth date, the
+     * two numbers precomputed, or one of each; master numbers 11, 22 and 33 are kept at full value
+     * and in the result. The Maturity number describes who a person grows into in the second half
+     * of life, usually felt from around 35 to 40, and the response returns the calculation and a
+     * full interpretation in the language set by lang. Built for life coaching apps, midlife and
+     * later-life guidance, and AI agents.
      *
      * POST /numerology/maturity
      *
@@ -323,8 +328,11 @@ class NumerologyResource extends BaseResource
      * @param int|null $expression
      *   Your Expression number (1-9, 11, 22, 33). Optional if fullName is provided.
      * @param string|null $fullName
-     *   Full birth name to calculate Expression number automatically. Use instead of passing
-     *   expression directly.
+     *   Full birth name to calculate the Expression number automatically. Use instead of passing
+     *   expression directly. A name in any script is converted to Latin letters before it is
+     *   counted, Cyrillic and Greek as the passport spelling and accents folded to the base letter,
+     *   and the calculation lists the letters counted. For a script that does not write its vowels,
+     *   send the Latin spelling the person uses.
      * @param int|null $lifePath
      *   Your Life Path number (1-9, 11, 22, 33). Optional if year, month, day are provided.
      * @param int|null $month
@@ -355,17 +363,14 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Compatibility - Relationship dynamics between two people
+     * Calculate numerology compatibility - Love match scoring API
      *
-     * Calculate numerology compatibility between two people using Pythagorean numerology. Accepts
-     * two input modes per person: pre-calculated Life Path, Expression, and Soul Urge numbers, or
-     * raw name and birthdate for automatic calculation. You can mix modes across persons (e.g.
-     * numbers for person1, raw inputs for person2). Provides comprehensive relationship analysis
-     * with overall compatibility score (0-100), individual aspect compatibility (Life Path 50%
-     * weight, Expression 30%, Soul Urge 20%), relationship strengths, challenges, and practical
-     * advice. Uses detailed compatibility matrix for all number combinations. Perfect for dating
-     * apps, relationship counseling platforms, matchmaking services, and compatibility tools. Get
-     * actionable insights for improving relationship dynamics.
+     * Calculate numerology compatibility between two people from their Life Path, Expression and
+     * Soul Urge numbers. Send each person as a full birth name with a birth date, or as
+     * precomputed numbers, and mix the two modes freely across the pair. The response returns an
+     * overall score from 50 to 100 with its rating, a score and description for each number pair,
+     * and the strengths, challenges and advice for the relationship, in the language set by lang.
+     * Built for dating apps, matchmaking, relationship coaching and AI companions.
      *
      * POST /numerology/compatibility
      *
@@ -390,14 +395,13 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Personal Day - Daily personalized numerology forecast
+     * Calculate Personal Day - Daily numerology forecast API
      *
-     * Calculate your Personal Day number from birth month, day, and a target date. Personal Day is
-     * the most granular cycle in Pythagorean numerology, revealing the specific energy and theme
-     * for a single calendar day personalized to you. Unlike generic daily numbers, this is based
-     * on YOUR birth data combined with the calendar date. Returns the daily theme, actionable
-     * guidance, and parent month and year context. Perfect for daily push notifications, morning
-     * briefings, calendar widget integrations, daily content generation, and life coaching tools.
+     * Calculate the Personal Day number from a birth month and day with Pythagorean numerology,
+     * the 1 to 9 theme of a single calendar day personalized to the birthday. The day is
+     * targetDate, or today in UTC when omitted. The response returns the day theme and guidance
+     * with the parent Personal Month and Personal Year, in the language set by lang. Built for
+     * daily push notifications, morning briefings, calendar widgets and AI agents.
      *
      * POST /numerology/personal-day
      *
@@ -406,7 +410,7 @@ class NumerologyResource extends BaseResource
      * @param int $month
      *   Birth month (1-12)
      * @param string|null $targetDate
-     *   Target date in YYYY-MM-DD format. Defaults to today (UTC).
+     *   Target date in YYYY-MM-DD format, in the years 100 to 2100. Defaults to today (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -427,21 +431,24 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Personality number - How others perceive you
+     * Calculate Personality number - Outer personality numerology API
      *
-     * Calculate your Personality number from the consonants in your birth name using Pythagorean
-     * numerology. This number reveals how others perceive you, your outer personality, and first
-     * impressions you make. It represents the mask you show the world and your social persona.
-     * Returns comprehensive interpretation including public image, social dynamics, professional
-     * presence, and relationship first impressions. Automatically detects Master Numbers (11, 22,
-     * 33). Perfect for personal branding apps, social skills training, professional development
-     * platforms, and communication coaching services. Get detailed 300-500 word meanings for all
-     * numbers 1-9, 11, 22, and 33.
+     * Calculate the Personality number from the consonants of a full birth name with Pythagorean
+     * numerology. Every letter other than A, E, I, O and U is a consonant, Y and W included;
+     * master numbers 11, 22 and 33 are kept and a karmic debt of 13, 14, 16 or 19 is flagged with
+     * its meaning. The response lists every consonant name by name and returns a full
+     * interpretation of first impressions, public image, career and relationships in the language
+     * set by lang. Built for personal branding apps, social and dating profiles, coaching tools
+     * and AI agents.
      *
      * POST /numerology/personality
      *
      * @param string $fullName
-     *   Full birth name (consonants will be extracted)
+     *   Full birth name. Its consonants give the Personality number, so a name with none is refused.
+     *   A name in any script is converted to Latin letters before it is counted, Cyrillic and Greek
+     *   as the passport spelling and accents folded to the base letter, and the calculation lists
+     *   the letters counted. For a script that does not write its vowels, send the Latin spelling
+     *   the person uses.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -460,13 +467,14 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Personal Month - Monthly numerology forecast
+     * Calculate Personal Month - Monthly numerology forecast API
      *
-     * Calculate your Personal Month number from birth month, day, and a target year and month.
-     * Personal Month reveals the specific theme and energy influencing each calendar month within
-     * your Personal Year cycle. Returns the monthly theme, practical focus guidance, and the
-     * parent Personal Year context. Perfect for monthly forecast features, push notification
-     * content, calendar integrations, editorial monthly columns, and life coaching tools.
+     * Calculate the Personal Month number from a birth month and day with Pythagorean numerology,
+     * the 1 to 9 theme of one calendar month inside the Personal Year. The year and month are the
+     * ones sent, each defaulting to the current UTC year and month when omitted. The response
+     * returns the month theme, practical focus and the parent Personal Year with its theme, in the
+     * language set by lang. Built for monthly forecast features, push notifications, editorial
+     * columns and AI agents.
      *
      * POST /numerology/personal-month
      *
@@ -475,9 +483,9 @@ class NumerologyResource extends BaseResource
      * @param int $month
      *   Birth month (1-12)
      * @param int|null $targetMonth
-     *   Target calendar month to forecast (1-12, defaults to current month)
+     *   Target calendar month to forecast (1 to 12). Defaults to the current UTC month.
      * @param int|null $year
-     *   Target year for calculation (defaults to current year)
+     *   Target year. Defaults to the current UTC year.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -499,15 +507,14 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Personal Year - Annual cycle and forecast for current year
+     * Calculate Personal Year - Personal Year number forecast API
      *
-     * Calculate your Personal Year number from your birth month, day, and current year using
-     * Pythagorean numerology. Personal Year runs in 9-year cycles (1-9) and reveals the theme,
-     * opportunities, and challenges for the current year. Each year has a specific energy and
-     * lessons. Returns comprehensive annual forecast including year theme, opportunities,
-     * challenges, and actionable advice. Perfect for yearly planning apps, life coaching
-     * platforms, astrology services, and personal development tools. Get detailed forecasts for
-     * all 9 Personal Year cycles with practical guidance.
+     * Calculate the Personal Year number from a birth month and day with Pythagorean numerology,
+     * the 1 to 9 cycle that sets the theme of a calendar year. The year is the one sent, or the
+     * current UTC year when omitted, and it turns over on 1 January; the birth year is not needed.
+     * The response returns the place in the nine-year cycle, the theme, a forecast, opportunities,
+     * challenges and advice in the language set by lang. Built for yearly planning features, New
+     * Year content, coaching tools and AI agents.
      *
      * POST /numerology/personal-year
      *
@@ -516,7 +523,8 @@ class NumerologyResource extends BaseResource
      * @param int $month
      *   Birth month (1-12)
      * @param int|null $year
-     *   Year to calculate (defaults to current year)
+     *   Year to forecast. Defaults to the current UTC year; the Personal Year turns over on 1
+     *   January.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -537,21 +545,23 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Calculate Soul Urge number - Inner motivations and desires
+     * Calculate Soul Urge number - Heart Desire number calculator API
      *
-     * Calculate your Soul Urge (Heart Desire) number from the vowels in your birth name using
-     * Pythagorean numerology. This number reveals your innermost desires, motivations, and what
-     * your soul truly wants to experience. It shows what drives you from within, your emotional
-     * needs, and what brings you fulfillment. Returns comprehensive interpretation including
-     * personality traits, emotional needs, relationship desires, and spiritual longings.
-     * Automatically detects Master Numbers (11, 22, 33). Perfect for self-discovery apps,
-     * emotional intelligence tools, relationship counseling platforms, and personal development
-     * services. Get detailed 300-500 word meanings for all numbers 1-9, 11, 22, and 33.
+     * Calculate the Soul Urge number, also called the Heart Desire number, from the vowels of a
+     * full birth name with Pythagorean numerology. A, E, I, O and U are the vowels and Y and W
+     * count as consonants; master numbers 11, 22 and 33 are kept and a karmic debt of 13, 14, 16
+     * or 19 is flagged with its meaning. The response lists every vowel name by name and returns a
+     * full interpretation of inner motivation, relationships and spiritual path in the language
+     * set by lang. Built for self-discovery apps, dating profiles, coaching tools and AI agents.
      *
      * POST /numerology/soul-urge
      *
      * @param string $fullName
-     *   Full birth name (vowels will be extracted)
+     *   Full birth name. Its vowels A, E, I, O and U give the Soul Urge, so a name with none is
+     *   refused. A name in any script is converted to Latin letters before it is counted, Cyrillic
+     *   and Greek as the passport spelling and accents folded to the base letter, and the
+     *   calculation lists the letters counted. For a script that does not write its vowels, send the
+     *   Latin spelling the person uses.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -570,23 +580,23 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Detect Karmic Debt numbers - Past life challenges (13, 14, 16, 19)
+     * Detect Karmic Debt numbers - Karmic debt 13, 14, 16, 19 API
      *
-     * Check for Karmic Debt numbers (13, 14, 16, 19) in the five core numbers that carry it, Life
-     * Path, Birth Day, Expression, Soul Urge and Personality, using Pythagorean numerology. Karmic
-     * debt indicates challenges carried from past lives that must be resolved in this lifetime.
-     * These numbers appear during reduction and represent specific lessons and tests. Returns
-     * comprehensive analysis including debt descriptions, challenges to overcome, and resolution
-     * guidance. Perfect for spiritual growth apps, karmic astrology platforms, past life
-     * exploration services, and personal transformation tools. Get detailed meanings for all four
-     * karmic debt numbers with practical resolution strategies.
+     * Detect Karmic Debt numbers 13, 14, 16 and 19 across the five core numbers that carry them:
+     * Life Path, Expression, Soul Urge, Personality and Birth Day. Send a birth date, a full birth
+     * name, or both, and only the positions those inputs reach are read; each debt is listed once
+     * with its challenge and resolution guidance in the language set by lang. Built for spiritual
+     * growth apps, karmic readings, coaching tools and AI agents.
      *
      * POST /numerology/karmic-debt
      *
      * @param int|null $day
      *   Birth day (checks Birth Day on its own, and Life Path with year and month)
      * @param string|null $fullName
-     *   Full birth name (checks Expression, Soul Urge, Personality)
+     *   Full birth name (checks Expression, Soul Urge, Personality). A name in any script is
+     *   converted to Latin letters before it is counted, Cyrillic and Greek as the passport spelling
+     *   and accents folded to the base letter, and the calculation lists the letters counted. For a
+     *   script that does not write its vowels, send the Latin spelling the person uses.
      * @param int|null $month
      *   Birth month (checks Life Path)
      * @param int|null $year
@@ -612,31 +622,39 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Generate Complete Numerology Chart - Full profile analysis
+     * Generate numerology chart - Complete numerology reading API
      *
-     * Generate a comprehensive numerology chart combining all major calculations: Life Path,
-     * Expression, Soul Urge, Personality, Birth Day, Maturity, Karmic Lessons, Karmic Debt, and
-     * Personal Year. This single endpoint provides everything needed for a full numerology
-     * reading. Returns detailed interpretations for all numbers, karmic analysis, yearly forecast,
-     * and holistic summary. Perfect for numerology apps, complete reading services, birth chart
-     * generators, and comprehensive analysis tools. Save multiple API calls by getting the full
-     * chart in one request. Ideal for generating PDF reports or detailed user profiles.
+     * Generate a complete numerology chart from a full birth name and birth date in one call. It
+     * returns the six core numbers (Life Path, Expression, Soul Urge, Personality, Birth Day and
+     * Maturity) with their calculations and full interpretations, the four Pinnacles and four
+     * Challenges with their ages, Karmic Lessons, karmic debt in all five positions, Hidden
+     * Passion, Subconscious Self, Cornerstone, Capstone and First Vowel, the Birth Day profile for
+     * the exact day, lucky associations, the Maturity activation status, the Personal Year with
+     * the current Personal Month, and a written summary, in the language set by lang. The Personal
+     * Year uses currentYear or the current UTC year, while the Personal Month and the age behind
+     * the Maturity status read the current UTC date. Built for full numerology readings, PDF
+     * reports, onboarding profiles and AI agents.
      *
      * POST /numerology/chart
      *
      * @param int $day
      *   Birth day (1-31)
      * @param string $fullName
-     *   Full birth name as it appears on the birth certificate. Used for all letter-based
-     *   Pythagorean numerology calculations including Expression, Soul Urge, Personality, and Karmic
-     *   Lessons.
+     *   Full birth name as it appears on the birth certificate. Used for every letter-based number
+     *   in the chart: Expression, Soul Urge, Personality, Karmic Lessons, Hidden Passion,
+     *   Subconscious Self and the special letters. A name in any script is converted to Latin
+     *   letters before it is counted, Cyrillic and Greek as the passport spelling and accents folded
+     *   to the base letter, and the calculation lists the letters counted. For a script that does
+     *   not write its vowels, send the Latin spelling the person uses.
      * @param int $month
      *   Birth month (1-12)
      * @param int $year
      *   Birth year between 100 and 2100. Supports historical figures like Einstein (1879) and
      *   Shakespeare (1564).
      * @param int|null $currentYear
-     *   Year for Personal Year calculation (defaults to current year)
+     *   Calendar year for the Personal Year, defaults to the current UTC year. It moves the Personal
+     *   Year only: the nested personalMonth and maturityStatus.currentAge always read the current
+     *   UTC date.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -659,16 +677,15 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Compound number meaning - Cheiro Chaldean interpretation 10 to 52
+     * Get compound number meaning - Chaldean compound numbers 10 to 52 API
      *
-     * Get the classical Chaldean interpretation of a compound number (also called a fadic number)
-     * from 10 to 52, as defined by Cheiro in the Book of Numbers. Compound numbers are the
-     * unreduced two-digit numbers that reveal the hidden influence behind a name or date, beyond
-     * the single-digit root. Each returns its symbolic title (such as The Wheel of Fortune for 10,
-     * The Star of the Magi for 17, or The Crown of the Magi for 21), its nature (fortunate,
-     * unfortunate, or mixed), and a full interpretation. Numbers 33 to 52 share the meaning of a
-     * lower number in their series, returned with a sameAs pointer. Perfect for Chaldean
-     * numerology references, compound number lookups, and AI numerology tools.
+     * Get the classical Chaldean meaning of a compound number, also called a fadic number, from 10
+     * to 52 as Cheiro defines it. A compound number is the unreduced two-digit total behind a name
+     * or date, read beside its single-digit root. The response returns the root, the nature
+     * (fortunate, unfortunate or mixed), the full interpretation in the language set by lang, and
+     * the symbolic name where Cheiro gives one, such as The Wheel of Fortune for 10 or The Crown
+     * of the Magi for 21; a number from 33 up that repeats a lower one carries a sameAs pointer to
+     * it. Built for Chaldean numerology references, name analysis tools and AI agents.
      *
      * GET /numerology/compound-number/{number}
      *
@@ -692,14 +709,14 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Get daily numerology number - Number of the Day with interpretation
+     * Get daily numerology number - Number of the Day API
      *
-     * Receive a daily numerology number (1-9, 11, 22, 33) for guidance and reflection. Uses seeded
-     * randomness so the same seed gets the same number on the same date, perfect for "Number of
-     * the Day" features in numerology apps, wellness platforms, and daily guidance tools. Returns
-     * the number with full interpretation including archetype, keywords, strengths, challenges,
-     * career, relationships, and spiritual insights. Ideal for daily push notifications, morning
-     * briefings, and personalized numerology experiences.
+     * Get the numerology Number of the Day, one of 1 to 9, 11, 22 or 33, with its full
+     * interpretation. The same seed returns the same number for the same date, so a user keeps one
+     * number all day, and the date defaults to today in UTC. The response returns the number, its
+     * type, a daily message and the archetype, keywords, strengths, challenges, career,
+     * relationships and spirituality reading in the language set by lang. Built for Number of the
+     * Day widgets, push notifications and daily content.
      *
      * POST /numerology/daily
      *
@@ -729,15 +746,13 @@ class NumerologyResource extends BaseResource
     }
 
     /**
-     * Get Number Meaning - Interpretation for any number 1-9, 11, 22, 33
+     * Get number meaning - Numerology number meanings API
      *
-     * Get the complete meaning and interpretation for any numerology number (1-9, 11, 22, 33)
-     * using Pythagorean numerology. Returns comprehensive description including archetype title,
-     * keywords, personality traits, strengths, weaknesses, career guidance, relationship dynamics,
-     * and spiritual insights. Master numbers (11, 22, 33) include amplified meanings with their
-     * reduced base number. Perfect for numerology reference tools, educational apps, quick
-     * lookups, and building custom numerology calculators. Get detailed 300-500 word
-     * expert-written meanings for all 12 valid numerology numbers.
+     * Get the full numerology meaning of any number 1 to 9 or the master numbers 11, 22 and 33.
+     * The response returns the archetype title, keywords, a core description, strengths,
+     * challenges, career, relationships and spirituality in the language set by lang, the same
+     * reading every core number endpoint returns for that number. Built for numerology reference
+     * pages, custom calculators, educational apps and AI agents.
      *
      * GET /numerology/meanings/{number}
      *

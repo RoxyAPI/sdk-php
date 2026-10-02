@@ -15,13 +15,14 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Calculate Personal Month - Monthly numerology forecast
+ * Calculate Personal Month - Monthly numerology forecast API
  *
- * Calculate your Personal Month number from birth month, day, and a target year and month.
- * Personal Month reveals the specific theme and energy influencing each calendar month within
- * your Personal Year cycle. Returns the monthly theme, practical focus guidance, and the
- * parent Personal Year context. Perfect for monthly forecast features, push notification
- * content, calendar integrations, editorial monthly columns, and life coaching tools.
+ * Calculate the Personal Month number from a birth month and day with Pythagorean numerology,
+ * the 1 to 9 theme of one calendar month inside the Personal Year. The year and month are the
+ * ones sent, each defaulting to the current UTC year and month when omitted. The response
+ * returns the month theme, practical focus and the parent Personal Year with its theme, in the
+ * language set by lang. Built for monthly forecast features, push notifications, editorial
+ * columns and AI agents.
  *
  * POST /numerology/personal-month
  */

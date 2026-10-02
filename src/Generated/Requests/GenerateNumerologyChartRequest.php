@@ -15,15 +15,18 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Generate Complete Numerology Chart - Full profile analysis
+ * Generate numerology chart - Complete numerology reading API
  *
- * Generate a comprehensive numerology chart combining all major calculations: Life Path,
- * Expression, Soul Urge, Personality, Birth Day, Maturity, Karmic Lessons, Karmic Debt, and
- * Personal Year. This single endpoint provides everything needed for a full numerology
- * reading. Returns detailed interpretations for all numbers, karmic analysis, yearly forecast,
- * and holistic summary. Perfect for numerology apps, complete reading services, birth chart
- * generators, and comprehensive analysis tools. Save multiple API calls by getting the full
- * chart in one request. Ideal for generating PDF reports or detailed user profiles.
+ * Generate a complete numerology chart from a full birth name and birth date in one call. It
+ * returns the six core numbers (Life Path, Expression, Soul Urge, Personality, Birth Day and
+ * Maturity) with their calculations and full interpretations, the four Pinnacles and four
+ * Challenges with their ages, Karmic Lessons, karmic debt in all five positions, Hidden
+ * Passion, Subconscious Self, Cornerstone, Capstone and First Vowel, the Birth Day profile for
+ * the exact day, lucky associations, the Maturity activation status, the Personal Year with
+ * the current Personal Month, and a written summary, in the language set by lang. The Personal
+ * Year uses currentYear or the current UTC year, while the Personal Month and the age behind
+ * the Maturity status read the current UTC date. Built for full numerology readings, PDF
+ * reports, onboarding profiles and AI agents.
  *
  * POST /numerology/chart
  */

@@ -15,14 +15,13 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Calculate Personal Day - Daily personalized numerology forecast
+ * Calculate Personal Day - Daily numerology forecast API
  *
- * Calculate your Personal Day number from birth month, day, and a target date. Personal Day is
- * the most granular cycle in Pythagorean numerology, revealing the specific energy and theme
- * for a single calendar day personalized to you. Unlike generic daily numbers, this is based
- * on YOUR birth data combined with the calendar date. Returns the daily theme, actionable
- * guidance, and parent month and year context. Perfect for daily push notifications, morning
- * briefings, calendar widget integrations, daily content generation, and life coaching tools.
+ * Calculate the Personal Day number from a birth month and day with Pythagorean numerology,
+ * the 1 to 9 theme of a single calendar day personalized to the birthday. The day is
+ * targetDate, or today in UTC when omitted. The response returns the day theme and guidance
+ * with the parent Personal Month and Personal Year, in the language set by lang. Built for
+ * daily push notifications, morning briefings, calendar widgets and AI agents.
  *
  * POST /numerology/personal-day
  */

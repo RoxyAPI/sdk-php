@@ -15,16 +15,13 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Analyze Karmic Lessons - Life lessons from missing numbers
+ * Analyze Karmic Lessons - Missing numbers numerology API
  *
- * Analyze your Karmic Lessons from your birth name using Pythagorean numerology. Karmic
- * lessons are indicated by numbers missing from your name (numbers 1-9 that do not appear).
- * These represent challenges you came to learn and skills you need to develop in this
- * lifetime. Returns comprehensive analysis including missing numbers, specific lessons for
- * each, challenges to overcome, and practical guidance for development. Perfect for spiritual
- * growth apps, personal development platforms, life coaching services, and self-improvement
- * tools. Get detailed lesson descriptions, development strategies, and practical exercises for
- * each missing number.
+ * Analyze the Karmic Lessons of a full birth name with Pythagorean numerology: the numbers 1
+ * to 9 that no letter of the name carries. Each missing number is returned with its lesson, a
+ * fuller explanation and practical guidance for developing it, in the language set by lang,
+ * beside the count of letters behind every number present. Built for spiritual growth apps,
+ * coaching tools, full numerology reports and AI agents.
  *
  * POST /numerology/karmic-lessons
  */

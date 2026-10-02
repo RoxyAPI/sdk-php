@@ -289,7 +289,9 @@ class AstrologyResource extends BaseResource
      *   Transit date in YYYY-MM-DD format. Defaults to current date if omitted. Use future dates for
      *   predictive transit analysis.
      * @param string|null $transitTime
-     *   Transit time in HH:MM:SS format. Defaults to 12:00:00 (noon) if omitted.
+     *   Transit time in HH:MM:SS format, read on the clock of the natal chart timezone at the
+     *   transit date (an IANA zone takes the offset in force on that date, daylight saving
+     *   included). Defaults to 12:00:00 (noon) if omitted.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested

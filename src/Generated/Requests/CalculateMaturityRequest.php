@@ -15,16 +15,15 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Calculate Maturity number - Who you become in later life
+ * Calculate Maturity number - Realization number numerology API
  *
- * Calculate your Maturity (Realization) number by adding Life Path and Expression numbers
- * using Pythagorean numerology. This number reveals who you become in the second half of life,
- * typically manifesting after age 35-40. It shows the ultimate goal of personal development
- * and mature self-expression. Returns comprehensive interpretation including life
- * transformation, mature personality, later-life purpose, and wisdom development.
- * Automatically detects Master Numbers (11, 22, 33). Perfect for life coaching apps, midlife
- * guidance platforms, personal development services, and aging wisdom tools. Get detailed
- * 300-500 word meanings for all numbers 1-9, 11, 22, and 33.
+ * Calculate the Maturity number, also called the Realization number, from the Life Path and
+ * Expression numbers with Pythagorean numerology. Send a full birth name and birth date, the
+ * two numbers precomputed, or one of each; master numbers 11, 22 and 33 are kept at full value
+ * and in the result. The Maturity number describes who a person grows into in the second half
+ * of life, usually felt from around 35 to 40, and the response returns the calculation and a
+ * full interpretation in the language set by lang. Built for life coaching apps, midlife and
+ * later-life guidance, and AI agents.
  *
  * POST /numerology/maturity
  */
