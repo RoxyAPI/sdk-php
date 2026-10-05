@@ -15,12 +15,12 @@ use Saloon\Http\Request;
 /**
  * List all angel numbers - Angel number catalog API
  *
- * Retrieve the complete database of angel numbers with summary information. Returns 75+ angel
- * numbers covering root digits (0-9), master numbers (11, 22, 33), double digits (44-99),
- * triple repeating (111-999), quad repeating (1111-9999), the mirror families (X0X like
- * 101-909, X1X, four-digit mirrors like 1212-2121), palindromes (1221, 1331), compound
- * sequences (911, 1122), and sequential numbers (123, 1234). Supports optional type filtering.
- * Perfect for building angel number explorer apps, reference guides, and spiritual databases.
+ * Retrieve the angel number catalog with summary information. Returns 75+ angel numbers
+ * covering root digits (0-9), master numbers (11, 22, 33), double digits (44-99), triple
+ * repeating (111-999), quad repeating (1111-9999), the mirror families (X0X like 101-909, X1X,
+ * four-digit mirrors like 1212-2121), palindromes (1221, 1331), compound sequences (911,
+ * 1122), and sequential numbers (123, 1234). Supports optional type filtering. Perfect for
+ * building angel number explorer apps, reference guides, and spiritual databases.
  *
  * GET /angel-numbers/numbers
  */

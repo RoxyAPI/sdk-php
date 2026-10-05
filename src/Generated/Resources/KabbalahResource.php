@@ -12,8 +12,7 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Kabbalah API for gematria, the 72 names, the Tree of Life and the Hebrew birthday, from one
- * key
+ * Kabbalah API for gematria, the 72 names, the Tree of Life and the Hebrew birthday
  *
  * Accessed via $roxy->kabbalah.
  */

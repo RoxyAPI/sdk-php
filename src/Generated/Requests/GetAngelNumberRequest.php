@@ -15,12 +15,11 @@ use Saloon\Http\Request;
 /**
  * Get angel number meaning - Angel number lookup API
  *
- * Get the complete, authoritative meaning and interpretation for a specific angel number.
- * Returns detailed spiritual, love, career, money, and twin flame interpretations, plus a
- * biblical perspective and a shadow reading, along with keywords, affirmation, and actionable
- * steps. Covers 75+ angel numbers including 111, 222, 333, 444, 555, 666, 777, 888, 999, 1111,
- * 1212, 1234, and more. Authoritative interpretations covering all major angel number
- * patterns.
+ * Get the full meaning and interpretation for a specific angel number. Returns detailed
+ * spiritual, love, career, money, and twin flame interpretations, plus a biblical perspective
+ * and a shadow reading, along with keywords, affirmation, and actionable steps. Covers 75+
+ * angel numbers including 111, 222, 333, 444, 555, 666, 777, 888, 999, 1111, 1212, 1234, and
+ * more, across every major angel number pattern.
  *
  * GET /angel-numbers/numbers/{number}
  */

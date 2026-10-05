@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * The most complete biorhythm API: 10 cycle types across 3 primary (physical, emotional,
- * intellectual), 4 secondary (in...
+ * Biorhythm API for entertainment and reflection, with 10 model cycle types across 3 primary
+ * (physical, emotional, inte...
  *
  * Accessed via $roxy->biorhythm.
  */
