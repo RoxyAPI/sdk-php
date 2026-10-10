@@ -22,7 +22,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * positions API with nakshatra, pada, and rashi details. Includes house number placement using
  * Whole Sign house system from Lagna. Faster response for basic planetary data without full
  * chart structure. Perfect for planetary alignment tracking, daily transit updates, and
- * astrology widgets.
+ * astrology widgets. Rahu and Ketu are the mean lunar node, referred to the true equinox of
+ * date, with Ketu exactly opposite Rahu.
  *
  * POST /vedic-astrology/planetary-positions
  */

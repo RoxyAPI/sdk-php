@@ -21,7 +21,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * positions (Sun through Ketu) plus Ascendant (Lagna). Kundli calculator API for astrology
  * apps, matrimonial sites. Returns accurate graha positions grouped by zodiac signs (rashis)
  * with nakshatra details and pada. Perfect for kundli generation, horoscope matching, and
- * Vedic astrology software integration.
+ * Vedic astrology software integration. Rahu and Ketu are the mean lunar node, referred to the
+ * true equinox of date, with Ketu exactly opposite Rahu.
  *
  * POST /vedic-astrology/birth-chart
  */

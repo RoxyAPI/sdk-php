@@ -23,7 +23,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * progress, so a published ephemeris page stays current without a redeploy. Essential for
  * ephemeris generation, transit tracking, and planetary movement visualization. Monthly
  * planetary ephemeris API, sidereal position table, daily graha gochara positions, ecliptic
- * longitude calculator.
+ * longitude calculator. Rahu and Ketu are the mean lunar node, referred to the true equinox of
+ * date, with Ketu exactly opposite Rahu.
  *
  * POST /vedic-astrology/planetary-positions/monthly
  */

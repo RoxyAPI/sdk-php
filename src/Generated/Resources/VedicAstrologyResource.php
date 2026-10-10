@@ -1165,7 +1165,8 @@ class VedicAstrologyResource extends BaseResource
      * positions (Sun through Ketu) plus Ascendant (Lagna). Kundli calculator API for astrology
      * apps, matrimonial sites. Returns accurate graha positions grouped by zodiac signs (rashis)
      * with nakshatra details and pada. Perfect for kundli generation, horoscope matching, and
-     * Vedic astrology software integration.
+     * Vedic astrology software integration. Rahu and Ketu are the mean lunar node, referred to the
+     * true equinox of date, with Ketu exactly opposite Rahu.
      *
      * POST /vedic-astrology/birth-chart
      *
@@ -2667,7 +2668,8 @@ class VedicAstrologyResource extends BaseResource
      * progress, so a published ephemeris page stays current without a redeploy. Essential for
      * ephemeris generation, transit tracking, and planetary movement visualization. Monthly
      * planetary ephemeris API, sidereal position table, daily graha gochara positions, ecliptic
-     * longitude calculator.
+     * longitude calculator. Rahu and Ketu are the mean lunar node, referred to the true equinox of
+     * date, with Ketu exactly opposite Rahu.
      *
      * POST /vedic-astrology/planetary-positions/monthly
      *
@@ -2823,7 +2825,8 @@ class VedicAstrologyResource extends BaseResource
      * positions API with nakshatra, pada, and rashi details. Includes house number placement using
      * Whole Sign house system from Lagna. Faster response for basic planetary data without full
      * chart structure. Perfect for planetary alignment tracking, daily transit updates, and
-     * astrology widgets.
+     * astrology widgets. Rahu and Ketu are the mean lunar node, referred to the true equinox of
+     * date, with Ketu exactly opposite Rahu.
      *
      * POST /vedic-astrology/planetary-positions
      *

@@ -1778,9 +1778,9 @@ class AstrologyResource extends BaseResource
     /**
      * Get upcoming moon phases - Next new moon, full moon, quarters
      *
-     * Get upcoming moon phase transitions (New Moon, First Quarter, Full Moon, Last Quarter) for
-     * the next weeks/months. Returns dates and phase names for each lunar quarter. Perfect for
-     * lunar event calendars, moon phase widgets, and astrology planning tools.
+     * Get upcoming moon phase transitions (New Moon, First Quarter Moon, Full Moon, Third Quarter
+     * Moon) for the next weeks/months. Returns dates and phase names for each lunar quarter.
+     * Perfect for lunar event calendars, moon phase widgets, and astrology planning tools.
      *
      * GET /astrology/moon-phase/upcoming
      *
