@@ -12,7 +12,7 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Dream interpretation API with a 2,000+ symbol dream dictionary and psychological meanings
+ * Dream interpretation API with a 2,200+ symbol dream dictionary and psychological meanings
  * covering animals, objects,...
  *
  * Accessed via $roxy->dreams.
@@ -82,7 +82,7 @@ class DreamsResource extends BaseResource
      * Random dream symbols - Dream symbol discovery API
      *
      * Discover random dream symbols and their interpretations for daily dream insights and
-     * exploration. Each request returns different symbols from the 2,000+ dream meaning database,
+     * exploration. Each request returns different symbols from the 2,200+ dream meaning database,
      * perfect for dream of the day features, dream journaling prompts, meditation on subconscious
      * themes, or exploring what different dreams mean. Get one or multiple random dream
      * interpretations with full psychological meanings.
@@ -125,7 +125,7 @@ class DreamsResource extends BaseResource
     /**
      * List and search dream symbols - Dream dictionary API
      *
-     * Browse and search our complete dream interpretation dictionary containing 2,000+ dream
+     * Browse and search our complete dream interpretation dictionary containing 2,200+ dream
      * symbols with psychological meanings. Find dream meanings for animals (snake dreams, spider
      * dreams, dog dreams), common scenarios (falling dreams, flying dreams, being chased,
      * drowning), people (dreams about mother, father, baby, ex), objects (car, house, water,

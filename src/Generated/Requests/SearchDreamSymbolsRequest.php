@@ -15,7 +15,7 @@ use Saloon\Http\Request;
 /**
  * List and search dream symbols - Dream dictionary API
  *
- * Browse and search our complete dream interpretation dictionary containing 2,000+ dream
+ * Browse and search our complete dream interpretation dictionary containing 2,200+ dream
  * symbols with psychological meanings. Find dream meanings for animals (snake dreams, spider
  * dreams, dog dreams), common scenarios (falling dreams, flying dreams, being chased,
  * drowning), people (dreams about mother, father, baby, ex), objects (car, house, water,
