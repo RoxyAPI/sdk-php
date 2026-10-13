@@ -20,10 +20,11 @@ use Saloon\Traits\Body\HasJsonBody;
  * Calculate all transit-to-natal aspects with detailed interpretations, strength ratings, and
  * timing guidance. Compares current (or future) planetary positions against your natal chart
  * to identify active transits. Returns aspect type, orb, applying/separating status, narrative
- * interpretation, impact rating, and practical guidance for each transit. Supports planet and
- * aspect-type filtering. More detailed than the /transits endpoint, adding AI-friendly
- * interpretation fields. Transit aspects API, transit-to-natal analysis, predictive astrology,
- * personalized transit forecast.
+ * interpretation, impact rating, and practical guidance for each transit. Like
+ * /astrology/transits with a natalChart, returns summary, timing, impact, guidance, and
+ * keywords for each aspect. Adds planet, aspect-type, and minStrength filtering plus
+ * summary.strongest and summary.byType rollups. Transit aspects API, transit-to-natal
+ * analysis, predictive astrology, personalized transit forecast.
  *
  * POST /astrology/transit-aspects
  */
