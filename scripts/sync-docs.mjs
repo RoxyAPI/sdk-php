@@ -61,7 +61,9 @@ for (const tag of specTags) {
 const totalEndpoints = [...opsByTag.values()].reduce((sum, ops) => sum + ops.length, 0);
 
 function renderDomains() {
-	const rows = specTags.map((tag) => `| \`$roxy->${namespaceByTag.get(tag)}\` | ${tagSummary(tagByName.get(tag))} |`);
+	const rows = specTags.map(
+		(tag) => `| [\`$roxy->${namespaceByTag.get(tag)}\`](https://roxyapi.com/api-reference/${tag.toLowerCase().replace(/\s+/g, '-')}) | ${tagSummary(tagByName.get(tag))} |`,
+	);
 	const total = 'The table above covers every endpoint and auto-syncs from the OpenAPI spec at release time.';
 	return [DOMAINS_BEGIN, '| Property | What it covers |', '|---|---|', ...rows, '', total, DOMAINS_END].join('\n');
 }
