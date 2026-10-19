@@ -537,7 +537,7 @@ In [examples/](https://github.com/RoxyAPI/sdk-php/tree/main/examples) on GitHub 
 - Agent guide (`AGENTS.md`): bundled in the package, optimised for AI coding agents
 - MCP setup for AI agents: <https://roxyapi.com/docs/mcp>
 - Templates: <https://roxyapi.com/templates>
-- Sibling SDKs: [TypeScript](https://www.npmjs.com/package/@roxyapi/sdk), [Python](https://pypi.org/project/roxy-sdk/), [.NET](https://www.nuget.org/packages/RoxyApi.Sdk), [Go](https://pkg.go.dev/github.com/RoxyAPI/sdk-go)
+- Sibling SDKs: [TypeScript](https://www.npmjs.com/package/@roxyapi/sdk), [Python](https://pypi.org/project/roxy-sdk/), [.NET](https://www.nuget.org/packages/RoxyApi.Sdk), [Go](https://pkg.go.dev/github.com/RoxyAPI/sdk-go), [Rust](https://crates.io/crates/roxyapi)
 
 ## License
 
