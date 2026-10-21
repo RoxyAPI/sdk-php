@@ -39,7 +39,7 @@ jobs:
           ROXYAPI_SPEC_FILE: specs/openapi.json
         run: |
           node scripts/generate.mjs
-          git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php README.md AGENTS.md \
+          git diff --exit-code -- specs/openapi.json src/Generated src/ErrorCode.php src/Roxy.php src/Version.php README.md AGENTS.md \
             || { echo 'codegen drift: commit the regenerated files'; exit 1; }
 
       - name: Lint

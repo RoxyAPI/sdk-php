@@ -3,6 +3,7 @@
  * Regenerate the spec-derived regions of README.md and AGENTS.md from specs/openapi.json:
  *   - `<!-- BEGIN:DOMAINS -->`: one row per spec tag, in spec tag order, plus the endpoint total.
  *   - `<!-- BEGIN:LANGS -->`: the `lang` codes, the default, and which namespaces take `lang`.
+ *   - `<!-- BEGIN:ERRORS -->`: the error code table, from `info["x-error-codes"]`.
  *
  * scripts/generate.mjs runs this after codegen, so the regions are asserted in the same
  * drift diff as the generated code. Run alone with: node scripts/sync-docs.mjs
@@ -26,6 +27,8 @@ const DOMAINS_BEGIN = '<!-- BEGIN:DOMAINS -->';
 const DOMAINS_END = '<!-- END:DOMAINS -->';
 const LANGS_BEGIN = '<!-- BEGIN:LANGS -->';
 const LANGS_END = '<!-- END:LANGS -->';
+const ERRORS_BEGIN = '<!-- BEGIN:ERRORS -->';
+const ERRORS_END = '<!-- END:ERRORS -->';
 
 function fail(msg) {
 	console.error(`\nx sync-docs: ${msg}\n`);
@@ -105,6 +108,22 @@ function renderLangs(terse) {
 	return [LANGS_BEGIN, note, LANGS_END].join('\n');
 }
 
+/** The error codes the API publishes, rendered verbatim and in spec order. */
+function renderErrors() {
+	const codes = spec.info?.['x-error-codes'];
+	if (!Array.isArray(codes) || codes.length === 0) fail('specs/openapi.json has no info["x-error-codes"]');
+	const rows = codes.map(({ status, code, meaning }) => `| ${status ?? 'Any'} | \`${code}\` | ${meaning} |`);
+	return [
+		ERRORS_BEGIN,
+		'Every error returns `{ error, code, doc_url }`. Switch on `code`; `error` is readable text and may change. Each meaning below says whether and when to retry, and `Retry-After` carries the wait when the response sends it. Every code is documented at https://roxyapi.com/docs/errors.',
+		'',
+		'| Status | Code | Meaning |',
+		'|---|---|---|',
+		...rows,
+		ERRORS_END,
+	].join('\n');
+}
+
 function replaceRegion(src, file, begin, end, block) {
 	const beginIdx = src.indexOf(begin);
 	const endIdx = src.indexOf(end);
@@ -117,6 +136,7 @@ function syncFile(file, terseLangs) {
 	const name = path.relative(ROOT, file);
 	let next = replaceRegion(src, name, DOMAINS_BEGIN, DOMAINS_END, renderDomains());
 	next = replaceRegion(next, name, LANGS_BEGIN, LANGS_END, renderLangs(terseLangs));
+	next = replaceRegion(next, name, ERRORS_BEGIN, ERRORS_END, renderErrors());
 	if (next === src) return false;
 	writeFileSync(file, next);
 	return true;

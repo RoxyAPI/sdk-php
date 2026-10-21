@@ -49,6 +49,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 use function RoxyAPI\Sdk\createRoxy;
 
+// Retries 429, 500, 502, 503 and 504 by default. Optional settings, shown with their defaults:
+// createRoxy($key, new RetryPolicy(maxRetries: 2, initialDelayMs: 500, maxDelayMs: 30000))
 $roxy = createRoxy(getenv('ROXY_API_KEY'));
 
 // Step 1: geocode the birth city once. Every chart endpoint takes these three values.
@@ -70,9 +72,7 @@ $kundli = $roxy->vedicAstrology->generateBirthChart(
 
 `createRoxy` sets the base URL (`https://roxyapi.com/api/v2`) and injects the auth header and SDK identification header on every request. Every method returns `array<string, mixed>` decoded from JSON, or throws `RoxyAPI\Sdk\RoxyApiException` on 4xx / 5xx (see Error handling).
 
-Get an API key at [roxyapi.com/pricing](https://roxyapi.com/pricing). Never expose it client-side: call Roxy from server code only.
-
-## What is exposed
+## Domains
 
 `createRoxy($apiKey)` returns a `Roxy` connector that lazy-loads one resource per OpenAPI tag:
 
@@ -324,7 +324,8 @@ $kabbalah = $roxy->kabbalah->generateBirthProfile(date: $birth['date'], time: $b
 The complete 78-card deck with meanings for love, career, health and spirit. Pass a `seed` per user for deterministic once-per-day draws.
 
 ```php
-// Daily card. Deterministic per (seed, date), so one user sees one card per day.
+// Daily card. `seed` and `date` are both optional: `date` (YYYY-MM-DD) defaults to today (UTC),
+// and without a `seed` the reading is anonymous. The same seed and date always give the same card.
 $card = $roxy->tarot->getDailyCard(seed: 'user-42');
 // $card['card']['name'], $card['card']['reversed'], $card['card']['imageUrl'], $card['dailyMessage']
 
@@ -447,38 +448,17 @@ claude mcp add-json --scope user roxy-astrology \
   '{"type":"http","url":"https://roxyapi.com/mcp/astrology","headers":{"X-API-Key":"YOUR_KEY"}}'
 ```
 
-## Error handling
+## Authentication
 
-Every method throws `RoxyAPI\Sdk\RoxyApiException` on 4xx / 5xx, so a successful return is always the decoded payload. The exception carries `statusCode`, `errorCode` (machine-readable, stable: switch on this) and `error` (human-readable, may change wording).
+Get your API key at [roxyapi.com/pricing](https://roxyapi.com/pricing). Instant delivery after checkout.
 
 ```php
-use RoxyAPI\Sdk\RoxyApiException;
 use function RoxyAPI\Sdk\createRoxy;
 
 $roxy = createRoxy(getenv('ROXY_API_KEY'));
-
-try {
-    $roxy->astrology->getDailyHoroscope(sign: 'invalid');
-} catch (RoxyApiException $e) {
-    // $e->statusCode (int)   - HTTP status, e.g. 400
-    // $e->errorCode (string) - machine-readable, e.g. 'validation_error' (switch on this)
-    // $e->error     (string) - human-readable message
-    error_log("[{$e->statusCode}] {$e->errorCode}: {$e->error}");
-}
 ```
 
-| Status | `errorCode` | When |
-|--------|------|------|
-| 400 | `validation_error` | Missing or invalid parameters |
-| 401 | `api_key_required` | No API key provided |
-| 401 | `invalid_api_key` | Key format invalid or tampered |
-| 401 | `subscription_not_found` | Key references non-existent subscription |
-| 401 | `subscription_inactive` | Subscription cancelled, expired, or suspended |
-| 401 | `api_key_revoked` | Key was deleted from the account |
-| 404 | `not_found` | Resource not found |
-| 4xx | `bad_request` and other status-derived codes | A client error the endpoint itself detected, such as a date window whose `endDate` precedes `startDate` |
-| 429 | `rate_limit_exceeded` | Monthly quota reached |
-| 500 | `internal_error` | Server error |
+Never expose your API key client-side. Call Roxy from server code only.
 
 ## Multi-language responses
 
@@ -491,7 +471,99 @@ $roxy->tarot->getDailyCard(seed: 'user-42', lang: 'es');
 $roxy->numerology->calculateLifePath(year: 1990, month: 1, day: 15, lang: 'hi');
 ```
 
-`$roxy->languages->listLanguages()` returns the canonical list at runtime.
+The two Chinese scripts (`zh-Hans`, `zh-Hant`) currently ship on Chinese astrology and feng shui; every other domain answers those codes in English per field. `$roxy->languages->listLanguages()` returns the canonical list at runtime.
+
+## Error handling
+
+Every method throws `RoxyAPI\Sdk\RoxyApiException` on 4xx / 5xx, so a successful return is always the decoded payload. The exception carries `statusCode`, `errorCode` (machine-readable, stable: switch on this), `error` (human-readable, may change wording), `docUrl` (the page documenting the code, or null) and `retryAfter` (whole seconds from the `Retry-After` header, or null). `$e->code()` returns the `RoxyAPI\Sdk\ErrorCode` enum case for `errorCode`, or null for a code newer than your installed SDK. A `validation_error` also carries `issues`, and `$e->response` is the raw Saloon response. `$e->getCode()` is the HTTP status, not the API code.
+
+```php
+use RoxyAPI\Sdk\ErrorCode;
+use RoxyAPI\Sdk\RoxyApiException;
+use function RoxyAPI\Sdk\createRoxy;
+
+$roxy = createRoxy(getenv('ROXY_API_KEY'));
+
+try {
+    $roxy->astrology->getDailyHoroscope(sign: 'invalid');
+} catch (RoxyApiException $e) {
+    // $e->statusCode (int)   - HTTP status, e.g. 400
+    // $e->errorCode (string) - machine-readable, e.g. 'validation_error' (switch on this)
+    // $e->error     (string) - human-readable message
+    // $e->docUrl    (?string) - page documenting the code
+    // $e->retryAfter (?int)  - seconds to wait, when the response sends Retry-After
+    match ($e->code()) {
+        ErrorCode::ValidationError => error_log("fix the request: {$e->error}"),
+        ErrorCode::RateLimitPerMinute => sleep($e->retryAfter ?? 1),
+        default => error_log("[{$e->statusCode}] {$e->errorCode}: {$e->error}"),
+    };
+}
+```
+
+<!-- BEGIN:ERRORS -->
+Every error returns `{ error, code, doc_url }`. Switch on `code`; `error` is readable text and may change. Each meaning below says whether and when to retry, and `Retry-After` carries the wait when the response sends it. Every code is documented at https://roxyapi.com/docs/errors.
+
+| Status | Code | Meaning |
+|---|---|---|
+| 400 | `validation_error` | A field is missing or invalid. The body lists every failing field at once in issues, each with its path and the expected shape. |
+| 400 | `bad_request` | The request was rejected as a whole, for example a body that is not valid JSON or a date range that ends before it starts. |
+| 400 | `date_out_of_range` | A date lies outside the span the planetary positions are served for. The error names the supported dates. |
+| 401 | `api_key_required` | No API key was sent. |
+| 401 | `invalid_api_key` | The key sent is malformed or cannot be verified. |
+| 401 | `api_key_revoked` | The key was valid once and has since been revoked from the account page. |
+| 401 | `subscription_not_found` | The key verifies, but the subscription behind it no longer exists. |
+| 401 | `subscription_inactive` | The subscription behind the key is cancelled, expired or suspended, or a trial is past its end date. |
+| 401 | `publishable_key_not_allowed_on_mcp` | A publishable key was used on a Remote MCP server, which takes a secret key. |
+| 401 | `invalid_client_ip` | A keyless request could not be attributed to a caller. |
+| 401 | `unauthorized` | Authentication failed with no more specific reason to give. |
+| 403 | `forbidden` | The key is valid, but this request is not permitted. |
+| 403 | `origin_required` | A publishable key with an origin allowlist was used with no Origin header, as from a server or a native app. |
+| 403 | `origin_not_allowed` | The calling site is not on the origin allowlist of this publishable key. |
+| 404 | `not_found` | Nothing is served at this path, or the identifier in it does not exist. A path miss adds suggestions, the closest real endpoints. |
+| 405 | `method_not_allowed` | The path exists for a different HTTP method. The body lists the accepted methods in allow, as does the Allow header. |
+| 409 | `conflict` | The request cannot be applied in the current state. |
+| 410 | `gone` | The path was removed permanently. |
+| 413 | `payload_too_large` | The request body is larger than the API accepts. A body far over the cap is refused before it reaches the API and returns a bare 413 with no JSON body. |
+| 415 | `unsupported_media_type` | A request with a body was sent without Content-Type: application/json. |
+| 422 | `unprocessable_entity` | Every field is valid, but the combination cannot be computed. |
+| 429 | `rate_limit_exceeded` | The monthly request allowance is used up. Retry-After gives the seconds to the reset. |
+| 429 | `rate_limit_per_minute` | The per-minute limit of the plan was reached. Retry-After gives the seconds to the next minute, and the monthly allowance is not charged. |
+| 429 | `rate_limited` | A rate limit was reached, reported without the plan detail. |
+| 429 | `free_tier_exhausted` | A keyless request has used up its trial allowance. |
+| 500 | `internal_error` | The request failed inside our service. Retry with exponential backoff. |
+| 503 | `compute_saturated` | Heavy calculations are briefly at capacity. Send the same request again after Retry-After seconds. |
+| Any | `error` | A fallback for a status with no more specific code. The status and the error field carry the signal. |
+<!-- END:ERRORS -->
+
+A `validation_error` lists every failing field in `issues`, each with `path` (a dot-separated field path), `message` and `code`:
+
+```php
+foreach ($e->issues ?? [] as $issue) {
+    echo "{$issue['path']}: {$issue['message']} ({$issue['code']})\n";
+}
+```
+
+### Retries
+
+The client retries twice by default (a persistent failure sends 3 requests in total, and `maxRetries: 0` sends exactly one): HTTP 429, 500, 502, 503 and 504, plus connection failures where the request was never sent. A `Retry-After` header is honoured, with jitter added. A wait longer than `maxDelayMs` is not retried: the error is thrown with `retryAfter` set. Read timeouts are never retried. Pass a `RetryPolicy` to tune it, or `new RetryPolicy(maxRetries: 0)` to turn retries off.
+
+```php
+use RoxyAPI\Sdk\Retry\RetryPolicy;
+use RoxyAPI\Sdk\RoxyApiException;
+use function RoxyAPI\Sdk\createRoxy;
+
+$roxy = createRoxy(
+    getenv('ROXY_API_KEY'),
+    new RetryPolicy(maxRetries: 4, initialDelayMs: 500, maxDelayMs: 30000),
+);
+
+try {
+    $roxy->astrology->getDailyHoroscope(sign: 'aries');
+} catch (RoxyApiException $e) {
+    // e.g. 429 rate_limit_per_minute or 503 compute_saturated after the retries ran out
+    error_log("{$e->errorCode} {$e->docUrl} retry in {$e->retryAfter}s");
+}
+```
 
 ## Rendering with @roxyapi/ui
 
@@ -519,25 +591,24 @@ $roxy->withMockClient(new MockClient([
 $result = $roxy->astrology->getDailyHoroscope(sign: 'aries');
 ```
 
-## Examples
+## Links
 
-In [examples/](https://github.com/RoxyAPI/sdk-php/tree/main/examples) on GitHub (not shipped in the Composer package):
-
-- `examples/vanilla-php.php` - raw PHP, prints a horoscope
-- `examples/laravel.php` - Laravel service provider snippet
-- `examples/human-design.php` - full Human Design bodygraph, prints type, strategy, and profile
-- `examples/forecast.php` - cross-domain forecast timeline, prints the event count and a sample event
-- `examples/chinese-astrology.php` - BaZi four pillars plus the zodiac sign, prints the pillars and the conventions used
-- `examples/feng-shui.php` - Kua number and a flying star natal chart, prints the eight sectors and the nine palaces
-- `examples/render-with-ui.html` + `examples/natal-chart.php` - server-side fetch + browser render via `@roxyapi/ui`
-
-## Documentation
-
-- API reference: <https://roxyapi.com/api-reference>
-- Agent guide (`AGENTS.md`): bundled in the package, optimised for AI coding agents
-- MCP setup for AI agents: <https://roxyapi.com/docs/mcp>
-- Templates: <https://roxyapi.com/templates>
-- Sibling SDKs: [TypeScript](https://www.npmjs.com/package/@roxyapi/sdk), [Python](https://pypi.org/project/roxy-sdk/), [.NET](https://www.nuget.org/packages/RoxyApi.Sdk), [Go](https://pkg.go.dev/github.com/RoxyAPI/sdk-go), [Rust](https://crates.io/crates/roxyapi)
+- [Documentation](https://roxyapi.com/docs)
+- [API Reference](https://roxyapi.com/api-reference)
+- [Pricing](https://roxyapi.com/pricing)
+- [MCP setup for AI agents](https://roxyapi.com/docs/mcp)
+- [Templates](https://roxyapi.com/templates)
+- [Agent guide (AGENTS.md)](https://github.com/RoxyAPI/sdk-php/blob/main/AGENTS.md): bundled in the package, optimised for AI coding agents
+- [Examples](https://github.com/RoxyAPI/sdk-php/tree/main/examples) on GitHub (not shipped in the Composer package):
+  - `examples/vanilla-php.php` - raw PHP, prints a horoscope
+  - `examples/laravel.php` - Laravel service provider snippet
+  - `examples/human-design.php` - full Human Design bodygraph, prints type, strategy, and profile
+  - `examples/forecast.php` - cross-domain forecast timeline, prints the event count and a sample event
+  - `examples/chinese-astrology.php` - BaZi four pillars plus the zodiac sign, prints the pillars and the conventions used
+  - `examples/feng-shui.php` - Kua number and a flying star natal chart, prints the eight sectors and the nine palaces
+  - `examples/render-with-ui.html` + `examples/natal-chart.php` - server-side fetch + browser render via `@roxyapi/ui`
+- [Issues](https://github.com/RoxyAPI/sdk-php/issues)
+- Other SDKs: [TypeScript](https://www.npmjs.com/package/@roxyapi/sdk), [Python](https://pypi.org/project/roxy-sdk/), [.NET](https://www.nuget.org/packages/RoxyApi.Sdk), [Go](https://pkg.go.dev/github.com/RoxyAPI/sdk-go), [Rust](https://crates.io/crates/roxyapi)
 
 ## License
 

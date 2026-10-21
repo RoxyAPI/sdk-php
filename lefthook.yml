@@ -7,6 +7,7 @@ pre-commit:
       glob: "*.php"
       exclude:
         - src/Generated/**
+        - src/ErrorCode.php
         - src/Roxy.php
         - src/Version.php
       run: vendor/bin/pint {staged_files}
@@ -32,7 +33,7 @@ pre-push:
       env:
         ROXYAPI_SPEC_FILE: specs/openapi.json
       run: >-
-        node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/Roxy.php src/Version.php README.md AGENTS.md
+        node scripts/generate.mjs && git diff --exit-code -- specs/openapi.json src/Generated src/ErrorCode.php src/Roxy.php src/Version.php README.md AGENTS.md
         || { echo 'codegen drift: commit the regenerated files'; exit 1; }
       priority: 3
     test:

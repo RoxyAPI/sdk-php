@@ -11,6 +11,7 @@ use RoxyAPI\Sdk\Generated\Requests\GetDailyHoroscopeRequest;
 use RoxyAPI\Sdk\Generated\Requests\ListLanguagesRequest;
 use RoxyAPI\Sdk\Generated\Requests\SearchCitiesRequest;
 use RoxyAPI\Sdk\Generated\Resources\AstrologyResource;
+use RoxyAPI\Sdk\Retry\RetryPolicy;
 use RoxyAPI\Sdk\Roxy;
 use RoxyAPI\Sdk\RoxyApiException;
 use RoxyAPI\Sdk\Version;
@@ -105,7 +106,7 @@ it('throws RoxyApiException on 5xx with code "unknown" when body lacks code', fu
     $mock = new MockClient([
         ListLanguagesRequest::class => MockResponse::make('Server exploded', 500),
     ]);
-    $roxy = createRoxy('test-key');
+    $roxy = createRoxy('test-key', new RetryPolicy(maxRetries: 0));
     $roxy->withMockClient($mock);
 
     try {

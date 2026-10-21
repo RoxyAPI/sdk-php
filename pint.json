@@ -6,6 +6,7 @@
         "node_modules"
     ],
     "notPath": [
+        "src/ErrorCode.php",
         "src/Roxy.php",
         "src/Version.php"
     ],
