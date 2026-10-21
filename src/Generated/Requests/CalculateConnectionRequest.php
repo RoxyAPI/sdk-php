@@ -19,10 +19,10 @@ use Saloon\Traits\Body\HasJsonBody;
  *
  * Calculate a Human Design connection chart by overlaying two bodygraphs. For each of the 36
  * channels the dynamic between the two people is classified as electromagnetic, dominance,
- * compromise, or companionship, the four mechanics of how two designs meet. Also returns the
- * nine centers as defined or open in the combined bodygraph with which person defines each,
- * the combined definition, and a count of each dynamic. Built for relationship, dating, and
- * coaching tools.
+ * compromise, or companionship, the four mechanics of how two designs meet. Returns every
+ * active gate for each person, including hanging gates, the nine centers as defined or open in
+ * the combined bodygraph with which person defines each, the combined definition, and a count
+ * of each dynamic. Built for relationship, dating, and coaching tools.
  *
  * POST /human-design/connection
  */
