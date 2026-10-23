@@ -36,8 +36,8 @@ class DreamsResource extends BaseResource
      *   daily readings or pre-generating future ones.
      * @param string|null $seed
      *   Optional seed for reproducible readings. Same seed + same date = same symbol every time.
-     *   Pass any unique identifier (userId, email hash, session token). Omit for anonymous daily
-     *   readings.
+     *   Pass any unique identifier (userId, email hash, session token) to give each user their own
+     *   symbol for the day. Without a seed every caller receives the same shared symbol of the day.
      *
      * @return array<string, mixed>
      */

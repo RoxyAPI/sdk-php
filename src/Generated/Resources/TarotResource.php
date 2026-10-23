@@ -391,10 +391,11 @@ class TarotResource extends BaseResource
      *
      * Receive a single tarot card for daily guidance and reflection. This endpoint uses seeded
      * randomness to ensure the same seed gets the same card on the same day, perfect for "Card of
-     * the Day" features. Provide a seed (userId, email hash, session token) for reproducible
-     * consistency, or omit for anonymous daily draws. Returns card with keywords, full meaning,
-     * and a daily message summary. Great for tarot apps, wellness platforms, morning ritual apps,
-     * and journaling tools.
+     * the Day" features. Pass a seed (userId, email hash, session token) to give each user their
+     * own card for the day; without a seed every caller receives the same shared card of the day,
+     * which changes at midnight UTC. Returns card with keywords, full meaning, and a daily message
+     * summary. Great for tarot apps, wellness platforms, morning ritual apps, and journaling
+     * tools.
      *
      * POST /tarot/daily
      *
@@ -403,8 +404,8 @@ class TarotResource extends BaseResource
      *   daily readings or pre-generating future ones.
      * @param string|null $seed
      *   Optional seed for reproducible readings. Same seed + same date = same card every time. Pass
-     *   any unique identifier (userId, email hash, session token). Omit for anonymous daily
-     *   readings.
+     *   any unique identifier (userId, email hash, session token) to give each user their own card
+     *   for the day. Without a seed every caller receives the same shared card of the day.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested

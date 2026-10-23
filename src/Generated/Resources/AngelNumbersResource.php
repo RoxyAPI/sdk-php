@@ -107,8 +107,9 @@ class AngelNumbersResource extends BaseResource
      *   daily readings or pre-generating future ones.
      * @param string|null $seed
      *   Optional seed for reproducible readings. Same seed + same date = same angel number every
-     *   time. Pass any unique identifier (userId, email hash, session token). Omit for anonymous
-     *   daily readings.
+     *   time. Pass any unique identifier (userId, email hash, session token) to give each user their
+     *   own angel number for the day. Without a seed every caller receives the same shared angel
+     *   number of the day.
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
