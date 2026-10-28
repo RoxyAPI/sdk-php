@@ -345,7 +345,9 @@ class AstrologyResource extends BaseResource
      *   Transit time in HH:MM:SS format (defaults to current time)
      * @param mixed|null $timezone
      *   Transit timezone: decimal hours from UTC OR IANA name (e.g. "America/New_York"). IANA
-     *   resolved to the DST-correct offset for the transit date. Defaults to 0 (UTC).
+     *   resolved to the DST-correct offset for the transit date. When `date` or `time` is omitted,
+     *   the current moment is read in this zone, so `transitDate` and `transitTime` come back as its
+     *   local clock. Defaults to 0 (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -1290,7 +1292,7 @@ class AstrologyResource extends BaseResource
      * @param string|null $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London"), decimal hours (e.g. -5 for EST, 1 for
      *   CET), or a fixed UTC offset (e.g. "-05:00"). IANA resolved to the DST-correct offset for the
-     *   given date. Defaults to 0 (UTC).
+     *   given date. With `date` omitted, today is the date in this zone. Defaults to 0 (UTC).
      *
      * @return array<string, mixed>
      */
