@@ -151,13 +151,13 @@ class KabbalahResource extends BaseResource
     /**
      * Generate a birth profile - Hebrew birthday and birth angel API
      *
-     * Return the Hebrew date of a birth, the Hebrew birthday that follows it, the three birth
-     * names of the Renaissance angel tradition and the sephirah of the birth day, from one birth
-     * moment. The Hebrew date is computed from the published calendar algorithm rather than looked
-     * up, the sunset boundary is a typed request field because it depends on where you were, and
-     * the two rival ways of dating the first name are a typed convention the response echoes.
-     * Built for Jewish culture and education apps, birth angel features and any product that wants
-     * the Hebrew birthday on the same key as the rest of its readings.
+     * Return the Hebrew date of a birth, the next Hebrew birthday from targetDate or today, the
+     * three birth names of the Renaissance angel tradition and the sephirah of the birth day, from
+     * one birth moment. The Hebrew date is computed from the published calendar algorithm rather
+     * than looked up, the sunset boundary is a typed request field because it depends on where you
+     * were, and the two rival ways of dating the first name are a typed convention the response
+     * echoes. Built for Jewish culture and education apps, birth angel features and any product
+     * that wants the Hebrew birthday on the same key as the rest of its readings.
      *
      * POST /kabbalah/birth-profile
      *
@@ -186,6 +186,10 @@ class KabbalahResource extends BaseResource
      *   it, so published tables differ: extend-previous reads the day as part of the period ending
      *   28 February, next-angel reads it as the opening of the period starting 1 March. Ignored when
      *   angelDating is solar-longitude.
+     * @param string|null $targetDate
+     *   Date to count the next Hebrew birthday from, in YYYY-MM-DD format. Send the local date of
+     *   the user for an exact answer: on the birthday itself the answer is that day. Defaults to
+     *   today (UTC).
      * @param string|null $time
      *   Birth time in HH:MM:SS local to the timezone field. Defaults to noon when omitted, which is
      *   stated because the name read from the hour changes every twenty minutes and a defaulted time
@@ -208,12 +212,13 @@ class KabbalahResource extends BaseResource
         ?bool $afterSunset = null,
         ?string $angelDating = null,
         ?string $leapDayPolicy = null,
+        ?string $targetDate = null,
         ?string $time = null,
         ?string $yearStart = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthProfileRequest(date: $date, timezone: $timezone, afterSunset: $afterSunset, angelDating: $angelDating, leapDayPolicy: $leapDayPolicy, time: $time, yearStart: $yearStart, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateBirthProfileRequest(date: $date, timezone: $timezone, afterSunset: $afterSunset, angelDating: $angelDating, leapDayPolicy: $leapDayPolicy, targetDate: $targetDate, time: $time, yearStart: $yearStart, lang: $lang);
 
         return $this->callRequest($request);
     }

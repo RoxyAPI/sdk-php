@@ -23,7 +23,9 @@ use Saloon\Traits\Body\HasJsonBody;
  * Placidus house cusps, nakshatra details, star-lords, sub-lords, and KP horary numbers
  * (1-249). Perfect for KP astrology software, horary prediction apps, and event timing
  * analysis. One call is a complete Krishnamurti Paddhati chart generator, returning the
- * Placidus cusps and the planets with their sub lords together.
+ * Placidus cusps and the planets with their sub lords together. The latitude must lie below
+ * 66.56 degrees north or south, inside the polar circles: KP cusps are Placidus, which has no
+ * solution beyond them, so a polar latitude returns 400.
  *
  * POST /vedic-astrology/kp/chart
  */

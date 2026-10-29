@@ -23,10 +23,10 @@ use Saloon\Traits\Body\HasJsonBody;
  * Challenges with their ages, Karmic Lessons, karmic debt in all five positions, Hidden
  * Passion, Subconscious Self, Cornerstone, Capstone and First Vowel, the Birth Day profile for
  * the exact day, lucky associations, the Maturity activation status, the Personal Year with
- * the current Personal Month, and a written summary, in the language set by lang. The Personal
- * Year uses currentYear or the current UTC year, while the Personal Month and the age behind
- * the Maturity status read the current UTC date. Built for full numerology readings, PDF
- * reports, onboarding profiles and AI agents.
+ * the current Personal Month, and a written summary, in the language set by lang. The age
+ * behind the Maturity status, the Personal Month and the Personal Year are read on targetDate,
+ * the current UTC date when omitted, and currentYear overrides the Personal Year alone. Built
+ * for full numerology readings, PDF reports, onboarding profiles and AI agents.
  *
  * POST /numerology/chart
  */
@@ -42,6 +42,7 @@ class GenerateNumerologyChartRequest extends Request implements HasBody
         public readonly int $month,
         public readonly int $year,
         public readonly ?int $currentYear = null,
+        public readonly ?string $targetDate = null,
         public readonly ?string $lang = null,
     ) {
     }
@@ -63,6 +64,9 @@ class GenerateNumerologyChartRequest extends Request implements HasBody
         $body['day'] = $this->day;
         $body['fullName'] = $this->fullName;
         $body['month'] = $this->month;
+        if ($this->targetDate !== null) {
+            $body['targetDate'] = $this->targetDate;
+        }
         $body['year'] = $this->year;
 
         return $body;

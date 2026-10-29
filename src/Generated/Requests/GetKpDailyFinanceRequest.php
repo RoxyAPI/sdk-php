@@ -32,7 +32,9 @@ use Saloon\Traits\Body\HasJsonBody;
  * these four layers against each other, and every table behind the number is printed so the
  * result can be checked line by line rather than trusted. The score measures what the method
  * outputs for the day, never the probability of a gain or a loss. Override the two house
- * groups to run your own school.
+ * groups to run your own school. The latitude must lie below 66.56 degrees north or south,
+ * inside the polar circles: KP cusps are Placidus, which has no solution beyond them, so a
+ * polar latitude returns 400.
  *
  * POST /vedic-astrology/kp/daily-finance
  */

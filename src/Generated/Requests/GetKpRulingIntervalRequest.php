@@ -25,7 +25,9 @@ use Saloon\Traits\Body\HasJsonBody;
  * Sign/Star/Sub/Sub-Sub Lords, Lagna Sign/Star/Sub/Sub-Sub Lords, unique ruling planets set,
  * and per-ruling-planet house significations. No birth data needed, significators come from
  * each moments sky chart. Use for birth time rectification, muhurta selection, and KP horary
- * number analysis.
+ * number analysis. The latitude must lie below 66.56 degrees north or south, inside the polar
+ * circles: KP cusps are Placidus, which has no solution beyond them, so a polar latitude
+ * returns 400.
  *
  * POST /vedic-astrology/kp/ruling-planets-interval
  */

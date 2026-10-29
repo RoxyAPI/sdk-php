@@ -17,13 +17,13 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Generate a birth profile - Hebrew birthday and birth angel API
  *
- * Return the Hebrew date of a birth, the Hebrew birthday that follows it, the three birth
- * names of the Renaissance angel tradition and the sephirah of the birth day, from one birth
- * moment. The Hebrew date is computed from the published calendar algorithm rather than looked
- * up, the sunset boundary is a typed request field because it depends on where you were, and
- * the two rival ways of dating the first name are a typed convention the response echoes.
- * Built for Jewish culture and education apps, birth angel features and any product that wants
- * the Hebrew birthday on the same key as the rest of its readings.
+ * Return the Hebrew date of a birth, the next Hebrew birthday from targetDate or today, the
+ * three birth names of the Renaissance angel tradition and the sephirah of the birth day, from
+ * one birth moment. The Hebrew date is computed from the published calendar algorithm rather
+ * than looked up, the sunset boundary is a typed request field because it depends on where you
+ * were, and the two rival ways of dating the first name are a typed convention the response
+ * echoes. Built for Jewish culture and education apps, birth angel features and any product
+ * that wants the Hebrew birthday on the same key as the rest of its readings.
  *
  * POST /kabbalah/birth-profile
  */
@@ -39,6 +39,7 @@ class GenerateBirthProfileRequest extends Request implements HasBody
         public readonly ?bool $afterSunset = null,
         public readonly ?string $angelDating = null,
         public readonly ?string $leapDayPolicy = null,
+        public readonly ?string $targetDate = null,
         public readonly ?string $time = null,
         public readonly ?string $yearStart = null,
         public readonly ?string $lang = null,
@@ -65,6 +66,9 @@ class GenerateBirthProfileRequest extends Request implements HasBody
         $body['date'] = $this->date;
         if ($this->leapDayPolicy !== null) {
             $body['leapDayPolicy'] = $this->leapDayPolicy;
+        }
+        if ($this->targetDate !== null) {
+            $body['targetDate'] = $this->targetDate;
         }
         if ($this->time !== null) {
             $body['time'] = $this->time;

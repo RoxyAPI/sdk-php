@@ -26,7 +26,9 @@ use Saloon\Traits\Body\HasJsonBody;
  * its sub lord, all twelve cusps with star lord and sub lord, the nine grahas placed against
  * those cusps, the five ruling planets for validating the chart, and four-level significators
  * for judging which houses each graha supports. KP horary API, Prashna kundali calculator, 249
- * horary number chart, Krishnamurti Paddhati horary, cusp sub lord question answering.
+ * horary number chart, Krishnamurti Paddhati horary, cusp sub lord question answering. The
+ * latitude must lie below 66.56 degrees north or south, inside the polar circles: KP cusps are
+ * Placidus, which has no solution beyond them, so a polar latitude returns 400.
  *
  * POST /vedic-astrology/kp/horary
  */

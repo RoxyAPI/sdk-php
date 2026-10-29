@@ -630,10 +630,10 @@ class NumerologyResource extends BaseResource
      * Challenges with their ages, Karmic Lessons, karmic debt in all five positions, Hidden
      * Passion, Subconscious Self, Cornerstone, Capstone and First Vowel, the Birth Day profile for
      * the exact day, lucky associations, the Maturity activation status, the Personal Year with
-     * the current Personal Month, and a written summary, in the language set by lang. The Personal
-     * Year uses currentYear or the current UTC year, while the Personal Month and the age behind
-     * the Maturity status read the current UTC date. Built for full numerology readings, PDF
-     * reports, onboarding profiles and AI agents.
+     * the current Personal Month, and a written summary, in the language set by lang. The age
+     * behind the Maturity status, the Personal Month and the Personal Year are read on targetDate,
+     * the current UTC date when omitted, and currentYear overrides the Personal Year alone. Built
+     * for full numerology readings, PDF reports, onboarding profiles and AI agents.
      *
      * POST /numerology/chart
      *
@@ -652,9 +652,14 @@ class NumerologyResource extends BaseResource
      *   Birth year between 100 and 2100. Supports historical figures like Einstein (1879) and
      *   Shakespeare (1564).
      * @param int|null $currentYear
-     *   Calendar year for the Personal Year, defaults to the current UTC year. It moves the Personal
-     *   Year only: the nested personalMonth and maturityStatus.currentAge always read the current
-     *   UTC date.
+     *   Calendar year for the Personal Year. When omitted it is the year of targetDate, or of the
+     *   current UTC date when targetDate is omitted too. It moves the Personal Year only: the nested
+     *   personalMonth and maturityStatus.currentAge read targetDate.
+     * @param string|null $targetDate
+     *   Date to read the chart on, in YYYY-MM-DD format, in the years 100 to 2100, on or after the
+     *   birth date. Send the local date of the user for an exact answer: it sets
+     *   maturityStatus.currentAge and isActive, the Personal Month, and the Personal Year when
+     *   currentYear is absent. Defaults to today (UTC).
      * @param string|null $lang
      *   Response language (BCP 47). Supported: en, tr, de, es, hi, pt, fr, ru, zh-Hans, zh-Hant.
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
@@ -668,10 +673,11 @@ class NumerologyResource extends BaseResource
         int $month,
         int $year,
         ?int $currentYear = null,
+        ?string $targetDate = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNumerologyChartRequest(day: $day, fullName: $fullName, month: $month, year: $year, currentYear: $currentYear, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateNumerologyChartRequest(day: $day, fullName: $fullName, month: $month, year: $year, currentYear: $currentYear, targetDate: $targetDate, lang: $lang);
 
         return $this->callRequest($request);
     }

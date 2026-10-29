@@ -19,11 +19,10 @@ use Saloon\Traits\Body\HasJsonBody;
  *
  * Generate the secondary progressed chart for any date using the day-for-a-year key. Each day
  * of ephemeris motion after birth stands in for one year of life. Returns every progressed
- * body with its sign, degree, whole-sign house, motion, and retrograde state, plus the
- * progressed Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed
- * Moon are the headline timing markers for inner growth and emotional chapters. Secondary
- * progressions API, progressed chart calculator, progressed Sun and Moon, progressed Ascendant
- * and Midheaven.
+ * body with its sign, degree, natal house, motion, and retrograde state, plus the progressed
+ * Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed Moon are the
+ * headline timing markers for inner growth and emotional chapters. Secondary progressions API,
+ * progressed chart calculator, progressed Sun and Moon, progressed Ascendant and Midheaven.
  *
  * POST /astrology/progressions
  */
@@ -40,6 +39,7 @@ class GenerateProgressionsRequest extends Request implements HasBody
         public readonly string $targetDate,
         public readonly string $time,
         public readonly mixed $timezone,
+        public readonly ?string $houseSystem = null,
         public readonly ?string $nodeType = null,
         public readonly ?string $lang = null,
     ) {
@@ -57,6 +57,9 @@ class GenerateProgressionsRequest extends Request implements HasBody
     {
         $body = [];
         $body['date'] = $this->date;
+        if ($this->houseSystem !== null) {
+            $body['houseSystem'] = $this->houseSystem;
+        }
         $body['latitude'] = $this->latitude;
         $body['longitude'] = $this->longitude;
         if ($this->nodeType !== null) {

@@ -22,6 +22,8 @@ use Saloon\Traits\Body\HasJsonBody;
  * cusp sub-lord analysis, and birth chart rectification. Returns all 12 house cusps with KP
  * sub-division details. Use it as a Placidus house cusp calculator that also carries the star
  * lord and sub lord of each cusp, which is what Krishnamurti Paddhati horary work reads first.
+ * The latitude must lie below 66.56 degrees north or south, inside the polar circles: KP cusps
+ * are Placidus, which has no solution beyond them, so a polar latitude returns 400.
  *
  * POST /vedic-astrology/kp/cusps
  */

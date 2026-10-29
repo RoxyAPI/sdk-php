@@ -754,7 +754,8 @@ class VedicAstrologyResource extends BaseResource
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
-     *   name is resolved to the offset in force at the given date and time. Defaults to 5.5 (IST).
+     *   name is resolved to the offset in force at the given date and time. The birth moment and the
+     *   transit moment are each resolved at their own date and time. Defaults to 5.5 (IST).
      * @param string|null $transitTime
      *   Transit time in HH:MM:SS format (24-hour). Affects fast-moving planets like Moon. Defaults
      *   to noon.
@@ -789,7 +790,9 @@ class VedicAstrologyResource extends BaseResource
      * its sub lord, all twelve cusps with star lord and sub lord, the nine grahas placed against
      * those cusps, the five ruling planets for validating the chart, and four-level significators
      * for judging which houses each graha supports. KP horary API, Prashna kundali calculator, 249
-     * horary number chart, Krishnamurti Paddhati horary, cusp sub lord question answering.
+     * horary number chart, Krishnamurti Paddhati horary, cusp sub lord question answering. The
+     * latitude must lie below 66.56 degrees north or south, inside the polar circles: KP cusps are
+     * Placidus, which has no solution beyond them, so a polar latitude returns 400.
      *
      * POST /vedic-astrology/kp/horary
      *
@@ -805,6 +808,8 @@ class VedicAstrologyResource extends BaseResource
      * @param float $latitude
      *   Latitude where the question is judged, decimal degrees. The house cusps are Placidus and
      *   therefore latitude dependent, so this is the place of judgment, not the querent birthplace.
+     *   The latitude must lie below 66.56 degrees north or south, inside the polar circles: KP cusps
+     *   are Placidus, which has no solution beyond them, so a polar latitude returns 400.
      * @param float $longitude
      *   Longitude where the question is judged, decimal degrees.
      * @param string $time
@@ -1337,14 +1342,18 @@ class VedicAstrologyResource extends BaseResource
      * Placidus house cusps, nakshatra details, star-lords, sub-lords, and KP horary numbers
      * (1-249). Perfect for KP astrology software, horary prediction apps, and event timing
      * analysis. One call is a complete Krishnamurti Paddhati chart generator, returning the
-     * Placidus cusps and the planets with their sub lords together.
+     * Placidus cusps and the planets with their sub lords together. The latitude must lie below
+     * 66.56 degrees north or south, inside the polar circles: KP cusps are Placidus, which has no
+     * solution beyond them, so a polar latitude returns 400.
      *
      * POST /vedic-astrology/kp/chart
      *
      * @param string $date
      *   Birth date in YYYY-MM-DD format
      * @param float $latitude
-     *   Birth location latitude in decimal degrees
+     *   Birth location latitude in decimal degrees. The latitude must lie below 66.56 degrees north
+     *   or south, inside the polar circles: KP cusps are Placidus, which has no solution beyond
+     *   them, so a polar latitude returns 400.
      * @param float $longitude
      *   Birth location longitude in decimal degrees
      * @param string $time
@@ -1642,8 +1651,9 @@ class VedicAstrologyResource extends BaseResource
      * @param string|null $datetime
      *   ISO 8601 datetime (YYYY-MM-DDTHH:MM:SS) to read the running periods at, for a reading
      *   prepared for a future day, a backtest, or a chart cast for a past moment. Defaults to the
-     *   current instant. Interpreted as local time in the request timezone (a trailing Z is accepted
-     *   but ignored); with timezone 0 it is UTC.
+     *   current instant. Interpreted as local time in the request timezone, an IANA name resolved at
+     *   this datetime rather than at the birth (a trailing Z is accepted but ignored); with timezone
+     *   0 it is UTC.
      * @param string|null $nodeType
      *   Lunar node type for Rahu and Ketu, used ONLY when "significators" is true. Dasha dates
      *   themselves come from the Moon and never move with this field. "mean" uses the smooth mean
@@ -1655,7 +1665,9 @@ class VedicAstrologyResource extends BaseResource
      *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
      *   default, so responses stay exactly as they are for clients that only need dates. Requires
      *   the birth latitude and longitude, since significators are read off a Placidus house chart,
-     *   and uses the same ayanamsa frame selected above.
+     *   and uses the same ayanamsa frame selected above. The latitude must lie below 66.56 degrees
+     *   north or south, inside the polar circles: KP cusps are Placidus, which has no solution
+     *   beyond them, so a polar latitude returns 400.
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
@@ -1928,13 +1940,17 @@ class VedicAstrologyResource extends BaseResource
      * cusp sub-lord analysis, and birth chart rectification. Returns all 12 house cusps with KP
      * sub-division details. Use it as a Placidus house cusp calculator that also carries the star
      * lord and sub lord of each cusp, which is what Krishnamurti Paddhati horary work reads first.
+     * The latitude must lie below 66.56 degrees north or south, inside the polar circles: KP cusps
+     * are Placidus, which has no solution beyond them, so a polar latitude returns 400.
      *
      * POST /vedic-astrology/kp/cusps
      *
      * @param string $date
      *   Birth date in YYYY-MM-DD format
      * @param float $latitude
-     *   Birth location latitude in decimal degrees
+     *   Birth location latitude in decimal degrees. The latitude must lie below 66.56 degrees north
+     *   or south, inside the polar circles: KP cusps are Placidus, which has no solution beyond
+     *   them, so a polar latitude returns 400.
      * @param float $longitude
      *   Birth location longitude in decimal degrees
      * @param string $time
@@ -2004,7 +2020,9 @@ class VedicAstrologyResource extends BaseResource
      * these four layers against each other, and every table behind the number is printed so the
      * result can be checked line by line rather than trusted. The score measures what the method
      * outputs for the day, never the probability of a gain or a loss. Override the two house
-     * groups to run your own school.
+     * groups to run your own school. The latitude must lie below 66.56 degrees north or south,
+     * inside the polar circles: KP cusps are Placidus, which has no solution beyond them, so a
+     * polar latitude returns 400.
      *
      * POST /vedic-astrology/kp/daily-finance
      *
@@ -2017,7 +2035,9 @@ class VedicAstrologyResource extends BaseResource
      *   sensitive to.
      * @param float $latitude
      *   Birth latitude in decimal degrees. Sets the Placidus cusps; also the place the ruling
-     *   planets and the Moon windows are read at.
+     *   planets and the Moon windows are read at. The latitude must lie below 66.56 degrees north or
+     *   south, inside the polar circles: KP cusps are Placidus, which has no solution beyond them,
+     *   so a polar latitude returns 400.
      * @param float $longitude
      *   Birth longitude in decimal degrees, east positive.
      * @param string|null $ayanamsa
@@ -2050,8 +2070,10 @@ class VedicAstrologyResource extends BaseResource
      *   intraday read.
      * @param mixed|null $timezone
      *   Timezone as an IANA name (Asia/Kolkata) or decimal hours from UTC. Applies to the birth
-     *   time, to the reading date and time, and to every local timestamp in the response. IANA names
-     *   resolve to the offset in force on the date being read.
+     *   time, to the reading date and time, and to every local timestamp in the response. An IANA
+     *   name is resolved twice, each to the offset in force at its own moment: at the birth date and
+     *   time for the natal chart, and on the date being read for the reading. A decimal is applied
+     *   to both as sent.
      * @param array|null $weights
      *   Layer weights in percent, all four required, summing to 100. Defaults to the convention,
      *   cusps 30, dasha 40, rulingPlanets 15, moonWindows 15. Seventy percent of the default sits on
@@ -2095,7 +2117,9 @@ class VedicAstrologyResource extends BaseResource
      * @param string $date
      *   Birth date in YYYY-MM-DD format
      * @param float $latitude
-     *   Birth location latitude in decimal degrees
+     *   Birth location latitude in decimal degrees. Accepted at any latitude, polar included: planet
+     *   longitudes are geocentric and the star and sub lords are divisions of longitude, so no house
+     *   cusp is involved.
      * @param float $longitude
      *   Birth location longitude in decimal degrees
      * @param string $time
@@ -2274,7 +2298,9 @@ class VedicAstrologyResource extends BaseResource
      * Sign/Star/Sub/Sub-Sub Lords, Lagna Sign/Star/Sub/Sub-Sub Lords, unique ruling planets set,
      * and per-ruling-planet house significations. No birth data needed, significators come from
      * each moments sky chart. Use for birth time rectification, muhurta selection, and KP horary
-     * number analysis.
+     * number analysis. The latitude must lie below 66.56 degrees north or south, inside the polar
+     * circles: KP cusps are Placidus, which has no solution beyond them, so a polar latitude
+     * returns 400.
      *
      * POST /vedic-astrology/kp/ruling-planets-interval
      *
@@ -2285,7 +2311,9 @@ class VedicAstrologyResource extends BaseResource
      * @param int $intervalMinutes
      *   Interval between calculations in minutes (1-1440). Use 1-5 for birth time rectification.
      * @param float $latitude
-     *   Observer latitude in decimal degrees
+     *   Observer latitude in decimal degrees. The latitude must lie below 66.56 degrees north or
+     *   south, inside the polar circles: KP cusps are Placidus, which has no solution beyond them,
+     *   so a polar latitude returns 400.
      * @param float $longitude
      *   Observer longitude in decimal degrees
      * @param string $startDatetime
@@ -2357,7 +2385,9 @@ class VedicAstrologyResource extends BaseResource
      * POST /vedic-astrology/kp/ruling-planets
      *
      * @param float $latitude
-     *   Observer latitude in decimal degrees
+     *   Observer latitude in decimal degrees. Any latitude for the ruling planets alone; with
+     *   birthDate and birthTime the significators read Placidus cusps, so the latitude must lie
+     *   below 66.56 degrees north or south and a polar latitude returns 400.
      * @param float $longitude
      *   Observer longitude in decimal degrees
      * @param string|null $birthDate
@@ -2378,8 +2408,10 @@ class VedicAstrologyResource extends BaseResource
      *   can move a KP sub-lord in narrow boundary cases, where a span can be as small as 0.5
      *   degrees. Defaults to "mean".
      * @param mixed|null $timezone
-     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC.
-     *   IANA resolved to the DST-correct offset based on birthDate or datetime. Defaults to 5.5.
+     *   Timezone: IANA name (e.g. "America/New_York", "Europe/London") OR decimal hours from UTC. An
+     *   IANA name is resolved to the DST-correct offset of each moment separately: at datetime for
+     *   the ruling planets, and at birthDate and birthTime for the significators. A decimal is
+     *   applied to both as sent. Defaults to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money
@@ -2570,7 +2602,9 @@ class VedicAstrologyResource extends BaseResource
      *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
      *   default, so responses stay exactly as they are for clients that only need dates. Requires
      *   the birth latitude and longitude, since significators are read off a Placidus house chart,
-     *   and uses the same ayanamsa frame selected above.
+     *   and uses the same ayanamsa frame selected above. The latitude must lie below 66.56 degrees
+     *   north or south, inside the polar circles: KP cusps are Placidus, which has no solution
+     *   beyond them, so a polar latitude returns 400.
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
@@ -2948,7 +2982,9 @@ class VedicAstrologyResource extends BaseResource
      *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
      *   default, so responses stay exactly as they are for clients that only need dates. Requires
      *   the birth latitude and longitude, since significators are read off a Placidus house chart,
-     *   and uses the same ayanamsa frame selected above.
+     *   and uses the same ayanamsa frame selected above. The latitude must lie below 66.56 degrees
+     *   north or south, inside the polar circles: KP cusps are Placidus, which has no solution
+     *   beyond them, so a polar latitude returns 400.
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
@@ -3048,7 +3084,9 @@ class VedicAstrologyResource extends BaseResource
      *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
      *   default, so responses stay exactly as they are for clients that only need dates. Requires
      *   the birth latitude and longitude, since significators are read off a Placidus house chart,
-     *   and uses the same ayanamsa frame selected above.
+     *   and uses the same ayanamsa frame selected above. The latitude must lie below 66.56 degrees
+     *   north or south, inside the polar circles: KP cusps are Placidus, which has no solution
+     *   beyond them, so a polar latitude returns 400.
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
@@ -3176,7 +3214,9 @@ class VedicAstrologyResource extends BaseResource
      *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
      *   default, so responses stay exactly as they are for clients that only need dates. Requires
      *   the birth latitude and longitude, since significators are read off a Placidus house chart,
-     *   and uses the same ayanamsa frame selected above.
+     *   and uses the same ayanamsa frame selected above. The latitude must lie below 66.56 degrees
+     *   north or south, inside the polar circles: KP cusps are Placidus, which has no solution
+     *   beyond them, so a polar latitude returns 400.
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
@@ -3272,7 +3312,9 @@ class VedicAstrologyResource extends BaseResource
      *   occupied house, the houses it signifies at levels L1 to L4, and a strength grade. Off by
      *   default, so responses stay exactly as they are for clients that only need dates. Requires
      *   the birth latitude and longitude, since significators are read off a Placidus house chart,
-     *   and uses the same ayanamsa frame selected above.
+     *   and uses the same ayanamsa frame selected above. The latitude must lie below 66.56 degrees
+     *   north or south, inside the polar circles: KP cusps are Placidus, which has no solution
+     *   beyond them, so a polar latitude returns 400.
      * @param mixed|null $timezone
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
@@ -3418,8 +3460,9 @@ class VedicAstrologyResource extends BaseResource
      *   different rashi and change its gochara house. Defaults to "mean".
      * @param mixed|null $timezone
      *   Timezone: IANA name (e.g. "Asia/Kolkata", "America/New_York") OR decimal hours from UTC
-     *   (e.g. -5 for EST, 5.5 for IST). IANA strings are resolved to the DST-correct offset for the
-     *   date being read. Interprets the birth time and the civil date below. Defaults to 5.5.
+     *   (e.g. -5 for EST, 5.5 for IST). IANA strings are resolved twice, each to the DST-correct
+     *   offset of its own moment: at the birth date and time for the birth chart, and on the date
+     *   being read for the reading day. A decimal is applied to both as sent. Defaults to 5.5.
      * @param string|null $focus
      *   Which signification vocabulary the houseThemes map returns. "general" gives the classical
      *   bhava significations (self, wealth, siblings, home, and so on). "finance" gives the money

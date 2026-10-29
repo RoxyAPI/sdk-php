@@ -689,7 +689,8 @@ class AstrologyResource extends BaseResource
      *   name is resolved to the offset in force at the given date and time.
      * @param string|null $houseSystem
      *   House system used to place each Lilith variant in a house. Placidus (default), Whole Sign,
-     *   Equal, or Koch.
+     *   Equal, or Koch. Above the polar circle, quadrant systems fall back to Whole Sign and the
+     *   echoed houseSystem reports the system actually used.
      * @param string|null $nodeType
      *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
@@ -1029,11 +1030,10 @@ class AstrologyResource extends BaseResource
      *
      * Generate the secondary progressed chart for any date using the day-for-a-year key. Each day
      * of ephemeris motion after birth stands in for one year of life. Returns every progressed
-     * body with its sign, degree, whole-sign house, motion, and retrograde state, plus the
-     * progressed Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed
-     * Moon are the headline timing markers for inner growth and emotional chapters. Secondary
-     * progressions API, progressed chart calculator, progressed Sun and Moon, progressed Ascendant
-     * and Midheaven.
+     * body with its sign, degree, natal house, motion, and retrograde state, plus the progressed
+     * Ascendant and Midheaven via the Naibod arc. The progressed Sun and progressed Moon are the
+     * headline timing markers for inner growth and emotional chapters. Secondary progressions API,
+     * progressed chart calculator, progressed Sun and Moon, progressed Ascendant and Midheaven.
      *
      * POST /astrology/progressions
      *
@@ -1055,6 +1055,12 @@ class AstrologyResource extends BaseResource
      *   Timezone: an IANA name (e.g. "America/New_York", "Europe/London", or `cities[0].timezone`
      *   from /location/search) or decimal hours from UTC (e.g. -5 for EST, 5.5 for IST). An IANA
      *   name is resolved to the offset in force at the given date and time.
+     * @param string|null $houseSystem
+     *   House system of the natal chart that every progressed body is placed in. Pass the system the
+     *   natal chart was drawn in so the house numbers match it. Placidus (default) is the most
+     *   widely used in Western astrology. Whole Sign assigns one sign per house. Equal divides into
+     *   30 degree segments from the Ascendant. Koch emphasizes higher latitudes. Quadrant systems
+     *   fall back to Whole Sign above the polar circle.
      * @param string|null $nodeType
      *   Lunar node convention. "mean" is the smoothed average node, which always moves retrograde;
      *   "true" is the osculating node, which tracks the real perturbed node, oscillates up to about
@@ -1078,11 +1084,12 @@ class AstrologyResource extends BaseResource
         string $targetDate,
         string $time,
         mixed $timezone,
+        ?string $houseSystem = null,
         ?string $nodeType = null,
         ?string $lang = null
     ): array
     {
-        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProgressionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, nodeType: $nodeType, lang: $lang);
+        $request = new \RoxyAPI\Sdk\Generated\Requests\GenerateProgressionsRequest(date: $date, latitude: $latitude, longitude: $longitude, targetDate: $targetDate, time: $time, timezone: $timezone, houseSystem: $houseSystem, nodeType: $nodeType, lang: $lang);
 
         return $this->callRequest($request);
     }
