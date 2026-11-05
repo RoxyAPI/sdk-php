@@ -30,6 +30,7 @@ use RoxyAPI\Sdk\Generated\Resources\LanguagesResource;
 use RoxyAPI\Sdk\Generated\Resources\LocationResource;
 use RoxyAPI\Sdk\Generated\Resources\MesoamericanAstrologyResource;
 use RoxyAPI\Sdk\Generated\Resources\NumerologyResource;
+use RoxyAPI\Sdk\Generated\Resources\ReportsResource;
 use RoxyAPI\Sdk\Generated\Resources\TarotResource;
 use RoxyAPI\Sdk\Generated\Resources\UsageResource;
 use RoxyAPI\Sdk\Generated\Resources\VastuResource;
@@ -63,6 +64,7 @@ use Saloon\Traits\Plugins\AcceptsJson;
  * @property LocationResource $location
  * @property MesoamericanAstrologyResource $mesoamericanAstrology
  * @property NumerologyResource $numerology
+ * @property ReportsResource $reports
  * @property TarotResource $tarot
  * @property UsageResource $usage
  * @property VastuResource $vastu
@@ -92,6 +94,7 @@ class Roxy extends Connector
         'location' => LocationResource::class,
         'mesoamericanAstrology' => MesoamericanAstrologyResource::class,
         'numerology' => NumerologyResource::class,
+        'reports' => ReportsResource::class,
         'tarot' => TarotResource::class,
         'usage' => UsageResource::class,
         'vastu' => VastuResource::class,

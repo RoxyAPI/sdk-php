@@ -24,6 +24,15 @@ enum ErrorCode: string
     /** HTTP 400. A date lies outside the span the planetary positions are served for. The error names the supported dates. */
     case DateOutOfRange = 'date_out_of_range';
 
+    /** HTTP 400. The report branding cannot be used, for example a logo that is not a PNG, JPEG, WebP or SVG image. */
+    case InvalidBranding = 'invalid_branding';
+
+    /** HTTP 400. The report logo could not be fetched: it must be an HTTPS URL on a public host that answers within the size limit. */
+    case LogoFetchFailed = 'logo_fetch_failed';
+
+    /** HTTP 400. The report text holds a character no report font draws. The error names it: remove or replace it. */
+    case UnsupportedCharacter = 'unsupported_character';
+
     /** HTTP 401. No API key was sent. */
     case ApiKeyRequired = 'api_key_required';
 
@@ -90,11 +99,20 @@ enum ErrorCode: string
     /** HTTP 429. A keyless request has used up its trial allowance. */
     case FreeTierExhausted = 'free_tier_exhausted';
 
+    /** HTTP 429. Too many reports were requested this minute. Retry-After gives the seconds to the next minute. */
+    case ReportsRateLimited = 'reports_rate_limited';
+
     /** HTTP 500. The request failed inside our service. Retry with exponential backoff. */
     case InternalError = 'internal_error';
 
     /** HTTP 503. Heavy calculations are briefly at capacity. Send the same request again after Retry-After seconds. */
     case ComputeSaturated = 'compute_saturated';
+
+    /** HTTP 503. Report rendering is briefly at capacity. Send the same request again after Retry-After seconds. */
+    case ReportsBusy = 'reports_busy';
+
+    /** HTTP 503. The report took too long to render. Send the same request again. */
+    case ReportRenderTimeout = 'report_render_timeout';
 
     /** Any status. A fallback for a status with no more specific code. The status and the error field carry the signal. */
     case Error = 'error';
