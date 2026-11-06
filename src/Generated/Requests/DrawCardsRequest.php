@@ -26,7 +26,7 @@ use Saloon\Traits\Body\HasJsonBody;
  * reversed cards provide alternative meanings when drawn upside down) and duplicates
  * (traditional deck draws each of 78 cards once, or oracle-style allows repeating same card).
  * Each drawn card includes position number, reversal state (boolean), keywords for quick
- * interpretation, full meaning text (400+ words), authentic Rider-Waite imagery, and card
+ * interpretation, the full meaning text for its orientation, a card image URL, and card
  * metadata. Perfect for custom spread builders, random card generators, automated tarot
  * reading platforms, daily card features, meditation apps, journaling prompts, divination
  * tools, and any application requiring reproducible or random tarot draws from the

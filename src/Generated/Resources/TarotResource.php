@@ -299,7 +299,7 @@ class TarotResource extends BaseResource
      * reversed cards provide alternative meanings when drawn upside down) and duplicates
      * (traditional deck draws each of 78 cards once, or oracle-style allows repeating same card).
      * Each drawn card includes position number, reversal state (boolean), keywords for quick
-     * interpretation, full meaning text (400+ words), authentic Rider-Waite imagery, and card
+     * interpretation, the full meaning text for its orientation, a card image URL, and card
      * metadata. Perfect for custom spread builders, random card generators, automated tarot
      * reading platforms, daily card features, meditation apps, journaling prompts, divination
      * tools, and any application requiring reproducible or random tarot draws from the
@@ -348,8 +348,8 @@ class TarotResource extends BaseResource
      * Retrieve comprehensive details for a specific tarot card from the traditional
      * Rider-Waite-Smith deck including complete upright meanings (card drawn normally) and
      * reversed meanings (inverted/upside down interpretations for nuanced guidance). Each card
-     * provides keywords for quick reference, full interpretations (400+ words each for upright and
-     * reversed orientations), and guidance across life domains: love and relationships, career and
+     * provides keywords for quick reference, full editorial interpretations for both upright and
+     * reversed orientations, and guidance across life domains: love and relationships, career and
      * professional growth, finances and material success, health and wellbeing, spirituality and
      * personal development. Major Arcana cards (0-21) reveal deep spiritual lessons and
      * life-changing themes. Minor Arcana cards (Ace through King in Cups, Wands, Swords,

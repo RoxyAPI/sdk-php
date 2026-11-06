@@ -18,8 +18,8 @@ use Saloon\Http\Request;
  * Retrieve comprehensive details for a specific tarot card from the traditional
  * Rider-Waite-Smith deck including complete upright meanings (card drawn normally) and
  * reversed meanings (inverted/upside down interpretations for nuanced guidance). Each card
- * provides keywords for quick reference, full interpretations (400+ words each for upright and
- * reversed orientations), and guidance across life domains: love and relationships, career and
+ * provides keywords for quick reference, full editorial interpretations for both upright and
+ * reversed orientations, and guidance across life domains: love and relationships, career and
  * professional growth, finances and material success, health and wellbeing, spirituality and
  * personal development. Major Arcana cards (0-21) reveal deep spiritual lessons and
  * life-changing themes. Minor Arcana cards (Ace through King in Cups, Wands, Swords,
