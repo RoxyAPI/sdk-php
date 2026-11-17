@@ -22,7 +22,7 @@ use Saloon\Http\Request;
  * finance and advice, plus lucky days, lucky numbers and compatible signs. No language model
  * is involved, so the same sign and week always returns the same text. Pass any date inside a
  * week to retrieve that week, or timezone to roll over on a local clock. Composed in 8
- * languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English. Weekly
+ * languages (en, tr, de, es, hi, pt, fr, ru); zh-Hans and zh-Hant read English. Weekly
  * horoscope API, zodiac weekly forecast, astrology weekly prediction.
  *
  * GET /astrology/horoscope/{sign}/weekly

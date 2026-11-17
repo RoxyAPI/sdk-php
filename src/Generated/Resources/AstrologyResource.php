@@ -1318,17 +1318,19 @@ class AstrologyResource extends BaseResource
     /**
      * Daily horoscope by zodiac sign - Transit-based editorial columns
      *
-     * A publish-ready column for any zodiac sign, built from the dated transits over it and
-     * returned with those events for fact-checking. The reading names the aspects, sign ingresses,
-     * lunations and retrograde stations driving it and reads each into the whole-sign houses of
-     * that sign, so every sign gets different content rather than one blurb reused twelve times.
-     * Alongside the column come overview, love, career, health, finance and advice, the active
-     * transits, Moon sign and phase, an energy rating, lucky number and color, and compatible
-     * signs. No language model is involved, so a given sign and date always returns the same text
-     * and a piece scheduled months ahead is the piece that runs. Content rolls over at midnight,
-     * by default UTC. Pass date for editorial scheduling, or timezone to roll over on a local
-     * clock. Composed in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns
-     * English. Daily horoscope API, zodiac forecast, sun sign horoscope, astrology prediction.
+     * A publish-ready column for any zodiac sign, built from the dated transits over it. Each
+     * response returns those events and the standing position of every planet, so every date and
+     * claim can be fact-checked. The reading names the aspects, sign ingresses, lunations and
+     * retrograde stations driving it and reads each into the whole-sign houses of that sign, so
+     * every sign gets different content rather than one blurb reused twelve times. Alongside the
+     * column come overview, love, career, health, finance and advice, the active transits, Moon
+     * sign and phase, an energy rating, lucky number and color, and compatible signs. No language
+     * model is involved, so a given sign and date always returns the same text and a piece
+     * scheduled months ahead is the piece that runs. The day is read on a clock you choose, UTC by
+     * default, so a transit the evening before in the timezone of the end user is never called
+     * today. Pass date for editorial scheduling, or timezone for the local day of the end user.
+     * Composed in 8 languages (en, tr, de, es, hi, pt, fr, ru); zh-Hans and zh-Hant read English.
+     * Daily horoscope API, zodiac forecast, sun sign horoscope, astrology prediction.
      *
      * GET /astrology/horoscope/{sign}/daily
      *
@@ -1342,9 +1344,9 @@ class AstrologyResource extends BaseResource
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
      * @param string|null $timezone
-     *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
-     *   forecast rolls over at 00:00 UTC on each day. Pass the timezone of the end user to roll over
-     *   on their local clock instead. Ignored when date is set. Accepts an IANA name (e.g.
+     *   The clock the day is read on: it decides which events fall on the date, so a transit the
+     *   evening before in the timezone of the end user is never called today, and which date is
+     *   current when date is omitted. Defaults to UTC. Accepts an IANA name (e.g.
      *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
      *   "-05:00").
      *
@@ -1432,11 +1434,14 @@ class AstrologyResource extends BaseResource
      * changes, lunations and stations of the month, and reads each into the whole-sign houses of
      * that sign, and those events come back beside the prose with their exact instants, so a piece
      * can be checked against NASA JPL Horizons or the US Naval Observatory before it runs. Key
-     * dates are the real New Moon, Full Moon and retrograde instants, never approximations.
-     * Alongside the column come overview, love, career, health, finance and advice. Pass any date
-     * inside a month to retrieve that month, or timezone to roll over on a local clock. Composed
-     * in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English.
-     * Monthly horoscope API, zodiac monthly forecast, astrology monthly prediction.
+     * dates are the lunations and eclipses of the month, its retrograde and direct stations and
+     * its slow-planet sign changes, each on the day of its real instant and placed in the life
+     * area it reaches for that sign. Alongside the column come overview, love, career, health,
+     * finance and advice. No language model is involved, so the same sign and month always returns
+     * the same text. Pass any date inside a month to retrieve that month, or timezone to roll over
+     * on a local clock. Composed in 8 languages (en, tr, de, es, hi, pt, fr, ru); zh-Hans and
+     * zh-Hant read English. Monthly horoscope API, zodiac monthly forecast, astrology monthly
+     * prediction.
      *
      * GET /astrology/horoscope/{sign}/monthly
      *
@@ -1450,11 +1455,10 @@ class AstrologyResource extends BaseResource
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
      * @param string|null $timezone
-     *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
-     *   forecast rolls over at 00:00 UTC on the 1st. Pass the timezone of the end user to roll over
-     *   on their local clock instead. Ignored when date is set. Accepts an IANA name (e.g.
-     *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
-     *   "-05:00").
+     *   The clock the month is read on: it decides which events fall inside the calendar month, the
+     *   date each is dated by, and which month is current when date is omitted. Defaults to UTC.
+     *   Accepts an IANA name (e.g. "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed
+     *   UTC offset (e.g. "-05:00").
      *
      * @return array<string, mixed>
      */
@@ -1826,7 +1830,7 @@ class AstrologyResource extends BaseResource
      * finance and advice, plus lucky days, lucky numbers and compatible signs. No language model
      * is involved, so the same sign and week always returns the same text. Pass any date inside a
      * week to retrieve that week, or timezone to roll over on a local clock. Composed in 8
-     * languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English. Weekly
+     * languages (en, tr, de, es, hi, pt, fr, ru); zh-Hans and zh-Hant read English. Weekly
      * horoscope API, zodiac weekly forecast, astrology weekly prediction.
      *
      * GET /astrology/horoscope/{sign}/weekly
@@ -1841,11 +1845,10 @@ class AstrologyResource extends BaseResource
      *   Defaults to en. Coverage varies by domain, and a field with no translation in the requested
      *   language returns English.
      * @param string|null $timezone
-     *   Selects which period counts as current when date is omitted. Defaults to UTC, so the
-     *   forecast rolls over at 00:00 UTC on each Monday. Pass the timezone of the end user to roll
-     *   over on their local clock instead. Ignored when date is set. Accepts an IANA name (e.g.
-     *   "America/New_York"), decimal hours (e.g. 5.5 for IST), or a fixed UTC offset (e.g.
-     *   "-05:00").
+     *   The clock the week is read on: it decides which events fall inside the Monday to Sunday
+     *   week, the day each is dated by, and which week is current when date is omitted. Defaults to
+     *   UTC. Accepts an IANA name (e.g. "America/New_York"), decimal hours (e.g. 5.5 for IST), or a
+     *   fixed UTC offset (e.g. "-05:00").
      *
      * @return array<string, mixed>
      */
@@ -1870,10 +1873,11 @@ class AstrologyResource extends BaseResource
      * period for each of the twelve houses, the best month for love, career, health and finance,
      * and every eclipse and every retrograde and direct station with the house it falls in for
      * this sign. Love, career, health, finance and advice cover the whole year, and the dated
-     * events behind the copy come back beside it so an editor can check the piece before it runs.
-     * Omit the year for the one in progress, or pass any year from 1900 to 2100 to build an
-     * archive or a forecast ahead of time. Yearly horoscope API, year ahead astrology, annual
-     * zodiac forecast, eclipse and retrograde calendar.
+     * events and standing planet positions behind the copy come back beside it so an editor can
+     * check the piece before it runs. Omit the year for the one in progress, or pass any year from
+     * 1900 to 2100 to build an archive or a forecast ahead of time. Composed in 8 languages (en,
+     * tr, de, es, hi, pt, fr, ru); zh-Hans and zh-Hant read English. Yearly horoscope API, year
+     * ahead astrology, annual zodiac forecast, eclipse and retrograde calendar.
      *
      * GET /astrology/horoscope/{sign}/yearly
      *

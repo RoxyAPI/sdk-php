@@ -20,11 +20,14 @@ use Saloon\Http\Request;
  * changes, lunations and stations of the month, and reads each into the whole-sign houses of
  * that sign, and those events come back beside the prose with their exact instants, so a piece
  * can be checked against NASA JPL Horizons or the US Naval Observatory before it runs. Key
- * dates are the real New Moon, Full Moon and retrograde instants, never approximations.
- * Alongside the column come overview, love, career, health, finance and advice. Pass any date
- * inside a month to retrieve that month, or timezone to roll over on a local clock. Composed
- * in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns English.
- * Monthly horoscope API, zodiac monthly forecast, astrology monthly prediction.
+ * dates are the lunations and eclipses of the month, its retrograde and direct stations and
+ * its slow-planet sign changes, each on the day of its real instant and placed in the life
+ * area it reaches for that sign. Alongside the column come overview, love, career, health,
+ * finance and advice. No language model is involved, so the same sign and month always returns
+ * the same text. Pass any date inside a month to retrieve that month, or timezone to roll over
+ * on a local clock. Composed in 8 languages (en, tr, de, es, hi, pt, fr, ru); zh-Hans and
+ * zh-Hant read English. Monthly horoscope API, zodiac monthly forecast, astrology monthly
+ * prediction.
  *
  * GET /astrology/horoscope/{sign}/monthly
  */

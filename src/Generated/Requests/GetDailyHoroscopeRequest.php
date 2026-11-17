@@ -15,17 +15,19 @@ use Saloon\Http\Request;
 /**
  * Daily horoscope by zodiac sign - Transit-based editorial columns
  *
- * A publish-ready column for any zodiac sign, built from the dated transits over it and
- * returned with those events for fact-checking. The reading names the aspects, sign ingresses,
- * lunations and retrograde stations driving it and reads each into the whole-sign houses of
- * that sign, so every sign gets different content rather than one blurb reused twelve times.
- * Alongside the column come overview, love, career, health, finance and advice, the active
- * transits, Moon sign and phase, an energy rating, lucky number and color, and compatible
- * signs. No language model is involved, so a given sign and date always returns the same text
- * and a piece scheduled months ahead is the piece that runs. Content rolls over at midnight,
- * by default UTC. Pass date for editorial scheduling, or timezone to roll over on a local
- * clock. Composed in 8 languages (en, de, es, fr, hi, pt, ru, tr); any other lang code returns
- * English. Daily horoscope API, zodiac forecast, sun sign horoscope, astrology prediction.
+ * A publish-ready column for any zodiac sign, built from the dated transits over it. Each
+ * response returns those events and the standing position of every planet, so every date and
+ * claim can be fact-checked. The reading names the aspects, sign ingresses, lunations and
+ * retrograde stations driving it and reads each into the whole-sign houses of that sign, so
+ * every sign gets different content rather than one blurb reused twelve times. Alongside the
+ * column come overview, love, career, health, finance and advice, the active transits, Moon
+ * sign and phase, an energy rating, lucky number and color, and compatible signs. No language
+ * model is involved, so a given sign and date always returns the same text and a piece
+ * scheduled months ahead is the piece that runs. The day is read on a clock you choose, UTC by
+ * default, so a transit the evening before in the timezone of the end user is never called
+ * today. Pass date for editorial scheduling, or timezone for the local day of the end user.
+ * Composed in 8 languages (en, tr, de, es, hi, pt, fr, ru); zh-Hans and zh-Hant read English.
+ * Daily horoscope API, zodiac forecast, sun sign horoscope, astrology prediction.
  *
  * GET /astrology/horoscope/{sign}/daily
  */

@@ -21,10 +21,11 @@ use Saloon\Http\Request;
  * period for each of the twelve houses, the best month for love, career, health and finance,
  * and every eclipse and every retrograde and direct station with the house it falls in for
  * this sign. Love, career, health, finance and advice cover the whole year, and the dated
- * events behind the copy come back beside it so an editor can check the piece before it runs.
- * Omit the year for the one in progress, or pass any year from 1900 to 2100 to build an
- * archive or a forecast ahead of time. Yearly horoscope API, year ahead astrology, annual
- * zodiac forecast, eclipse and retrograde calendar.
+ * events and standing planet positions behind the copy come back beside it so an editor can
+ * check the piece before it runs. Omit the year for the one in progress, or pass any year from
+ * 1900 to 2100 to build an archive or a forecast ahead of time. Composed in 8 languages (en,
+ * tr, de, es, hi, pt, fr, ru); zh-Hans and zh-Hant read English. Yearly horoscope API, year
+ * ahead astrology, annual zodiac forecast, eclipse and retrograde calendar.
  *
  * GET /astrology/horoscope/{sign}/yearly
  */
