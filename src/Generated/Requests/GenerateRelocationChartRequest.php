@@ -20,10 +20,11 @@ use Saloon\Traits\Body\HasJsonBody;
  * Calculate a relocation chart (relocated birth chart) for a new place on Earth. The birth
  * moment stays the same, so every planet keeps its natal sign and degree, while the Ascendant,
  * Midheaven, Vertex, and all twelve house cusps are recomputed for the new latitude and
- * longitude. Returns the relocated houses and angles, the planets that change house, the
- * angular planets activated at the new place, and the distance and compass direction from the
- * birthplace. Built for relocation astrology readings, astrocartography style move planning,
- * and travel charts. Verified against NASA JPL Horizons.
+ * longitude. Returns the relocated houses and angles, the planets that change house with a
+ * reading of each planet in its relocated house, the angular planets activated at the new
+ * place, and the distance and compass direction from the birthplace. Built for relocation
+ * astrology readings, astrocartography style move planning, and travel charts. Verified
+ * against NASA JPL Horizons.
  *
  * POST /astrology/relocation-chart
  */

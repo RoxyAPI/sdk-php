@@ -12,8 +12,8 @@ namespace RoxyAPI\Sdk\Generated\Resources;
 use RoxyAPI\Sdk\Generated\Resources\BaseResource;
 
 /**
- * Western astrology API for natal birth charts, daily, weekly, monthly, and yearly horoscopes
- * with unique content per s...
+ * Western astrology API for natal birth charts with an editorial reading of the whole chart,
+ * daily, weekly, monthly, an...
  *
  * Accessed via $roxy->astrology.
  */
@@ -418,7 +418,7 @@ class AstrologyResource extends BaseResource
      * @param string|null $strictOrbs
      *   Use tighter orbs, so only closely formed patterns are reported. Truthy values (true, 1, yes,
      *   on; case-insensitive) narrow trine to 5 degrees, square to 5, sextile to 4, quincunx to 2.
-     *   Defaults to false, the standard pattern-detection orbs.
+     *   Every leg must occur in the chart aspect table. Defaults to false.
      *
      * @return array<string, mixed>
      */
@@ -834,14 +834,17 @@ class AstrologyResource extends BaseResource
     }
 
     /**
-     * Generate natal chart - Birth chart calculator API with houses and aspects
+     * Generate natal chart - Birth chart API with houses, aspects and a written reading
      *
-     * Calculate complete Western astrology natal chart (birth chart) with tropical zodiac. Returns
-     * all 14 celestial bodies (the 10 classical planets Sun through Pluto, the lunar nodes,
-     * Chiron, and Black Moon Lilith), 12 house cusps with customizable house systems (Placidus,
-     * Whole Sign, Equal, Koch), major and minor aspects, Ascendant, Midheaven, dominant elements
-     * and modalities. Perfect for astrology apps, birth chart generators, horoscope websites, and
-     * astrological consultation tools. Verified against NASA JPL Horizons.
+     * Calculate a Western astrology natal chart (birth chart) with planets, houses, aspects and a
+     * written reading for that birth. It returns all 14 celestial bodies in the tropical zodiac
+     * (the 10 classical planets Sun through Pluto, the lunar nodes, Chiron and Black Moon Lilith)
+     * with sign, house and dignity, 12 house cusps in Placidus, Whole Sign, Equal or Koch, major
+     * and minor aspects, Ascendant, Midheaven, and the dominant elements and modalities. Every
+     * chart carries an editorial reading written for that birth: an opening synthesis, love,
+     * career and home chapters, a closing, and a reading for each planet, aspect, the Ascendant
+     * and the Midheaven, in English, German, Spanish, French, Hindi, Portuguese, Russian, Turkish.
+     * Verified against NASA JPL Horizons.
      *
      * POST /astrology/natal-chart
      *
@@ -1100,10 +1103,11 @@ class AstrologyResource extends BaseResource
      * Calculate a relocation chart (relocated birth chart) for a new place on Earth. The birth
      * moment stays the same, so every planet keeps its natal sign and degree, while the Ascendant,
      * Midheaven, Vertex, and all twelve house cusps are recomputed for the new latitude and
-     * longitude. Returns the relocated houses and angles, the planets that change house, the
-     * angular planets activated at the new place, and the distance and compass direction from the
-     * birthplace. Built for relocation astrology readings, astrocartography style move planning,
-     * and travel charts. Verified against NASA JPL Horizons.
+     * longitude. Returns the relocated houses and angles, the planets that change house with a
+     * reading of each planet in its relocated house, the angular planets activated at the new
+     * place, and the distance and compass direction from the birthplace. Built for relocation
+     * astrology readings, astrocartography style move planning, and travel charts. Verified
+     * against NASA JPL Horizons.
      *
      * POST /astrology/relocation-chart
      *
@@ -1699,8 +1703,9 @@ class AstrologyResource extends BaseResource
      * Calculate accurate tropical zodiac positions for all 14 celestial bodies for any date, time,
      * and location. The bodies are the 10 classical planets Sun through Pluto, the lunar nodes,
      * Chiron, and Black Moon Lilith. Returns longitude, latitude, zodiac sign, degree within sign,
-     * daily motion speed, and retrograde status. Perfect for transit tracking, ephemeris tables,
-     * astrology apps, and planetary position widgets. Verified against NASA JPL Horizons.
+     * daily motion speed, retrograde status, and a reading of each body in its sign. Perfect for
+     * transit tracking, ephemeris tables, astrology apps, and planetary position widgets. Verified
+     * against NASA JPL Horizons.
      *
      * POST /astrology/planets
      *

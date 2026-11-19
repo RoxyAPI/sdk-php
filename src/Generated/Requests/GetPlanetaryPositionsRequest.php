@@ -20,8 +20,9 @@ use Saloon\Traits\Body\HasJsonBody;
  * Calculate accurate tropical zodiac positions for all 14 celestial bodies for any date, time,
  * and location. The bodies are the 10 classical planets Sun through Pluto, the lunar nodes,
  * Chiron, and Black Moon Lilith. Returns longitude, latitude, zodiac sign, degree within sign,
- * daily motion speed, and retrograde status. Perfect for transit tracking, ephemeris tables,
- * astrology apps, and planetary position widgets. Verified against NASA JPL Horizons.
+ * daily motion speed, retrograde status, and a reading of each body in its sign. Perfect for
+ * transit tracking, ephemeris tables, astrology apps, and planetary position widgets. Verified
+ * against NASA JPL Horizons.
  *
  * POST /astrology/planets
  */
