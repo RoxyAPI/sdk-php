@@ -15,13 +15,13 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Get birth chart (D1 Rashi chart) - Kundli Calculator API
+ * Get birth chart (D1 Rashi chart) - Kundli API with a written chart reading
  *
- * Calculate complete Vedic birth chart (Janam Kundli, natal chart) with all 9 planetary
- * positions (Sun through Ketu) plus Ascendant (Lagna). Kundli calculator API for astrology
- * apps, matrimonial sites. Returns accurate graha positions grouped by zodiac signs (rashis)
- * with nakshatra details and pada. Perfect for kundli generation, horoscope matching, and
- * Vedic astrology software integration. Rahu and Ketu are the mean lunar node, referred to the
+ * Calculate a Vedic birth chart (Janam Kundli): all 9 grahas, Sun through Ketu, and the Lagna,
+ * grouped by rashi with nakshatra and pada. Every chart carries a Vedic chart reading written
+ * for that birth: the kundli at a glance, every graha read in its rashi and its nakshatra, and
+ * every bhava read from its lord and the grahas it holds, in English, German, Spanish, French,
+ * Hindi, Portuguese, Russian, Turkish. Rahu and Ketu are the mean lunar node, referred to the
  * true equinox of date, with Ketu exactly opposite Rahu.
  *
  * POST /vedic-astrology/birth-chart
