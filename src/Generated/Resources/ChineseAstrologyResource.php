@@ -45,12 +45,15 @@ class ChineseAstrologyResource extends BaseResource
      *   has one Chinese date everywhere.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param int $year
      *   Gregorian year to read against the natal chart. The annual pillar for that year is resolved
      *   under the same year boundary the request selected, so a li-chun reading and a lunar-new-year
@@ -174,12 +177,15 @@ class ChineseAstrologyResource extends BaseResource
      *   has one Chinese date everywhere.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param string|null $dayBoundary
      *   Which instant starts the sexagenary DAY, which only matters for a birth between 23:00 and
      *   23:59. "midnight" is the classical position of the Ming compendium San Ming Tong Hui: the
@@ -265,12 +271,15 @@ class ChineseAstrologyResource extends BaseResource
      *   has one Chinese date everywhere.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param int|null $annualFromYear
      *   First Gregorian year of the annual pillar overlay. Omit it to leave annualPillars out of the
      *   response entirely. The annual pillar is the year the chart is currently walking through,
@@ -459,12 +468,15 @@ class ChineseAstrologyResource extends BaseResource
      *   has one Chinese date everywhere.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param string|null $dayBoundary
      *   Which instant starts the sexagenary DAY, which only matters for a birth between 23:00 and
      *   23:59. "midnight" is the classical position of the Ming compendium San Ming Tong Hui: the

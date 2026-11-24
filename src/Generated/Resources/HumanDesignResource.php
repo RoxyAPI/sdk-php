@@ -37,12 +37,15 @@ class HumanDesignResource extends BaseResource
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -102,12 +105,15 @@ class HumanDesignResource extends BaseResource
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -201,12 +207,15 @@ class HumanDesignResource extends BaseResource
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -300,12 +309,15 @@ class HumanDesignResource extends BaseResource
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -365,12 +377,15 @@ class HumanDesignResource extends BaseResource
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -435,12 +450,15 @@ class HumanDesignResource extends BaseResource
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
@@ -502,12 +520,15 @@ class HumanDesignResource extends BaseResource
      *   boundaries shift with the exact minute of birth.
      * @param mixed $timezone
      *   IANA name (e.g. "America/New_York", "Europe/London", "UTC"), decimal hours (e.g. -5 for EST,
-     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00"). Prefer the IANA name: it is
-     *   resolved to the offset in force at the birth date and time, historical daylight-saving rules
-     *   included, while a fixed offset or decimal is taken literally and will be wrong if it does
-     *   not match the daylight-saving state at that moment. On a transition day a time in the
-     *   repeated hour is read as its first occurrence and a time in the skipped hour is moved
-     *   forward past the gap. Invalid timezones return 400 with a validation error.
+     *   1 for CET), or a fixed UTC offset (e.g. "-05:00", "+01:00", "-06:20:19"). Prefer the IANA
+     *   name: it is resolved to the offset in force at the birth date and time, historical
+     *   daylight-saving rules included, while a fixed offset or decimal is taken literally and will
+     *   be wrong if it does not match the daylight-saving state at that moment. On a transition day
+     *   a time in the repeated hour is read as its first occurrence and a time in the skipped hour
+     *   is moved forward past the gap. Before standard time an IANA name reads the local mean time
+     *   of its reference city, so a birth recorded in local mean time at the birthplace sends that
+     *   offset: decimal hours equal to the longitude divided by 15 (-6.33876 at 95.0814 W) or the
+     *   same to the second as "-06:20:19". Invalid timezones return 400 with a validation error.
      * @param float|null $latitude
      *   Birth latitude in decimal degrees. Optional and does not affect the bodygraph, which depends
      *   only on ecliptic longitudes. Defaults to 0.
