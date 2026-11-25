@@ -17,12 +17,12 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Calculate planetary transits - Current transits with natal chart comparison
  *
- * Calculate current or future planetary transits (positions of all bodies now). Optionally
- * compare transits to natal chart to find transit-to-natal aspects. Returns all 14 celestial
- * bodies (the 10 classical planets, the lunar nodes, Chiron, and Black Moon Lilith) with
- * signs, degrees, and speeds. When natal chart provided, includes transit aspects (transiting
- * Sun conjunct natal Mars, etc.) with orbs and applying/separating status. Perfect for daily
- * transit forecasts, aspect alerts, and personalized transit reports.
+ * Calculate the planetary transits of any moment, and read them against a natal chart with
+ * dated windows and exact passes. Returns all 14 celestial bodies (the 10 classical planets,
+ * the lunar nodes, Chiron and Black Moon Lilith) with sign, degree and speed; with a
+ * natalChart, every transit-to-natal aspect carries a written reading, orb, strength and
+ * applying or separating status, beside a reading of the whole sky. The time is read on the
+ * timezone sent, and the natal houses are Placidus.
  *
  * POST /astrology/transits
  */

@@ -17,14 +17,12 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * Transit Aspects - Detailed transit-to-natal aspect analysis with interpretations
  *
- * Calculate all transit-to-natal aspects with detailed interpretations, strength ratings, and
- * timing guidance. Compares current (or future) planetary positions against your natal chart
- * to identify active transits. Returns aspect type, orb, applying/separating status, narrative
- * interpretation, impact rating, and practical guidance for each transit. Like
- * /astrology/transits with a natalChart, returns summary, timing, impact, guidance, and
- * keywords for each aspect. Adds planet, aspect-type, and minStrength filtering plus
- * summary.strongest and summary.byType rollups. Transit aspects API, transit-to-natal
- * analysis, predictive astrology, personalized transit forecast.
+ * Read the sky of a given day against a natal chart: every transit-to-natal aspect with a
+ * written reading, its dated window and exact passes, and a reading of the whole sky. Returns
+ * orb, strength and applying or separating status for each aspect, plus summary.strongest and
+ * summary.byType rollups, and planet, aspect-type and minStrength filters. The same aspect
+ * readings as /astrology/transits with a natalChart, with the transit time read on the natal
+ * chart timezone and the natal houses in the requested houseSystem.
  *
  * POST /astrology/transit-aspects
  */
